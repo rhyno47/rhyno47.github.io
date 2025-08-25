@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Enhanced HTML5 Form Page</title>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>Welcome to My Multi-Section Page</h1>
+    <p>This page demonstrates lists, tables, media, and a complete HTML5 form.</p>
+  </header>
+
+  <!-- Lists Section -->
+  <section>
+    <h2>Lists Example</h2>
+    <h3>Ordered List</h3>
+    <ol>
+      <li>Learn HTML</li>
+      <li>Practice daily</li>
+      <li>Build projects</li>
+    </ol>
+
+    <h3>Unordered List</h3>
+    <ul>
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>JavaScript</li>
+    </ul>
+  </section>
+
+  <!-- Tables Section -->
+  <section>
+    <h2>Table Example</h2>
+    <table border="1">
+      <caption>Course Schedule</caption>
+      <thead>
+        <tr>
+          <th>Day</th>
+          <th>Topic</th>
+          <th>Duration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Monday</td>
+          <td>HTML Basics</td>
+          <td>2 Hours</td>
+        </tr>
+        <tr>
+          <td>Tuesday</td>
+          <td>Forms & Tables</td>
+          <td>3 Hours</td>
+        </tr>
+        <tr>
+          <td>Wednesday</td>
+          <td>Media & Lists</td>
+          <td>2 Hours</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Media Section -->
+  <section>
+    <h2>Media Example</h2>
+    <p>Here’s an image and an audio file:</p>
+    <img src="https://via.placeholder.com/300" alt="Sample Image" width="300">
+    <br><br>
+    <audio controls>
+      <source src="sample-audio.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </section>
+
+  <!-- Form Section -->
+  <section>
+    <h2>HTML5 Form</h2>
+    <form action="#" method="post" autocomplete="on">
+
+      <fieldset>
+        <legend>Personal Information</legend>
+
+        <label for="fullname">Full Name:</label>
+        <input type="text" id="fullname" name="fullname" placeholder="Enter full name" required minlength="3"><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter email" required><br><br>
+
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" placeholder="123-456-7890" 
+               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required><br><br>
+      </fieldset>
+
+      <fieldset>
+        <legend>Account Details</legend>
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required minlength="5"><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required minlength="6"><br><br>
+
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required><br><br>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+          <option value="">Select...</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select><br><br>
+      </fieldset>
+
+      <fieldset>
+        <legend>Preferences</legend>
+
+        <label>
+          <input type="checkbox" name="newsletter" value="yes">
+          Subscribe to newsletter
+        </label><br><br>
+
+        <label>Preferred Contact:</label>
+        <input type="radio" id="contact-email" name="contact" value="email" required>
+        <label for="contact-email">Email</label>
+        <input type="radio" id="contact-phone" name="contact" value="phone">
+        <label for="contact-phone">Phone</label><br><br>
+      </fieldset>
+
+      <fieldset>
+        <legend>Upload</legend>
+        <label for="profilepic">Upload Profile Picture:</label>
+        <input type="file" id="profilepic" name="profilepic" accept="image/*"><br><br>
+      </fieldset>
+
+      <fieldset>
+        <legend>Other Information</legend>
+        <label for="comments">Comments:</label><br>
+        <textarea id="comments" name="comments" rows="4" cols="40" placeholder="Write here..."></textarea><br><br>
+      </fieldset>
+
+      <button type="submit">Submit</button>
+      <button type="reset">Reset</button>
+
+    </form>
+  </section>
+
+</body>
+</html>

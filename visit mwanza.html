@@ -1,51 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visit Mwanza</title>
-  <link rel="stylesheet" href="visit mwanza.css">
-</head>
-<body>
-  <header>
-      <h1>Welcome to Mwanza</h1>
-    <div class="nav-row">
-      <div id="sidebar" class="sidebar" style="display:none;">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">&times;</a>
-        <ul>
-          <li><a href="About Us.html">About Us</a></li>
-          <li><a href="settings">settings</a></li>
-          <li><a href="help">Help</a></li>
-          <li><a href="customer care hot line">Customer care hot line</a></li>
-        </ul>
-      </div>
-      <span class="openbtn" onclick="openSidebar()">&#9776; </span>
-      <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">places you should visit</a></li>
-          <li><a href="attractions.html">Hotel&Restaurants</a></li>
-          <li><a href="contact.html">Book a city Guider</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-     <img scr="mwanza Night.jpg" alt="Mwanza Night" class="main-image">
-  <main>
-    <div class="container">
-          <p><strong>Mwanza – The Rock City of Tanzania</strong><br>
-          Mwanza, also known as the Rock City, is Tanzania’s second-largest city, beautifully located on the southern shores of Lake Victoria, the largest lake in Africa.<br>
-          It’s famous for its stunning rocky landscapes, peaceful lake views, and warm, welcoming people.<br>
-          The city is a vibrant mix of urban life and natural beauty,<br>
-          offering visitors a unique experience where you can enjoy delicious local food, boat rides, bustling markets, and quiet escapes just outside the city center.<br>
-          Mwanza is also the gateway to iconic destinations like Rubondo Island National Park, Serengeti National Park, and Saanane Island, making it a great starting point for both nature lovers and cultural explorers.<br>
-          Whether you're looking to discover hidden gems, explore local culture, or simply relax by the lake, Mwanza offers something truly special for every traveler.
-          </p>
+<html lang = "en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visit Mwanza</title>
+    <link rel="stylesheet" href="visit mwanza.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  </head>
+
+  <body>
+  <nav class="navigation-bar">
+    <button><i class="fas fa-home"></i>home</button>
+    <a href="#places"><button onclick="showsection('places')"><i class="fas fa-map-marker-alt"></i>Places</button></a>
+    <button><i class="fas fa-hotel"></i>Hotels & Restaurants</button>
+    <button><i class="fas fa-user" ></i>Book a City Guider</button>
+
+      <div class="search-bar">
+    <input type="text" placeholder="Search...">
+    <button><i class="fas fa-search"></i></button>
+  </div>
+  </nav>
+
+  <main>  
+      <section class="textbook">
+  <img src="images/mwanza.jpg" alt="Mwanza Night" class="textbook-image">
+
+  <div class="textbook-content">
+    <h1>Welcome to the City of Rocks</h1>
+    <p>
+    Mwanza, proudly known as the “Rock City”,lies on the shores of Lake Victoria in northern Tanzania.
+    Rich in culture and history,it is home to the Sukuma people and many other communities who have shaped its unique identity.
+    </p>
+    <p>
+    The purpose of this website is simple: to give you a trusted guide to Mwanza.
+    We go beyond search engines to show you the citys hidden beauty places you wont easily find online but only through local experience.
+    From stunning attractions to hotels, restaurants, markets, and entertainment spots, we connect you with the very best that Mwanza has to offer.
+    </p>
+    <p>With our deep roots in the city, we aim to make your journey easier, richer, and unforgettable.
+      Whether you are a visitor or a local explorer, this platform is your doorway to discovering Mwanza the right way</p>
+  </div>
+</section>
+
+<section id="places" class="section" style="display: block;">
+<h2>Top places to visit in mwanza</h2>
+ <p>Discover the unique attractions and hidden gems of Mwanza.
+  From natural wonders to cultural sites,here are some must visit places:</p>
+
+    <div class="places-grid">
+      <div class="place-card">
+        <img src="images/wag hill tent.webp" alt="Wag hill tents">
+        <h2>wag hill tents</h2>
+        <p>Wag Hill is a boutique eco-friendly lodge located in the southern shore of Lake Victoria, which is 30 minute-drive from Mwanza town.
+</p>
+
+   <div class="place-card">
+        <img src="images/wag hill pool.webp" alt="wag pools">
+        <h2>wag hill pools</h2>
+        <p>oirhuhgudfekwofefmiefhuerimkdmckejfirehurtyuefieroferjgtuihrjkfjjokjgoirejguihgunrkeorkfeorhgrtkgmkfgjrtngorkogmihogr</p>
+</section>
   </main>
-  <script>
-    function openSidebar() {
-      document.getElementById('sidebar').style.display = 'block';
-    }
-  </script>
-</body>
+ </body>
 </html>
+
+
+

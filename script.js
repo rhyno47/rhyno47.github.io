@@ -1,4 +1,5 @@
-function openSidebar() {
-  document.getElementById("sidebar").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
+function showsection(sectionid) {
+    const sections = document.querySelectorAll('section');
+    sections.forEach(sec => sec.style.display = 'none');
+    document.getElementById(sectionid).style.display = 'block';
 }
