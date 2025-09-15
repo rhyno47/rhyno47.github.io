@@ -15,6 +15,7 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -67,40 +68,52 @@
         footer a:hover {
             text-decoration: underline;
         }
+        .navbar-nav {
+  list-style: none !important;
+}
+
     </style>
 </head>
 <body>
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm">
-    <div class="container">
-        <a class="navbar-brand" href="#">Visit Mwanza</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
+  <div class="container">
+    <a class="navbar-brand" href="index.html"><b>VISIT MWANZA</b></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html"><b> Find Jobs |</b></a></li>
+        <li class="nav-item"><a class="nav-link" href="hotels.html"><b> Hotels & Lodges |</b></a></li>
+        <li class="nav-item"><a class="nav-link" href="places.html"><b> Explore Mwanza |</b></a></li>
+        <li class="nav-item"><a class="nav-link active" href="guider.html"><b> Book A Guider |</b></a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html"><b> Contact Us |</b></a></li>
+      </ul>
+
+      <!-- Search Bar (moved inside navbar-collapse) -->
+      <form class="d-flex ms-3" role="search">
+        <input class="form-control form-control-sm me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-light btn-sm" type="submit">
+          <i class="bi bi-search"></i> <!-- Bootstrap Icon -->
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#hotels">Hotels</a></li>
-                <li class="nav-item"><a class="nav-link" href="#places">Places</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-            </ul>
-        </div>
+      </form>
     </div>
+  </div>
 </nav>
 
 <!-- Home Section -->
 <section id="home" class="section bg-light">
     <div class="container">
         
-        <h1 class="card-title text-warning">AJIRA ZENYE MANUFAA TANZANIA</h1>
-        <p><b>Tanzania inatoa fursa mbalimbali za ajira ambazo zinaweza kukuza kipato chako na kukuza ujuzi wako. Ajira hizi zinaweza kuwa ndani ya sekta za uzalishaji chakula, kilimo, madini, usambazaji, huduma za afya, na teknolojia ya habari. Kupata ajira yenye manufaa kunamaanisha sio tu kupata mshahara mzuri, bali pia kupata mafunzo ya kitaalamu, uzoefu wa kazi, na fursa za kuendelea kielimu au kibiashara</b></p>
-                    
-        
-
+       
 <div class="card mb-4 p-3 bg-dark text-white">
   <div class="row g-3 align-items-center">
  
+ <h1 class="card-title text-warning"><b>AJIRA ZENYE MANUFAA TANZANIA</b></h1>
+        <p><b>Tanzania inatoa fursa mbalimbali za ajira ambazo zinaweza kukuza kipato chako na kukuza ujuzi wako. Ajira hizi zinaweza kuwa ndani ya sekta za uzalishaji chakula, kilimo, madini, usambazaji, huduma za afya, na teknolojia ya habari. Kupata ajira yenye manufaa kunamaanisha sio tu kupata mshahara mzuri, bali pia kupata mafunzo ya kitaalamu, uzoefu wa kazi, na fursa za kuendelea kielimu au kibiashara</b></p>
 
 <!-- Job Opportunities Section -->
 <!-- Maxim Tanzania Job Card -->
@@ -120,7 +133,7 @@
           <br>💰 Mshahara: kuanzia <b>TSh 250,000</b> na kuendelea.  
         </p>
         <p>
-          👉 <a href="https://taximaxim.com/tz/sw-tz/14690-dodoma/driver/" target="_blank" class="btn btn-sm btn-success">Tuma Maombi Hapa</a>
+          👉 <a href="https://taximaxim.com/tz/sw-tz/14690-dodoma/driver/" target="_blank" class="btn btn-sm btn-success">Tuma Maombi Hapa/Apply here</a>
         </p>
         <p>
           📢 Jiunge na magroup yetu kupata taarifa kila siku:  
@@ -481,97 +494,6 @@ Tarehe ya Mwisho ya Maombi: 27 Septemba 2025
 </div>
 </section>
 
-<!-- Hotels Section -->
-<section id="hotels" class="section">
-    <div class="container">
-        <h2>Hotels</h2>
-        <p>Mwanza offers a variety of accommodations for travelers seeking comfort and beauty. From lakeside resorts to cozy guesthouses, you can enjoy modern amenities while being close to nature. Whether you're here for business, adventure, or relaxation, Mwanza’s hotels cater to all preferences.</p>
-        <div class="row mt-4">
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="images/hotel tilapia.jpg"card-img-top alt="Hotel Tilapia">
-                    <div class="card-body">
-                        <h5 class="card-title">Hotel Tilapia</h5>
-                        <p class="card-text">Comfortable stay near the lake with modern amenities and friendly staff.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="images/mwanza resort.jpg" class="card-img-top" alt="Mwanza Resort">
-                    <div class="card-body">
-                        <h5 class="card-title">Mwanza Resort</h5>
-                        <p class="card-text">Perfect for family trips, offering beautiful scenery and comfortable rooms.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="images/sunset hotel.jpg" class="card-img-top" alt="Sunset Hotel">
-                    <div class="card-body">
-                        <h5 class="card-title">Sunset Hotel</h5>
-                        <p class="card-text">Enjoy breathtaking lake views and peaceful surroundings at this elegant hotel.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Places Section -->
-<section id="places" class="section bg-light">
-    <div class="container">
-        <h2>Places to Visit</h2>
-        <p>Mwanza is rich with attractions for every kind of traveler. Explore iconic rock formations, peaceful beaches, and cultural sites. Nature lovers will appreciate Saanane Island National Park, while history enthusiasts can enjoy museums and local art galleries. The vibrant city life offers markets, music, and festivals that celebrate the Sukuma culture.</p>
-        <div class="row mt-4">
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="images/saanane island.jpg" class="card-img-top" alt="Saanane Island">
-                    <div class="card-body">
-                        <h5 class="card-title">Saanane Island</h5>
-                        <p class="card-text">A national park on the lake, home to monkeys, birds, and scenic walking trails.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="images/mwanza stones.jpg" class="card-img-top" alt="Bismarck Rock">
-                    <div class="card-body">
-                        <h5 class="card-title">Bismarck Rock</h5>
-                        <p class="card-text">Iconic rock formation offering panoramic views of Mwanza and Lake Victoria.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="images/mwanza towel.jpg" class="card-img-top" alt="Local Markets">
-                    <div class="card-body">
-                        <h5 class="card-title">City Markets</h5>
-                        <p class="card-text">Vibrant markets with fresh produce, crafts, and a taste of local life.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Contact Section -->
-<section id="contact" class="section">
-    <div class="container">
-        <h2>Contact Us</h2>
-        <p>Have questions or want to plan your visit? Reach out to us and we’ll help make your trip to Mwanza unforgettable. We offer guidance on hotels, attractions, and local experiences.</p>
-        <p>Email: <a href="mailto:tawfiqerassy4@gmail.com">tawfiqerassy4@gmail.com</a></p>
-        <p>Phone: <a href="tel:+255761404678">+255 761 404 678</a></p>
-    </div>
-</section>
-
-<!-- Footer -->
-<footer>
-    <p>&copy; 2025 Visit Mwanza | Email: <a href="mailto:tawfiqerassy4@gmail.com">tawfiqerassy4@gmail.com</a> | Phone: <a href="tel:+255761404678">+255 761 404 678</a></p>
-</footer>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
