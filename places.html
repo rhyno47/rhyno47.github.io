@@ -64,31 +64,27 @@
 <body>
 
 <!-- Navbar -->
+
+<!-- Navbar -->
 <nav class="navbar navbar-expand navbar-dark fixed-top shadow-sm">
-  <div class="container">
-    <a class="navbar-brand" href="index.html"><b>VISIT MWANZA</b></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+  <div class="container justify-content-center">
 
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html"><b>Find Jobs |</b></a></li>
-        <li class="nav-item"><a class="nav-link active" href="hotels.html"><b>Hotels |</b></a></li>
-        <li class="nav-item"><a class="nav-link" href="places.html"><b>Explore Mwanza |</b></a></li>
-        <li class="nav-item"><a class="nav-link" href="guider.html"><b>Booking |</b></a></li>
-        <li class="nav-item"><a class="nav-link" href="contact.html"><b>Contact Us |</b></a></li>
-
-        <!-- Search Bar -->
-        <li class="nav-item">
-          <form class="d-flex ms-3" role="search">
-            <input class="form-control form-control-sm me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-light btn-sm" type="submit">
-              <i class="bi bi-search"></i>
-            </button>
-          </form>
-        </li>
+    <div class="collapse navbar-collapse show" id="navbarNav">
+      <ul class="navbar-nav mx-auto text-center">
+        <li class="nav-item"><a class="nav-link" href="index.html"><b>Find Jobs</b></a></li>
+        <li class="nav-item"><a class="nav-link" href="hotels.html"><b>Hotels</b></a></li>
+        <li class="nav-item"><a class="nav-link" href="places.html"><b>Explore Mwanza</b></a></li>
+        <li class="nav-item"><a class="nav-link active" href="guider.html"><b>Booking</b></a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html"><b>Contact Us</b></a></li>
       </ul>
+
+      <!-- Search Bar (moved inside navbar-collapse) -->
+      <form class="d-flex ms-3" role="search">
+        <input class="form-control form-control-sm me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-light btn-sm" type="submit">
+          <i class="bi bi-search"></i> <!-- Bootstrap Icon -->
+        </button>
+      </form>
     </div>
   </div>
 </nav>
