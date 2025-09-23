@@ -1,0 +1,49 @@
+/* Card background */
+#html-css-projects {
+  background: #30a7ec; /* blue card */
+  color: #222;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+  /* Center the card */
+  max-width: 1000px;       /* optional: set a max width */
+  margin: 70px auto;      /* top-bottom 40px, auto left-right centers it */
+  text-align: center; 
+}
+
+
+/* Details/summary toggle */
+details {
+  margin: 10px auto; /* center horizontally */
+  background: #f8f9fa; /* light gray */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: inline-block; /* so it respects auto margin for centering */
+  text-align: left; /* keep the text inside left-aligned */
+}
+
+details summary {
+  cursor: pointer;
+  font-weight: bold;
+  color: #007bff; /* blue clickable text */
+}
+
+/* Code box styling */
+pre {
+  background: #2d2d2d; /* dark background for code */
+  color: #f8f8f2; /* light text */
+  padding: 10px;
+  border-radius: 8px;
+  overflow-x: auto; /* horizontal scroll if long */
+  text-align: left; /* keep code aligned left */
+  display: inline-block; /* allows margin auto to center */
+  max-width: 90%; /* optional: prevent code from being too wide */
+  margin: 10px auto; /* center pre horizontally */
+}
+
+code {
+  font-family: monospace;
+  font-size: 14px;
+}
