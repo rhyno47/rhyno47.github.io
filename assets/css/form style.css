@@ -1,0 +1,144 @@
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* assets/css is two levels deep relative to the project root where images/ lives -> use ../images */
+    background: url("../../images/water\ fall.jpg") no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.wrapper {
+   width: 420px; 
+   background: transparent;
+   border: 2px solid rgba(255, 255, 255, 0.2);
+   backdrop-filter: blur(20px);
+   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+   color: aliceblue;  
+   border-radius: 10px;
+   padding: 30px 40px;
+
+}
+
+.wrapper h1 {
+    font-size: 36px;
+    text-align: center;
+}
+
+.wrapper .input-box {
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.input-box input {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid gray;
+    border-radius: 40px;
+    font-size: 16px;
+    color: aliceblue;
+    padding: 20px 45px 20px 20px;
+}
+
+.input-box input::placeholder {
+    color: aliceblue;
+}
+
+.wrapper .remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: 15px 0 15px;
+}
+
+.remember-forgot label input {
+    accent-color: aliceblue;
+    margin-right: 3px;
+}
+
+.remember-forgot a {
+    color: aliceblue;
+    text-decoration: none;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.wrapper .button {
+    width: 100%;
+    height: 45px;
+    background: aliceblue;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    color: #333;
+    font-weight: 600;
+}
+
+.wrapper .register-link {
+    font-size: 14.5px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.register-link p a {
+    color: aliceblue;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-link p a:hover {
+    text-decoration: underline;
+}
+
+/* ====== NAVBAR ====== */
+#navbar {
+  background-color: #680202;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  color: white;
+  position: fixed;        /* ✅ fixed positioning */
+  top: 0;                 /* ✅ stick to top */
+  left: 0;                /* ✅ start from left edge */
+  width: 100%;            /* ✅ stretch full width */
+  z-index: 1000;          /* ✅ stay above other elements */
+}
+
+#navbar .logo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #e2e6e7;
+}
+
+#navbar .nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+#navbar .nav-links a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+#navbar .nav-links a:hover {
+  color: #38bdf8;
+}
