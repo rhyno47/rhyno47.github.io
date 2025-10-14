@@ -4,6 +4,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
 }
 
 body {
@@ -148,4 +149,14 @@ body {
   text-align: center;
   padding: 1rem 0;
   margin-top: 2rem;
+}
+
+/*adjust nav for small screens 600px wide or smaller*/
+@media  screen and (max-width: 600px) {
+  #navbar .nav-links a {
+    font-size: 12px;
+
+    padding: 5px 6px;
+  }
+  
 }

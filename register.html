@@ -23,14 +23,17 @@
     <div class="logo">Coding with Tawfiq</div>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="pyhome.html">quiz&challenges</a></li>
+      <li><a href="pyhome.html">quiz</a></li>
       <li><a href="introtopypdfs.html">Jobs</a></li>
       <li><a href="login.html">Login</a></li>
     </ul>
   </nav>
 
   <div class="wrapper">
-    <form action="#">
+    <form id="signupForm">
+      <input id="signupUsername" ...>
+      <input id="signupPassword" ...>
+
       <h1>Create Account</h1>
 
       <div class="input-box">
@@ -60,5 +63,25 @@
       </div>
     </form>
   </div>
+  <script>
+    // ===sign up script ===
+
+    const signupForm =
+    document.getElementById("signupForm");
+    if (signupForm) {
+        signupForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+            const username = document.getElementById("signupUsername").value;
+            const password = document.getElementById("signupPassword").value;
+            // Add your registration logic here
+            localStorage.setItem("username", username);
+            localStorage.setItem("password", password);
+            alert("Registration successful! You can now log in.");
+        });
+        signupForm.reset();
+        window.location.href = "login.html"
+    }
+
+    </script>
 </body>
 </html>
