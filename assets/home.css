@@ -9,10 +9,23 @@
 
 body {
   background-image: url('../images/home\ section\ image.jpg'); /* your image path */
-  background-size: cover;        /* makes the image fill the screen */
-  background-position: center;   /* keeps image centered */
-  background-repeat: no-repeat;  /* prevents repeating */
+  /* Use contain to avoid aggressive upscaling/zoom that causes pixelation.
+     Provide a fallback background color for uncovered areas. */
+  background-size: contain;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-color: #0f0f10; /* dark fallback to improve contrast */
   color: #333;
+}
+
+/* On narrow screens, keep full-bleed so hero / small devices look good */
+@media (max-width: 900px) {
+  body { background-size: cover; background-position: center; }
+}
+
+/* smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
 }
 
 
@@ -49,6 +62,55 @@ body {
 
 #navbar .nav-links a:hover {
   color: #680202;
+}
+
+/* Responsive hamburger menu */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  z-index: 200; /* ensure toggle sits above other content */
+}
+.nav-toggle .bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #fff;
+  margin: 4px 0;
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+@media (max-width: 800px) {
+  /* Make navbar children wrap in correct order: toggle, logo, links */
+  #navbar { padding: 0.6rem 4%; }
+  #navbar .logo { order: 2; }
+  .nav-toggle { order: 1; }
+  #navbar .nav-links { order: 3; }
+
+  #navbar .nav-links {
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    background: rgba(104,2,2,0.98);
+    flex-direction: column;
+    align-items: center;
+    display: none; /* hidden by default; shown when nav-open */
+    padding: 0.75rem 0;
+  }
+  #navbar .nav-links li { margin: 0.4rem 0; }
+  .nav-toggle { display: flex; }
+  #navbar.nav-open .nav-links { display: flex; }
+}
+
+.nav-toggle:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.18);
+  outline-offset: 2px;
 }
 
 /* ====== HERO SECTION ====== */
@@ -115,6 +177,8 @@ body {
 }
 
 .card {
+  position: relative; /* for pseudo overlay */
+  overflow: hidden;   /* clip pseudo-element to rounded corners */
   background-color: rgb(190, 34, 14);
   padding: 1.5rem;
   border-radius: 12px;
@@ -142,6 +206,127 @@ body {
   color: #f5f1f1;
 }
 
+/* compact card variant for databasehome page */
+.compact-card {
+  position: relative; /* for pseudo overlay */
+  overflow: hidden;
+  padding: 1rem;
+  border-radius: 10px;
+}
+.compact-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin-bottom: 0.6rem;
+}
+.card-text {
+  font-size: 0.95rem;
+  color: #f5f1f1;
+  margin-bottom: 0.5rem;
+}
+
+/* ====== INFO CARD (intro page) ====== */
+:root {
+  --card-bg-image: url('../images/pdf cards back.jpg');
+  --card-overlay: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+}
+
+.info-card {
+  /* translucent panel with subtle blur to improve legibility over images */
+  background: var(--card-overlay);
+  border: 1px solid rgba(255,255,255,0.08);
+  position: relative; /* for pseudo overlay */
+  overflow: hidden;
+  padding: 1.5rem;
+  border-radius: 12px;
+  color: #f6f6f6;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+  /* backdrop blur for supported browsers */
+  backdrop-filter: blur(6px) saturate(110%);
+  -webkit-backdrop-filter: blur(6px) saturate(110%);
+}
+.info-card h3 { margin-bottom: 0.6rem; color: #fff; font-size: 1.25rem; }
+.info-card p { color: #f0f0f0; line-height: 1.55; margin-bottom: 0.65rem; }
+.info-card .muted { color: rgba(255,255,255,0.8); font-size: 0.98rem; }
+
+/* fallback for browsers without backdrop-filter: add a slightly darker semi-opaque background */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .info-card { background: rgba(12,12,12,0.45); border: 1px solid rgba(255,255,255,0.06); }
+}
+
+/* Default background for card types (uses the PDF-card image) */
+.card, .compact-card, .info-card {
+  background-image: var(--card-bg-image), var(--card-overlay);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Ensure overlay sits above background image for readability (use a pseudo-element if needed) */
+.card::before, .compact-card::before, .info-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: rgba(0,0,0,0.35); /* dark tint to improve contrast */
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Make sure card children sit above the pseudo overlay */
+.card > *, .compact-card > *, .info-card > * { position: relative; z-index: 1; }
+
+@media (max-width: 700px) {
+  .info-card { padding: 1rem; border-radius: 10px; }
+}
+
+/* make card anchors fill the card */
+.card-link {
+  display: inline-block;
+  padding: 0.6rem 1.1rem;
+  border-radius: 8px;
+  background-color: #680202;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid #680202;
+  transition: background-color 0.15s ease, transform 0.12s ease;
+}
+.card-link:hover {
+  background-color: #7a0101;
+  transform: translateY(-1px);
+}
+.card-link:focus {
+  outline: 3px solid rgba(255,255,255,0.12);
+  outline-offset: 2px;
+}
+
+/* Table of Contents styles */
+.toc {
+  max-width: 1100px;
+  margin: 1rem auto;
+  padding: 0.5rem 1rem;
+}
+.toc ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.toc a {
+  color: #f0f2f7;
+  text-decoration: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.03);
+}
+.toc a:hover,
+.toc a.active {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+}
+
 /* ====== FOOTER ====== */
 #footer {
   background-color: #680202;
@@ -159,4 +344,11 @@ body {
     padding: 5px 6px;
   }
   
+}
+
+/* Ensure fragment anchors are visible below the sticky navbar */
+#html5 {
+  /* adjust this value if your navbar height changes */
+  scroll-margin-top: 80px;
+  display: block;
 }

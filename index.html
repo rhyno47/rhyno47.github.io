@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coding with Tawfiq | Home</title>
-  <link rel="stylesheet" href="../assets/home.css">
+  <link rel="stylesheet" href="assets/home.css">
   <script async custom-element="amp-auto-ads"
         src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
 </script>
@@ -26,6 +26,11 @@
 </amp-auto-ads>
   <!-- ====== NAVBAR ====== -->
   <nav id="navbar">
+    <button class="nav-toggle" aria-label="Toggle menu" type="button">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
     <div class="logo">Coding with Tawfiq</div>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
@@ -80,11 +85,13 @@
         <p>Explore AI integration in development and automation.</p>
       </div>
 
-      <div class="card" id="database-card">
-        <img src="../images/project 1.jpg" alt="Database Design">
-        <h3>Database Design</h3>
-        <p>Learn relational databases, SQL, and backend structure.</p>
-      </div>
+      <a href="databasehome.html" style="text-decoration: none; color: inherit;">
+        <div class="card" id="database-card">
+          <img src="../images/project 1.jpg" alt="Database Design">
+          <h3>Database Design</h3>
+          <p>Learn relational databases, SQL, and backend structure.</p>
+        </div>
+      </a>
 
       <div class="card" id="software-card">
         <img src="../images/soft eng home logo.jpg" alt="Software Engineering Essentials">
@@ -94,12 +101,6 @@
     </div>
   </section>
 
-  <!-- ====== NAVBAR ====== -->
-  <nav id="navbar">
-    <div class="logo">Coding with Tawfiq</div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="pyhome.html">Do quiz</a></li>
-      <li><a href="introtopypdfs.html">jobs</a></li>
-    </ul>
-  </nav>
+  <!-- nav (duplicate removed) -->
+</body>
+</html>

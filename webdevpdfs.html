@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Coding with Tawfiq | Home</title>
-    <link rel="stylesheet" href="../assets/home.css" />
+  <link rel="stylesheet" href="assets/home.css" />
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -35,6 +35,11 @@
     </amp-auto-ads>
     <!-- ====== NAVBAR ====== -->
     <nav id="navbar">
+      <button class="nav-toggle" aria-label="Toggle menu" type="button">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
       <div class="logo">Coding with Tawfiq</div>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
@@ -213,6 +218,15 @@
       </div>
     </section>
 
+  <!-- ====== FOOTER ====== -->
+  <footer id="footer">
+    <p>© 2025 Coding with Tawfiq. All rights reserved.</p>
+  </footer>
+
+  <script src="assets/nav.js"></script>
+  </body>
+</html>
+
         <!-- ====== purpose of html5 in web development ====== -->
     <section
       id="purporse-of-html5"
@@ -327,9 +341,10 @@ accessible web applications while improving compatibility, performance, and main
           </div>
     </section>
 
-     <!-- ====== Introduction to HTML5====== -->
+    <!-- ====== Introduction to HTML5====== -->
     <section
       id="HTML5"
+      aria-label="HTML5 section"
       style="
         display: flex;
         justify-content: center;
@@ -367,6 +382,8 @@ accessible web applications while improving compatibility, performance, and main
 
         <!-- Content under image -->
         <div style="margin-top: 2rem">
+          <!-- anchor for fragment links -->
+          <span id="html5"></span>
           <h2 style="margin-bottom: 2rem; color: #f0eeee">
             <b>✨Welcome to the world of HTML5??✨</b>
           </h2>
