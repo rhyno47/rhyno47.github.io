@@ -22,66 +22,85 @@
 <amp-auto-ads type="adsense"
         data-ad-client="ca-pub-1523965413574724">
 </amp-auto-ads>
-  <!-- ====== NAVBAR ====== -->
-  <nav id="navbar">
-    <button class="nav-toggle" aria-label="Toggle menu" type="button">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </button>
-    <div class="logo">Coding with Tawfiq</div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="pyhome.html">Do quiz</a></li>
-      <li><a href="introtopypdfs.html">jobs</a></li>
+
+
+<!-- NEW NAVBAR -->
+
+<style>
+  .navbar-custom {
+    background-color: #680202; /* updated navbar color */
+    padding: 0.5rem 1rem;
+  }
+  .navbar-brand img {
+    height: 40px;
+  }
+  .btn-signin {
+    background-color: #b40808e1; /* updated sign in button color */
+    color: #fff;
+    font-weight: 500;
+  }
+  .btn-signin:hover {
+    background-color: #9a0707; /* slightly darker on hover */
+    color: #fff;
+  }
+  .menu-btn {
+    background: none;
+    border: none;
+    font-weight: 500;
+    color: #fff; /* make menu text visible on dark navbar */
+  }
+  .search-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #fff; /* make search icon visible */
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-custom d-flex justify-content-between align-items-center">
+  <!-- Logo -->
+  <a class="navbar-brand" href="#">
+    <img src="../images/coding with tawfiq.jpg" alt="Logo">
+  </a>
+
+  <!-- Hamburger button -->
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+    aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="bi bi-list" style="font-size: 1.5rem; color: #fff;"></i>
+  </button>
+
+  <!-- Menu items (collapsible) -->
+  <div class="collapse navbar-collapse" id="navbarMenu">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+ <li class="nav-item">
+        <a class="nav-link menu-btn" href="index.html">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link menu-btn" href="#">Coding quiz</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link menu-btn" href="#">Find Jobs</a>
+      </li>
     </ul>
-  </nav>
+  </div>
+
+  <!-- Always visible buttons -->
+  <div class="d-flex align-items-center gap-2">
+    <button class="search-btn"><i class="bi bi-search"></i></button>
+    <a href="../login.html" class="btn btn-signin">Sign In</a>
+  </div>
+</nav>
+
+
 
 <!-- ====== HERO SECTION ====== -->
   <section id="hero">
     <div class="hero-content">
-      <h1><b>"Welcome Home Web Designers 🎊"</b></h1>
+      <h1><b>"Welcome Home Website Designers 🎊"</b></h1>
       <div class="hero-actions">
       </div>
     </div>
   </section>
-
-   <!-- ====== COURSES SECTION ====== -->
-  <section id="courses-website-development">
-    <div class="course-grid">
-      <a href="webdevpdfs.html" style="text-decoration: none; color: inherit;">
-        <div class="card" id="HTML5">
-          <img src="images/HTML 02.jpg" alt="Python Course">
-          <h3>⚡INTRODUCTION TO WEBSITE DEVELOPMENT⚡</h3>
-          <p><b>click on this section to read all basics as a starter to website development</b></p>
-        </div>
-      </a>
-
-      <a href="../pydatastructurepdf.html" style="text-decoration: none; color: inherit;">
-        <div class="card" id="advanced-html">
-          <img src="images/html image.avif" alt="Web Development">
-          <h3>ADVANCED HTML5,ENHANCING CONTENTS&BUILDING FORMS</h3>
-          <p><b>🥂click on this section to read all basics on advanced html5,enhancing content&building forms</b></p>
-        </div>
-      </a>
-
-      <a href="../flow&funpdf.html" style="text-decoration: none; color: inherit;">
-        <div class="card" id="css-introduction">
-          <img src="images/HTML 03.jpg" alt="Dart and Flutter">
-          <h3>✍INTRODUCTION TO CSS</h3>
-          <p>here is everything you need to know about css,how does css work and how to use css flexbox and more </p>
-          <p><b>click on this section to read all basics in flows and functions in python</b></p>
-        </div>
-      </a>
-
-      <a href="../fyl&excep handl.html" style="text-decoration: none; color: inherit;">
-        <div class="card" id="css-layout">
-          <img src="../images/ai home logo.jpg" alt="AI for Software Engineering">
-          <h3>CSS LAYOUT & RESPONSIVE DESIGN🎇</h3>
-
-          <p><b>click on this section to read all basics in file handling and exceptions</b></p>
-        </div>
-      </a>
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1523965413574724"
      crossorigin="anonymous"></script>
@@ -96,30 +115,63 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
+
+   <!-- ====== COURSES SECTION ====== -->
+  <section id="courses-website-development">
+    <div class="course-grid">
+      <a href="webdevpdfs.html" style="text-decoration: none; color: inherit;">
+        <div class="card" id="HTML5">
+          <img src="images/HTML 02.jpg" alt="Python Course">
+          <h3>Introduction to website development</h3>
+          <p><strong>START</strong></p>
+        </div>
+      </a>
+
+      <a href="../pydatastructurepdf.html" style="text-decoration: none; color: inherit;">
+        <div class="card" id="advanced-html">
+          <img src="images/html image.avif" alt="Web Development">
+          <h3>Advanced Html5,Enhancing content&Building forms</h3>
+         <p><strong>START</strong></p>
+        </div>
+      </a>
+
+      <a href="../flow&funpdf.html" style="text-decoration: none; color: inherit;">
+        <div class="card" id="css-introduction">
+          <img src="images/HTML 03.jpg" alt="Dart and Flutter">
+          <h3>Introduction to CSS</h3>
+          <p><strong>START</strong></p>
+        </div>
+      </a>
+
+      <a href="../fyl&excep handl.html" style="text-decoration: none; color: inherit;">
+        <div class="card" id="css-layout">
+          <img src="../images/ai home logo.jpg" alt="AI for Software Engineering">
+          <h3>CSS Layout-responsive design</h3>
+          <p><strong>START</strong></p>
+        </div>
+      </a>
+
       <a href="../opp.html" style="text-decoration: none; color: inherit;">
         <div class="card" id="dom-manipulation">
           <img src="images/HTML 04.webp" alt="Database Design">
-          <h3>JAVA SCRIPT✨DOM MANIPULATION</h3>
-
-          <p><b>click on this section to read all basics in object oriented programming</b></p>
+          <h3>Java Script-Dom Manipulation</h3>
+          <p><strong>START</strong></p>
         </div>
       </a>
 
       <a href="../libraries.html" style="text-decoration: none; color: inherit;">
         <div class="card" id="software-card">
           <img src="../images/soft eng home logo.jpg" alt="Software Engineering Essentials">
-          <h3>JAVASCRIPT EVENTS🎭</h3>
-
-          <p><b>click on this section to read all basics in python libralies</b></p>
+          <h3>Java Script Events🎭</h3>
+          <p><strong>START</strong></p>
         </div>
       </a>
 
       <a href="../datanalypdf.html" style="text-decoration: none; color: inherit;">
         <div class="card" id="software-card">
           <img src="../images/soft eng home logo.jpg" alt="Software Engineering Essentials">
-          <h3>CSS3 TRANSITION🎗ANIMATION</h3>
-           <P>ADVANCED JAVASCRIPT FUNCTIONS</P>
-          <p><b>click on this section to read all basics in data analysis</b></p>
+          <h3>CSS3 Transition and animation</h3>
+           <p><strong>START</strong></p>
         </div>
       </a>
     </div>
