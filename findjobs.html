@@ -1,0 +1,42 @@
+<script>
+  // Load demo posts
+  let posts = [
+    {
+      user: "CoreyMS",
+      date: "August 27, 2025",
+      title: "My Latest Post!",
+      content: "This is my first post on the job blog! Stay tuned for more updates and tips.",
+      avatar: "https://via.placeholder.com/40"
+    },
+    {
+      user: "TestUser",
+      date: "August 26, 2025",
+      title: "Top 5 Tips for Job Interviews",
+      content: "In this post, we’ll cover how to prepare, what to wear, and how to answer tricky interview questions.",
+      avatar: "https://via.placeholder.com/40"
+    }
+  ];
+
+  // Check for new posts in localStorage
+  const savedPost = localStorage.getItem("newPost");
+  if (savedPost) {
+    posts.unshift(JSON.parse(savedPost)); // add at the top
+    localStorage.removeItem("newPost"); // clear it
+  }
+
+  const postsDiv = document.getElementById("posts");
+  posts.forEach(p => {
+    postsDiv.innerHTML += `
+      <div class="post-card">
+        <div class="post-header">
+          <img src="${p.avatar}" alt="avatar">
+          <div>
+            <div class="post-meta">${p.user} • ${p.date}</div>
+            <div class="post-title">${p.title}</div>
+          </div>
+        </div>
+        <div class="post-content">${p.content}</div>
+      </div>
+    `;
+  });
+</script>
