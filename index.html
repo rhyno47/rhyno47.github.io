@@ -92,10 +92,10 @@
   <!-- ====== HERO SECTION ====== -->
   <section id="hero">
     <div class="hero-content">
-      <h1>your coding journey starts here </h1>
-      <p> Hellow This website is meant to train young people world-wide,starting at a point of little experience to fairly skilled software developers ready to get into the market place and jump on the next phase of their learning at an advanced levels.</p>
+      <h1><code>your coding journey starts here </code></h1>
+      <p><code>Hellow This website is meant to train young people world-wide,starting at a point of little experience to fairly skilled software developers ready to get into the market place and jump on the next phase of their learning at an advanced levels.</code></p>
       <div class="hero-actions">
-        <button id="start-btn">Start Here</button>
+        <button id="start-btn"></code>Start Here</code></button>
       </div>
     </div>
   </section>
@@ -152,6 +152,43 @@
     </div>
   </section>
   
+<div style="max-width: 600px; margin: 40px auto; text-align: center;">
+  <h2>💬 Ask Our AI</h2>
+  <textarea id="userInput" rows="4" style="width:100%; padding:10px;" placeholder="Type your question here..."></textarea>
+  <br><br>
+  <button onclick="sendMessage()" style="padding:10px 20px; border:none; background:#007bff; color:white; border-radius:6px;">Send</button>
+
+  <div id="aiReply" style="margin-top: 20px; text-align:left; border:1px solid #ddd; padding:15px; border-radius:8px; min-height:60px;">
+    <b>AI Reply:</b>
+    <p id="replyText" style="margin-top:10px;"></p>
+  </div>
+</div>
+
+<script>
+async function sendMessage() {
+  const message = document.getElementById('userInput').value;
+  const replyBox = document.getElementById('replyText');
+  replyBox.innerText = "Thinking... 🤔";
+
+  try {
+    const response = await fetch("http://localhost:5000/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message })
+    });
+
+    const data = await response.json();
+    replyBox.innerText = data.reply;
+  } catch (error) {
+    replyBox.innerText = "❌ Failed to connect to AI server.";
+    console.error(error);
+  }
+}
+</script>
+
+
 <!-- native ad unit -->
 <ins class="adsbygoogle"
      style="display:block"

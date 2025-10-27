@@ -104,9 +104,9 @@
 <!-- ====== HERO SECTION ====== -->
   <section id="hero">
     <div class="hero-content">
-      <h1><b>Introduction to python language</b></h1>
+      <h1><b>Introduction to python,list,tuple,Dictionary</b></h1>
          <div class="hero-actions">
-        <button id="start-btn">Start Here</button>
+        <button id="start-btn">Try coding</button>
       </div>
       </div>
     </div>
@@ -158,7 +158,6 @@
 
       <p class="muted">Now you're ready to start — open your editor, create a new file, write <code>print("Hello, Python!")</code>, and run it. 🚀</p>
 
-      <p style="margin-top:0.5rem;"><a href="../DOCUMENTS PDF/PYTHON COMPLETE NOTES WITH TAWFIQ/THE INTRO 1/INTRODUCTION TO THE PYTHON DEVELOPMENT WORLD.pdf" download class="card-link">Download Notes</a></p>
     </article>
   </div>
 </section>
@@ -182,171 +181,205 @@
     <div style="width:100%; height:300px; background-image:url('../images/project 3.jpg'); background-size:cover; background-position:center; border-radius:10px;"></div>
 
     <article class="info-card" style="margin-top:1rem;" aria-labelledby="py-dt-title">
-      <h3 id="py-dt-title">🎇 Understanding Python Datatypes 🧾</h3>
-      <p class="muted">In programming, data types specify the kind of data a variable can hold. For example:</p>
-      <pre><code>num = 24  # here `num` is an <strong>int</strong></code></pre>
-
+<section>
+  <div>
+    <article>
+      <p>🎇 <strong>Understanding Python Datatypes 🧾</strong></p>
+      <p>In programming, data types specify the kind of data a variable can hold. For example:</p>
+      <code>num = 24  # here `num` is an int</code>
       <p>Since everything in Python is an object, data types are classes and variables are instances of those classes.</p>
 
-      <h4>Python Data Types — at a glance 📋</h4>
-      <table style="width:100%; margin:0.5rem 0 0.8rem 0; border-collapse:collapse;">
-        <thead>
-          <tr>
-            <th style="text-align:left; padding:6px 8px; border-bottom:1px solid rgba(255,255,255,0.06);">Data Type</th>
-            <th style="text-align:left; padding:6px 8px; border-bottom:1px solid rgba(255,255,255,0.06);">Class</th>
-            <th style="text-align:left; padding:6px 8px; border-bottom:1px solid rgba(255,255,255,0.06);">Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="padding:6px 8px;">numeric</td>
-            <td style="padding:6px 8px;">int, float, complex</td>
-            <td style="padding:6px 8px;">Holds numeric values (integers, decimals, complex numbers)</td>
-          </tr>
-          <tr>
-            <td style="padding:6px 8px;">string</td>
-            <td style="padding:6px 8px;">str</td>
-            <td style="padding:6px 8px;">Holds sequence of characters</td>
-          </tr>
-          <tr>
-            <td style="padding:6px 8px;">sequence</td>
-            <td style="padding:6px 8px;">list, tuple, range</td>
-            <td style="padding:6px 8px;">Ordered collections of items</td>
-          </tr>
-          <tr>
-            <td style="padding:6px 8px;">mapping</td>
-            <td style="padding:6px 8px;">dict</td>
-            <td style="padding:6px 8px;">Holds data in key → value pairs</td>
-          </tr>
-          <tr>
-            <td style="padding:6px 8px;">boolean</td>
-            <td style="padding:6px 8px;">bool</td>
-            <td style="padding:6px 8px;">Holds either <code>True</code> or <code>False</code></td>
-          </tr>
-          <tr>
-            <td style="padding:6px 8px;">set</td>
-            <td style="padding:6px 8px;">set</td>
-            <td style="padding:6px 8px;">Unordered collection of unique items</td>
-          </tr>
-        </tbody>
-      </table>
+      <p>📋 <strong>Python Data Types — at a glance</strong></p>
+      <p><strong>Data Type → Class → Description</strong></p>
+      <ul>
+        <li>Numeric → int, float, complex → Holds numeric values (integers, decimals, complex numbers)</li>
+        <li>String → str → Holds sequence of characters</li>
+        <li>Sequence → list, tuple, range → Ordered collections of items</li>
+        <li>Mapping → dict → Holds data in key → value pairs</li>
+        <li>Boolean → bool → Holds either True or False</li>
+        <li>Set → set → Unordered collection of unique items</li>
+      </ul>
 
-      <p>Everything is an object in Python — types are classes and variables are instances. Use <code>type()</code> to check a value's type:</p>
-      <pre><code>print(type(24))     # &lt;class 'int'&gt;
-print(type(5.3))   # &lt;class 'float'&gt;
-print(type('Hi'))  # &lt;class 'str'&gt;</code></pre>
+      <p>Use <code>type()</code> to check a value's type:</p>
+      <code>
+print(type(24))     # &lt;class 'int'&gt;<br>
+print(type(5.3))    # &lt;class 'float'&gt;<br>
+print(type('Hi'))   # &lt;class 'str'&gt;
+      </code>
 
-      <h5>Numeric types 🔢</h5>
-      <p>Integers, floats and complex numbers are represented by <code>int</code>, <code>float</code> and <code>complex</code>:</p>
-      <pre><code>num1 = 55
-num2 = 5.3
-print(num1)
-print(num2)</code></pre>
+      <!-- Interactive Python Cards Start -->
+      <h2>Try Python Code 🐍</h2>
 
-      <h5>List — ordered, mutable 📚</h5>
-      <p>Lists hold ordered items (can mix types):</p>
-      <pre><code>languages = ["Python", "Dart", "Web", 23]
+      <!-- Numeric Types Card -->
+      <div class="code-card">
+        <p>🔢 <strong>Numeric Types</strong></p>
+        <textarea id="code-num">
+a = 5       # int
+b = 5.0     # float
+c = 2 + 4j  # complex
+
+print(type(a))
+print(type(b))
+print(type(c))
+        </textarea>
+        <button onclick="runPython('code-num','output-num')">▶ Run</button>
+        <pre id="output-num">Output will appear here...</pre>
+      </div>
+
+      <!-- List Example Card -->
+      <div class="code-card">
+        <p>📚 <strong>List Example</strong></p>
+        <textarea id="code-list">
+languages = ["Python", "Dart", "Web", 23]
 print(languages)
-print(languages[1])  # 'Dart'
-# languages[0] -> 'Python'
-# languages[2] -> 'Web'</code></pre>
+print(languages[1])
+        </textarea>
+        <button onclick="runPython('code-list','output-list')">▶ Run</button>
+        <pre id="output-list">Output will appear here...</pre>
+      </div>
 
-      <h5>Tuple — ordered, immutable 🔒</h5>
-      <pre><code>products = ('XBox', 499.99, 'Habibi', 23)
+      <!-- Tuple Example Card -->
+      <div class="code-card">
+        <p>🔒 <strong>Tuple Example</strong></p>
+        <textarea id="code-tuple">
+products = ('XBox', 499.99, 'Habibi', 23)
 print(products)
-print(products[2])  # 'Habibi'</code></pre>
+print(products[2])
+        </textarea>
+        <button onclick="runPython('code-tuple','output-tuple')">▶ Run</button>
+        <pre id="output-tuple">Output will appear here...</pre>
+      </div>
 
-      <h5>String — sequence of characters ✍️</h5>
-      <pre><code>site_name = "Power Learn Project"
-print(site_name)</code></pre>
-
-      <h5>Set — unique, unordered ✅</h5>
-      <pre><code>student_ids = {112, 114, 117, 113}
-print(student_ids)</code></pre>
-
-      <h5>Dictionary — mapping (key → value) 🗺️</h5>
-      <pre><code>capital_city = {"Kenya": "Nairobi", "Nigeria": "Lagos"}
+      <!-- Dictionary Example Card -->
+      <div class="code-card">
+        <p>🗺️ <strong>Dictionary Example</strong></p>
+        <textarea id="code-dict">
+capital_city = {"Kenya": "Nairobi", "Nigeria": "Lagos"}
 print(capital_city)
-print(capital_city['Kenya'])  # 'Nairobi'</code></pre>
+print(capital_city['Kenya'])
+        </textarea>
+        <button onclick="runPython('code-dict','output-dict')">▶ Run</button>
+        <pre id="output-dict">Output will appear here...</pre>
+      </div>
 
-      <h4>Resources & further reading 🔗</h4>
-      <ol>
-        <li><a href="https://www.geeksforgeeks.org/python-data-types/" target="_blank">GeeksforGeeks — Python Data Types</a></li>
-        <li><a href="https://realpython.com/python-data-types/" target="_blank">Real Python — Python Data Types</a></li>
-        <li><a href="https://www.digitalocean.com/community/tutorials/python-data-types" target="_blank">DigitalOcean — Python Data Types</a></li>
-        <li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/02.01-understanding-dat" target="_blank">Python Data Science Handbook — Understanding Data</a></li>
-      </ol>
+      <!-- Boolean Example Card -->
+      <div class="code-card">
+        <p>3️⃣ <strong>Boolean Example</strong></p>
+        <textarea id="code-bool">
+print(type(True))
+print(type(False))
 
-      <p style="margin-top:0.5rem;"><a href="../DOCUMENTS PDF/PYTHON COMPLETE NOTES WITH TAWFIQ/THE INTRO 1/UNDERSTANDING PYTHON DATA TYPES...pdf" download class="card-link">Download Notes</a></p>
+if 1:
+    print("1 is truthy")
+if not 0:
+    print("0 is falsy")
+        </textarea>
+        <button onclick="runPython('code-bool','output-bool')">▶ Run</button>
+        <pre id="output-bool">Output will appear here...</pre>
+      </div>
+
+      <!-- Set Example Card -->
+      <div class="code-card">
+        <p>4️⃣ <strong>Set Example</strong></p>
+        <textarea id="code-set">
+s1 = set("GeeksForGeeks")
+print(s1)
+s2 = set(["Geeks", "For", "Geeks"])
+print(s2)
+for i in s2:
+    print(i, end=" ")
+print("Geeks" in s2)
+        </textarea>
+        <button onclick="runPython('code-set','output-set')">▶ Run</button>
+        <pre id="output-set">Output will appear here...</pre>
+      </div>
+      <!-- Interactive Python Cards End -->
+
+      <p>🔗 <strong>Resources & Further Reading</strong></p>
+      <ul>
+        <li>GeeksforGeeks — Python Data Types</li>
+        <li>Real Python — Python Data Types</li>
+        <li>DigitalOcean — Python Data Types</li>
+        <li>Python Data Science Handbook — Understanding Data</li>
+      </ul>
     </article>
   </div>
 </section>
 
-<!-- ====== Introduction to Python variables====== -->
-<section id="python-variables" style="display:flex; justify-content:center; padding:4rem 2rem; background-image:url('../images/water fall.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat; background-attachment:scroll;">
-  <div style="max-width:900px; width:100%;">
-    <div style="width:100%; height:300px; background-image:url('../images/python home...jpg'); background-size:cover; background-position:center; border-radius:10px;"></div>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+<script>
+let pyodideReady = false;
+async function loadPyodideAndPackages() {
+  window.pyodide = await loadPyodide();
+  pyodideReady = true;
+  console.log("Python ready!");
+}
+loadPyodideAndPackages();
 
-    <article class="info-card" style="margin-top:1rem;" aria-labelledby="py-var-title">
-  <h3 id="py-var-title">🔎 Understanding Python Variables ✨</h3>
-  <p class="muted">In programming, a variable is a container (storage area) to hold data. For example:</p>
-  <pre><code>number = 10
-print(number)  # 10</code></pre>
+async function runPython(codeId, outputId) {
+  if (!pyodideReady) {
+    alert("Python is still loading...");
+    return;
+  }
+  const code = document.getElementById(codeId).value;
+  try {
+    const result = await pyodide.runPythonAsync(code);
+    document.getElementById(outputId).textContent = result ?? "";
+  } catch (err) {
+    document.getElementById(outputId).textContent = err;
+  }
+}
+</script>
 
-  <h4>Assigning values to variables 📝</h4>
-  <p>We use the assignment operator <code>=</code> to assign a value to a variable:</p>
-  <pre><code>site_name = "Power Learn Project"
-print(site_name)</code></pre>
-  <p><em>Note:</em> Python is type-inferred — you don't have to declare types explicitly; the interpreter infers them automatically.</p>
+<style>
 
-  <h4>Changing a variable's value 🔁</h4>
-  <pre><code># Assign initial value
-site_name = "Power Learn Project"
-print(site_name)
-
-# Assign a new value
-site_name = "I love coding"
-print(site_name)
-# Output:
-# Power Learn Project
-# I love coding</code></pre>
-
-  <h4>Multiple assignment ✨</h4>
-  <pre><code>a, b, c = 5, 7, "Hello world"
-print(a)  # 5
-print(b)  # 7
-print(c)  # Hello world</code></pre>
-
-  <h4>Rules & naming conventions for variables 🧭</h4>
-  <ul>
-    <li>Variable names may contain letters (a–z, A–Z), digits (0–9), and underscores (_).</li>
-    <li>Common styles: <code>snake_case</code>, <code>camelCase</code>, <code>PascalCase</code>, <code>MACRO_CASE</code>.</li>
-    <li>Python is case-sensitive: <code>num</code> and <code>Num</code> are different variables.</li>
-    <li>Avoid using Python keywords or built-in names (like <code>if</code>, <code>True</code>, <code>class</code>) as variable names.</li>
-  </ul>
-  <pre><code>num = 55
-Num = 510
-print(num)  # 55
-print(Num)  # 510</code></pre>
-
-  <h4>Tips ✅</h4>
-  <ul>
-    <li>Pick descriptive names (e.g., <code>user_count</code>) to make code readable.</li>
-    <li>Use <code>snake_case</code> for most Python variables per PEP8.</li>
-  </ul>
-
-  <h4>More resources 🔗</h4>
-  <ul>
-    <li><a href="https://realpython.com/python-variables/" target="_blank">Real Python — Variables</a></li>
-    <li><a href="https://www.simplilearn.com/tutorials/python-tutorial/python-variables" target="_blank">Simplilearn — Python Variables</a></li>
-    <li><a href="https://www.guru99.com/variables-in-python.html" target="_blank">Guru99 — Variables in Python</a></li>
-    <li><a href="https://www.tutorialspoint.com/python/python_variables.htm" target="_blank">TutorialsPoint — Python Variables</a></li>
-  </ul>
-
-  <p style="margin-top:0.5rem;"><a href="../DOCUMENTS PDF/PYTHON COMPLETE NOTES WITH TAWFIQ/THE INTRO 1/unrestanding python variables.pdf" download class="card-link">Download Notes</a></p>
-    </article>
-  </div>
-</section>
+textarea {
+  width: 100%;
+  height: 150px;
+  font-family: monospace;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  background-color: #f0f2f7; /* textarea background */
+  color: #680202; /* textarea text */
+}
+button {
+  background-color: #680202; /* button background */
+  border: none;
+  color: #f0f2f7; /* button text */
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: bold;
+}
+button:hover {
+  background-color: #500101; /* darker hover */
+}
+pre {
+  background: #f0f2f7; /* output background */
+  color: #680202; /* output text */
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  margin-top: 10px;
+}
+.code-card {
+  margin-top: 20px;
+  padding: 15px;
+  background: #680202; /* card background */
+  color: #f0f2f7; /* card text */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+h2, h1, p {
+  color: #f0f2f7; /* headings and paragraph text */
+}
+</style>
 
  <!-- ====== FOOTER ====== -->
  
