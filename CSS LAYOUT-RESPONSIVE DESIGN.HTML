@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coding with Tawfiq | Home</title>
+  <link rel="stylesheet" href="assets/home.css">
+  <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
+</head>
+<body>
+<!-- NEW NAVBAR -->
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+  .navbar-custom {
+    background-color: #680202; /* updated navbar color */
+    padding: 0.5rem 1rem;
+  }
+  .navbar-brand img {
+    height: 40px;
+  }
+  .btn-signin {
+    background-color: #b40808e1; /* updated sign in button color */
+    color: #fff;
+    font-weight: 500;
+  }
+  .btn-signin:hover {
+    background-color: #9a0707; /* slightly darker on hover */
+    color: #fff;
+  }
+  .menu-btn {
+    background: none;
+    border: none;
+    font-weight: 500;
+    color: #fff; /* make menu text visible on dark navbar */
+  }
+  .search-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #fff; /* make search icon visible */
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-custom d-flex justify-content-between align-items-center">
+  <!-- Logo -->
+  <a class="navbar-brand" href="#">
+    <img src="../images/coding with tawfiq.jpg" alt="Logo">
+  </a>
+
+  <!-- Hamburger button -->
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+    aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="bi bi-list" style="font-size: 1.5rem; color: #fff;"></i>
+  </button>
+
+  <!-- Menu items (collapsible) -->
+  <div class="collapse navbar-collapse" id="navbarMenu">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+       <li class="nav-item">
+        <a class="nav-link menu-btn" href="index.html">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link menu-btn" href="#">Try quiz</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link menu-btn" href="#">Find Jobs</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Always visible buttons -->
+  <div class="d-flex align-items-center gap-2">
+    <button class="search-btn"><i class="bi bi-search"></i></button>
+    <a href="public/register.html" class="btn btn-signin">Sign In</a>
+  </div>
+</nav>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<!-- ====== HERO SECTION ====== -->
+  <section id="hero">
+    <div class="hero-content">
+      <h1><code>"introduction to CSS layout & responsive design"</code></h1>
+      <div class="hero-actions">
+      </div>
+    </div>
+  </section>
+
+<!-- 🌐 CSS Layout Principles Card -->
+<div style="background:#fff; border-left:6px solid #680202; border-radius:12px; padding:20px; margin:25px 0; box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+
+  <h2 style="color:#680202;">🎨 CSS Layout Principles: Organizing Web Content</h2>
+
+  <p style="color:#333; line-height:1.6;">
+    CSS layout principles are essential for creating well-structured, visually appealing, and responsive web pages.
+    They help position elements effectively on the screen, adapt to various screen sizes, and manage space between elements.
+  </p>
+
+  <h3 style="color:#680202;">🎯 Key Concepts in CSS Layout</h3>
+
+  <p><strong>Normal Document Flow:</strong> By default, HTML elements follow a normal flow:</p>
+  <ul style="color:#333; margin-left:20px;">
+    <li>Block-level elements stack vertically.</li>
+    <li>Inline elements sit next to each other horizontally.</li>
+  </ul>
+
+  <p>CSS allows us to override this flow for more complex layouts.</p>
+
+  <h3 style="color:#680202;">Display Property</h3>
+  <p>The <code>display</code> property controls how an element is displayed in the document:</p>
+
+  <ul style="color:#333; margin-left:20px;">
+    <li><code>block</code>: Takes full width of the container.</li>
+    <li><code>inline</code>: Sits inline with text.</li>
+    <li><code>inline-block</code>: Acts like inline but allows width/height.</li>
+    <li><code>flex</code> / <code>grid</code>: Advanced layout systems.</li>
+  </ul>
+
+  <!-- ⚠️ Warning Notice -->
+  <div style="background:#8a0a0a; color:#fff; padding:15px; border-radius:10px; margin:20px 0;">
+    <h3 style="color:#ffd700;">⚠️ Important Notice</h3>
+    <p>
+      CSS layout examples need some <strong>HTML structure</strong> to display results.
+      If you haven’t learned HTML yet, check our <a href="#" style="color:#ffd700;">HTML5 class</a> first.
+    </p>
+  </div>
+
+  <!-- 💻 Try It Card 1 -->
+  <div class="code-card" style="background:#680202; color:white; border-radius:14px; padding:20px; margin-top:15px; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+    <h3>🧪 Try It Yourself – Display Property</h3>
+    <p>Edit and click Run to see how <code>display</code> changes layout:</p>
+
+    <textarea style="width:100%; height:200px; border-radius:8px; padding:10px; font-family:monospace; background:#1a1a1a; color:#f8f8f2;">
+<!-- HTML + CSS Example -->
+<div style="display: block; background:#fdd; padding:10px;">Block Element (div)</div>
+<span style="display: inline; background:#dfd; padding:10px;">Inline Element (span)</span>
+<span style="display:inline-block; background:#ddf; padding:10px; width:100px;">Inline-block Element</span>
+    </textarea>
+
+    <button onclick="runCode(this)" style="margin-top:10px; padding:10px 20px; background:white; color:#680202; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">▶ Run</button>
+    <iframe style="width:100%; height:200px; margin-top:15px; border:2px solid black; border-radius:8px; background:white;"></iframe>
+  </div>
+
+  <h3 style="color:#680202; margin-top:30px;">📦 The Box Model</h3>
+  <p>Every element in CSS is a box made up of content, padding, border, and margin.</p>
+
+  <!-- 💻 Try It Card 2 -->
+  <div class="code-card" style="background:#680202; color:white; border-radius:14px; padding:20px; margin-top:15px; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+    <h3>🧪 Try It Yourself – Box Model</h3>
+    <p>Experiment with padding, border, and margin:</p>
+
+    <textarea style="width:100%; height:220px; border-radius:8px; padding:10px; font-family:monospace; background:#1a1a1a; color:#f8f8f2;">
+<!-- HTML + CSS Example -->
+<div style="width:200px; padding:20px; border:3px solid #680202; margin:15px; background-color:#f9f9f9; text-align:center;">
+  <p>Box Model Example</p>
+</div>
+    </textarea>
+
+    <button onclick="runCode(this)" style="margin-top:10px; padding:10px 20px; background:white; color:#680202; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">▶ Run</button>
+    <iframe style="width:100%; height:220px; margin-top:15px; border:2px solid black; border-radius:8px; background:white;"></iframe>
+  </div>
+
+  <h3 style="color:#680202; margin-top:30px;">📍 Positioning Elements</h3>
+  <p>CSS positioning defines how elements are placed on the page. Let’s test a few examples:</p>
+
+  <!-- 💻 Try It Card 3 -->
+  <div class="code-card" style="background:#680202; color:white; border-radius:14px; padding:20px; margin-top:15px; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+    <h3>🧪 Try It Yourself – CSS Positioning</h3>
+    <p>Change position type and see the effect:</p>
+
+    <textarea style="width:100%; height:230px; border-radius:8px; padding:10px; font-family:monospace; background:#1a1a1a; color:#f8f8f2;">
+<!-- HTML + CSS Example -->
+<div style="position:relative; top:20px; left:30px; width:150px; height:80px; background:#fdd; border:2px solid #680202;">
+  Relative Box
+</div>
+<div style="position:absolute; top:60px; left:60px; width:150px; height:80px; background:#ddf; border:2px solid #680202;">
+  Absolute Box
+</div>
+    </textarea>
+
+    <button onclick="runCode(this)" style="margin-top:10px; padding:10px 20px; background:white; color:#680202; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">▶ Run</button>
+    <iframe style="width:100%; height:230px; margin-top:15px; border:2px solid black; border-radius:8px; background:white;"></iframe>
+  </div>
+
+  <h3 style="color:#680202; margin-top:30px;">🧱 Flexbox Example</h3>
+  <p>Flexbox makes it easy to align and space items dynamically.</p>
+
+  <!-- 💻 Try It Card 4 -->
+  <div class="code-card" style="background:#680202; color:white; border-radius:14px; padding:20px; margin-top:15px; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+    <h3>🧪 Try It Yourself – Flexbox Layout</h3>
+
+    <textarea style="width:100%; height:240px; border-radius:8px; padding:10px; font-family:monospace; background:#1a1a1a; color:#f8f8f2;">
+<!-- HTML + CSS Example -->
+<div style="display:flex; justify-content:space-between; background:#f9f9f9; padding:10px; border:2px solid #680202;">
+  <div style="background:#fdd; padding:20px;">Item 1</div>
+  <div style="background:#dfd; padding:20px;">Item 2</div>
+  <div style="background:#ddf; padding:20px;">Item 3</div>
+</div>
+    </textarea>
+
+    <button onclick="runCode(this)" style="margin-top:10px; padding:10px 20px; background:white; color:#680202; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">▶ Run</button>
+    <iframe style="width:100%; height:240px; margin-top:15px; border:2px solid black; border-radius:8px; background:white;"></iframe>
+  </div>
+
+  <h3 style="color:#680202; margin-top:30px;">🧩 Grid Layout</h3>
+  <p>CSS Grid helps arrange elements in rows and columns.</p>
+
+  <!-- 💻 Try It Card 5 -->
+  <div class="code-card" style="background:#680202; color:white; border-radius:14px; padding:20px; margin-top:15px; box-shadow:0 4px 12px rgba(0,0,0,0.3);">
+    <h3>🧪 Try It Yourself – Grid Example</h3>
+
+    <textarea style="width:100%; height:240px; border-radius:8px; padding:10px; font-family:monospace; background:#1a1a1a; color:#f8f8f2;">
+<!-- HTML + CSS Example -->
+<div style="display:grid; grid-template-columns:1fr 2fr 1fr; gap:10px;">
+  <div style="background:#fdd; padding:20px;">Item 1</div>
+  <div style="background:#dfd; padding:20px;">Item 2</div>
+  <div style="background:#ddf; padding:20px;">Item 3</div>
+</div>
+    </textarea>
+
+    <button onclick="runCode(this)" style="margin-top:10px; padding:10px 20px; background:white; color:#680202; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">▶ Run</button>
+    <iframe style="width:100%; height:240px; margin-top:15px; border:2px solid black; border-radius:8px; background:white;"></iframe>
+  </div>
+
+</div>
+
+<!-- 🔧 Script for Run Buttons -->
+<script>
+function runCode(button) {
+  const card = button.closest('.code-card');
+  const textarea = card.querySelector('textarea');
+  const iframe = card.querySelector('iframe');
+
+  const code = `
+  <!DOCTYPE html>
+  <html lang="en">
+  <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Layout Example</title></head>
+  <body>${textarea.value}</body>
+  </html>`;
+
+  iframe.srcdoc = code;
+}
+</script>
+
+<!-- 🌍 Responsive Web Design Section -->
+<section style="background: #fff; color: #333; padding: 40px 20px; border-radius: 16px; max-width: 1200px; margin: 40px auto; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+
+  <h2 style="color: #680202; text-align: center; font-size: 2em; margin-bottom: 20px;">
+    🌍📱 Making Websites Look Great Everywhere
+  </h2>
+  <p style="text-align: center; font-size: 1.1em; color: #444;">
+    Let’s learn how to create websites that look fantastic on screens of all sizes — from mobile phones 📱 to large desktop monitors 🖥️.
+  </p>
+
+  <h3 style="color: #680202;">What is Responsive Web Design? 🤔</h3>
+  <p>Responsive Web Design ensures that your website adapts seamlessly to different screen sizes and orientations, providing a user-friendly experience on all devices.</p>
+
+  <h4 style="color: darkred;">Why is it important?</h4>
+  <ul style="line-height: 1.8;">
+    <li>✅ <b>Improves User Experience (UX):</b> No pinching or zooming required!</li>
+    <li>🚀 <b>SEO Benefits:</b> Search engines love mobile-friendly websites.</li>
+    <li>🔮 <b>Future-Proof Design:</b> Your site works on current and future devices.</li>
+  </ul>
+
+  <h3 style="color: #680202;">Core Concepts of Responsive Design</h3>
+
+  <h4>1. Fluid Grid Layouts 💧</h4>
+  <p>Instead of fixed widths (e.g., px), use flexible units like percentages (%) to make layouts adjust dynamically.</p>
+  
+  <pre style="background:#f4f4f4; border-left: 5px solid #680202; padding: 15px; border-radius: 8px;">
+<code>.container {
+  width: 80%; /* Flexibly adjusts to screen size */
+  margin: 0 auto;
+}</code></pre>
+
+  <h4>2. Flexible Media 🎥</h4>
+  <p>Make images, videos, and other media scale proportionally to fit their containers.</p>
+
+  <pre style="background:#f4f4f4; border-left: 5px solid #680202; padding: 15px; border-radius: 8px;">
+<code>img {
+  max-width: 100%;
+  height: auto;
+}</code></pre>
+
+  <p><b>💡 Tip:</b> Use the <code>&lt;picture&gt;</code> element for responsive images.</p>
+
+  <h4>3. Media Queries 🎯</h4>
+  <p>Media queries apply CSS styles based on device conditions such as screen size or orientation.</p>
+
+  <pre style="background:#f4f4f4; border-left: 5px solid #680202; padding: 15px; border-radius: 8px;">
+<code>@media (max-width: 768px) {
+  body {
+    background-color: lightblue;
+  }
+}</code></pre>
+
+  <p><b>💡 Common conditions:</b> <code>width</code>, <code>height</code>, <code>orientation</code>, <code>resolution</code>, <code>aspect-ratio</code>, and <code>hover</code>.</p>
+
+  <h4>4. Mobile-First Design 📲</h4>
+  <p>Start designing for smaller screens first, then add styles for larger screens using media queries.</p>
+
+  <pre style="background:#f4f4f4; border-left: 5px solid #680202; padding: 15px; border-radius: 8px;">
+<code>/* Mobile styles */
+body {
+  font-size: 16px;
+}
+
+/* Larger screens */
+@media (min-width: 768px) {
+  body {
+    font-size: 18px;
+}</code></pre>
+
+  <h3 style="color:#680202;">Key Techniques for RWD</h3>
+
+  <h4>1. Responsive Typography 🅰️</h4>
+  <pre style="background:#f4f4f4; border-left: 5px solid #680202; padding: 15px; border-radius: 8px;">
+<code>h1 {
+  font-size: clamp(1.5rem, 5vw, 3rem);
+}</code></pre>
+
+  <h4>2. Flexbox for Layout 🧱</h4>
+  <pre style="background:#f4f4f4; border-left: 5px solid #680202; padding: 15px; border-radius: 8px;">
+<code>.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}</code></pre>
+
+  <h4>3. CSS Grid for Complex Layouts 🎨</h4>
+  <pre style="background:#f4f4f4; border-left: 5px solid #680202; padding: 15px; border-radius: 8px;">
+<code>.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}</code></pre>
+
+  <h4>4. Responsive Navigation Menus 🍔</h4>
+  <pre style="background:#f4f4f4; border-left: 5px solid #680202; padding: 15px; border-radius: 8px;">
+<code>@media (max-width: 768px) {
+  .menu {
+    display: none;
+  }
+}</code></pre>
+
+  <!-- ⚠️ Notice -->
+  <div style="background:#ffe6e6; border-left:5px solid #a11212; padding:15px; border-radius:8px; margin-top:20px; color:#680202;">
+    ⚠️ <b>Note:</b> CSS code won’t run alone — you need HTML structure for a full demo.
+    Learn about HTML basics in our <a href="#" style="color:darkred; text-decoration:underline;">HTML5 Class</a>.
+  </div>
+
+  <!-- 💻 Try It Yourself Card -->
+  <div class="code-card" style="max-width: 100%; background: #680202; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); padding: 20px; margin: 30px 0; color: white;">
+    <h3>💻 Try It Yourself</h3>
+    <p>Edit the code below and click <b>Run</b> to see the responsive effect live!</p>
+
+    <textarea class="code-box" style="width: 100%; height: 240px; border: 2px solid #a11212; border-radius: 8px; padding: 10px; font-family: monospace; background:#fff; color:#000;">
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  background-color: lightcoral;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+.container {
+  width: 80%;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+@media (max-width: 600px) {
+  .container {
+    background: lightyellow;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Resize your window!</h2>
+    <p>This box changes color on smaller screens.</p>
+  </div>
+</body>
+</html>
+    </textarea>
+
+    <button class="run-btn" onclick="runCode(this)" style="margin-top: 10px; padding: 10px 20px; background-color: #a11212; border: none; color: white; font-weight: bold; border-radius: 8px; cursor: pointer;">▶ Run</button>
+
+    <iframe class="output-frame" style="width: 100%; height: 300px; margin-top: 15px; border: 2px solid #fff; border-radius: 8px; background: #fff;"></iframe>
+  </div>
+</section>
+
+<script>
+function runCode(button) {
+  const card = button.closest('.code-card');
+  const iframe = card.querySelector('.output-frame');
+  const code = card.querySelector('.code-box').value;
+  iframe.srcdoc = code;
+}
+</script>
+
+<style>
+@media (max-width: 768px) {
+  .code-card { padding: 15px; }
+  .code-box { height: 200px; }
+  .output-frame { height: 250px; }
+  .run-btn { width: 100%; }
+}
+</style>
