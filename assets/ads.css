@@ -1,0 +1,13 @@
+/* Non-intrusive ad styles */
+.non-intrusive-ad { max-width: 900px; margin: 24px auto; border-radius:6px; overflow:hidden; border:1px solid rgba(0,0,0,0.06); }
+.non-intrusive-ad .ad-header { display:flex; justify-content:flex-end; background:#f7f7f7; padding:6px 10px; }
+.non-intrusive-ad .ad-toggle { background:transparent; border:1px solid #ddd; padding:4px 8px; border-radius:4px; cursor:pointer; font-size:0.9rem; }
+.non-intrusive-ad .ad-content { padding:10px; max-height:300px; overflow:auto; }
+
+/* collapsed state */
+.non-intrusive-ad.collapsed .ad-content { display:none; }
+
+/* hide on small screens */
+@media (max-width: 800px) {
+  .non-intrusive-ad { display:none !important; }
+}

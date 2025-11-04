@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coding with Tawfiq | Home</title>
+  <link rel="stylesheet" href="../assets/home.css">
+  <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ETGGXC16CY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ETGGXC16CY');
+</script>
+</head>
+<body>
+<amp-auto-ads type="adsense"
+        data-ad-client="ca-pub-1523965413574724">
+</amp-auto-ads>
+
+<!-- NEW NAVBAR -->
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+  .navbar-custom {
+    background-color: #680202; /* updated navbar color */
+    padding: 0.5rem 1rem;
+  }
+  .navbar-brand img {
+    height: 40px;
+  }
+  .btn-signin {
+    background-color: #b40808e1; /* updated sign in button color */
+    color: #fff;
+    font-weight: 500;
+  }
+  .btn-signin:hover {
+    background-color: #9a0707; /* slightly darker on hover */
+    color: #fff;
+  }
+  .menu-btn {
+    background: none;
+    border: none;
+    font-weight: 500;
+    color: #fff; /* make menu text visible on dark navbar */
+  }
+  .search-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #fff; /* make search icon visible */
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-custom d-flex justify-content-between align-items-center">
+  <!-- Logo -->
+  <a class="navbar-brand" href="#">
+    <img src="../images/coding with tawfiq.jpg" alt="Logo">
+  </a>
+
+  <!-- Hamburger button -->
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+    aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="bi bi-list" style="font-size: 1.5rem; color: #fff;"></i>
+  </button>
+
+  <!-- Menu items (collapsible) -->
+  <div class="collapse navbar-collapse" id="navbarMenu">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link menu-btn" href="../index.html">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link menu-btn" href="#">Coding quiz</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link menu-btn" href="#">Find Jobs</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Always visible buttons -->
+  <div class="d-flex align-items-center gap-2">
+    <button class="search-btn"><i class="bi bi-search"></i></button>
+    <a href="../login.html" class="btn btn-signin">Sign In</a>
+  </div>
+</nav>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <!-- ====== HERO SECTION ====== -->
+  <section id="hero">
+    <div class="hero-content">
+      <h1><CODE>DATA ANALYSIS</CODE></h1>
+          <div class="hero-actions">
+        <button id="start-btn">Start Here</button>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section id="data-analysis">
+  <div style="
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+  ">
+    <article>
+      <p>📊 <strong>Data Analysis Techniques: Filtering, Sorting, and Aggregating Data</strong> (1.5 hours)</p>
+
+      <p><strong>Filtering Data</strong></p>
+      <ul>
+        <li>Basic Filtering: To filter data based on conditions, you can use boolean indexing.</li>
+      </ul>
+      <p><code># Get rows where Age is greater than 30<br>
+df_filtered = df[df['Age'] > 30]</code></p>
+
+      <ul>
+        <li>Multiple Conditions: Combine multiple conditions using logical operators.</li>
+      </ul>
+      <p><code># Get rows where Age is greater than 30 and City is 'New York'<br>
+df_filtered = df[(df['Age'] > 30) & (df['City'] == 'New York')]</code></p>
+
+      <p><strong>Sorting Data</strong></p>
+      <ul>
+        <li>Sorting by Columns: Sort the DataFrame by a column in ascending or descending order.</li>
+      </ul>
+      <p><code>df_sorted = df.sort_values(by='Age', ascending=False)  # Sort by Age descending</code></p>
+
+      <ul>
+        <li>Sorting by Multiple Columns:</li>
+      </ul>
+      <p><code>df_sorted = df.sort_values(by=['Age', 'City'], ascending=[True, False])</code></p>
+
+      <p><strong>Aggregating Data</strong></p>
+      <ul>
+        <li>Groupby: Aggregate data based on one or more columns.</li>
+      </ul>
+      <p><code>grouped = df.groupby('City').agg({'Age': 'mean', 'Name': 'count'})<br>
+print(grouped)</code></p>
+
+      <ul>
+        <li>Summary Statistics: Built-in functions to calculate statistics.</li>
+      </ul>
+      <p><code>df['Age'].mean()  # Mean of 'Age' column<br>
+df['Age'].sum()   # Sum of 'Age' column<br>
+df['Age'].max()   # Maximum of 'Age' column</code></p>
+    </article>
+  </div>
+</section>
+<section id="data-viz-basics">
+  <div style="
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+  ">
+    <article>
+      <p>📈 <strong>Data Visualization Basics with Matplotlib</strong></p>
+
+      <p><strong>Introduction to matplotlib</strong></p>
+      <p>matplotlib is a comprehensive library for creating static, animated, and interactive visualizations in Python. It's often used for visualizing the results of data analysis. The most common visualizations are line plots, scatter plots, bar plots, and histograms.</p>
+
+      <p><strong>Basic Plotting with matplotlib</strong></p>
+      <ul>
+        <li><strong>Simple Line Plot:</strong></li>
+      </ul>
+      <p><code>import matplotlib.pyplot as plt<br>
+plt.plot(df['Name'], df['Age'])<br>
+plt.xlabel('Name')<br>
+plt.ylabel('Age')<br>
+plt.title('Name vs Age')<br>
+plt.show()</code></p>
+
+      <ul>
+        <li><strong>Bar Plot:</strong></li>
+      </ul>
+      <p><code>df.groupby('City')['Age'].mean().plot(kind='bar')<br>
+plt.xlabel('City')<br>
+plt.ylabel('Average Age')<br>
+plt.title('Average Age by City')<br>
+plt.show()</code></p>
+
+      <ul>
+        <li><strong>Histogram:</strong></li>
+      </ul>
+      <p><code>df['Age'].plot(kind='hist', bins=10)<br>
+plt.xlabel('Age')<br>
+plt.title('Age Distribution')<br>
+plt.show()</code></p>
+
+      <ul>
+        <li><strong>Scatter Plot:</strong></li>
+      </ul>
+      <p><code>df.plot(kind='scatter', x='City', y='Age')<br>
+plt.title('City vs Age')<br>
+plt.show()</code></p>
+
+      <p><strong>Customizing Plots</strong></p>
+      <ul>
+        <li>Adding Labels and Title: <code>plt.xlabel('City')</code>, <code>plt.ylabel('Average Age')</code>, <code>plt.title('Average Age by City')</code></li>
+        <li>Color and Style: <code>df['Age'].plot(kind='line', color='green', linestyle='--', linewidth=2)</code></li>
+      </ul>
+
+      <p><strong>Best Practices for Working with Data</strong></p>
+      <ol>
+        <li>Data Cleaning: Handle missing values (<code>df.fillna()</code>), remove duplicates (<code>df.drop_duplicates()</code>), and deal with outliers.</li>
+        <li>Efficient Data Access: Use <code>chunksize</code> to read large CSV files in chunks.</li>
+        <li>Handling Data Types: Ensure correct column data types (<code>df['Age'] = df['Age'].astype(int)</code>).</li>
+        <li>Documentation: Clearly document code and reasoning behind transformations or computations.</li>
+      </ol>
+
+      <p><strong>Additional Resources:</strong></p>
+      <ul>
+        <li><a href="https://pandas.pydata.org/pandas-docs/stable/" target="_blank" style="color:lightblue;">pandas Documentation</a></li>
+        <li><a href="https://matplotlib.org/stable/contents.html" target="_blank" style="color:lightblue;">matplotlib Documentation</a></li>
+      </ul>
+
+      <p>By completing these exercises and concepts, learners will gain a solid foundation in handling and analyzing data using pandas and matplotlib. These skills are essential for performing data-driven tasks like cleaning, analyzing, and visualizing data.</p>
+    </article>
+  </div>
+</section>
+
+<section id="pandas-intro">
+  <div style="
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+  ">
+    <article>
+      <p>📊 <strong>Introduction to Pandas: Creating, Reading, and Manipulating DataFrames</strong></p>
+
+      <p><strong>Objectives:</strong></p>
+      <ul>
+        <li>Use Python libraries to handle and analyze data.</li>
+        <li>Learn to perform basic data manipulation with pandas.</li>
+        <li>Understand data analysis techniques such as filtering, sorting, and aggregating data.</li>
+        <li>Gain insight into data visualization using matplotlib.</li>
+      </ul>
+
+      <p><strong>What is pandas?</strong></p>
+      <p>pandas is an open-source Python library that provides high-performance, easy-to-use data structures and data analysis tools. It is primarily used for working with tabular data in the form of DataFrames. It allows you to efficiently manipulate, clean, and analyze structured data.</p>
+
+      <ul>
+        <li><strong>Series:</strong> A one-dimensional labeled array that can hold any data type (integers, strings, etc.).</li>
+        <li><strong>DataFrame:</strong> A two-dimensional, size-mutable, potentially heterogeneous tabular data structure with labeled axes (rows and columns).</li>
+      </ul>
+
+      <p><strong>Key Operations in pandas:</strong></p>
+      <p><code>import pandas as pd</code></p>
+
+      <p><strong>Creating DataFrames:</strong></p>
+      <p>You can create a DataFrame by loading data from various formats like CSV, Excel, or SQL databases.</p>
+      <p><code># Creating DataFrame from a dictionary<br>
+data = {'Name': ['Alice', 'Bob', 'Charlie'],<br>
+'Age': [25, 30, 35],<br>
+'City': ['New York', 'Los Angeles', 'Chicago']}<br>
+df = pd.DataFrame(data)<br>
+print(df)</code></p>
+
+      <p><strong>Reading Data:</strong></p>
+      <p>pandas allows you to load data from multiple sources.</p>
+      <p><code># Read data from a CSV file<br>
+df = pd.read_csv('data.csv')</code></p>
+
+      <p><strong>Manipulating DataFrames:</strong></p>
+      <ul>
+        <li><strong>Selecting Columns:</strong> <code>df['Age']</code>  # Selects the Age column</li>
+        <li><strong>Filtering Rows:</strong> <code>df[df['Age'] > 30]</code>  # Returns rows where Age &gt; 30</li>
+        <li><strong>Adding/Removing Columns:</strong></li>
+      </ul>
+      <p><code>df['Country'] = ['USA', 'USA', 'USA']  # Adds a new column<br>
+df.drop('Country', axis=1, inplace=True)  # Drops the 'Country' column</code></p>
+    </article>
+  </div>
+</section>
+
+
+</body>
+</html>

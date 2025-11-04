@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coding with Tawfiq | Home</title>
+  <link rel="stylesheet" href="assets/home.css">
+
+  <link rel="stylesheet" href="assets/ads.css">
+</head>
+<body>
+
+
+<!-- NEW NAVBAR -->
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+  .navbar-custom {
+    background-color: #680202; /* updated navbar color */
+    padding: 0.5rem 1rem;
+  }
+  .navbar-brand img {
+    height: 40px;
+  }
+  .btn-signin {
+    background-color: #b40808e1; /* updated sign in button color */
+    color: #fff;
+    font-weight: 500;
+  }
+  .btn-signin:hover {
+    background-color: #9a0707; /* slightly darker on hover */
+    color: #fff;
+  }
+  .menu-btn {
+    background: none;
+    border: none;
+    font-weight: 500;
+    color: #fff; /* make menu text visible on dark navbar */
+  }
+  .search-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #fff; /* make search icon visible */
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-custom d-flex justify-content-between align-items-center">
+  <!-- Logo -->
+  <a class="navbar-brand" href="#">
+    <img src="images/coding with tawfiq.jpg" alt="Logo">
+  </a>
+
+  <!-- Hamburger button -->
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+    aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="bi bi-list" style="font-size: 1.5rem; color: #fff;"></i>
+  </button>
+
+  <!-- Menu items (collapsible) -->
+  <div class="collapse navbar-collapse" id="navbarMenu">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+       <li class="nav-item">
+        <a class="nav-link menu-btn" href="index.html">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link menu-btn" href="#">Try quiz</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link menu-btn" href="findjobs.html">Find Jobs</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Always visible buttons -->
+  <div class="d-flex align-items-center gap-2">
+    <button class="search-btn"><i class="bi bi-search"></i></button>
+    <a href="/public/login.html" class="btn btn-signin">Sign In</a>
+  </div>
+</nav>
+
+<!-- Navbar helper (replaces Bootstrap's JS for navbar collapse) -->
+<script src="/assets/navbar.js"></script>
+
+    <!-- create / edit form -->
+        <form id="postForm" class="post-form" enctype="multipart/form-data">
+          <input type="hidden" id="editingId">
+          <div class="mb-2">
+            <input id="postTitle" class="form-control" placeholder="Job title or short headline" required>
+          </div>
+          <div class="mb-2">
+            <textarea id="postContent" class="form-control" rows="3" placeholder="Job description, location, salary, etc."></textarea>
+          </div>
+          <div class="form-row mb-2" style="align-items:center;">
+            <div class="col">
+              <input id="postLink" class="form-control" placeholder="Optional: apply link (https://...)">
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <input id="postImage" type="file" accept="image/*" class="form-control">
+              <img id="imagePreview" class="img-preview" src="" alt="" style="display:none">
+            </div>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button id="savePostBtn" class="btn btn-primary">Post</button>
+            <button id="cancelEditBtn" type="button" class="btn btn-light">Cancel</button>
+            <div style="flex:1"></div>
+            <button id="clearAllBtn" type="button" class="btn btn-danger">Clear All (dev)</button>
+          </div>
+        </form>
+
+        <!-- posts list -->
+        <div id="postsList" style="margin-top:1rem;"></div>
+      </div>
+
+      <!-- sidebar -->
+      <aside>
+        <div class="info-card">
+          <h3>About this board</h3>
+          <p class="muted">This is a simple job board for the community. You can post openings or ask for help. Posts include optional image previews and links.</p>
+          <p class="muted">When we connect to your cluster we'll replace localStorage with API calls, and enforce real authentication so users can only modify their own posts.</p>
+          <hr style="border-color: rgba(255,255,255,0.06)">
+          <p class="small-muted">Tips:</p>
+          <ul>
+            <li class="small-muted">Include a clear title and an application link.</li>
+            <li class="small-muted">Use an image to make your post stand out.</li>
+            <li class="small-muted">You can edit or delete only the posts created under your display name (client-only now).</li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    // Local storage keys
+    const STORAGE_KEY = 'findjobs_posts_v1';
+    const NAME_KEY = 'findjobs_user_v1';
+
+    // Elements
+    const displayNameInput = document.getElementById('displayNameInput');
+    const setNameBtn = document.getElementById('setNameBtn');
+    const clearNameBtn = document.getElementById('clearNameBtn');
+    const currentUserDisplay = document.getElementById('currentUserDisplay');
+
+    const postForm = document.getElementById('postForm');
+    const postTitle = document.getElementById('postTitle');
+    const postContent = document.getElementById('postContent');
+    const postLink = document.getElementById('postLink');
+    const postImage = document.getElementById('postImage');
+    const imagePreview = document.getElementById('imagePreview');
+    const postsList = document.getElementById('postsList');
+    const editingId = document.getElementById('editingId');
+
+    const clearAllBtn = document.getElementById('clearAllBtn');
+    const cancelEditBtn = document.getElementById('cancelEditBtn');
+
+    // utility
+    function nowReadable() {
+      return new Date().toLocaleString();
+    }
+
+    function loadPosts() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch(e) { console.error(e); return []; }
+    }
+
+    function savePosts(posts) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+    }
+
+    function currentUser() {
+      return localStorage.getItem(NAME_KEY) || null;
+    }
+
+    function setCurrentUser(name) {
+      if (!name) { localStorage.removeItem(NAME_KEY); }
+      else { localStorage.setItem(NAME_KEY, name.trim()); }
+      refreshUserUI();
+    }
+
+    function refreshUserUI() {
+      const name = currentUser();
+      if (name) {
+        currentUserDisplay.textContent = `Signed in as: ${name}`;
+        displayNameInput.value = name;
+      } else {
+        currentUserDisplay.textContent = 'Not signed in';
+        displayNameInput.value = '';
+      }
+    }
+
+    // render
+    function renderPosts() {
+      const posts = loadPosts().sort((a,b)=> new Date(b.date) - new Date(a.date));
+      postsList.innerHTML = '';
+      if (!posts.length) {
+        postsList.innerHTML = `<div class="post-card"><div class="small-muted">No posts yet. Be the first to add one!</div></div>`;
+        return;
+      }
+      for (const p of posts) {
+        const card = document.createElement('div');
+        card.className = 'post-card';
+        card.innerHTML = `
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:48px; height:48px; border-radius:50%; background:#fff3; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff">${(p.user||'U').charAt(0).toUpperCase()}</div>
+            <div style="flex:1">
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+                <div>
+                  <div style="font-weight:700; color:#fff">${escapeHtml(p.title||'Untitled')}</div>
+                  <div class="small-muted">${escapeHtml(p.user||'Anonymous')} • ${new Date(p.date).toLocaleString()}</div>
+                </div>
+                <div class="small-muted">${p.link? `<a href="${escapeAttr(p.link)}" target="_blank" style="color:#fff;text-decoration:underline;">Apply</a>` : ''}</div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:8px; color: #e9e9ea">${escapeHtml(p.content||'')}</div>
+          ${p.image? `<img src="${p.image}" class="post-image" alt="post image">` : ''}
+          <div class="post-actions">
+            ${ currentUser() === p.user ? `<button data-id="${p.id}" class="btn btn-sm btn-light edit-btn">Edit</button>
+            <button data-id="${p.id}" class="btn btn-sm btn-danger delete-btn">Delete</button>` : '' }
+          </div>
+        `;
+        postsList.appendChild(card);
+      }
+
+      // wire up edit/delete
+      document.querySelectorAll('.edit-btn').forEach(b => b.addEventListener('click', e => {
+        const id = e.currentTarget.dataset.id;
+        startEdit(id);
+      }));
+
+      document.querySelectorAll('.delete-btn').forEach(b => b.addEventListener('click', e => {
+        const id = e.currentTarget.dataset.id;
+        if (!confirm('Delete this post?')) return;
+        const posts = loadPosts().filter(x=> x.id !== id);
+        savePosts(posts);
+        renderPosts();
+      }));
+    }
+
+    // create/update
+    postImage.addEventListener('change', (e)=>{
+      const f = e.target.files && e.target.files[0];
+      if (!f) { imagePreview.style.display='none'; imagePreview.src=''; return; }
+      const reader = new FileReader();
+      reader.onload = function(){ imagePreview.src = reader.result; imagePreview.style.display = 'block'; };
+      reader.readAsDataURL(f);
+    });
+
+    postForm.addEventListener('submit', (ev)=>{
+      ev.preventDefault();
+      const user = currentUser();
+      if (!user) { alert('Set a display name first'); return; }
+
+      const posts = loadPosts();
+      const id = editingId.value || cryptoRandomId();
+
+      const image = imagePreview.src || null;
+
+      const post = {
+        id,
+        user,
+        title: postTitle.value.trim(),
+        content: postContent.value.trim(),
+        link: postLink.value.trim() || null,
+        image: image && image.indexOf('data:')===0 ? image : null,
+        date: new Date().toISOString()
+      };
+
+      const existingIndex = posts.findIndex(p => p.id === id);
+      if (existingIndex >= 0) posts[existingIndex] = post;
+      else posts.push(post);
+      savePosts(posts);
+      resetForm();
+      renderPosts();
+    });
+
+    function startEdit(id) {
+      const posts = loadPosts();
+      const p = posts.find(x=> x.id === id);
+      if (!p) return alert('Post not found');
+      if (currentUser() !== p.user) return alert('You can only edit your own posts');
+      editingId.value = p.id;
+      postTitle.value = p.title;
+      postContent.value = p.content;
+      postLink.value = p.link || '';
+      if (p.image) { imagePreview.src = p.image; imagePreview.style.display = 'block'; }
+      else { imagePreview.src=''; imagePreview.style.display='none'; }
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    cancelEditBtn.addEventListener('click', ()=> resetForm());
+
+    clearAllBtn.addEventListener('click', ()=>{
+      if (!confirm('Clear all local posts? This cannot be undone.')) return;
+      localStorage.removeItem(STORAGE_KEY);
+      renderPosts();
+    });
+
+    function resetForm(){
+      editingId.value = '';
+      postTitle.value = '';
+      postContent.value = '';
+      postLink.value = '';
+      postImage.value = '';
+      imagePreview.src=''; imagePreview.style.display='none';
+    }
+
+    // initial sample data loader (only if empty)
+    (function ensureSample(){
+      const p = loadPosts();
+      if (p.length) return;
+      const sample = [
+        { id: cryptoRandomId(), user:'Admin', title:'Frontend developer (remote)', content:'Looking for a React + Tailwind dev. Competitive pay. Include CV and portfolio link.', link:'https://example.com/apply', image:null, date: new Date().toISOString() },
+        { id: cryptoRandomId(), user:'Jane', title:'Junior Python dev', content:'Remote internship paying stipend. Good learning opportunity.', link:null, image:null, date: new Date(Date.now()-86400000).toISOString() }
+      ];
+      savePosts(sample);
+    })();
+
+    // name management
+    setNameBtn.addEventListener('click', ()=>{ const v = displayNameInput.value.trim(); if (!v) return alert('Enter a name'); setCurrentUser(v); });
+    clearNameBtn.addEventListener('click', ()=>{ if (!confirm('Clear saved name?')) return; setCurrentUser(null); });
+
+    // small helpers
+    function escapeHtml(s){ if (!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function escapeAttr(s){ if (!s) return ''; return String(s).replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+    function cryptoRandomId(){ return Math.random().toString(36).slice(2,9); }
+
+    // wire signInBtn to quick set name or go to login
+    document.getElementById('signInBtn').addEventListener('click', ()=>{
+      // if login page exists, go there; otherwise open the set-name input
+      if (location.pathname.endsWith('/public/login.html') || location.pathname.endsWith('/login.html')) { location.href = '/public/login.html'; return; }
+      displayNameInput.focus();
+    });
+
+    // init
+    refreshUserUI();
+    renderPosts();
+
+  </script>
+
+</body>
+</html>

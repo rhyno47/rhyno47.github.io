@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coding with Tawfiq | Home</title>
+  <link rel="stylesheet" href="../assets/home.css">
+  <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ETGGXC16CY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ETGGXC16CY');
+</script>
+
+</head>
+<body>
+<amp-auto-ads type="adsense"
+        data-ad-client="ca-pub-1523965413574724">
+</amp-auto-ads>
+
+<!-- NEW NAVBAR -->
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+  .navbar-custom {
+    background-color: #680202; /* updated navbar color */
+    padding: 0.5rem 1rem;
+  }
+  .navbar-brand img {
+    height: 40px;
+  }
+  .btn-signin {
+    background-color: #b40808e1; /* updated sign in button color */
+    color: #fff;
+    font-weight: 500;
+  }
+  .btn-signin:hover {
+    background-color: #9a0707; /* slightly darker on hover */
+    color: #fff;
+  }
+  .menu-btn {
+    background: none;
+    border: none;
+    font-weight: 500;
+    color: #fff; /* make menu text visible on dark navbar */
+  }
+  .search-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #fff; /* make search icon visible */
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-custom d-flex justify-content-between align-items-center">
+  <!-- Logo -->
+  <a class="navbar-brand" href="#">
+    <img src="../images/coding with tawfiq.jpg" alt="Logo">
+  </a>
+
+  <!-- Hamburger button -->
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+    aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="bi bi-list" style="font-size: 1.5rem; color: #fff;"></i>
+  </button>
+
+  <!-- Menu items (collapsible) -->
+  <div class="collapse navbar-collapse" id="navbarMenu">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link menu-btn" href="../index.html">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link menu-btn" href="#">Coding quiz</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link menu-btn" href="#">Find Jobs</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Always visible buttons -->
+  <div class="d-flex align-items-center gap-2">
+    <button class="search-btn"><i class="bi bi-search"></i></button>
+    <a href="../login.html" class="btn btn-signin">Sign In</a>
+  </div>
+</nav>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <!-- ====== HERO SECTION ====== -->
+  <section id="hero">
+    <div class="hero-content">
+      <h1>Understanding functions,conditional statement,list comprehension and loops </h1>
+      <div class="hero-actions">
+        <button id="start-btn">Start Here</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== Introduction to functions in python====== -->
+<section id="python-functions" style="
+    display: flex;
+    justify-content: center;
+    padding: 4rem 2rem;
+    background-image: url('../images/water fall.jpg');
+    background-size: cover;       /* Makes image cover the section */
+    background-position: center;  /* Centers the image */
+    background-repeat: no-repeat; /* Prevent tiling */
+    background-attachment: scroll; /* Optional, prevents fixed zoom */
+">
+
+  <div style="
+      max-width: 900px; 
+      width: 100%; 
+      background-color: rgba(122, 19, 5, 0.575); 
+      border-radius: 15px; 
+      box-shadow: 0 8px 20px rgba(247, 238, 238, 0.2); 
+      overflow: hidden; 
+      text-align: center; 
+      padding: 2rem;">
+
+    <!-- Image at top of the card -->
+    <div style="
+        width: 100%; 
+        height: 300px; 
+        background-image: url('../images/python\ home...jpg'); 
+        background-size: cover; 
+        background-position: center; 
+        border-radius: 10px;">
+    </div>
+
+    <!-- Content under image -->
+    <div style="margin-top: 2rem;">
+      <h2 style="margin-bottom: 2rem; color: #f0eeee;"><b>PYTHON FUNCTIONS</b></h2>
+
+      <div style="color: #f1efef; text-align: center;">
+
+            <p>🛠️ <strong>Functions</strong> are a fundamental part of Python programming. They allow you to encapsulate reusable blocks of code to make programs modular, easier to understand, and maintain.</p>
+
+    <p>❓ <strong>What is a Function?</strong></p>
+    <p>A function is a block of code designed to perform a specific task. You define a function once and can use it multiple times throughout your code.</p>
+
+    <p>💻 <strong>Syntax:</strong></p>
+    <p><code>
+def function_name(parameters):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Optional docstring explaining the function."""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# Code block<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return value  # Optional return statement
+    </code></p>
+
+    <p>📌 <strong>Types of Functions:</strong></p>
+    <p>1. Built-in Functions: Predefined functions in Python (e.g., <code>print()</code>, <code>len()</code>, <code>type()</code>)</p>
+    <p>2. User-defined Functions: Functions created by the user.</p>
+
+    <p>📝 <strong>Defining and Calling a Function:</strong></p>
+    <p><code>
+# Function definition<br>
+def greet(name):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Greet a person by their name."""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return f"Hello, {name}!"<br>
+<br>
+# Function call<br>
+print(greet("Alice"))  # Output: Hello, Alice!
+    </code></p>
+
+    <p>⚙️ <strong>Key Components of a Function:</strong></p>
+    <p>1. Function Name: Should be descriptive and follow naming conventions.</p>
+    <p>2. Parameters: Variables passed into the function.</p>
+    <p>3. Docstring: An optional description of what the function does.</p>
+    <p>4. Return Statement: Outputs a value from the function (optional).</p>
+
+    <p>📥 <strong>Parameters and Arguments:</strong></p>
+    <p>Functions can accept zero or more arguments.</p>
+
+    <p>1️⃣ Positional Arguments:</p>
+    <p><code>
+def add(a, b):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return a + b<br>
+print(add(3, 5))  # Output: 8
+    </code></p>
+
+    <p>2️⃣ Default Arguments:</p>
+    <p><code>
+def greet(name="Guest"):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return f"Hello, {name}!"<br>
+print(greet())          # Output: Hello, Guest!<br>
+print(greet("Alice"))   # Output: Hello, Alice!
+    </code></p>
+
+    <p>3️⃣ Keyword Arguments:</p>
+    <p><code>
+def introduce(name, age):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return f"My name is {name}, and I'm {age} years old."<br>
+print(introduce(age=25, name="Bob"))  # Output: My name is Bob, and I'm 25 years old.
+    </code></p>
+
+    <p>🔄 <strong>Returning Values:</strong></p>
+    <p><code>
+def square(number):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return number ** 2<br>
+result = square(4)<br>
+print(result)  # Output: 16
+    </code></p>
+
+    <p>🎭 <strong>Anonymous Functions: Lambda</strong></p>
+    <p><code>
+# Lambda function for adding two numbers<br>
+add = lambda x, y: x + y<br>
+print(add(3, 5))  # Output: 8<br>
+<br>
+# Using lambda with map()<br>
+numbers = [1, 2, 3, 4]<br>
+squares = list(map(lambda x: x**2, numbers))<br>
+print(squares)  # Output: [1, 4, 9, 16]
+    </code></p>
+
+    <p>🔁 <strong>Recursive Functions:</strong></p>
+    <p><code>
+def factorial(n):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if n == 1:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return n * factorial(n - 1)<br>
+print(factorial(5))  # Output: 120
+    </code></p>
+
+    <p>💡 <strong>Benefits of Functions:</strong></p>
+    <p>1. Reusability: Write once, and use multiple times.</p>
+    <p>2. Modularity: Break programs into smaller, manageable parts.</p>
+    <p>3. Improved Readability: Descriptive names make code easier to understand.</p>
+
+    <p>✅ <strong>Conclusion:</strong></p>
+    <p>Functions are a powerful tool that makes your code cleaner, more efficient, and easier to maintain. Mastering their use is essential for any Python developer. Start experimenting with different types of functions to understand their versatility!</p>
+  </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1523965413574724"
+     crossorigin="anonymous"></script>
+<!-- native ad unit -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1523965413574724"
+     data-ad-slot="1588668042"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+  <!-- ====== Introduction to conditinal if,else,elf statement in python====== -->
+<section id="python-conditinal-statement" style="
+    display: flex;
+    justify-content: center;
+    padding: 4rem 2rem;
+    background-image: url('../images/water fall.jpg');
+    background-size: cover;       /* Makes image cover the section */
+    background-position: center;  /* Centers the image */
+    background-repeat: no-repeat; /* Prevent tiling */
+    background-attachment: scroll; /* Optional, prevents fixed zoom */
+">
+
+  <div style="
+      max-width: 900px; 
+      width: 100%; 
+      background-color: rgba(173, 22, 2, 0.952); 
+      border-radius: 15px; 
+      box-shadow: 0 8px 20px rgba(247, 238, 238, 0.2); 
+      overflow: hidden; 
+      text-align: center; 
+      padding: 2rem;">
+
+    <!-- Image at top of the card -->
+    <div style="
+        width: 100%; 
+        height: 300px; 
+        background-image: url('images/conditinal\ state\ example.PNG'); 
+        background-size: cover; 
+        background-position: center; 
+        border-radius: 10px;">
+    </div>
+
+    <!-- Content under image -->
+    <div style="margin-top: 2rem;">
+      <h2 style="margin-bottom: 2rem; color: #f0eeee;"><b>PYTHON CONDITIONAL STATEMENT</b></h2>
+
+<section>
+  <article>
+    <p>🔀 <strong>Conditional Statements</strong></p>
+    <p>As you start this lesson, make sure you have a good understanding of <strong>boolean variables</strong> and expressions since they are building blocks of conditional statements.</p>
+    <p>Conditional statements help in the decision-making process. For example:</p>
+    <p>• “Are you hungry? If so, then eat” is a conditional statement.</p>
+    <p>Phrased as: If you’re hungry, then eat.</p>
+
+    <p>Let's break this down to pick a boolean expression in our conditional statement:</p>
+    <p>• “Are you hungry” is the boolean expression here, so the conditional statement is checking if it’s True.</p>
+    <p>• If <code>“are you hungry” == True</code>, the conditional statement will be executed and you will eat.</p>
+    <p>• If [you are hungry], then [eat food]</p>
+
+    <p>In computer programming, we use the <code>if</code> statement to run a block of code only when a certain condition is met.</p>
+
+    <p>In Python, there are three forms of the <code>if...else</code> statement:</p>
+    <p>1. if statement</p>
+    <p>2. if...else statement</p>
+    <p>3. if...elif...else statement</p>
+
+    <p>1️⃣ <strong>Python if Statement</strong></p>
+    <p>The basic syntax for the <code>if</code> statement:</p>
+    <p><code>
+# Example of a basic if statement<br>
+temperature = 30<br>
+if temperature > 25:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("It's a hot day!")
+    </code></p>
+    <p>The <code>if</code> statement evaluates the condition:</p>
+    <p>• If condition is True, the code inside the body of <code>if</code> is executed.</p>
+    <p>• If condition is False, the code inside the body of <code>if</code> is skipped.</p>
+    <p>Practice more using relational operators (<code>></code>, <code>>=</code>, <code><</code>, <code><=</code>) and boolean operators (<code>and</code>, <code>or</code>, <code>not</code>).</p>
+
+    <p>2️⃣ <strong>Python if...else Statement</strong></p>
+    <p>Syntax:</p>
+    <p><code>
+# Example of an if-else statement<br>
+temperature = 20<br>
+if temperature > 25:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("It's a hot day!")<br>
+else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("It's a cool day!")
+    </code></p>
+    <p>If the condition evaluates to True:</p>
+    <p>• Code inside <code>if</code> is executed.</p>
+    <p>• Code inside <code>else</code> is skipped.</p>
+    <p>If the condition evaluates to False:</p>
+    <p>• Code inside <code>else</code> is executed.</p>
+    <p>• Code inside <code>if</code> is skipped.</p>
+
+    <p>3️⃣ <strong>Python if...elif...else Statement</strong></p>
+    <p>Use <code>if...elif...else</code> when choosing between more than two alternatives:</p>
+    <p><code>
+# Example of an if...elif...else statement<br>
+temperature = 15<br>
+if temperature > 25:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("It's a hot day!")<br>
+elif temperature > 15:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("It's a warm day!")<br>
+else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("It's a cold day!")
+    </code></p>
+    <p>Here:</p>
+    <p>1. If the first condition is True, code block 1 is executed.</p>
+    <p>2. If the first condition is False, the next condition is evaluated.</p>
+    <p>3. If the second condition is True, code block 2 is executed.</p>
+    <p>4. If all conditions are False, code block 3 is executed.</p>
+
+    <p>📝 <strong>Test Yourself:</strong></p>
+    <p>Write an <code>if/elif/else</code> statement for a college grading system:</p>
+    <p>• If grade is 90 or higher, print "A"</p>
+    <p>• Else if grade is 80 or higher, print "B"</p>
+    <p>• Else if grade is 70 or higher, print "C"</p>
+    <p>• Else if grade is 60 or higher, print "D"</p>
+    <p>• Else, print "F"</p>
+
+    <p>🔗 <strong>More Resources:</strong></p>
+    <ul>
+      <li><a href="https://www.programiz.com/python-programming/if-elif-else" target="_blank">Programiz — Python if/elif/else</a></li>
+      <li><a href="https://www.codecademy.com/resources/docs/python/conditionals" target="_blank">Codecademy — Python Conditionals</a></li>
+    </ul>
+  </article>
+</section>
+    </div>
+  </div>
+</section>
+
+
+  <!-- ====== LIST COMPREHENSION in python====== -->
+<section id="python-functions" style="
+    display: flex;
+    justify-content: center;
+    padding: 4rem 2rem;
+    background-image: url('../images/water fall.jpg');
+    background-size: cover;       /* Makes image cover the section */
+    background-position: center;  /* Centers the image */
+    background-repeat: no-repeat; /* Prevent tiling */
+    background-attachment: scroll; /* Optional, prevents fixed zoom */
+">
+
+  <div style="
+      max-width: 900px; 
+      width: 100%; 
+      background-color: rgb(189, 35, 15); 
+      border-radius: 15px; 
+      box-shadow: 0 8px 20px rgba(247, 238, 238, 0.2); 
+      overflow: hidden; 
+      text-align: center; 
+      padding: 2rem;">
+
+    <!-- Image at top of the card -->
+    <div style="
+        width: 100%; 
+        height: 300px; 
+        background-image: url('images/HTML\ 03.jpg'); 
+        background-size: cover; 
+        background-position: center; 
+        border-radius: 10px;">
+    </div>
+
+    <!-- Content under image -->
+    <div style="margin-top: 2rem;">
+      <h2 style="margin-bottom: 2rem; color: #f0eeee;"><b>LIST COMPREHENSION IN PYTHON</b></h2>
+
+<section>
+  <article>
+    <p>📝 <strong>List Comprehensions in Python</strong></p>
+    <p>List comprehensions provide a concise and elegant way to create and manipulate lists. They offer a more readable and expressive alternative to traditional loops for generating lists.</p>
+
+    <p>What is a List Comprehension?</p>
+    <p>A list comprehension is a compact syntax for creating a list by evaluating an expression for each element in an iterable, optionally filtering elements based on a condition.</p>
+
+    <p>Syntax:</p>
+    <p><code>[expression for item in iterable if condition]</code></p>
+    <p>• <code>expression</code>: The value or transformation applied to each element.</p>
+    <p>• <code>item</code>: A variable that represents each element in the iterable.</p>
+    <p>• <code>iterable</code>: A sequence (like a list, tuple, or range) to iterate over.</p>
+    <p>• <code>condition</code>: (Optional) A filter that determines whether to include the element.</p>
+
+    <p>Basic Example:</p>
+    <p><code>
+# Traditional loop<br>
+squares = []<br>
+for x in range(5):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;squares.append(x**2)<br>
+# List comprehension<br>
+squares = [x**2 for x in range(5)]<br>
+print(squares)  # Output: [0, 1, 4, 9, 16]
+    </code></p>
+
+    <p>Using Conditions in List Comprehensions:</p>
+    <p><code>
+# List comprehension with a condition<br>
+even_numbers = [x for x in range(10) if x % 2 == 0]<br>
+print(even_numbers)  # Output: [0, 2, 4, 6, 8]
+    </code></p>
+
+    <p>Nested List Comprehensions:</p>
+    <p><code>
+# Create a 3x3 matrix using nested list comprehensions<br>
+matrix = [[i * j for j in range(1, 4)] for i in range(1, 4)]<br>
+print(matrix)  # Output: [[1, 2, 3], [2, 4, 6], [3, 6, 9]]
+    </code></p>
+
+    <p>Examples of List Comprehensions:</p>
+    <p>1. Transforming Data:</p>
+    <p><code>
+names = ["Alice", "Bob", "Charlie"]<br>
+uppercased_names = [name.upper() for name in names]<br>
+print(uppercased_names)  # Output: ['ALICE', 'BOB', 'CHARLIE']
+    </code></p>
+
+    <p>2. Filtering Data:</p>
+    <p><code>
+numbers = [10, 15, 20, 25, 30]<br>
+divisible_by_5 = [num for num in numbers if num % 5 == 0]<br>
+print(divisible_by_5)  # Output: [10, 15, 20, 25, 30]
+    </code></p>
+
+    <p>3. Flattening a List:</p>
+    <p><code>
+nested_list = [[1, 2], [3, 4], [5, 6]]<br>
+flat_list = [item for sublist in nested_list for item in sublist]<br>
+print(flat_list)  # Output: [1, 2, 3, 4, 5, 6]
+    </code></p>
+
+    <p>Advantages of List Comprehensions:</p>
+    <p>1. Conciseness: More compact than traditional loops.</p>
+    <p>2. Readability: Easier to understand when used appropriately.</p>
+    <p>3. Performance: Faster than loops in many cases due to optimization.</p>
+
+    <p>When Not to Use List Comprehensions:</p>
+    <p>While list comprehensions are powerful, they can become hard to read if too complex. In such cases, traditional loops or generator functions may be better:</p>
+    <p><code>
+# Complex list comprehension (less readable)<br>
+result = [x * y for x in range(10) for y in range(5) if x + y > 5]<br>
+# Better as a loop (more readable)<br>
+result = []<br>
+for x in range(10):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for y in range(5):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if x + y > 5:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result.append(x * y)
+    </code></p>
+
+    <p>Conclusion:</p>
+    <p>List comprehensions are a versatile and efficient tool in Python, enabling you to write cleaner and faster code. They are ideal for transforming, filtering, or generating lists in a Pythonic way. Start practicing them to enhance your coding skills!</p>
+  </article>
+</section>
+
+
+  </div>
+</section>
+
+  <!-- ====== LOOPS in python====== -->
+<section id="python-loops" style="
+    display: flex;
+    justify-content: center;
+    padding: 4rem 2rem;
+    background-image: url('../images/water fall.jpg');
+    background-size: cover;       /* Makes image cover the section */
+    background-position: center;  /* Centers the image */
+    background-repeat: no-repeat; /* Prevent tiling */
+    background-attachment: scroll; /* Optional, prevents fixed zoom */
+">
+
+  <div style="
+      max-width: 900px; 
+      width: 100%; 
+      background-color: rgb(189, 35, 15); 
+      border-radius: 15px; 
+      box-shadow: 0 8px 20px rgba(247, 238, 238, 0.2); 
+      overflow: hidden; 
+      text-align: center; 
+      padding: 2rem;">
+
+    <!-- Image at top of the card -->
+    <div style="
+        width: 100%; 
+        height: 300px; 
+        background-image: url('images/HTML\ 03.jpg'); 
+        background-size: cover; 
+        background-position: center; 
+        border-radius: 10px;">
+    </div>
+
+    <!-- Content under image -->
+    <div style="margin-top: 2rem;">
+      <h2 style="margin-bottom: 2rem; color: #f0eeee;"><b>LOOPS IN PYTHON</b></h2>
+
+<section>
+  <article>
+    <p>🔁 <strong>Python Loops</strong></p>
+    <p>In computer programming, loops are used to repeat a block of code. This process is called iteration.</p>
+    <p>There are 2 types of loops in Python:</p>
+    <p>• <strong>for loop</strong></p>
+    <p>• <strong>while loop</strong></p>
+    <p>Programming languages like Python implement two types of iteration:</p>
+    <p>1. Indefinite iteration: Number of times the loop executes depends on a condition.</p>
+    <p>2. Definite iteration: Number of times the loop executes is predefined (e.g., based on collection size).</p>
+
+    <p>With for loops, we know in advance how many times the loop will iterate because we work on a collection of predefined length.</p>
+
+    <p>For loop syntax:</p>
+    <p><code>
+# Example of a for loop<br>
+fruits = ["apple", "banana", "cherry"]<br>
+for fruit in fruits:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(f"I love {fruit}!")
+    </code></p>
+
+    <p>Example Explanation:</p>
+    <p>1. List: <code>fruits</code> contains "apple", "banana", "cherry".</p>
+    <p>2. Loop: The for loop iterates through each item.</p>
+    <p>3. Action: <code>fruit</code> represents the current item, and <code>print</code> outputs a message.</p>
+
+    <p>For Loops: Using <code>range()</code>:</p>
+    <p>A range is a series of values between two numbers. We use <code>range()</code> to generate this sequence.</p>
+    <p><code>
+five_steps = range(5)<br>
+# five_steps contains: 0, 1, 2, 3, 4<br>
+for number in range(1, 6):  # Loops from 1 to 5<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(f"Number: {number}")
+    </code></p>
+
+    <p>While Loops:</p>
+    <p>A while loop runs instructions as long as a condition is True.</p>
+    <p><code>
+count = 1<br>
+while count <= 5:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(f"Count: {count}")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;count += 1  # Increment the counter
+    </code></p>
+
+    <p>Loop controls: <strong>break</strong> and <strong>continue</strong></p>
+    <p><code>
+for number in range(1, 10):  # Loop through 1 to 9<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if number == 5:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Breaking the loop at 5")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break  # Exit loop<br>
+&nbsp;&nbsp;&nbsp;&nbsp;elif number % 2 == 0:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(f"Skipping {number} because it's even")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue  # Skip this iteration<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(f"Processing number: {number}")
+    </code></p>
+
+    <p>Nested Loops:</p>
+    <p>Loops can be nested inside other loops. Useful for iterating over nested lists.</p>
+    <p><code>
+for i in range(1, 4):  # Outer loop<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for j in range(1, 4):  # Inner loop<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(f"Outer loop: {i}, Inner loop: {j}")
+    </code></p>
+
+    <p>More Resources for loops:</p>
+    <ul>
+      <li><a href="https://www.codecademy.com/resources/docs/python/loops" target="_blank">Codecademy — Loops</a></li>
+      <li><a href="https://www.programiz.com/python-programming/if-elif-else" target="_blank">Programiz — If, Elif, Else</a></li>
+      <li><a href="https://www.programiz.com/python-programming/for-loop" target="_blank">Programiz — For Loop</a></li>
+      <li><a href="https://www.programiz.com/python-programming/while-loop" target="_blank">Programiz — While Loop</a></li>
+      <li><a href="https://www.programiz.com/python-programming/break-continue" target="_blank">Programiz — Break & Continue</a></li>
+    </ul>
+  </article>
+</section>
+
+  </div>
+</section>
+
+   <!-- ====== FOOTER ====== -->
+  <footer id="footer">
+    <p>© 2025 Coding with Tawfiq. All rights reserved.</p>
+  </footer>

@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coding with Tawfiq | Home</title>
+  <link rel="stylesheet" href="assets/home.css">
+  <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+</script>
+</head>
+<body>
+<!-- NEW NAVBAR -->
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+  .navbar-custom {
+    background-color: #680202; /* updated navbar color */
+    padding: 0.5rem 1rem;
+  }
+  .navbar-brand img {
+    height: 40px;
+  }
+  .btn-signin {
+    background-color: #b40808e1; /* updated sign in button color */
+    color: #fff;
+    font-weight: 500;
+  }
+  .btn-signin:hover {
+    background-color: #9a0707; /* slightly darker on hover */
+    color: #fff;
+  }
+  .menu-btn {
+    background: none;
+    border: none;
+    font-weight: 500;
+    color: #fff; /* make menu text visible on dark navbar */
+  }
+  .search-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: #fff; /* make search icon visible */
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-custom d-flex justify-content-between align-items-center">
+  <!-- Logo -->
+  <a class="navbar-brand" href="#">
+    <img src="../images/coding with tawfiq.jpg" alt="Logo">
+  </a>
+
+  <!-- Hamburger button -->
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+    aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="bi bi-list" style="font-size: 1.5rem; color: #fff;"></i>
+  </button>
+
+  <!-- Menu items (collapsible) -->
+  <div class="collapse navbar-collapse" id="navbarMenu">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+       <li class="nav-item">
+        <a class="nav-link menu-btn" href="index.html">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link menu-btn" href="#">Try quiz</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link menu-btn" href="#">Find Jobs</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Always visible buttons -->
+  <div class="d-flex align-items-center gap-2">
+    <button class="search-btn"><i class="bi bi-search"></i></button>
+    <a href="public/register.html" class="btn btn-signin">Sign In</a>
+  </div>
+</nav>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<!-- ====== HERO SECTION ====== -->
+  <section id="hero">
+    <div class="hero-content">
+      <h1><code>CSS3 Transition,Animation and advanced javascript</code></h1>
+      <div class="hero-actions">
+      </div>
+    </div>
+  </section>
+
+  <!-- 🌟 CSS3 Transitions & Animations Card -->
+<div class="code-card" style="background:#680202; color:white; border-radius:16px; padding:25px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
+
+  <h2>🎨 CSS3 Transitions & Animations</h2>
+
+  <p>CSS3 transitions and animations breathe life into web pages by creating smooth and engaging visual effects. From hover effects to complex animated sequences, these features enhance user experience and add flair to your designs.</p>
+
+  <h3>1️⃣ CSS3 Transitions: Smooth Changes Over Time 🚶‍♀️➡️🏃‍♂️</h3>
+  <p>CSS transitions define how properties change gradually instead of snapping abruptly.</p>
+
+  <h4>Key Properties of Transitions:</h4>
+  <ul>
+    <li><code>transition-property</code>: CSS property to animate (e.g., background-color, transform)</li>
+    <li><code>transition-duration</code>: How long the change takes (e.g., 0.5s, 200ms)</li>
+    <li><code>transition-timing-function</code>: The speed curve (ease, linear, ease-in, ease-out)</li>
+    <li><code>transition-delay</code>: Delay before starting (e.g., 1s)</li>
+  </ul>
+
+  <p>Shorthand Syntax:</p>
+  <code>transition: property duration timing-function delay;</code>
+
+  <h4>Basic Transition Example</h4>
+  <p>Hover over the button to see color and scale change smoothly! 🖱️✨</p>
+  <button class="hover-button">Hover Me!</button>
+  <style>
+    .hover-button {
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.4s ease, transform 0.2s ease-in-out;
+      margin-bottom:15px;
+    }
+    .hover-button:hover {
+      background-color: #2ecc71; /* Green */
+      transform: scale(1.1);
+    }
+  </style>
+
+  <h4>Advanced Transition Example: Multiple Properties</h4>
+  <p>Hover over the box to see it expand and change color seamlessly! 🎨</p>
+  <div class="box"></div>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: #e74c3c;
+      margin: 20px 0;
+      transition: width 0.5s ease, height 0.5s ease, background-color 0.3s ease;
+    }
+    .box:hover {
+      width: 150px;
+      height: 150px;
+      background-color: #8e44ad;
+    }
+  </style>
+
+  <h3>2️⃣ CSS3 Animations: Keyframe-Based Motion 🕺💃</h3>
+  <p>Animations allow you to define multiple stages of movement or styling changes, giving more control and flexibility.</p>
+
+  <h4>Basic Animation Example: Bouncing Ball</h4>
+  <p>The ball bounces up and down continuously! 🏀✨</p>
+  <div class="ball"></div>
+  <style>
+    .ball {
+      width: 50px;
+      height: 50px;
+      background-color: #f1c40f;
+      border-radius: 50%;
+      position: relative;
+      animation: bounce 2s ease infinite;
+      margin-bottom:15px;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-50px); }
+    }
+  </style>
+
+  <h4>Advanced Animation Example: Rotating & Scaling Spinner</h4>
+  <p>The spinner rotates endlessly while gently growing and shrinking. 🎡💫</p>
+  <div class="spinner"></div>
+  <style>
+    .spinner {
+      width: 100px;
+      height: 100px;
+      border: 10px solid #e74c3c;
+      border-top: 10px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1.5s linear infinite, grow-shrink 3s ease-in-out infinite;
+      margin-bottom:15px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes grow-shrink {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+  </style>
+
+  <h4>3️⃣ Combining Transitions and Animations</h4>
+  <p>Hover to see rotation and pulsing color together! 🌈</p>
+  <div class="animated-box"></div>
+  <style>
+    .animated-box {
+      width: 100px;
+      height: 100px;
+      background-color: #9b59b6;
+      margin: 20px 0;
+      transition: transform 0.3s ease;
+    }
+    .animated-box:hover {
+      animation: color-change 1s ease infinite;
+      transform: rotate(20deg);
+    }
+    @keyframes color-change {
+      0% { background-color: #9b59b6; }
+      50% { background-color: #2ecc71; }
+      100% { background-color: #9b59b6; }
+    }
+  </style>
+
+  <h3>💡 Best Practices</h3>
+  <ul>
+    <li>Keep it subtle to avoid overwhelming users.</li>
+    <li>Optimize performance using <code>transform</code> and <code>opacity</code>.</li>
+    <li>Provide fallbacks for older browsers.</li>
+    <li>Test across devices for consistent experience.</li>
+  </ul>
+
+  <h3>🛠️ Tools & Libraries</h3>
+  <ul>
+    <li><strong>Animate.css:</strong> Ready-to-use animations.</li>
+    <li><strong>GSAP:</strong> JavaScript animation library.</li>
+    <li><strong>Keyframes App:</strong> Visual editor for CSS animations.</li>
+  </ul>
+
+  <p style="color:#FFD700;"><strong>Notice:</strong> Experiment with hover, animation, and transition combinations to create interactive designs. Students can modify values and see effects instantly!</p>
+
+</div>
+
+
+<div style="background:#680202; color:white; border-radius:16px; padding:25px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
+
+  <h2 style="color:#ffcc00;">JavaScript Functions 🛠️</h2>
+
+  <p>Functions are one of the most fundamental building blocks in JavaScript. They allow you to encapsulate code, make it reusable, and create dynamic interactions. Let's explore scope, parameters, and return values step by step!</p>
+
+  <h3 style="color:#ffcc00;">1. What Are Functions?</h3>
+  <p>A function is a block of code designed to perform a specific task. It runs only when called (invoked).</p>
+
+  <p><strong>Syntax:</strong></p>
+  <code>function functionName(parameters) {<br> &nbsp;&nbsp;// Code to execute<br>}</code>
+
+  <p><strong>Example:</strong></p>
+  <code>
+function greet() {<br>
+&nbsp;&nbsp;console.log("Hello, world!");<br>
+}<br>
+greet(); // Output: Hello, world!
+  </code>
+
+  <h3 style="color:#ffcc00;">2. Scope in Functions 🌐</h3>
+  <p>Scope determines where variables are accessible.</p>
+
+  <p><strong>Global Scope:</strong></p>
+  <code>
+let globalVar = "I'm global!";<br>
+function showGlobalVar() {<br>
+&nbsp;&nbsp;console.log(globalVar); // Accessible<br>
+}<br>
+showGlobalVar(); // Output: I'm global!
+  </code>
+
+  <p><strong>Local Scope:</strong></p>
+  <code>
+function showLocalVar() {<br>
+&nbsp;&nbsp;let localVar = "I'm local!";<br>
+&nbsp;&nbsp;console.log(localVar); // Accessible<br>
+}<br>
+showLocalVar(); // Output: I'm local!<br>
+console.log(localVar); // ❌ Error: localVar is not defined
+  </code>
+
+  <p><strong>Block Scope (let/const):</strong></p>
+  <code>
+if(true) {<br>
+&nbsp;&nbsp;let blockVar = "I'm block scoped!";<br>
+&nbsp;&nbsp;console.log(blockVar); // Accessible<br>
+}<br>
+console.log(blockVar); // ❌ Error
+  </code>
+
+  <h3 style="color:#ffcc00;">3. Function Parameters 🎯</h3>
+  <p>Parameters are placeholders for values passed into functions.</p>
+  <code>
+function greet(name) {<br>
+&nbsp;&nbsp;console.log(`Hello, ${name}!`);<br>
+}<br>
+greet("Alice"); // Hello, Alice!<br>
+greet("Bob");   // Hello, Bob!
+  </code>
+
+  <p><strong>Default Parameters:</strong></p>
+  <code>
+function greet(name = "Stranger") {<br>
+&nbsp;&nbsp;console.log(`Hello, ${name}!`);<br>
+}<br>
+greet(); // Hello, Stranger!
+  </code>
+
+  <h3 style="color:#ffcc00;">4. Return Values 🔄</h3>
+  <p>The <code>return</code> statement outputs a value from the function.</p>
+  <code>
+function add(a, b) {<br>
+&nbsp;&nbsp;return a + b;<br>
+}<br>
+let sum = add(5,3);<br>
+console.log(sum); // 8
+  </code>
+
+  <p><strong>Return Multiple Values:</strong></p>
+  <code>
+function getCoordinates() {<br>
+&nbsp;&nbsp;return [10, 20];<br>
+}<br>
+let [x, y] = getCoordinates();<br>
+console.log(x, y); // 10 20
+  </code>
+
+  <p>
+Notice: You can also return objects to return multiple named values.
+  </p>
+  <code>
+function getUser() {<br>
+&nbsp;&nbsp;return { name:"Alice", age:25 };<br>
+}<br>
+let user = getUser();<br>
+console.log(user.name); // Alice
+  </code>
+
+  <h3 style="color:#ffcc00;">5. Arrow Functions 🏹</h3>
+  <p>Concise syntax for writing functions.</p>
+  <code>
+const greet = (name) => `Hello, ${name}!`;<br>
+console.log(greet("Alice")); // Hello, Alice!
+  </code>
+
+  <p>Single expression arrow functions can omit <code>{}</code> and <code>return</code>:</p>
+  <code>
+const square = num => num * num;<br>
+console.log(square(5)); // 25
+  </code>
+
+  <h3 style="color:#ffcc00;">6. Best Practices ✅</h3>
+  <ul>
+    <li>Use descriptive names for functions and parameters.</li>
+    <li>Keep functions focused on a single task.</li>
+    <li>Avoid global variables; pass data via parameters.</li>
+    <li>Use default parameters where needed.</li>
+    <li>Use arrow functions for concise, inline code.</li>
+  </ul>
+
+  <h3 style="color:#ffcc00;">Try Yourself! 🚀</h3>
+  <p>Test this example by clicking the button:</p>
+  <button id="runFunction" style="background:#ffcc00;color:#680202;padding:8px 12px;border:none;border-radius:5px;cursor:pointer;">Run Function</button>
+  <pre id="output" style="background:#fff;color:#000;padding:10px;border-radius:5px;margin-top:10px;"></pre>
+
+  <script>
+    document.getElementById("runFunction").onclick = function() {
+      function calculateArea(length, width) {
+        let area = length * width;
+        return area;
+      }
+      let roomArea = calculateArea(5,4);
+      document.getElementById("output").textContent = `The area of the room is ${roomArea}`;
+    };
+  </script>
+
+</div>
+
+<div style="background:#680202; color:white; border-radius:16px; padding:25px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
+
+  <h2 style="color:#ffcc00;">Combining CSS Animations with JavaScript 🎨⚡</h2>
+  <p>CSS animations add life to web pages, while JavaScript allows you to control and trigger animations dynamically. Let’s explore how to combine them!</p>
+
+  <h3 style="color:#ffcc00;">1. Why Combine CSS + JS? 🤔</h3>
+  <ul>
+    <li><strong>Dynamic Control:</strong> Start, stop, or modify animations based on user interactions.</li>
+    <li><strong>Enhanced Interactivity:</strong> Trigger effects on clicks, hovers, scrolls.</li>
+    <li><strong>Flexibility:</strong> Change animation properties dynamically without rewriting CSS.</li>
+  </ul>
+
+  <h3 style="color:#ffcc00;">2. CSS Animation Basics 🎥</h3>
+  <p>Key properties:</p>
+  <code>
+@keyframes fadeIn {<br>
+&nbsp;&nbsp;0% { opacity: 0; }<br>
+&nbsp;&nbsp;100% { opacity: 1; }<br>
+}<br><br>
+.box {<br>
+&nbsp;&nbsp;animation-name: fadeIn;<br>
+&nbsp;&nbsp;animation-duration: 2s;<br>
+&nbsp;&nbsp;animation-timing-function: ease-in;<br>
+&nbsp;&nbsp;animation-delay: 0s;<br>
+&nbsp;&nbsp;animation-iteration-count: 1;<br>
+}
+  </code>
+
+  <h3 style="color:#ffcc00;">3. Adding Interactivity with JavaScript 🖱️</h3>
+  <p>You can add or remove CSS classes dynamically to trigger animations.</p>
+
+  <p><strong>Example: Button Click to Animate a Box</strong></p>
+  <button id="animateBtn" style="background:#ffcc00;color:#680202;padding:6px 10px;border:none;border-radius:5px;cursor:pointer;">Animate Box</button>
+  <div id="box" class="box" style="width:100px;height:100px;background:#3498db;margin:15px 0;opacity:0;transition:opacity 0.3s;"></div>
+
+  <code>
+.box.animate {<br>
+&nbsp;&nbsp;opacity: 1;<br>
+&nbsp;&nbsp;animation: moveRight 2s ease-in-out forwards;<br>
+}<br><br>
+@keyframes moveRight {<br>
+&nbsp;&nbsp;0% { transform: translateX(0); }<br>
+&nbsp;&nbsp;100% { transform: translateX(200px); }<br>
+}
+  </code>
+
+  <script>
+    document.getElementById("animateBtn").addEventListener("click", function () {
+      const box = document.getElementById("box");
+      box.classList.toggle("animate");
+    });
+  </script>
+
+  <h3 style="color:#ffcc00;">4. Using Inline Styles for More Control</h3>
+  <p>JavaScript can directly modify CSS properties.</p>
+
+  <p><strong>Example: Dynamic Animation Duration</strong></p>
+  <button id="startAnimation" style="background:#ffcc00;color:#680202;padding:6px 10px;border:none;border-radius:5px;cursor:pointer;">Start Animation</button>
+  <div id="circle" style="width:50px;height:50px;background:#e74c3c;border-radius:50%;margin:15px 0;position:relative;"></div>
+
+  <script>
+    document.getElementById("startAnimation").addEventListener("click", function () {
+      const circle = document.getElementById("circle");
+      circle.style.animation = "expand 3s ease-in-out forwards";
+    });
+
+    const styleSheet = document.styleSheets[0];
+    styleSheet.insertRule(`
+      @keyframes expand {
+        0% { transform: scale(1); }
+        100% { transform: scale(2); }
+      }
+    `, styleSheet.cssRules.length);
+  </script>
+
+  <h3 style="color:#ffcc00;">5. Controlling Animations with Events 🚀</h3>
+  <p>Start, pause, and resume animations dynamically:</p>
+
+  <button id="pause" style="background:#ffcc00;color:#680202;padding:6px 10px;border:none;border-radius:5px;cursor:pointer;">Pause</button>
+  <button id="resume" style="background:#ffcc00;color:#680202;padding:6px 10px;border:none;border-radius:5px;cursor:pointer;">Resume</button>
+  <div id="movingBox" style="width:100px;height:100px;background:#8e44ad;margin:15px 0;animation:slide 5s linear infinite;"></div>
+
+  <style>
+    @keyframes slide { 0% { transform: translateX(0); } 100% { transform: translateX(300px); } }
+  </style>
+
+  <script>
+    const box = document.getElementById("movingBox");
+    document.getElementById("pause").addEventListener("click", () => box.style.animationPlayState = "paused");
+    document.getElementById("resume").addEventListener("click", () => box.style.animationPlayState = "running");
+  </script>
+
+  <h3 style="color:#ffcc00;">6. Example: Interactive Modal</h3>
+  <button id="openModal" style="background:#ffcc00;color:#680202;padding:6px 10px;border:none;border-radius:5px;cursor:pointer;">Open Modal</button>
+  <div id="modal" class="modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;">
+    <div class="modal-content" style="background:#fff;color:#000;padding:20px;border-radius:10px;animation:scaleUp 0.5s ease forwards;">
+      <span id="closeModal" class="close" style="cursor:pointer;font-weight:bold;">&times;</span>
+      <p>Modal Content Here!</p>
+    </div>
+  </div>
+
+  <style>
+    @keyframes scaleUp { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity:1; } }
+  </style>
+
+  <script>
+    const modal = document.getElementById("modal");
+    document.getElementById("openModal").addEventListener("click", () => modal.classList.add("show"));
+    document.getElementById("closeModal").addEventListener("click", () => modal.classList.remove("show"));
+    const style = document.createElement('style');
+    style.innerHTML = `.modal.show { display:flex; }`;
+    document.head.appendChild(style);
+  </script>
+
+  <h3 style="color:#ffcc00;">7. Tips & Tools 🛠️</h3>
+  <ul>
+    <li><strong>Tools:</strong> GSAP (GreenSock) for complex animations, Lottie for JSON-based animations.</li>
+    <li>Use CSS for simple hover effects, JS for logic-driven animations.</li>
+    <li>Optimize performance using <code>transform</code> and <code>opacity</code> instead of <code>width</code> or <code>height</code>.</li>
+  </ul>
+
+  <p>By combining CSS animations and JavaScript, you can craft interactive, engaging websites. Experiment, test, and let your creativity shine! 🚀✨</p>
+
+</div>
+
+ 
+<div style="background-color:#680202; color:white; padding:20px; border-radius:12px; font-family:Arial, sans-serif; max-width:900px; margin:auto;">
+
+  <h2 style="color:#ffcc00;">Additional Resources for Learning 🚀</h2>
+
+  <h3 style="color:#ffcc00;">1. CSS3 Transitions and Animations for Dynamic Styling Effects</h3>
+  <p><strong>Websites 🌐</strong></p>
+  <ul>
+    <li><a href="https://css-tricks.com/almanac/properties/t/transition/" target="_blank" style="color:#ffcc00;">CSS-Tricks: A Complete Guide to Transitions</a> – Comprehensive guide on CSS transitions with examples and best practices.</li>
+    <li><a href="https://css-tricks.com/almanac/properties/a/animation/" target="_blank" style="color:#ffcc00;">CSS-Tricks: A Complete Guide to Animations</a> – Covers animation properties and @keyframes usage.</li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations" target="_blank" style="color:#ffcc00;">MDN Web Docs: CSS Animations</a> – Detailed overview with interactive examples.</li>
+    <li><a href="https://www.w3schools.com/css/css3_transitions.asp" target="_blank" style="color:#ffcc00;">W3Schools: CSS Transitions</a> – Beginner-friendly guide with interactive examples.</li>
+  </ul>
+
+  <p><strong>Videos 🎥</strong></p>
+  <ul>
+    <li>Traversy Media: CSS Animation Crash Course – Beginner-friendly crash course covering transitions and animations.</li>
+    <li>Academind: Master CSS Animations – Explores advanced CSS animation techniques.</li>
+  </ul>
+
+  <h3 style="color:#ffcc00;">2. JavaScript Functions: Scope, Parameters, Return Values</h3>
+  <p><strong>Websites 🌐</strong></p>
+  <ul>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions" target="_blank" style="color:#ffcc00;">MDN Web Docs: Functions</a> – Covers function declarations, parameters, scope, and return values.</li>
+    <li><a href="https://javascript.info/function-basics" target="_blank" style="color:#ffcc00;">JavaScript.info: Functions</a> – Tutorial with examples and quizzes.</li>
+    <li><a href="https://www.w3schools.com/js/js_functions.asp" target="_blank" style="color:#ffcc00;">W3Schools: JavaScript Functions</a> – Beginner-friendly introduction with interactive examples.</li>
+  </ul>
+
+  <p><strong>Videos 🎥</strong></p>
+  <ul>
+    <li>Programming with Mosh: JavaScript Functions – Explanation of functions, parameters, and return values.</li>
+    <li>The Net Ninja: JavaScript Functions Tutorial – Detailed examples of functions and scope.</li>
+  </ul>
+
+  <h3 style="color:#ffcc00;">3. Combining CSS Animations with JavaScript for Interactive Elements</h3>
+  <p><strong>Websites 🌐</strong></p>
+  <ul>
+    <li><a href="https://css-tricks.com/controlling-css-animations-transitions-javascript/" target="_blank" style="color:#ffcc00;">CSS-Tricks: Controlling CSS Animations and Transitions with JavaScript</a> – Practical guide on blending JS and CSS animations.</li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions_and_animations_in_JavaScript" target="_blank" style="color:#ffcc00;">MDN Web Docs: Using CSS Transitions and Animations in JavaScript</a> – Explains JS interaction with CSS animations.</li>
+    <li><a href="https://greensock.com/gsap/" target="_blank" style="color:#ffcc00;">GreenSock (GSAP)</a> – Library for complex JavaScript-powered animations.</li>
+  </ul>
+
+  <p><strong>Videos 🎥</strong></p>
+  <ul>
+    <li>Traversy Media: JavaScript & CSS Animation Tutorial – Trigger and control CSS animations with JS.</li>
+    <li>Academind: Combining CSS and JavaScript Animations – Step-by-step integration guide.</li>
+  </ul>
+
+  <h3 style="color:#ffcc00;">4. AI Prompts for Further Learning 🤖</h3>
+  <ul>
+    <li>"Explain CSS animations and transitions with examples for beginners."</li>
+    <li>"How do you combine JavaScript and CSS for interactive web elements?"</li>
+    <li>"Show me code examples of JavaScript functions using parameters and return values."</li>
+    <li>"Generate a tutorial on GSAP animations for web developers."</li>
+    <li>"Explain the difference between JavaScript and CSS animations and when to use each."</li>
+  </ul>
+
+  <p>These resources will help you dive deeper into each topic, offering insights, examples, and practical knowledge. Happy learning! 🚀</p>
+
+</div>
+

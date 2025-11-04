@@ -1,22 +1,38 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const bodyParser = require('body-parser');
+const cors = require('cors');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 
 // ------------------ MIDDLEWARE ------------------
-// Parse URL-encoded form data from HTML forms
-app.use(bodyParser.urlencoded({ extended: true }));
+// Parse URL-encoded form data from HTML forms and JSON bodies
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+// Enable CORS so pages served from other origins can call the API (adjust origin in production)
+app.use(cors());
 // Serve static files (HTML, CSS, JS) from 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ------------------ DATABASE ------------------//
 
-mongoose.connect('mongodb+srv://dbrhyno:CallMeMath.@cluster0.yuqc1e7.mongodb.net/userDB?retryWrites=true&w=majority&appName=Cluster0')
-  .then(() => console.log('✅ Connected to MongoDB Atlas'))
-  .catch(err => console.error('❌ MongoDB connection error:', err));
+const MONGO = process.env.MONGO_URI;
+const JWT_SECRET = process.env.JWT_SECRET || 'please_change_this_secret';
+
+if (!MONGO) {
+  console.error('❌ MONGO_URI is not defined in .env file');
+  process.exit(1);
+}
+
+mongoose.connect(MONGO)
+.then(() => console.log('✅ Connected to MongoDB Atlas'))
+.catch(err => {
+  console.error('❌ MongoDB connection error:', err);
+  process.exit(1);
+});
 
 
 // ------------------ USER SCHEMA ------------------
@@ -49,30 +65,88 @@ app.get('/login', (req, res) => {
 
 // Register new user
 app.post('/register', async (req, res) => {
-  const { username, email, password, confirmPassword } = req.body;
-
-  // Check if passwords match
-  if (password !== confirmPassword) {
-    return res.status(400).send('Passwords do not match');
-  }
-
   try {
-    const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).send('Email already exists');
+    console.log('Received registration request');
+    
+    // Validate request body
+    if (!req.body) {
+      return res.status(400).json({ error: 'No request body received' });
+    }
 
+    const { username, email, password, confirmPassword } = req.body;
+    console.log('Validating fields:', { username: !!username, email: !!email, hasPassword: !!password });
+    
+    // Validate required fields
+    if (!username || !email || !password || !confirmPassword) {
+      return res.status(400).json({ 
+        error: 'Missing required fields',
+        received: { username: !!username, email: !!email, password: !!password, confirmPassword: !!confirmPassword }
+      });
+    }
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      console.log('Password mismatch');
+      return res.status(400).json({ error: 'Passwords do not match' });
+    }
+
+    console.log('Checking for existing user...');
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      console.log('User already exists');
+      return res.status(400).json({ error: 'Email already exists' });
+    }
+
+    console.log('Hashing password...');
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    console.log('Creating new user...');
     const newUser = new User({
       username,
       email,
       password: hashedPassword
     });
-    await newUser.save();
 
-    res.redirect('/login'); // redirect to login page
+    console.log('Saving user to database...');
+    await newUser.save();
+    console.log('User saved successfully');
+
+    // create JWT token
+    const token = jwt.sign(
+      { id: newUser._id, email: newUser.email },
+      JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    console.log('Sending success response...');
+    return res.status(201).json({
+      message: 'Registration successful',
+      token,
+      user: {
+        id: newUser._id,
+        username: newUser.username,
+        email: newUser.email
+      }
+    });
+
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Server error: ' + err.message);
+    console.error('Registration error:', err);
+    if (err.name === 'ValidationError') {
+      return res.status(400).json({
+        error: 'Validation failed',
+        details: Object.values(err.errors).map(e => e.message)
+      });
+    } else if (err.code === 11000) {
+      return res.status(400).json({
+        error: 'Email already exists'
+      });
+    } else {
+      console.error('Unexpected error:', err);
+      return res.status(500).json({
+        error: 'Registration failed',
+        message: 'An unexpected error occurred'
+      });
+    }
   }
 });
 
@@ -87,12 +161,19 @@ app.post('/login', async (req, res) => {
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (isMatch) {
+      const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: '7d' });
+      // If AJAX request, return JSON
+      if (req.headers.accept && req.headers.accept.includes('application/json')) {
+        return res.json({ token, user: { id: user._id, username: user.username, email: user.email } });
+      }
+      // fallback: send simple message
       res.send(`Login successful! Welcome ${user.username}`);
     } else {
-      res.status(400).send('Invalid email or password');
+      res.status(400).json({ error: 'Invalid email or password' });
     }
   } catch (err) {
-    res.status(500).send('Server error: ' + err.message);
+    console.error('Login error:', err);
+    res.status(500).json({ error: err.message || 'Internal server error' });
   }
 });
 
@@ -103,7 +184,6 @@ app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`)
 
 
 // ------------------- AI CHAT ROUTE -------------------//
-require('dotenv').config();
 const axios = require('axios');
 
 app.post('/api/chat', async (req, res) => {

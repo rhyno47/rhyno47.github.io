@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coding with Tawfiq | Home</title>
   <link rel="stylesheet" href="assets/home.css">
-  <script async custom-element="amp-auto-ads"
-        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
-</script>
+  
 </head>
 <body>
 <!-- NEW NAVBAR -->
@@ -76,12 +74,12 @@
   <!-- Always visible buttons -->
   <div class="d-flex align-items-center gap-2">
     <button class="search-btn"><i class="bi bi-search"></i></button>
-    <a href="public/register.html" class="btn btn-signin">Sign In</a>
+    <a href="/public/login.html" class="btn btn-signin">Sign In</a>
   </div>
 </nav>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Navbar helper (replaces Bootstrap's JS for navbar collapse) -->
+<script src="/assets/navbar.js"></script>
 
 
 <!-- ====== HERO SECTION ====== -->
@@ -96,23 +94,23 @@
   <!-- 🌟 Event Handling Card -->
 <div class="code-card" style="background:#680202; color:white; border-radius:16px; padding:20px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
 
-  <h2>🚀 This Week: Event Handling & Interactive Elements</h2>
+    if (button) button.onclick = function () {
 
   <p>We'll explore event handling, interactive elements, and form validation in JavaScript. These concepts are crucial for creating dynamic and user-friendly web experiences.</p>
 
   <h3>Event Handling in JavaScript 🎯</h3>
-  <p>JavaScript event handling allows developers to respond to user actions like clicks, key presses, and mouse movements. Interactive elements like buttons, sliders, and modals leverage events to deliver dynamic experiences.</p>
+    if (text) text.onmouseover = function () {
   <p>Events are actions or occurrences in the browser, like clicks, typing, or mouse movements.</p>
 
   <h4>How to Attach Events</h4>
-  <p>Three main ways:</p>
+    if (text) text.onmouseout = function () {
 
   <p><strong>1. Inline HTML Event Handlers</strong></p>
   <p>Events added directly to HTML using attributes.</p>
   <code>
 &lt;button onclick="alert('Button clicked!')"&gt;Click Me&lt;/button&gt;
   </code>
-
+    if (input && display) input.onchange = function () {
   <p><strong>2. DOM Property Method</strong></p>
   <p>Assign a function to an element’s event property.</p>
   <code>
@@ -120,26 +118,26 @@ const button = document.getElementById('myButton');<br>
 button.onclick = function () {<br>
 &nbsp;&nbsp;alert('Button clicked!');<br>
 };
-  </code>
-
+    const colorBtn = document.getElementById("colorButton");
+    if (colorBtn) colorBtn.onclick = function () {
   <p><strong>3. Using addEventListener (Preferred)</strong></p>
   <p>Separates JavaScript from HTML and allows multiple handlers for the same event.</p>
   <code>
 const button = document.getElementById('myButton');<br>
-button.addEventListener('click', () => {<br>
-&nbsp;&nbsp;alert('Button clicked!');<br>
+    const hoverText = document.getElementById("hoverText");
+    if (hoverText) hoverText.onmouseover = function () {
 });
   </code>
 
-  <h4>Event Object</h4>
+    if (hoverText) hoverText.onmouseout = function () {
   <p>The event object provides additional information about the event.</p>
   <code>
 document.addEventListener('click', (e) => {<br>
 &nbsp;&nbsp;console.log(`Mouse clicked at: (${e.clientX}, ${e.clientY})`);<br>
 });
-  </code>
-
-  <p><strong>Key Properties:</strong> type, target, preventDefault(), stopPropagation()</p>
+    const nameInput = document.getElementById("nameInput");
+    const nameDisplay = document.getElementById("nameDisplay");
+    if (nameInput && nameDisplay) nameInput.onchange = function () {
 
   <h4>Common Event Types</h4>
   <ul>
@@ -147,7 +145,7 @@ document.addEventListener('click', (e) => {<br>
     <li><code>onmouseover</code>: Triggered when the mouse hovers over an element.</li>
     <li><code>onchange</code>: Triggered when the value of an input changes and loses focus.</li>
   </ul>
-
+    if (form) form.onsubmit = function (e) {
   <h4>The onclick Event 🖱️</h4>
   <p>Run code when an element is clicked.</p>
   <code>
@@ -159,7 +157,7 @@ button.onclick = function () {<br>
   <p><em>Explanation:</em> Changes the background color dynamically on click.</p>
 
   <h4>The onmouseover Event 🖱️➡️</h4>
-  <p>Triggered when the mouse pointer moves over an element.</p>
+    if (username && validationMessage) username.oninput = function () {
   <code>
 const text = document.getElementById("hoverText");<br>
 text.onmouseover = function () {<br>
@@ -274,26 +272,67 @@ input.onchange = function () {<br>
 
 <!-- Script to make the examples work -->
 <script>
-  const button = document.getElementById("colorButton");
-  button.onclick = function () {
-    document.body.style.backgroundColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-  };
+document.addEventListener('DOMContentLoaded', function () {
+  // Example 1: Change Background (safe handler)
+  const colorBtn = document.getElementById('colorButton');
+  if (colorBtn) {
+    colorBtn.addEventListener('click', function () {
+      document.body.style.backgroundColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+    });
+  }
 
-  const text = document.getElementById("hoverText");
-  text.onmouseover = function () {
-    text.style.color = "red";
-    text.style.fontWeight = "bold";
-  };
-  text.onmouseout = function () {
-    text.style.color = "white";
-    text.style.fontWeight = "normal";
-  };
+  // Example 2: Hover Text (safe handlers)
+  const hoverText = document.getElementById('hoverText');
+  if (hoverText) {
+    hoverText.addEventListener('mouseover', function () {
+      hoverText.style.color = 'red';
+      hoverText.style.fontWeight = 'bold';
+    });
+    hoverText.addEventListener('mouseout', function () {
+      hoverText.style.color = 'white';
+      hoverText.style.fontWeight = 'normal';
+    });
+  }
 
-  const input = document.getElementById("nameInput");
-  const display = document.getElementById("nameDisplay");
-  input.onchange = function () {
-    display.textContent = `Hello, ${input.value}!`;
-  };
+  // Example 3: Input onchange (safe handler)
+  const nameInput = document.getElementById('nameInput');
+  const nameDisplay = document.getElementById('nameDisplay');
+  if (nameInput && nameDisplay) {
+    nameInput.addEventListener('change', function () {
+      nameDisplay.textContent = `Hello, ${nameInput.value}!`;
+    });
+  }
+
+  // Example 4: Required Field Validation
+  const myForm = document.getElementById('myForm');
+  const email = document.getElementById('email');
+  const errorMessage = document.getElementById('errorMessage');
+  if (myForm) {
+    myForm.addEventListener('submit', function (e) {
+      if (!email.value) {
+        e.preventDefault();
+        if (errorMessage) errorMessage.textContent = 'Email is required!';
+      } else if (errorMessage) {
+        errorMessage.textContent = '';
+      }
+    });
+  }
+
+  // Example 5: Custom Validation for username
+  const username = document.getElementById('username');
+  const validationMessage = document.getElementById('validationMessage');
+  if (username && validationMessage) {
+    username.addEventListener('input', function () {
+      if (username.value.length < 5) {
+        username.setCustomValidity('Username must be at least 5 characters.');
+        validationMessage.textContent = 'Username must be at least 5 characters.';
+      } else {
+        username.setCustomValidity('');
+        validationMessage.textContent = '';
+      }
+    });
+  }
+});
 </script>
 
 <!-- 🌟 Event Handling & Form Validation Card -->
