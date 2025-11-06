@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage Job Posts | Coding with Tawfiq</title>
+  <link rel="stylesheet" href="assets/home.css" />
+  <link rel="stylesheet" href="assets/ads.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    /* Navbar styles from pyhome */
+    .navbar-custom { background-color: #680202; padding: 0.5rem 1rem; display: flex; justify-content: space-between; align-items: center; position: relative; }
+    .navbar-brand img { height: 40px; }
+    .menu-list { display: flex; gap: 1rem; }
+    .menu-list a { color: #fff; text-decoration: none; font-weight: 500; }
+    .menu-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; }
+    .search-btn { background: none; border: none; font-size: 1.2rem; color: #fff; cursor: pointer; }
+    .btn-signin { background-color: #b40808e1; color: #fff; font-weight: 500; text-decoration: none; padding: 6px 14px; border-radius: 5px; }
+    .btn-signin:hover { background-color: #9a0707; }
+    @media (max-width: 768px) {
+      .menu-list { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; width: 100%; background-color: #680202; padding: 1rem 0; text-align: center; gap: 0.5rem; z-index: 1000; }
+      .menu-list.show { display: flex; }
+      .menu-toggle { display: block; }
+    }
+
+    /* Responsive two-column layout */
+    .dashboard-layout {
+      display: flex;
+      gap: 2.5rem;
+      align-items: flex-start;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 2.5rem auto 2rem auto;
+      background: rgba(255,255,255,0.04);
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      padding: 2.5rem 2rem;
+    }
+    .dashboard-main {
+      flex: 2 1 0%;
+      min-width: 0;
+    }
+    .dashboard-side {
+      flex: 1 1 320px;
+      min-width: 260px;
+      max-width: 350px;
+      background: rgba(30,30,30,0.55);
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+      padding: 1.2rem 1rem 1.5rem 1rem;
+      margin-left: 0.5rem;
+      color: #f6f6f6;
+      backdrop-filter: blur(8px) saturate(120%);
+      -webkit-backdrop-filter: blur(8px) saturate(120%);
+    }
+    .dashboard-side h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.7rem;
+      color: #fff;
+    }
+    .announcement {
+      background: rgba(40, 10, 10, 0.60);
+      border-left: 4px solid #b40808e1;
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      margin-bottom: 1.1rem;
+      color: #f6f6f6;
+      font-size: 1.01rem;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.10);
+      backdrop-filter: blur(6px) saturate(120%);
+      -webkit-backdrop-filter: blur(6px) saturate(120%);
+    }
+    .muted { color: rgba(255,255,255,0.75); }
+    .small-muted { font-size: 0.9rem; color: rgba(255,255,255,0.7); }
+
+    .post-form {
+      background: rgba(30,30,30,0.60);
+      padding:1rem;
+      border-radius:10px;
+      margin-bottom:1rem;
+      color: #f6f6f6;
+      backdrop-filter: blur(8px) saturate(120%);
+      -webkit-backdrop-filter: blur(8px) saturate(120%);
+    }
+    .form-row { display:flex; gap:0.6rem; }
+    .form-row .col { flex:1; }
+    .img-preview { max-width: 160px; height: auto; border-radius:8px; margin-left:8px; display:none; }
+
+ .post-card {
+  /* ...existing styles... */
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+  animation: cardFadeIn 0.55s cubic-bezier(.33,1.2,.5,1) forwards;
+}
+@keyframes cardFadeIn {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.announcement {
+  /* ...existing styles... */
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+  animation: cardFadeIn 0.5s cubic-bezier(.33,1.2,.5,1) forwards;
+}
+
+.post-form {
+  /* ...existing styles... */
+  transition: box-shadow 0.25s, transform 0.18s;
+}
+.post-form:focus-within {
+  box-shadow: 0 0 0 3px #b40808a0;
+  transform: scale(1.012);
+}
+
+.btn-primary, .btn-danger, .btn-light {
+  transition: background 0.18s, box-shadow 0.18s, transform 0.16s;
+}
+.btn-primary:hover, .btn-primary:focus {
+  background:#7a0101; box-shadow: 0 2px 8px #68020233; transform: translateY(-2px) scale(1.04);
+}
+.btn-danger:hover, .btn-danger:focus {
+  background:#a10606; box-shadow: 0 2px 8px #b4080833; transform: translateY(-2px) scale(1.04);
+}
+.btn-light:hover, .btn-light:focus {
+  background:#f7f7f7; box-shadow: 0 2px 8px #bbb3; transform: translateY(-2px) scale(1.04);
+}
+.btn-link { transition: color 0.18s; }
+.btn-link:hover, .btn-link:focus { color: #ffbaba; }
+
+    .btn-primary { background:#680202; border: none; color: #fff; padding: 8px 14px; border-radius: 6px; cursor: pointer; }
+    .btn-danger { background:#b40808e1; border: none; color: #fff; padding: 8px 14px; border-radius: 6px; cursor: pointer; }
+    .btn-light { background:#fff; border: 1px solid #ddd; color: #333; padding: 8px 14px; border-radius: 6px; cursor: pointer; }
+    .btn-link { color:#fff; text-decoration: underline; }
+
+    /* Responsive: stack columns on mobile */
+    @media (max-width: 1000px) {
+      .dashboard-layout { flex-direction: column; gap: 1.5rem; padding: 1.2rem 0.5rem; }
+      .dashboard-side { margin-left: 0; max-width: 100%; }
+    }
+    body {
+      background-image: url('images/water fall.jpg');
+      background-size: contain;
+      background-position: top center;
+      background-repeat: repeat;
+      background-color: #0f0f10;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar-custom" role="navigation" aria-label="Main navigation">
+    <a class="navbar-brand" href="index.html"><img src="images/coding with tawfiq.jpg" alt="Coding with Tawfiq Logo"></a>
+    <div class="menu-list" id="menuList" role="menubar">
+      <a href="index.html" role="menuitem" tabindex="0">Home</a>
+      <a href="#" role="menuitem" tabindex="0">Coding quiz</a>
+      <a href="findjobs-manage.html" role="menuitem" tabindex="0">Find Jobs</a>
+    </div>
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <button class="search-btn" aria-label="Search"><i class="bi bi-search"></i></button>
+      <a href="/public/login.html" class="btn-signin" aria-label="Sign In">Sign In</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false"><i class="bi bi-list"></i></button>
+    </div>
+  </nav>
+
+  <!-- Toast container -->
+  <div id="toastContainer" style="position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:12px;"></div>
+  <main class="dashboard-layout">
+    <section class="dashboard-main">
+
+
+      <header style="background: linear-gradient(90deg, #b40808e1 0%, #680202 100%); color: #fff; border-radius: 14px; box-shadow: 0 4px 24px rgba(104,2,2,0.13); padding: 1.5rem 1.2rem 1.2rem 1.2rem; margin-bottom: 1.2rem; display: flex; align-items: center; gap: 22px; font-family: 'Segoe UI', 'Montserrat', 'Arial', sans-serif; position: relative; overflow: hidden; flex-direction: row; justify-content: space-between;">
+        <div style="flex:1; min-width:0;">
+          <h2>Find Jobs & Connect</h2>
+          <div style="font-size:1.08rem;opacity:0.93;margin-top:7px;letter-spacing:0.1px;">Welcome! Discover new opportunities, connect with others, and share your own job posts. Set your display name to get started and use the button below to create a post.</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+          <button id="createPostBtn" class="btn-primary" type="button" aria-label="Create a new post" style="font-size:1.08rem;padding:10px 18px;border-radius:8px;font-weight:600;box-shadow:0 2px 8px #68020233;">+ Create a Post</button>
+        </div>
+
+      </header>
+
+
+
+
+      <!-- Job Posting Form -->
+      <form id="jobPostForm" class="post-form" autocomplete="off" style="margin-bottom:1.5rem;">
+        <h3 style="margin-top:0;">Post a Job</h3>
+        <div class="form-row">
+          <div class="col">
+            <input type="text" id="jobTitle" placeholder="Job Title" required style="width:100%;padding:8px;border-radius:6px;border:1px solid #bbb;">
+          </div>
+          <div class="col">
+            <input type="text" id="jobLocation" placeholder="Location (optional)" style="width:100%;padding:8px;border-radius:6px;border:1px solid #bbb;">
+          </div>
+        </div>
+        <textarea id="jobDescription" placeholder="Job Description" required style="width:100%;margin-top:8px;padding:8px;border-radius:6px;border:1px solid #bbb;"></textarea>
+        <input type="text" id="jobSalary" placeholder="Salary (optional)" style="width:100%;margin-top:8px;padding:8px;border-radius:6px;border:1px solid #bbb;">
+        <button type="submit" class="btn-primary" style="margin-top:10px;">Post Job</button>
+      </form>
+
+      <!-- Job Search Bar -->
+      <div style="margin:1.2rem 0 0.5rem 0;display:flex;align-items:center;gap:0.7rem;">
+        <input id="jobSearchInput" type="text" placeholder="Search jobs by title or location..." style="flex:1;max-width:340px;padding:8px 12px;border-radius:7px;border:1px solid #bbb;font-size:1rem;" aria-label="Search jobs">
+        <button id="clearJobSearchBtn" class="btn-light" type="button" style="display:none;" aria-label="Clear job search">Clear</button>
+      </div>
+      <div id="jobsList" style="margin-top:1rem;"></div>
+
+      <!-- search/filter bar -->
+      <div style="margin:1.2rem 0 0.5rem 0;display:flex;align-items:center;gap:0.7rem;">
+        <input id="searchInput" type="text" placeholder="Search by title or user..." style="flex:1;max-width:340px;padding:8px 12px;border-radius:7px;border:1px solid #bbb;font-size:1rem;" aria-label="Search posts">
+        <button id="clearSearchBtn" class="btn-light" type="button" style="display:none;" aria-label="Clear search">Clear</button>
+      </div>
+      <div id="postsList" style="margin-top:1rem;"></div>
+    </section>
+  <aside class="dashboard-side">
+  <button id="openFaqBtn" class="btn-primary" type="button" style="margin-bottom:0.7rem;" aria-label="Open help and FAQ">❓ Help / FAQ</button>
+    <!-- FAQ Modal -->
+    <div id="faqModal" style="display:none;position:fixed;z-index:20000;top:0;left:0;width:100vw;height:100vh;background:rgba(20,20,20,0.65);backdrop-filter:blur(2px);align-items:center;justify-content:center;">
+      <div style="background:#222;color:#fff;max-width:420px;width:92vw;padding:2rem 1.2rem 1.2rem 1.2rem;border-radius:14px;box-shadow:0 4px 32px rgba(0,0,0,0.25);position:relative;">
+  <button id="closeFaqBtn" class="btn-danger" aria-label="Close help and FAQ" style="position:absolute;top:10px;right:12px;font-size:1.5rem;padding:0 10px;">&times;</button>
+        <h2 style="margin-top:0;font-size:1.3rem;">Help & FAQ</h2>
+        <div style="margin-top:1.1rem;">
+          <details open style="margin-bottom:0.7rem;">
+            <summary style="font-weight:600;cursor:pointer;">How do I create a job post?</summary>
+            <div style="margin-top:0.3rem;font-size:0.98rem;">Set your display name at the top, fill in the job details, and click <b>Save Post</b>. You can also add an image or a link.</div>
+          </details>
+          <details style="margin-bottom:0.7rem;">
+            <summary style="font-weight:600;cursor:pointer;">How do I edit or delete my post?</summary>
+            <div style="margin-top:0.3rem;font-size:0.98rem;">You can only edit or delete posts you created (matching your display name). Use the <b>Edit</b> or <b>Delete</b> buttons on your post card.</div>
+          </details>
+          <details style="margin-bottom:0.7rem;">
+            <summary style="font-weight:600;cursor:pointer;">How do I add or remove announcements?</summary>
+            <div style="margin-top:0.3rem;font-size:0.98rem;">Click <b>Add Announcement</b> in the Announcements panel. You can edit or delete any announcement using the buttons next to it.</div>
+          </details>
+          <details style="margin-bottom:0.7rem;">
+            <summary style="font-weight:600;cursor:pointer;">Why do I need a display name?</summary>
+            <div style="margin-top:0.3rem;font-size:0.98rem;">Your display name identifies you as the author of your posts. It is stored only in your browser for now.</div>
+          </details>
+          <details style="margin-bottom:0.7rem;">
+            <summary style="font-weight:600;cursor:pointer;">Where is my data stored?</summary>
+            <div style="margin-top:0.3rem;font-size:0.98rem;">All posts and announcements are saved in your browser's localStorage. When backend integration is ready, data will sync with the server.</div>
+          </details>
+          <details>
+            <summary style="font-weight:600;cursor:pointer;">Who can see my posts?</summary>
+            <div style="margin-top:0.3rem;font-size:0.98rem;">Currently, posts are only visible on your device. In the future, posts will be visible to all users when backend sync is enabled.</div>
+          </details>
+        </div>
+      </div>
+    </div>
+      <h3 id="announcementsHeading"><i class="bi bi-megaphone" aria-hidden="true"></i> Announcements</h3>
+      <div id="announcementsList"></div>
+      <!-- Announcement form and add button removed: Announcements are now read-only for users -->
+    </aside>
+  </main>
+
+  <script>
+    // FAQ Modal logic
+    const openFaqBtn = document.getElementById('openFaqBtn');
+    const faqModal = document.getElementById('faqModal');
+    const closeFaqBtn = document.getElementById('closeFaqBtn');
+    openFaqBtn.addEventListener('click', () => {
+      faqModal.style.display = 'flex';
+      closeFaqBtn.focus();
+    });
+    closeFaqBtn.addEventListener('click', () => {
+      faqModal.style.display = 'none';
+      openFaqBtn.focus();
+    });
+    faqModal.addEventListener('click', (e) => {
+      if (e.target === faqModal) {
+        faqModal.style.display = 'none';
+        openFaqBtn.focus();
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (faqModal.style.display === 'flex' && (e.key === 'Escape' || e.key === 'Esc')) {
+        faqModal.style.display = 'none';
+        openFaqBtn.focus();
+      }
+    });
+    // Announcements logic (read-only for users)
+    const ANNOUNCEMENTS_KEY = 'findjobs_announcements_v1';
+    const announcementsList = document.getElementById('announcementsList');
+    function loadAnnouncements() {
+      try {
+        const raw = localStorage.getItem(ANNOUNCEMENTS_KEY);
+        return raw ? JSON.parse(raw) : [
+          { text: '<b>Welcome!</b> This is your job post management dashboard. Here you can create, edit, or delete your own job posts.' },
+          { text: '<b>Tip:</b> Use a clear job title and description. Add an image or link for more engagement.' },
+          { text: '<b>Coming soon:</b> Real-time sync with the main job board and admin notices.' }
+        ];
+      } catch (e) { return []; }
+    }
+    function renderAnnouncements() {
+      const arr = loadAnnouncements();
+      announcementsList.innerHTML = '';
+      if (!arr.length) {
+        announcementsList.innerHTML = '<div class="announcement small-muted">No announcements.</div>';
+        return;
+      }
+      arr.forEach((a) => {
+        const div = document.createElement('div');
+        div.className = 'announcement';
+        div.tabIndex = 0;
+        div.setAttribute('aria-labelledby', 'announcementsHeading');
+        div.innerHTML = `<span>${a.text}</span>`;
+        announcementsList.appendChild(div);
+      });
+    }
+    // Local storage keys
+    const STORAGE_KEY = 'findjobs_posts_v1';
+    const NAME_KEY = 'findjobs_user_v1';
+
+    // Elements
+    const displayNameInput = document.getElementById('displayNameInput');
+    const setNameBtn = document.getElementById('setNameBtn');
+    const clearNameBtn = document.getElementById('clearNameBtn');
+    const currentUserDisplay = document.getElementById('currentUserDisplay');
+
+    const postForm = document.getElementById('postForm');
+    const postTitle = document.getElementById('postTitle');
+    const postContent = document.getElementById('postContent');
+    const postLink = document.getElementById('postLink');
+    const postImage = document.getElementById('postImage');
+    const imagePreview = document.getElementById('imagePreview');
+    const postsList = document.getElementById('postsList');
+    const editingId = document.getElementById('editingId');
+
+    const clearAllBtn = document.getElementById('clearAllBtn');
+    const cancelEditBtn = document.getElementById('cancelEditBtn');
+
+
+// Toast/alert helpers
+function showToast(msg, type = 'info', timeout = 3200) {
+  const toast = document.createElement('div');
+  toast.className = 'custom-toast custom-toast-' + type;
+  toast.innerHTML = `<span>${msg}</span>`;
+  Object.assign(toast.style, {
+    minWidth: '220px',
+    maxWidth: '340px',
+    padding: '12px 18px',
+    borderRadius: '8px',
+    background: type === 'error' ? '#b40808e1' : (type === 'success' ? '#176b1a' : '#222'),
+    color: '#fff',
+    fontWeight: 500,
+    fontSize: '1rem',
+    boxShadow: '0 2px 12px rgba(0,0,0,0.18)',
+    opacity: 0,
+    transition: 'opacity 0.3s cubic-bezier(.33,1.2,.5,1)',
+    cursor: 'pointer',
+    marginBottom: '2px',
+  });
+  toast.onclick = () => toast.remove();
+  document.getElementById('toastContainer').appendChild(toast);
+  setTimeout(() => { toast.style.opacity = 0.97; }, 10);
+  setTimeout(() => { toast.style.opacity = 0.1; setTimeout(() => toast.remove(), 400); }, timeout);
+}
+
+// --- JOB BACKEND INTEGRATION ---
+const JOB_API = '/api/jobs';
+
+// Helper: get JWT token from localStorage (assume login stores it as 'auth_token')
+function getAuthToken() {
+  return localStorage.getItem('auth_token');
+}
+
+// Job Posting Form
+const jobPostForm = document.getElementById('jobPostForm');
+jobPostForm.addEventListener('submit', async function(ev) {
+  ev.preventDefault();
+  if (!getAuthToken()) {
+    showToast('You must be logged in to post a job.', 'error');
+    setTimeout(() => window.location.href = '/public/login.html', 1200);
+    return;
+  }
+  const title = document.getElementById('jobTitle').value.trim();
+  const description = document.getElementById('jobDescription').value.trim();
+  const location = document.getElementById('jobLocation').value.trim();
+  const salary = document.getElementById('jobSalary').value.trim();
+  if (!title || !description) {
+    showToast('Title and description required.', 'error');
+    return;
+  }
+  try {
+    const res = await fetch(JOB_API, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + getAuthToken()
+      },
+      body: JSON.stringify({ title, description, location, salary })
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast('Job posted!', 'success');
+      jobPostForm.reset();
+      fetchJobs();
+    } else {
+      showToast(data.message || 'Error posting job', 'error');
+    }
+  } catch (e) {
+    showToast('Server error posting job', 'error');
+  }
+});
+
+// Job Search
+const jobSearchInput = document.getElementById('jobSearchInput');
+const clearJobSearchBtn = document.getElementById('clearJobSearchBtn');
+let jobSearchTerm = '';
+jobSearchInput.addEventListener('input', () => {
+  jobSearchTerm = jobSearchInput.value.trim().toLowerCase();
+  clearJobSearchBtn.style.display = jobSearchTerm ? '' : 'none';
+  fetchJobs();
+});
+clearJobSearchBtn.addEventListener('click', () => {
+  jobSearchInput.value = '';
+  jobSearchTerm = '';
+  clearJobSearchBtn.style.display = 'none';
+  fetchJobs();
+});
+
+// Fetch and render jobs
+const jobsList = document.getElementById('jobsList');
+async function fetchJobs() {
+  jobsList.innerHTML = '<div class="small-muted">Loading jobs...</div>';
+  try {
+    const res = await fetch(JOB_API);
+    const data = await res.json();
+    if (!data.success) throw new Error(data.message);
+    let jobs = data.jobs || [];
+    // Filter by search
+    if (jobSearchTerm) {
+      jobs = jobs.filter(j =>
+        (j.title && j.title.toLowerCase().includes(jobSearchTerm)) ||
+        (j.location && j.location.toLowerCase().includes(jobSearchTerm))
+      );
+    }
+    renderJobs(jobs);
+  } catch (e) {
+    jobsList.innerHTML = '<div class="small-muted">Error loading jobs.</div>';
+  }
+}
+
+function renderJobs(jobs) {
+  jobsList.innerHTML = '';
+  if (!jobs.length) {
+    jobsList.innerHTML = '<div class="post-card"><div class="small-muted">No jobs found.</div></div>';
+    return;
+  }
+  for (const job of jobs) {
+    const card = document.createElement('div');
+    card.className = 'post-card';
+    card.innerHTML = `
+      <div style="display:flex; align-items:center; gap:12px;">
+        <div style="width:48px; height:48px; border-radius:50%; background:#fff3; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff">${(job.user && job.user.username ? job.user.username.charAt(0).toUpperCase() : 'U')}</div>
+        <div style="flex:1">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+            <div>
+              <div style="font-weight:700; color:#fff">${escapeHtml(job.title || 'Untitled')}</div>
+              <div class="small-muted">${escapeHtml(job.user && job.user.username ? job.user.username : 'Anonymous')} • ${new Date(job.createdAt).toLocaleString()}</div>
+            </div>
+            <div class="small-muted">${job.location ? escapeHtml(job.location) : ''}</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:8px; color:#e9e9ea">${escapeHtml(job.description || '')}</div>
+      <div style="margin-top:8px; color:#e9e9ea">${job.salary ? 'Salary: ' + escapeHtml(job.salary) : ''}</div>
+      <div class="post-actions" style="display:flex; gap:8px; margin-top:8px;">
+        <button data-id="${job._id}" class="btn-primary apply-btn">Apply</button>
+      </div>
+    `;
+    jobsList.appendChild(card);
+  }
+  // Bind apply buttons
+  document.querySelectorAll('.apply-btn').forEach(btn => {
+    btn.addEventListener('click', async function() {
+      if (!getAuthToken()) {
+        showToast('You must be logged in to apply.', 'error');
+        setTimeout(() => window.location.href = '/public/login.html', 1200);
+        return;
+      }
+      const jobId = btn.getAttribute('data-id');
+      try {
+        const res = await fetch(`${JOB_API}/${jobId}/apply`, {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer ' + getAuthToken(),
+            'Content-Type': 'application/json'
+          }
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast('Application submitted!', 'success');
+        } else {
+          showToast(data.message || 'Error applying', 'error');
+        }
+      } catch (e) {
+        showToast('Server error applying', 'error');
+      }
+    });
+  });
+}
+
+// Initial fetch
+fetchJobs();
+
+    // Helpers
+    function loadPosts() { try { const raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : []; } catch(e){ console.error(e); return []; } }
+    function savePosts(posts) { localStorage.setItem(STORAGE_KEY, JSON.stringify(posts)); }
+    function currentUser() { return localStorage.getItem(NAME_KEY) || null; }
+    function setCurrentUser(name) { if (!name) localStorage.removeItem(NAME_KEY); else localStorage.setItem(NAME_KEY, name.trim()); refreshUserUI(); }
+    function refreshUserUI(){ const n=currentUser(); if(n){ currentUserDisplay.textContent = `Signed in as: ${n}`; displayNameInput.value=n; } else { currentUserDisplay.textContent='Not signed in'; displayNameInput.value=''; }}
+      const AVATAR_KEY = 'findjobs_avatar_v1';
+      function currentUser() { return localStorage.getItem(NAME_KEY) || null; }
+      function currentAvatar() { return localStorage.getItem(AVATAR_KEY) || null; }
+      function setCurrentUser(name, avatarDataUrl) {
+        if (!name) {
+          localStorage.removeItem(NAME_KEY);
+          localStorage.removeItem(AVATAR_KEY);
+        } else {
+          localStorage.setItem(NAME_KEY, name.trim());
+          if (avatarDataUrl) localStorage.setItem(AVATAR_KEY, avatarDataUrl);
+        }
+        refreshUserUI();
+      }
+      function refreshUserUI(){
+        const n=currentUser();
+        const avatar=currentAvatar();
+        if(n){
+          currentUserDisplay.textContent = `Signed in as: ${n}`;
+          displayNameInput.value=n;
+        } else {
+          currentUserDisplay.textContent='Not signed in';
+          displayNameInput.value='';
+        }
+        const profileAvatar = document.getElementById('profileAvatar');
+        if(avatar){
+          profileAvatar.src=avatar;
+          profileAvatar.style.display='block';
+        } else {
+          profileAvatar.src='';
+          profileAvatar.style.display='none';
+        }
+      }
+    function escapeHtml(s){ if (!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function escapeAttr(s){ if (!s) return ''; return String(s).replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+    function cryptoRandomId(){ return Math.random().toString(36).slice(2,9); }
+
+    // Seed sample if empty
+    (function ensureSample(){ const p=loadPosts(); if(p.length) return; const sample=[
+      { id: cryptoRandomId(), user:'Admin', title:'Frontend developer (remote)', content:'Looking for a React + Tailwind dev. Competitive pay. Include CV and portfolio link.', link:'https://example.com/apply', image:null, date: new Date().toISOString() },
+      { id: cryptoRandomId(), user:'Jane', title:'Junior Python dev', content:'Remote internship paying stipend. Good learning opportunity.', link:null, image:null, date: new Date(Date.now()-86400000).toISOString() }
+    ]; savePosts(sample); })();
+
+    // Loading spinner and skeletons
+    function showLoadingSkeletons(count = 3) {
+      postsList.innerHTML = '';
+      for (let i = 0; i < count; ++i) {
+        const skel = document.createElement('div');
+        skel.className = 'post-card';
+        skel.innerHTML = `
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:48px; height:48px; border-radius:50%; background:#fff2; animation: skel 1.2s infinite alternate;"></div>
+            <div style="flex:1">
+              <div style="height:18px; width:60%; background:#fff2; border-radius:6px; margin-bottom:8px; animation: skel 1.2s infinite alternate;"></div>
+              <div style="height:12px; width:40%; background:#fff2; border-radius:6px; animation: skel 1.2s infinite alternate;"></div>
+            </div>
+          </div>
+          <div style="height:16px; width:90%; background:#fff2; border-radius:6px; margin:14px 0 0 0; animation: skel 1.2s infinite alternate;"></div>
+        `;
+        postsList.appendChild(skel);
+      }
+    }
+
+    // Search/filter logic
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+    let searchTerm = '';
+    searchInput.addEventListener('input', () => {
+      searchTerm = searchInput.value.trim().toLowerCase();
+      clearSearchBtn.style.display = searchTerm ? '' : 'none';
+      renderPosts();
+    });
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      searchTerm = '';
+      clearSearchBtn.style.display = 'none';
+      renderPosts();
+    });
+
+    // Add keyframes for skeleton shimmer
+    const skelStyle = document.createElement('style');
+    skelStyle.innerHTML = `@keyframes skel { 0%{opacity:0.5;} 100%{opacity:1;} }`;
+    document.head.appendChild(skelStyle);
+
+    // Render posts with owner actions
+    function renderPosts(){
+      showLoadingSkeletons(2);
+      setTimeout(() => {
+        let posts = loadPosts().sort((a,b)=> new Date(b.date) - new Date(a.date));
+        // Filter by search
+        if (searchTerm) {
+          posts = posts.filter(p =>
+            (p.title && p.title.toLowerCase().includes(searchTerm)) ||
+            (p.user && p.user.toLowerCase().includes(searchTerm))
+          );
+        }
+        postsList.innerHTML='';
+        if(!posts.length){ postsList.innerHTML = `<div class="post-card"><div class="small-muted">No posts found.</div></div>`; return; }
+        for(const p of posts){
+          const own = currentUser() === p.user;
+          const card = document.createElement('div');
+          card.className='post-card';
+          card.innerHTML = `
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:48px; height:48px; border-radius:50%; background:#fff3; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff">${(p.user||'U').charAt(0).toUpperCase()}</div>
+              <div style="flex:1">
+                <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+                  <div>
+                    <div style="font-weight:700; color:#fff">${escapeHtml(p.title||'Untitled')}</div>
+                    <div class="small-muted">${escapeHtml(p.user||'Anonymous')} • ${new Date(p.date).toLocaleString()}</div>
+                  </div>
+                  <div class="small-muted">${p.link? `<a href="${escapeAttr(p.link)}" target="_blank" style="color:#fff;text-decoration:underline;">Apply</a>` : ''}</div>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:8px; color:#e9e9ea">${escapeHtml(p.content||'')}</div>
+            ${p.image? `<img src="${p.image}" class="post-image" alt="post image" style="max-width:100%; height:auto; margin-top:8px; border-radius:8px;">` : ''}
+            <div class="post-actions" style="display:flex; gap:8px; margin-top:8px;">
+              ${ own ? `<button data-id="${p.id}" class="btn-light edit-btn">Edit</button>
+              <button data-id="${p.id}" class="btn-danger delete-btn">Delete</button>` : ''}
+            </div>`;
+          postsList.appendChild(card);
+        }
+        // bind actions
+        document.querySelectorAll('.edit-btn').forEach(b=> b.addEventListener('click', e=>{ startEdit(e.currentTarget.dataset.id); }));
+        document.querySelectorAll('.delete-btn').forEach(b=> b.addEventListener('click', e=>{ const id=e.currentTarget.dataset.id; if(!confirm('Delete this post?')) return; const posts=loadPosts().filter(x=>x.id!==id); savePosts(posts); renderPosts(); }));
+      }, 600); // Simulate loading delay
+    }
+
+    // Image preview
+    postImage.addEventListener('change', (e)=>{
+      const f=e.target.files && e.target.files[0];
+      if(!f){ imagePreview.style.display='none'; imagePreview.src=''; removeImgBtn.style.display='none'; return; }
+      const r=new FileReader();
+      r.onload=()=>{
+        imagePreview.src=r.result;
+        imagePreview.style.display='block';
+        removeImgBtn.style.display='inline-block';
+      };
+      r.readAsDataURL(f);
+    });
+
+    // Remove image preview
+    const removeImgBtn = document.getElementById('removeImgBtn');
+    removeImgBtn.addEventListener('click', ()=>{
+      imagePreview.src = '';
+      imagePreview.style.display = 'none';
+      postImage.value = '';
+      removeImgBtn.style.display = 'none';
+    });
+
+
+    // Advanced form validation
+    function validateForm() {
+      // Title required
+      if (!postTitle.value.trim()) {
+        showToast('Title is required.', 'error');
+        postTitle.focus();
+        return false;
+      }
+      // Description required
+      if (!postContent.value.trim()) {
+        showToast('Description is required.', 'error');
+        postContent.focus();
+        return false;
+      }
+      // Link format (if provided)
+      const linkVal = postLink.value.trim();
+      if (linkVal && !/^https?:\/\//i.test(linkVal)) {
+        showToast('Link must start with http:// or https://', 'error');
+        postLink.focus();
+        return false;
+      }
+      // Image validation (if provided)
+      const file = postImage.files && postImage.files[0];
+      if (file) {
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        if (!allowedTypes.includes(file.type)) {
+          showToast('Image must be JPG, PNG, GIF, or WEBP.', 'error');
+          postImage.value = '';
+          return false;
+        }
+        if (file.size > 2 * 1024 * 1024) { // 2MB limit
+          showToast('Image must be less than 2MB.', 'error');
+          postImage.value = '';
+          return false;
+        }
+      }
+      return true;
+    }
+
+    // Save
+    postForm.addEventListener('submit', (ev)=>{
+      ev.preventDefault();
+      if (!validateForm()) return;
+      const user = currentUser(); if(!user){ showToast('Set a display name first.', 'error'); return; }
+      const posts = loadPosts();
+      const id = editingId.value || cryptoRandomId();
+      const image = imagePreview.src || null;
+      const post = { id, user, title: postTitle.value.trim(), content: postContent.value.trim(), link: postLink.value.trim() || null, image: image && image.indexOf('data:')===0 ? image : null, date: new Date().toISOString() };
+      const idx = posts.findIndex(p=> p.id===id);
+      if(idx>=0) posts[idx]=post; else posts.push(post);
+      savePosts(posts);
+      resetForm();
+      renderPosts();
+      showToast(editingId.value ? 'Post updated!' : 'Post created!', 'success');
+    });
+
+    function startEdit(id){
+      const p=loadPosts().find(x=>x.id===id);
+      if(!p) { showToast('Post not found', 'error'); return; }
+      if(currentUser()!==p.user) { showToast('You can only edit your own posts', 'error'); return; }
+      editingId.value=p.id; postTitle.value=p.title; postContent.value=p.content; postLink.value=p.link||'';
+      if(p.image){
+        imagePreview.src=p.image;
+        imagePreview.style.display='block';
+        removeImgBtn.style.display='inline-block';
+      } else {
+        imagePreview.src='';
+        imagePreview.style.display='none';
+        removeImgBtn.style.display='none';
+      }
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    cancelEditBtn.addEventListener('click', ()=> resetForm());
+    clearAllBtn.addEventListener('click', ()=>{
+      if(!confirm('Clear all local posts? This cannot be undone.')) return;
+      localStorage.removeItem(STORAGE_KEY);
+      renderPosts();
+      showToast('All posts cleared.', 'success');
+    });
+
+    function resetForm(){
+      editingId.value='';
+      postTitle.value='';
+      postContent.value='';
+      postLink.value='';
+      postImage.value='';
+      imagePreview.src='';
+      imagePreview.style.display='none';
+      removeImgBtn.style.display='none';
+    }
+
+    // Name handlers
+  // Removed duplicate setNameBtn event handler
+      setNameBtn.addEventListener('click', ()=>{
+        const v=displayNameInput.value.trim();
+        if(!v) return alert('Enter a name');
+        const avatarInput = document.getElementById('avatarInput');
+        const file = avatarInput.files && avatarInput.files[0];
+        if(file){
+          const allowedTypes = ['image/jpeg','image/png','image/gif','image/webp'];
+          if(!allowedTypes.includes(file.type)){
+            showToast('Avatar must be JPG, PNG, GIF, or WEBP.','error');
+            avatarInput.value='';
+            return;
+          }
+          if(file.size > 1024*1024){
+            showToast('Avatar must be less than 1MB.','error');
+            avatarInput.value='';
+            return;
+          }
+          const r = new FileReader();
+          r.onload = ()=>{ setCurrentUser(v, r.result); };
+          r.readAsDataURL(file);
+        } else {
+          setCurrentUser(v);
+        }
+      });
+  // Removed duplicate clearNameBtn event handler
+    clearNameBtn.addEventListener('click', ()=>{ if(!confirm('Clear saved name and avatar?')) return; setCurrentUser(null); document.getElementById('avatarInput').value=''; });
+
+    // menu toggle with ARIA
+    const menuToggle = document.getElementById('menuToggle');
+    if (menuToggle && menuList) {
+      menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const expanded = menuList.classList.toggle('show');
+        menuToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        if (expanded) {
+          // Focus first menu item
+          const first = menuList.querySelector('a[role="menuitem"]');
+          if (first) first.focus();
+        }
+      });
+      document.addEventListener('click', (e) => {
+        if (!menuList.contains(e.target) && !menuToggle.contains(e.target)) {
+          menuList.classList.remove('show');
+          menuToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+  // init
+  refreshUserUI();
+  renderPosts();
+  renderAnnouncements();
+
+    // Accessibility: focus style for all buttons/inputs
+    const style = document.createElement('style');
+    style.innerHTML = `
+      button:focus, input:focus, textarea:focus, a:focus {
+        outline: 2.5px solid #b40808e1 !important;
+        outline-offset: 2px;
+        z-index: 10;
+      }
+      @media (max-width: 600px) {
+        .dashboard-layout { flex-direction: column; gap: 1rem; padding: 0.7rem 0.2rem; }
+        .dashboard-side { margin-left: 0; max-width: 100%; min-width: 0; }
+        .dashboard-main { min-width: 0; }
+        .post-form, .post-card { padding: 0.7rem; }
+        .img-preview { max-width: 100px; }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
