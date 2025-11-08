@@ -33,7 +33,15 @@ const staticDir = path.join(__dirname, '..', 'public');
 app.use(express.static(staticDir));
 
 // Serve uploaded files
-app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
+const uploadsPath = path.join(__dirname, '..', 'uploads');
+try{ require('fs').mkdirSync(uploadsPath, { recursive: true }); }catch(e){ console.error('[index] ensure uploads dir failed', e); }
+app.use('/uploads', express.static(uploadsPath, {
+	fallthrough: true,
+	setHeaders(res){
+		// Allow images to be embedded across origins
+		res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+	}
+}));
 
 // Connect DB
 connectDB();

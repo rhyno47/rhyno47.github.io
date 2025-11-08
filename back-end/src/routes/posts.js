@@ -17,6 +17,17 @@ const storage = multer.diskStorage({
     cb(null, name);
   }
 });
+// Ensure uploads directory exists proactively (important for ephemeral deployments)
+async function ensureUploadsDir(){
+  try{
+    const dir = path.join(__dirname, '..', '..', 'uploads');
+    await fs.mkdir(dir, { recursive: true });
+  }catch(e){
+    console.error('[posts] Failed to create uploads dir', e);
+  }
+}
+ensureUploadsDir();
+
 const upload = multer({
   storage,
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
@@ -76,10 +87,23 @@ router.get('/:id', async (req, res) => {
 
 // POST /api/posts - create (any authenticated user)
 // Create post: supports optional image upload (multipart/form-data) or JSON body
-router.post('/', authenticate, upload.single('image'), async (req, res) => {
+router.post('/', authenticate, (req, res, next) => {
+  // Wrap upload to capture Multer errors distinctly
+  upload.single('image')(req, res, function(err){
+    if(err){
+      console.error('[posts:create] Multer error', err);
+      return res.status(400).json({ message: err.message || 'Upload error' });
+    }
+    next();
+  });
+}, async (req, res) => {
+  const trace = { hasFile: !!req.file, bodyKeys: Object.keys(req.body||{}), user: req.user && req.user.id };
   try{
-    const { title, body, link } = req.body;
-    if(!title || !body) return res.status(400).json({ message: 'Title and body required' });
+    const { title, body, link } = req.body || {};
+    if(!title || !body){
+      console.warn('[posts:create] Validation failed', trace);
+      return res.status(400).json({ message: 'Title and body required' });
+    }
     let imageUrl = req.body.imageUrl || null;
     if(req.file){
       imageUrl = '/uploads/' + req.file.filename;
@@ -88,10 +112,9 @@ router.post('/', authenticate, upload.single('image'), async (req, res) => {
     await post.save();
     res.status(201).json(post);
   }catch(e){
-    console.error(e);
-    // Multer file filter error handler
+    console.error('[posts:create] Server error', { error: e.message, stack: e.stack && e.stack.split('\n').slice(0,4).join(' | '), trace });
     if(e.message && e.message.includes('Only image')) return res.status(400).json({ message: e.message });
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: 'Server error creating post', detail: e.message });
   }
 });
 
