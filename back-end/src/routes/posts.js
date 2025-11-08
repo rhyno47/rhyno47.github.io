@@ -5,25 +5,34 @@ const { authenticate } = require('../middleware/auth');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs').promises;
-const cloudinary = require('cloudinary').v2;
+let cloudinary = null;
+try { cloudinary = require('cloudinary').v2; } catch(_e) { cloudinary = null; }
 
 // Configure Cloudinary from env (CLOUDINARY_URL or explicit keys)
-if(process.env.CLOUDINARY_URL || (process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET)){
-  try{
-    cloudinary.config({
-      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-      api_key: process.env.CLOUDINARY_API_KEY,
-      api_secret: process.env.CLOUDINARY_API_SECRET,
-      secure: true
-    });
-  }catch(e){ console.error('[cloudinary] config error', e); }
-}
+let cloudinaryReady = false;
+try{
+  if(cloudinary){
+    if(process.env.CLOUDINARY_URL && /^cloudinary:\/\//.test(process.env.CLOUDINARY_URL)){
+      // cloudinary lib will auto-read CLOUDINARY_URL from process.env
+      cloudinary.config({ secure: true });
+      cloudinaryReady = true;
+    } else if(process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET){
+      cloudinary.config({
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET,
+        secure: true
+      });
+      cloudinaryReady = true;
+    }
+  }
+}catch(e){ console.error('[cloudinary] config error', e.message || e); cloudinaryReady = false; }
 
 // Multer storage
 // If Cloudinary is configured, keep files in memory and stream to Cloudinary.
 // Otherwise, fall back to disk storage under /uploads.
 let storage;
-const useCloudinary = !!(process.env.CLOUDINARY_URL || process.env.CLOUDINARY_CLOUD_NAME);
+const useCloudinary = !!cloudinaryReady;
 if(useCloudinary){
   storage = multer.memoryStorage();
 }else{
