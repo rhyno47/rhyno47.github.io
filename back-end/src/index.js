@@ -46,6 +46,23 @@ app.use('/api/posts', require('./routes/posts'));
 // AI chat proxy
 app.use('/api/ai', require('./routes/ai'));
 
+// Diagnostic: ephemeral egress IP checker (temporary; remove in production)
+// Returns the server's current outbound IP as seen by ifconfig.co.
+// Helps with external service allowlisting.
+app.get('/whoami', async (req, res) => {
+	try {
+		const fetch = require('node-fetch');
+		const r = await fetch('https://ifconfig.co/json', { timeout: 8000 }).catch(e => { throw e; });
+		if(!r.ok) throw new Error('Upstream status ' + r.status);
+		const json = await r.json();
+		console.log('[whoami] outbound ip:', json.ip);
+		res.json({ ip: json.ip, raw: json });
+	} catch (e) {
+		console.error('[whoami] error', e.message || e);
+		res.status(500).json({ error: 'whoami failed', message: e.message || String(e) });
+	}
+});
+
 // Root: redirect to frontend if configured, else serve landing page (if present), else health JSON
 app.get('/', (req, res) => {
 	// Default redirect to GitHub Pages if FRONTEND_URL not provided
