@@ -9,24 +9,52 @@ const app = express();
 // Otherwise, only allow the listed origins (comma-separated).
 const rawCors = process.env.CORS_ORIGIN || '';
 const whitelist = rawCors.split(',').map(o => o.trim()).filter(Boolean);
-const corsOptions = {
-	origin(origin, cb) {
-		// allow server-to-server or same-origin requests without an Origin header
-		if (!origin) return cb(null, true);
-		// If no whitelist provided or it includes '*', reflect the origin (works with credentials)
-		if (whitelist.length === 0 || whitelist.includes('*') || whitelist.includes(origin)) {
-			return cb(null, true);
-		}
-		return cb(new Error('CORS: Origin not allowed: ' + origin));
-	},
-	credentials: true,
-	methods: ['GET','HEAD','PUT','PATCH','POST','DELETE','OPTIONS'],
-	// Do not hardcode allowedHeaders; let the CORS middleware reflect
-	// the Access-Control-Request-Headers from the browser automatically.
-};
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
+// Always allow common local dev origins to simplify testing even when CORS_ORIGIN is set
+const devOriginRegex = /^https?:\/\/(localhost|127\.0\.0\.1|192\.168\.|10\.)/i;
+function computeCors(origin){
+	if(!origin) return { origin: true };
+	if(devOriginRegex.test(origin)) return { origin: origin, credentials:true };
+	if(whitelist.length === 0 || whitelist.includes('*') || whitelist.includes(origin)) return { origin: origin, credentials:true };
+	return { origin: false };
+}
+app.use((req,res,next)=>{
+	const origin = req.headers.origin;
+	const opts = computeCors(origin);
+	// If not allowed, skip setting ACAO and move on (will be blocked) but log once
+	if(!opts.origin){
+		console.warn('[CORS] Blocked origin', origin);
+		return next();
+	}
+	// Allowed: set headers manually to avoid preflight failures
+	res.setHeader('Access-Control-Allow-Origin', opts.origin === true ? origin : opts.origin);
+	res.setHeader('Vary', 'Origin');
+	res.setHeader('Access-Control-Allow-Credentials', 'true');
+	res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
+	const reqHeaders = req.headers['access-control-request-headers'];
+	if(req.method === 'OPTIONS'){
+		// reflect requested headers for preflight
+		if(reqHeaders) res.setHeader('Access-Control-Allow-Headers', reqHeaders);
+		return res.status(204).end();
+	}
+	next();
+});
 app.use(express.json());
+
+// Explicit error handler for CORS rejections so browser gets a 403 with CORS headers
+app.use(function corsErrorHandler(err, req, res, next){
+	if(err && /CORS: Origin not allowed/.test(err.message)){
+		// Return a controlled 403; do NOT expose internal details
+		// Reflect origin ONLY if dev to ease debugging; otherwise omit
+		const origin = req.headers.origin;
+		const devOriginRegex = /^https?:\/\/(localhost|127\.0\.0\.1|192\.168\.|10\.)/i;
+		if(origin && devOriginRegex.test(origin)){
+			res.setHeader('Access-Control-Allow-Origin', origin);
+			res.setHeader('Vary', 'Origin');
+		}
+		return res.status(403).json({ message: 'CORS blocked', origin });
+	}
+	next(err);
+});
 
 // Static assets (optional landing page)
 const staticDir = path.join(__dirname, '..', 'public');
