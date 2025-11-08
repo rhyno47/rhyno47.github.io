@@ -7,16 +7,62 @@
   overflow-x: hidden;
 }
 
+:root{
+  --hero-img-1: url('../images/hero%20section%20image%202.jpg');
+  --hero-img-1-2x: url('../images/hero%20section%20image%202@2x.jpg');
+  --default-bg: url('../images/default%20background.jpg');
+  --default-bg-2x: url('../images/default%20background@2x.jpg');
+}
+
 body {
-  background-image: url('../images/water\ fall.jpg'); /* your image path */
-  /* Use contain to avoid aggressive upscaling/zoom that causes pixelation.
-     Provide a fallback background color for uncovered areas. */
+  /* prefer a high-quality default background and fall back gracefully */
+  background-image: -webkit-image-set(var(--default-bg) 1x, var(--default-bg-2x) 2x);
+  background-image: image-set(var(--default-bg) 1x, var(--default-bg-2x) 2x);
+  /* Use contain on small devices to avoid aggressive zooming; switch to cover on larger screens */
   background-size: contain;
   background-position: top center;
   background-repeat: repeat;
   background-color: #0f0f10; /* dark fallback to improve contrast */
   color: #333;
 }
+
+/* On larger viewports use cover for a richer wallpaper and fix attachment for parallax */
+@media (min-width: 1100px) {
+  body{
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+}
+
+/* Page-specific background for Find Jobs page */
+.find-jobs-page {
+  /* Override the global background with the Find Jobs wallpaper */
+  /* use URL-encoded filename to avoid issues with spaces and ensure reliable loading */
+  background-image: url('../images/find%20jobs%20background.jpg');
+  background-size: cover; /* full-bleed cover for a hero-like wallpaper */
+  background-position: center center;
+  background-repeat: no-repeat;
+  /* Improve rendering on high-DPI displays and provide stable positioning */
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  image-rendering: auto;
+  /* add a subtle dark overlay to improve legibility of text/cards over the photo */
+}
+
+/* overlay to darken bright areas and improve perceived contrast/quality */
+.find-jobs-page::before{
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.38);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ensure page content sits above the overlay */
+.find-jobs-page .page{ position: relative; z-index: 1 }
 
 /* On narrow screens, keep full-bleed so hero / small devices look good */
 @media (max-width: 900px) {
@@ -58,9 +104,54 @@ html {
   color: white;
   text-decoration: none;
 }
+.new-navbar .nav-links a { font-weight: 700; }
+
+/* slightly larger nav text on small screens for touch targets */
+@media (max-width: 800px) {
+  .new-navbar .nav-links a { font-size: 1.05rem; }
+}
 
 .new-navbar .nav-links a:hover {
   color: #ffbaba;
+}
+
+/* Prominent circular search button used in navbar */
+.search-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; /* image will fill the button */
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+.search-btn i {
+  color: #fff;
+  font-size: 18px;
+}
+.search-btn:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+/* if using an image logo for search, keep it balanced in the circular frame */
+.search-btn img{
+  width:100%;
+  height:100%;
+  object-fit:cover; /* make the image cover the button area */
+  display:block;
+}
+
+/* Left logo box: match the search button size/appearance so logo is boxed and full */
+.new-navbar .logo img{
+  width:40px;
+  height:40px;
+  object-fit:cover;
+  display:block;
+  border-radius:8px;
 }
 
 /* HAMBURGER */
@@ -112,49 +203,112 @@ html {
 }
 
 
-/* ====== HERO SECTION ====== */
-#hero {
-  height: 80vh;
-  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)),
-              url("../images/water\ fall.jpg") center/cover no-repeat;
-  color: white;
+/* ====== HERO SECTION (reusable) ====== */
+#hero, .site-hero {
+  /* use the supplied hero wallpaper; prefer cover for full-bleed without stretching */
+  height: 55vh;
+  min-height: 420px;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 2rem;
+  padding: 2rem 1rem;
+  color: #fff;
+  /* combine a strong dark overlay for legibility with the wallpaper image
+    Use image-set so high-DPI (2x) variants are used on capable devices to avoid upscaling. */
+  background-image: linear-gradient(rgba(3,3,3,0.55), rgba(3,3,3,0.55)), -webkit-image-set(var(--hero-img-1) 1x, var(--hero-img-1-2x) 2x);
+  background-image: linear-gradient(rgba(3,3,3,0.55), rgba(3,3,3,0.55)), image-set(var(--hero-img-1) 1x, var(--hero-img-1-2x) 2x);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  background-attachment: fixed;
+  image-rendering: auto; /* prefer quality over pixelated scaling */
 }
 
+/* Prevent internal scrollbars on the hero and center the hero content
+   Ensure the hero content is centered both vertically and horizontally and
+   hide accidental scroll UI that appeared on some pages. Keep overflow visible
+   for child elements that intentionally overflow (e.g., dropdowns) but hide
+   scrollbars caused by minor layout shifts. */
+#hero, .site-hero { overflow: hidden; }
+.hero-content { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; padding: 0 1rem; }
+
+/* Make the hamburger visually pop in case global/button resets or Bootstrap styles interfere */
+.hamburger { background: transparent; border: 0; padding: 6px; display: inline-flex; align-items:center; justify-content:center; }
+.hamburger span { background: #fff !important; height: 3px !important; border-radius: 2px !important; }
+.hamburger { filter: drop-shadow(0 2px 6px rgba(0,0,0,0.45)); }
+
+/* Ensure the hamburger shows three clear bars and is never hidden by other styles
+   Increase specificity and use !important where necessary to override Bootstrap or page-level resets. */
+/* Hide hamburger on larger screens by default; show only on small viewports */
+.new-navbar .hamburger { display: none !important; }
+
+@media (max-width: 800px) {
+  .new-navbar .hamburger {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    width: 36px !important;
+    height: 28px !important;
+    padding: 6px !important;
+    background: transparent !important;
+    border: 0 !important;
+    cursor: pointer !important;
+    z-index: 2000 !important;
+    position: relative !important;
+  }
+  .new-navbar .hamburger span {
+    display: block !important;
+    width: 100% !important;
+    height: 3.6px !important;
+    background: #fff !important;
+    border-radius: 3px !important;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.45) !important;
+  }
+}
+
+/* ensure nav actions (search / sign-in / user menu) stay above page content */
+.new-navbar .nav-actions { position: relative !important; z-index: 1900 !important; }
+
+/* Defensive rule: if any global `button` rules hide child spans, ensure these spans remain visible */
+.new-navbar .hamburger > span { visibility: visible !important; opacity: 1 !important; }
+
+/* Fallback for very large screens: prefer an explicit large hero if available to avoid visible upscaling */
+@media (min-width:1600px) {
+  #hero {
+    background-image: linear-gradient(rgba(3,3,3,0.55), rgba(3,3,3,0.55)), var(--hero-img-1-2x);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+}
+
+/* Utility: apply the site hero wallpaper to any element by adding .site-hero */
+.page-hero { display: block; }
+
 .hero-content h1 {
-  font-size: 2.8rem;
-  margin-bottom: 1rem;
+  font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+  margin-bottom: 0.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .hero-content p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+  margin-bottom: 1rem;
+  color: rgba(255,255,255,0.92);
+  max-width: 900px;
 }
 
-.hero-actions input {
-  padding: 0.8rem;
-  width: 300px;
-  border: none;
-  border-radius: 8px;
-  margin-right: 10px;
-}
+.hero-actions { margin-top: 0.9rem; display:flex; gap:10px; justify-content:center }
+.hero-actions .btn-primary{ padding:0.8rem 1.2rem; border-radius:10px; font-weight:800 }
+.hero-actions .btn-ghost{ padding:0.7rem 1rem; border-radius:10px; background:transparent; border:1px solid rgba(255,255,255,0.12); color:#fff }
 
-.hero-actions button {
-  background-color: #680202;
-  color: white;
-  padding: 0.8rem 1.4rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.hero-actions button:hover {
-  background-color: #680202;
+@media (max-width:700px){
+  #hero{ min-height: 360px; background-attachment: scroll; padding:1.2rem }
+  .hero-content h1{ font-size:1.6rem }
 }
 
 /* ====== COURSES SECTION ====== */
@@ -164,9 +318,12 @@ html {
 }
 
 #courses h2 {
-  font-size: 2rem;
-  color: #f2f3f3;
-  margin-bottom: 2rem;
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  color: #ffffff;
+  margin-bottom: 1.6rem;
+  font-weight: 800;
+  text-shadow: 0 4px 18px rgba(0,0,0,0.45);
+  display: inline-block;
 }
 
 .course-grid {
@@ -218,6 +375,25 @@ html {
   object-fit: cover;
   margin-bottom: 0.6rem;
 }
+.card-hero {
+  width: 100%;
+  height: 300px;
+  background-image: var(--card-bg-image);
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  object-fit: cover;
+  display: block;
+}
+/* Top image that sits inside cards (consistent size & rounded top corners) */
+.card-top-image{ display:block; width:100%; height:300px; object-fit:cover; border-top-left-radius:12px; border-top-right-radius:12px; margin-bottom:1rem }
+
+/* Ensure images inside .info-card are not obscured by the card overlay pseudo-element */
+.info-card > .card-top-image { position: relative; z-index: 1; border-radius: 12px 12px 0 0; }
+.info-card > img.card-top-image{ display:block }
+
+/* Make the info-card full-width within its container to match the 'cover full' look */
+#python-intro .info-card, #python-datatypes .info-card { width: 100%; }
 .card-text {
   font-size: 0.95rem;
   color: #f5f1f1;
@@ -300,6 +476,123 @@ html {
   outline-offset: 2px;
 }
 
+/* Navbar auth links spacing */
+.new-navbar .nav-actions { display:flex; gap:8px; align-items:center }
+.new-navbar .nav-actions .card-link { padding: 0.45rem 0.9rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); color:#fff }
+.new-navbar .nav-actions .card-link.register-link { background: transparent; border: 1px solid rgba(255,255,255,0.06); color:#fff; font-weight:700 }
+.new-navbar .nav-actions .card-link:hover { background: rgba(255,255,255,0.09) }
+
+/* Logged-in user menu styling: keep the same compact pill as Sign In link */
+.new-navbar .nav-actions .user-menu {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.35rem 0.8rem;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #fff;
+  font-weight: 700;
+}
+.new-navbar .nav-actions .user-menu .user-name { color: #fff; font-weight: 800; font-size: 0.95rem }
+.new-navbar .nav-actions .user-menu .signout-btn {
+  background: transparent;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+.new-navbar .nav-actions .user-menu .signout-btn:hover { background: rgba(255,255,255,0.06) }
+
+
+/* Prevent the navbar items from wrapping on small screens and keep the hamburger visible
+   Improvements:
+   - ensure containers can shrink (min-width:0) so flex items do not force overflow
+   - explicitly order the logo/hamburger so the hamburger stays on the left in mobile
+   - raise hamburger z-index so it remains clickable/visible if elements overlap
+*/
+.new-navbar{ flex-wrap: nowrap; overflow: visible; }
+.new-navbar .logo { flex-shrink: 0; order: -2; }
+.new-navbar .hamburger { flex: 0 0 auto; margin-left: 8px; z-index: 1000; order: -1; position: relative; }
+.new-navbar .nav-links { flex: 0 0 auto; min-width: 0; }
+.new-navbar .nav-actions { margin-left: auto; flex-shrink: 0; min-width: 0; display:flex; align-items:center; gap:8px; }
+
+/* Make the user menu compact and aggressively truncate long usernames to avoid wrapping
+   The user-name max-width uses the available space inside the pill so the hamburger is not pushed out.
+*/
+.new-navbar .nav-actions .user-menu { max-width: 140px; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.new-navbar .nav-actions .user-menu .user-name { display: inline-block; max-width: calc(100% - 42px); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Small-screen tweaks: make the pill slightly smaller so everything fits horizontally */
+@media (max-width: 480px) {
+  .new-navbar .nav-actions .user-menu { max-width: 110px; }
+  .new-navbar .hamburger { margin-left: 6px; }
+  /* avoid expanding the user-menu on hover on small screens (prevents overlap hiding the hamburger) */
+  .new-navbar .nav-actions .user-menu:hover { overflow: hidden; white-space: nowrap; }
+}
+
+/* Keep desktop hover behaviour (allow expansion) */
+@media (min-width: 481px) {
+  .new-navbar .nav-actions .user-menu:hover { overflow: visible; white-space: normal; }
+}
+
+/* Tweak padding/font sizes on small screens so components fit */
+@media (max-width: 480px) {
+  .new-navbar { padding: 0.5rem 0.9rem; }
+  .new-navbar .logo img { width: 34px; height: 34px; }
+  .new-navbar .nav-actions .card-link, .new-navbar .nav-actions .user-menu { padding: 0.28rem 0.6rem; font-size: 0.92rem; }
+  .search-btn { width: 36px; height: 36px; }
+}
+
+/* If the nav still runs out of horizontal space, keep the username collapsed and show full name on hover */
+.new-navbar .nav-actions .user-menu:hover { overflow: visible; white-space: normal; }
+
+/* Inline auth link inside auth cards (e.g., "Don't have an account? Register") */
+.auth-card .aux { display:flex; justify-content:center; align-items:center; gap:8px }
+.auth-inline-link{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  background: linear-gradient(180deg,#7a0202,#560101);
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  border:1px solid rgba(0,0,0,0.12);
+  box-shadow: 0 6px 18px rgba(104,2,2,0.12);
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s;
+}
+.auth-inline-link:hover{ transform: translateY(-2px); box-shadow:0 10px 26px rgba(104,2,2,0.16); opacity:0.98 }
+.auth-inline-link:focus{ outline:3px solid rgba(255,255,255,0.08); outline-offset:3px }
+
+/* A subtle smaller variant when the link appears on a darker page */
+.auth-inline-link.small { padding:5px 8px; font-size:0.95rem }
+
+/* Make auth form inputs readable: dark text on light auth cards */
+.auth-form input, .auth-form textarea, .auth-card input, .auth-card textarea, .auth-container input {
+  color: #111 !important;
+  background: #fff !important;
+}
+
+/* Password toggle inside input wrapper */
+.pw-wrap{ position: relative }
+.pw-toggle{
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #680202;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 1.05rem;
+  display: inline-flex;
+  align-items: center;
+}
+.pw-toggle:focus{ outline: 3px solid rgba(104,2,2,0.12); border-radius:6px }
+
 /* Table of Contents styles */
 .toc {
   max-width: 1100px;
@@ -328,11 +621,39 @@ html {
 
 /* ====== FOOTER ====== */
 #footer {
-  background-color: #680202;
+  background-color: #680202; /* same as navbar */
   color: white;
   text-align: center;
   padding: 1rem 0;
   margin-top: 2rem;
+  position: relative; /* ensure footer appears above the page overlay */
+  z-index: 2;
+}
+
+/* Footer inner layout (used across pages) */
+.footer-inner{
+  max-width:1100px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  padding:0 1rem;
+}
+.footer-brand{ display:flex; align-items:center; gap:0.6rem }
+.footer-brand img{ width:36px; height:36px; object-fit:cover; border-radius:6px }
+.footer-links{ display:flex; gap:0.8rem; align-items:center }
+.footer-links a{ color:#fff; text-decoration:none; padding:6px 8px; border-radius:6px; font-weight:600 }
+.footer-links a:hover{ background: rgba(255,255,255,0.06); color:#ffdede }
+.footer-right{ display:flex; align-items:center; gap:0.8rem }
+.footer-copy{ color: rgba(255,255,255,0.9); font-size:0.95rem }
+.footer-social{ display:flex; gap:0.6rem; align-items:center }
+.footer-social a{ color:#fff; text-decoration:none; font-size:1.05rem; display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:6px }
+.footer-social a:hover{ background: rgba(255,255,255,0.06); color:#ffdede }
+
+@media (max-width:700px){
+  .footer-inner{ flex-direction:column; text-align:center; gap:0.6rem }
+  .footer-right{ flex-direction:column }
 }
 
 /*adjust nav for small screens 600px wide or smaller*/
@@ -358,4 +679,446 @@ html {
 .menu-list.show {
   display: flex; /* or block for vertical menu */
 }
+
+/* Styles moved from findjobs.html to centralize page styles */
+:root { --accent: #680202; }
+body { --feed-offset: 80px; }
+.page { margin-top: calc(var(--feed-offset) + 8px); padding: 2rem 5%; max-width:1100px; margin-left:auto; margin-right:auto }
+.hero { padding: 1.6rem; border-radius: 10px; color: #fff; margin-bottom:1.4rem; background: linear-gradient(180deg, rgba(104,2,2,0.95), rgba(104,2,2,0.85)); box-shadow: 0 8px 20px rgba(0,0,0,0.45); text-align:center }
+.hero h1 { font-size: 2.2rem; margin-bottom:0.4rem }
+.hero p.lead { font-size:1rem; color: rgba(255,255,255,0.92); max-width:900px; margin:0.4rem auto }
+.hero .hero-actions { margin-top:1rem; display:flex; justify-content:center }
+.hero .hero-actions button { background-color: #680202; color:white; padding:0.8rem 1.2rem; border-radius:8px; border:1px solid rgba(255,255,255,0.06); font-weight:700; cursor:pointer }
+.hero .hero-actions button:hover { transform: translateY(-2px) }
+.layout { display: grid; grid-template-columns: 1fr; gap: 1.2rem; align-items:start; }
+@media (max-width: 980px){ .layout{ grid-template-columns: 1fr; } }
+
+/* Feed cards */
+.feed { display:flex; flex-direction:column; gap:1rem; align-items:center }
+.card-feed { background: rgba(0,0,0,0.45); padding:1rem; border-radius:10px; color:#f6f6f6; border:1px solid rgba(255,255,255,0.04); width:100%; max-width:820px; }
+.card-feed h3{ margin-bottom:0.3rem }
+.card-meta{ color: rgba(255,255,255,0.75); font-size:0.9rem }
+.card-feed img{ width:100%; max-height:240px; object-fit:cover; border-radius:8px; margin-top:0.6rem }
+
+/* Thumbnail styling for post images (smaller preview to avoid "zoomed" images) */
+.card-feed .post-thumb{
+  width:100%;
+  max-height:160px; /* smaller preview height */
+  object-fit:cover;
+  border-radius:8px;
+  margin-top:0.6rem;
+  cursor:pointer;
+}
+
+/* Lightbox overlay to show full image when a thumbnail is clicked */
+.img-lightbox{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background: rgba(0,0,0,0.88);
+  z-index:3000;
+  padding:20px;
+}
+.img-lightbox.show{ display:flex; }
+.img-lightbox-inner{ max-width:1200px; max-height:90vh; position:relative; }
+.img-lightbox-inner img{ width:auto; max-width:100%; max-height:100%; display:block; border-radius:8px; box-shadow:0 10px 40px rgba(0,0,0,0.6); }
+.img-lightbox-close{ position:absolute; top:-10px; right:-10px; background:#fff; color:#000; border-radius:50%; width:36px; height:36px; border:none; cursor:pointer; font-size:20px; line-height:1 }
+
+@media (max-width:600px){
+  .card-feed .post-thumb{ max-height:120px }
+  .img-lightbox-inner{ width:100%; }
+}
+
+/* Indicator badge on thumbnails to show they are clickable */
+.post-image{ position:relative; display:block }
+.post-image::after{
+  content: "Click for full view";
+  position:absolute;
+  right:8px;
+  bottom:8px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 6px;
+  pointer-events: none; /* allow clicks to pass through to the anchor */
+  opacity: 0.95;
+}
+
+@media (prefers-reduced-motion: reduce){ .post-image::after{ transition:none } }
+
+/* Right drawer (removed) */
+/* dashboard removed—posts are shown inline in the feed */
+.drawer-header{ display:flex; align-items:center; justify-content:space-between }
+.drawer-list{ display:none }
+
+/* Modal */
+.modal-backdrop{ position:fixed; inset:0; background: rgba(0,0,0,0.6); display:none; align-items:center; justify-content:center; z-index:2000 }
+.modal-backdrop.show{ display:flex }
+.modal { width: 95%; max-width:760px; background: #0f0f10; padding:1.15rem; border-radius:12px; border:1px solid rgba(255,255,255,0.04) }
+.modal h3{ color:#fff }
+/* Modal form button styles to match site theme */
+.btn-primary-strong{ background:#680202; color:#fff; padding:0.6rem 0.9rem; border-radius:8px; border:1px solid rgba(0,0,0,0.2); cursor:pointer; font-weight:700 }
+.btn-primary-strong:hover{ transform: translateY(-2px) }
+.btn-ghost{ background:transparent; color:#fff; padding:0.45rem 0.8rem; border-radius:8px; border:1px solid rgba(255,255,255,0.06); cursor:pointer }
+.btn-ghost:hover{ background: rgba(255,255,255,0.02) }
+.form-row{ display:flex; gap:0.6rem; }
+.form-row .col{ flex:1 }
+input, textarea{ width:100%; padding:0.7rem; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:#f4f4f4 }
+textarea{ min-height:120px }
+.modal .actions{ display:flex; gap:0.6rem; margin-top:0.6rem }
+.small-muted{ color: rgba(255,255,255,0.78); font-size:0.95rem }
+.no-posts{ color: rgba(255,255,255,0.6); padding:1rem; border-radius:8px; background: rgba(255,255,255,0.01) }
+/* icon buttons for edit/delete using local repo images */
+.icon-btn{ background: transparent; border: none; padding:8px; border-radius:8px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center }
+.icon-btn img{ width:28px; height:28px; object-fit:contain; display:block }
+.controls { display:flex; gap:8px; align-items:center }
+/* card action row: left for meta or nothing, right for link & controls */
+.card-actions{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:0.6rem }
+.card-actions .right { display:flex; gap:8px; align-items:center }
+.open-link-btn { padding:0.4rem 0.8rem; font-weight:700; font-size:0.95rem }
+
+/* Make modal visually use the same wallpaper with a dark overlay for readability */
+.modal {
+  background-image: linear-gradient(rgba(16,16,16,0.86), rgba(16,16,16,0.86)), url('../images/find%20jobs%20background.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-blend-mode: overlay;
+}
+.modal h3 { text-align: center; margin-bottom: 0.4rem }
+
+/* Style the file input button to match site buttons (modern browsers) */
+input[type="file"]::file-selector-button {
+  background: #680202;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+/* Webkit prefix for older browsers */
+input[type="file"]::-webkit-file-upload-button {
+  background: #680202;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* Make the hero Create button more prominent and button-like */
+#heroCreateBtn {
+  display: inline-block;
+  background-color: #680202;
+  color: #fff;
+  padding: 0.8rem 1.1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  font-weight: 800;
+  cursor: pointer;
+}
+#heroCreateBtn:hover{ transform: translateY(-2px) }
+
+/* End moved styles */
+
+/* ====== TOAST / NOTIFICATION UI ====== */
+.toast-container {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 99999;
+  pointer-events: none; /* allow clicks through when no toasts */
+}
+.site-toast {
+  pointer-events: auto; /* enable interaction with toasts */
+  min-width: 260px;
+  max-width: 420px;
+  background: #111;
+  color: #fff;
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  border-left: 6px solid #444;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(-6px) scale(0.98);
+  animation: toast-in 260ms ease forwards;
+}
+.site-toast .title{ font-size:0.98rem; margin-bottom:3px }
+.site-toast .body{ font-weight:500; font-size:0.94rem; color: #f1f1f1 }
+.site-toast .close-btn{ margin-left:auto; background:transparent;border:0;color:inherit;font-size:16px;cursor:pointer }
+.site-toast.success{ border-left-color: #680202; background: linear-gradient(180deg,#7a0202,#3a0505); }
+.site-toast.info{ border-left-color: #0d6efd; background: linear-gradient(180deg,#0c2147,#07162d); }
+.site-toast.error{ border-left-color: #d9534f; background: linear-gradient(180deg,#3a0c0c,#230808); }
+.site-toast .icon{ width:34px; height:34px; display:inline-flex;align-items:center;justify-content:center;border-radius:8px;flex:0 0 34px }
+.site-toast.success .icon{ background: rgba(104,2,2,0.12); color:#FFDede }
+.site-toast.info .icon{ background: rgba(13,110,253,0.08); color:#AFCBFF }
+.site-toast.error .icon{ background: rgba(217,83,79,0.08); color:#FFB6B0 }
+
+/* success message helper for inline fallbacks (used when showToast isn't available) */
+.msg-success{ color: var(--accent); font-weight:700 }
+
+@keyframes toast-in { to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes toast-out { from { opacity:1; } to { opacity:0; transform: translateY(-6px) scale(0.98); } }
+
+.site-toast.removing{ animation: toast-out 240ms ease forwards }
+
+/* ====== QUIZ CARD STYLES ====== */
+.quiz-grid{ display:grid; grid-template-columns: 1fr; gap:18px; }
+.quiz-card{ background: linear-gradient(180deg, rgba(255,241,241,0.92), rgba(255,245,245,0.88)); border-radius:14px; padding:18px; box-shadow: 0 10px 40px rgba(6,6,6,0.14); border:1px solid rgba(104,2,2,0.10); }
+.quiz-card + .quiz-card{ margin-top:8px }
+.quiz-card-header{ display:flex; gap:12px; align-items:flex-start; margin-bottom:10px }
+.quiz-number{ background: #680202; color:#fff; min-width:42px; height:42px; display:inline-grid; place-items:center; border-radius:8px; font-weight:800 }
+.quiz-question{ font-size:1.06rem; font-weight:800; color:#2b1212 }
+.quiz-card-body{ display:flex; flex-direction:column; gap:10px }
+.question-code{ width:100%; min-height:120px; padding:12px; border-radius:10px; border:1px solid rgba(16,16,16,0.06); background:#fff; font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Monaco, "Roboto Mono", "Segoe UI Mono", monospace; color:#111 }
+.quiz-actions{ display:flex; gap:8px; align-items:center }
+.quiz-actions .btn{ padding:8px 12px; border-radius:8px; font-weight:700 }
+.btn-outline-primary{ background:transparent; border:1px solid rgba(104,2,2,0.18); color:var(--accent) }
+.btn-primary{ background: var(--accent); color: #fff; border: 1px solid rgba(0,0,0,0.08); padding:8px 12px; border-radius:8px; }
+.btn-primary:hover{ filter:brightness(.98); }
+.iframe-preview{ margin-top:8px; padding:6px; border-radius:10px; background: #fafafa; border:1px solid rgba(0,0,0,0.04) }
+.solution-pre{
+  background: #0b0b0b;
+  color: #e6eef6;
+  border-radius: 8px;
+  padding: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 220px;
+  overflow: auto;
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+}
+.result{ font-weight:700 }
+.result .correct{ color: var(--accent); }
+.result .incorrect{ color:#b00020 }
+
+/* small responsive tweaks */
+@media (min-width:900px){ .quiz-grid{ grid-template-columns: repeat(1,1fr); } }
+
+/* Dark-mode helper that a JS quiz can toggle for demonstration */
+.dark-mode{ background:#0b0b0b; color:#f4f4f4 }
+
+/* Quiz page panel and hero */
+.quiz-panel{
+  max-width:1100px;
+  margin:40px auto;
+  padding:28px 36px;
+  border-radius:14px;
+  backdrop-filter: blur(8px) saturate(120%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(250,250,250,0.80));
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 12px 40px rgba(6,6,6,0.16);
+}
+
+@keyframes hero-bounce {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px) scale(1.01); }
+  100% { transform: translateY(0); }
+}
+
+.quiz-hero-title{
+  font-size: 1.25rem;
+  line-height: 1.04;
+  margin: 0 0 14px;
+  color: var(--accent); /* use site accent */
+  font-weight: 900;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  display: block;
+  text-align: center;
+  animation: hero-bounce 3s ease-in-out infinite;
+}
+
+/* make sure question cards contrast on light panel */
+.quiz-card{ background: linear-gradient(180deg, rgba(255,244,244,0.95), rgba(255,242,242,0.92)); }
+
+/* small floating effect for the hero when it sits over the panel */
+@keyframes hero-float { 0%{ transform: translateY(0) } 50%{ transform: translateY(-4px) } 100%{ transform: translateY(0) } }
+.quiz-hero-title{ animation-name: hero-float; }
+
+/* background duplication & subtle zoom effect for quiz pages only */
+.quiz-bg { background-color: #0b0b0b; background-image: url('/images/dragon%20image.jpg'); background-repeat: no-repeat; background-position: center top; background-size: cover; min-height:100vh; }
+
+/* remove duplicated pseudo-layer to avoid visual clipping; if a subtle overlay is desired we can re-introduce it with lower opacity */
+
+/* inspiring message color (matches site accent) */
+.inspire-message{
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 1rem; /* default readable size */
+  line-height: 1.08;
+  text-align: center;
+  display: inline-block;
+  max-width: 420px; /* keep messages from stretching too wide on desktop */
+  word-break: break-word;
+  padding: 0.1rem 0.25rem;
+}
+
+/* Tighter, more compact styling for small screens so the inspiring text doesn't dominate the layout */
+@media (max-width: 700px) {
+  .inspire-message{ font-size: 0.92rem; max-width: 260px; }
+}
+@media (max-width: 420px) {
+  .inspire-message{ font-size: 0.85rem; max-width: 200px; }
+}
+
+/* ===== AI SUPPORTER WIDGET ===== */
+.ai-fab{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: inline-grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 18px;
+  box-shadow: 0 8px 28px rgba(104,2,2,0.28);
+  z-index: 99998;
+  cursor: pointer;
+  border: 3px solid rgba(255,255,255,0.06);
+}
+.ai-fab:focus{ outline: 3px solid rgba(104,2,2,0.18); }
+.ai-fab .ai-label{ pointer-events:none }
+
+.ai-chat-card{
+  position: fixed;
+  right: 18px;
+  bottom: 86px; /* sits above the fab */
+  width: 340px;
+  max-height: 64vh;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 18px 50px rgba(6,6,6,0.24);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 99999;
+  border: 1px solid rgba(16,16,16,0.06);
+  font-family: inherit;
+}
+.ai-chat-card.hidden{ display:none }
+.ai-chat-header{ padding:12px 14px; background: linear-gradient(90deg,var(--accent), #7a0101); color:#fff; display:flex; align-items:center; gap:10px }
+.ai-chat-title{ font-weight:800; font-size:0.95rem }
+.ai-chat-close{ margin-left:auto; background:transparent;border:none;color:inherit;cursor:pointer;font-size:18px }
+.ai-chat-body{ padding:12px; overflow:auto; display:flex; flex-direction:column; gap:8px; background: linear-gradient(180deg,#fff,#fff); }
+.ai-msg{ max-width:84%; padding:8px 10px; border-radius:10px; font-size:0.95rem }
+.ai-msg.user{ align-self:flex-end; background: rgba(104,2,2,0.08); color:#3a0000 }
+.ai-msg.bot{ align-self:flex-start; background: rgba(104,2,2,0.10); color:#2b0a0a }
+.ai-chat-input{ display:flex; gap:8px; padding:10px; border-top:1px solid rgba(16,16,16,0.04); background:#fafafa }
+.ai-chat-input textarea{ flex:1; min-height:36px; max-height:110px; resize:vertical; padding:8px; border-radius:8px; border:1px solid rgba(16,16,16,0.06); font-family:inherit; background: #fff; color: #111; }
+.ai-chat-input button{ background: var(--accent); color:#fff; border:0; padding:8px 12px; border-radius:8px; cursor:pointer }
+.ai-typing{ font-style:italic; opacity:0.9; font-size:0.9rem; color: rgba(0,0,0,0.6) }
+
+/* responsive tweaks */
+@media (max-width:420px){ .ai-chat-card{ right:10px; left:10px; width:auto; bottom:86px } }
+
+
+/* Strong override for navbar signout button to prevent page-level/global button styles
+   (some pages include a global `button { ... }` rule or load Bootstrap which can change button sizing).
+   This selector is intentionally specific and uses !important to keep the navbar compact and consistent.
+*/
+.new-navbar .nav-actions .user-menu .signout-btn,
+.new-navbar .nav-actions .signout-btn {
+  all: unset; /* remove browser and global button styles */
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 6px 8px !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  color: inherit !important;
+  cursor: pointer !important;
+  border-radius: 6px !important;
+  font-weight: 700 !important;
+}
+.new-navbar .nav-actions .signout-btn:hover { background: rgba(255,255,255,0.06) !important; }
+
+/* ====== Page-specific: style cards on Introduction to Python page to match
+   the look & feel used on `Introduction to css.html` (lesson-card / code-card)
+   We scope these rules to #python-intro and #python-datatypes so other pages
+   are unaffected. This only changes presentation, not content order. */
+#python-intro .info-card,
+#python-datatypes .info-card {
+  background: linear-gradient(145deg, #680202, #8b0b0b);
+  border-radius: 20px;
+  padding: 30px;
+  margin: 20px auto;
+  max-width: 950px;
+  color: white;
+  box-shadow: 0 4px 25px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.15);
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.7;
+}
+
+#python-intro .info-card h3,
+#python-datatypes .info-card h3 {
+  color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+
+#python-intro .info-card h4,
+#python-datatypes .info-card h4 { color: #ffb3b3; margin-top: 15px; }
+
+#python-intro .info-card pre,
+#python-datatypes .info-card pre {
+  background: rgba(255,255,255,0.08);
+  padding: 12px;
+  border-radius: 8px;
+  color: #ffffff;
+  overflow-x: auto;
+  margin-top: 8px;
+}
+
+/* Code/example cards inside the Python intro (Try It cards) */
+#python-intro .code-card,
+#python-datatypes .code-card {
+  max-width: 100%;
+  background: linear-gradient(145deg, #680202, #8b0b0b);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  padding: 20px;
+  margin: 20px 0;
+  color: #fff;
+}
+
+#python-intro .code-card h3,
+#python-datatypes .code-card h3 { color: #fff; }
+
+#python-intro .code-card textarea,
+#python-datatypes .code-card textarea {
+  background: #1a1a1a; color: #f8f8f2; border: 1px solid rgba(155,20,20,0.6); border-radius:8px;
+}
+
+/* buttons in these scoped cards follow the bright-white CTA pattern from the lesson page */
+#python-intro .code-card button,
+#python-datatypes .code-card button { background: #fff; color: #680202; font-weight:700; border-radius:8px; padding:10px 18px; border: none; }
+
+/* Make headings match the lesson-card style when used inside the python intro */
+#python-intro h2, #python-datatypes h2 { text-align: center; color: #ffffff; font-size: 2rem; margin-bottom: 12px; }
+
+
+
+
 

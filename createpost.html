@@ -1,244 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coding with Tawfiq | Home</title>
-  <link rel="stylesheet" href="assets/home.css">
-
-  <link rel="stylesheet" href="assets/ads.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Create Job Post</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body { background: #f8f9fa; }
+    .container { max-width: 720px; margin-top: 40px; }
+    .auth-form { background: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
+  </style>
 </head>
 <body>
-
-
-<!-- NEW NAVBAR -->
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-
-<style>
-  .navbar-custom {
-    background-color: #680202; /* updated navbar color */
-    padding: 0.5rem 1rem;
-  }
-  .navbar-brand img {
-    height: 40px;
-  }
-  .btn-signin {
-    background-color: #b40808e1; /* updated sign in button color */
-    color: #fff;
-    font-weight: 500;
-  }
-  .btn-signin:hover {
-    background-color: #9a0707; /* slightly darker on hover */
-    color: #fff;
-  }
-  .menu-btn {
-    background: none;
-    border: none;
-    font-weight: 500;
-    color: #fff; /* make menu text visible on dark navbar */
-  }
-  .search-btn {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    color: #fff; /* make search icon visible */
-  }
-</style>
-
-<nav class="navbar navbar-expand-lg navbar-custom d-flex justify-content-between align-items-center">
-  <!-- Logo -->
-
-  <a class="navbar-brand" href="#" style="overflow:visible;max-width:none;">
-    <img src="images/coding with tawfiq.jpg" alt="Logo" style="height:48px;max-width:100%;object-fit:contain;display:block;">
-  </a>
-
-
-
-  <!-- Menu items (collapsible) -->
-  <div class="collapse navbar-collapse" id="navbarMenu">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-       <li class="nav-item">
-        <a class="nav-link menu-btn" href="index.html">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link menu-btn" href="#">Try quiz</a>
-      </li>
-      <li class="nav-item">
-  <a class="nav-link menu-btn" href="findjobs-manage.html">Find Jobs</a>
-      </li>
-    </ul>
-  </div>
-
-  <!-- Always visible buttons -->
-  <div class="d-flex align-items-center gap-2">
-    <button class="search-btn"><i class="bi bi-search"></i></button>
-    <a href="/public/login.html" class="btn btn-signin">Sign In</a>
-  </div>
-</nav>
-
-<!-- Navbar helper (replaces Bootstrap's JS for navbar collapse) -->
-<script src="/assets/navbar.js"></script>
-
-
-  <main style="max-width: 540px; margin: 2.5rem auto; background: rgba(255,255,255,0.04); border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); padding: 2.5rem 2rem;">
-    <div style="
-      background: linear-gradient(90deg, #b40808e1 0%, #680202 100%);
-      color: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 24px rgba(104,2,2,0.18);
-      padding: 1.3rem 1.2rem 1.1rem 1.2rem;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      font-family: 'Segoe UI', 'Montserrat', 'Arial', sans-serif;
-      position: relative;
-      overflow: hidden;
-    ">
-      <i class="bi bi-pencil-square" style="font-size:2.1rem;opacity:0.92;"></i>
-      <div>
-        <h2 style="margin:0;font-size:1.7rem;font-weight:800;letter-spacing:0.5px;line-height:1.1;">Create a Job Post</h2>
-        <div style="font-size:1.08rem;opacity:0.93;margin-top:2px;letter-spacing:0.1px;">Share an opportunity or ask for help. Add a catchy title, details, and make your post stand out!</div>
-      </div>
-      <span style="position:absolute;right:-30px;top:-30px;opacity:0.13;font-size:7rem;pointer-events:none;user-select:none;">★</span>
+  <div class="container">
+    <div class="auth-form">
+      <h2>Create Job Post</h2>
+      <form id="jobForm">
+        <div class="mb-3">
+          <label class="form-label">Title</label>
+          <input class="form-control" name="title" required />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Company</label>
+          <input class="form-control" name="company" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Location</label>
+          <input class="form-control" name="location" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Contact (email or phone)</label>
+          <input class="form-control" name="contact" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" name="description" rows="5"></textarea>
+        </div>
+        <div id="msg" class="mb-3"></div>
+        <button class="btn btn-primary">Publish</button>
+        <a href="/findjobs.html" class="btn btn-secondary ms-2">Back</a>
+      </form>
     </div>
-    <form id="postForm" class="post-form" enctype="multipart/form-data" autocomplete="off">
-      <div class="mb-2">
-        <input id="postTitle" class="form-control" placeholder="Job title or short headline" required maxlength="80">
-      </div>
-      <div class="mb-2">
-        <textarea id="postContent" class="form-control" rows="3" placeholder="Job description, location, salary, etc." maxlength="600"></textarea>
-      </div>
-      <div class="form-row mb-2" style="align-items:center;">
-        <div class="col">
-          <input id="postLink" class="form-control" placeholder="Optional: apply link (https://...)">
-        </div>
-        <div style="display:flex; align-items:center; gap:8px;">
-          <input id="postImage" type="file" accept="image/*" class="form-control">
-          <img id="imagePreview" class="img-preview" src="" alt="Image preview" style="display:none">
-        </div>
-      </div>
-      <div style="display:flex; gap:8px; align-items:center;">
-        <button id="savePostBtn" class="btn btn-primary" type="submit">Post</button>
-        <button id="cancelBtn" type="button" class="btn btn-light">Cancel</button>
-      </div>
-    </form>
-    <div id="toastContainer" style="position:fixed;top:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:12px;"></div>
-  </main>
+  </div>
 
-  <script>
-    // Local storage keys
-    const STORAGE_KEY = 'findjobs_posts_v1';
-    const NAME_KEY = 'findjobs_user_v1';
+<script>
+document.getElementById('jobForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+  const form = e.target;
+  const data = {
+    title: form.title.value.trim(),
+    company: form.company.value.trim(),
+    location: form.location.value.trim(),
+    contact: form.contact.value.trim(),
+    description: form.description.value.trim()
+  };
+  const msg = document.getElementById('msg');
+  msg.textContent = '';
 
-    // Elements
-    const postForm = document.getElementById('postForm');
-    const postTitle = document.getElementById('postTitle');
-    const postContent = document.getElementById('postContent');
-    const postLink = document.getElementById('postLink');
-    const postImage = document.getElementById('postImage');
-    const imagePreview = document.getElementById('imagePreview');
-    const cancelBtn = document.getElementById('cancelBtn');
-    const toastContainer = document.getElementById('toastContainer');
+  const token = localStorage.getItem('token');
+  if (!token) {
+    msg.innerHTML = '<div class="text-danger">You must be logged in to post a job. <a href="/public/login.html">Login</a></div>';
+    return;
+  }
 
-    // Helpers
-    function showToast(msg, type = 'info', timeout = 3200) {
-      const toast = document.createElement('div');
-      toast.className = 'custom-toast custom-toast-' + type;
-      toast.innerHTML = `<span>${msg}</span>`;
-      Object.assign(toast.style, {
-        minWidth: '220px',
-        maxWidth: '340px',
-        padding: '12px 18px',
-        borderRadius: '8px',
-        background: type === 'error' ? '#b40808e1' : (type === 'success' ? '#176b1a' : '#222'),
-        color: '#fff',
-        fontWeight: 500,
-        fontSize: '1rem',
-        boxShadow: '0 2px 12px rgba(0,0,0,0.18)',
-        opacity: 0,
-        transition: 'opacity 0.3s cubic-bezier(.33,1.2,.5,1)',
-        cursor: 'pointer',
-        marginBottom: '2px',
-      });
-      toast.onclick = () => toast.remove();
-      toastContainer.appendChild(toast);
-      setTimeout(() => { toast.style.opacity = 0.97; }, 10);
-      setTimeout(() => { toast.style.opacity = 0.1; setTimeout(() => toast.remove(), 400); }, timeout);
+  try {
+    const res = await fetch('http://localhost:5000/api/jobs', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify(data)
+    });
+    const json = await res.json();
+    if (!res.ok) {
+      msg.innerHTML = `<div class="text-danger">${json.message || (json.errors && json.errors[0]?.msg) || 'Failed to create post'}</div>`;
+      return;
     }
-
-    function loadPosts() { try { const raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : []; } catch(e){ return []; } }
-    function savePosts(posts) { localStorage.setItem(STORAGE_KEY, JSON.stringify(posts)); }
-    function currentUser() { return localStorage.getItem(NAME_KEY) || null; }
-    function cryptoRandomId(){ return Math.random().toString(36).slice(2,9); }
-
-    // Image preview
-    postImage.addEventListener('change', (e)=>{
-      const f = e.target.files && e.target.files[0];
-      if (!f) { imagePreview.style.display='none'; imagePreview.src=''; return; }
-      const reader = new FileReader();
-      reader.onload = function(){ imagePreview.src = reader.result; imagePreview.style.display = 'block'; };
-      reader.readAsDataURL(f);
-    });
-
-    // Form validation
-    function validateForm() {
-      if (!postTitle.value.trim()) {
-        showToast('Title is required.', 'error');
-        postTitle.focus();
-        return false;
-      }
-      if (!postContent.value.trim()) {
-        showToast('Description is required.', 'error');
-        postContent.focus();
-        return false;
-      }
-      const linkVal = postLink.value.trim();
-      if (linkVal && !/^https?:\/\//i.test(linkVal)) {
-        showToast('Link must start with http:// or https://', 'error');
-        postLink.focus();
-        return false;
-      }
-      const file = postImage.files && postImage.files[0];
-      if (file) {
-        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-        if (!allowedTypes.includes(file.type)) {
-          showToast('Image must be JPG, PNG, GIF, or WEBP.', 'error');
-          postImage.value = '';
-          return false;
-        }
-        if (file.size > 2 * 1024 * 1024) {
-          showToast('Image must be less than 2MB.', 'error');
-          postImage.value = '';
-          return false;
-        }
-      }
-      return true;
-    }
-
-    // Save post
-    postForm.addEventListener('submit', (ev)=>{
-      ev.preventDefault();
-      if (!validateForm()) return;
-      const user = currentUser();
-      if (!user) { showToast('Set your display name first.', 'error'); return; }
-      const posts = loadPosts();
-      const id = cryptoRandomId();
-      const image = imagePreview.src || null;
-      const post = { id, user, title: postTitle.value.trim(), content: postContent.value.trim(), link: postLink.value.trim() || null, image: image && image.indexOf('data:')===0 ? image : null, date: new Date().toISOString() };
-      posts.push(post);
-      savePosts(posts);
-      showToast('Post created!', 'success');
-      setTimeout(()=>{ window.location.href = 'findjobs-manage.html'; }, 1200);
-    });
-
-    // Cancel button
-    cancelBtn.addEventListener('click', ()=>{
-      window.location.href = 'findjobs-manage.html';
-    });
-  </script>
-
+    msg.innerHTML = '<div class="text-success">Job posted successfully. Redirecting...</div>';
+    setTimeout(()=> window.location.href = '/findjobs.html', 1200);
+  } catch (err) {
+    msg.innerHTML = '<div class="text-danger">Network error. Please try again.</div>';
+  }
+});
+</script>
 </body>
 </html>

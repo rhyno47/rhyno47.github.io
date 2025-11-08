@@ -5,96 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coding with Tawfiq | Home</title>
   <link rel="stylesheet" href="assets/home.css">
-
   <link rel="stylesheet" href="assets/ads.css">
+  <!-- preload hero wallpaper to improve perceived load quality; also preload a high-res variant for large viewports if present -->
+  <link rel="preload" as="image" href="images/hero section image 2.jpg">
+  <link rel="preload" as="image" href="images/hero section image 2@2x.jpg" media="(min-width:1600px)">
 </head>
 <body>
 
 
-<!-- NEW NAVBAR -->
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- site-native navbar (uses .new-navbar from assets/home.css) -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
-<style>
-  .navbar-custom {
-    background-color: #680202; /* updated navbar color */
-    padding: 0.5rem 1rem;
-  }
-  .navbar-brand img {
-    height: 40px;
-  }
-  .btn-signin {
-    background-color: #b40808e1; /* updated sign in button color */
-    color: #fff;
-    font-weight: 500;
-  }
-  .btn-signin:hover {
-    background-color: #9a0707; /* slightly darker on hover */
-    color: #fff;
-  }
-  .menu-btn {
-    background: none;
-    border: none;
-    font-weight: 500;
-    color: #fff; /* make menu text visible on dark navbar */
-  }
-  .search-btn {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    color: #fff; /* make search icon visible */
-  }
-</style>
-
-<nav class="navbar navbar-expand-lg navbar-custom d-flex justify-content-between align-items-center">
-  <!-- Logo -->
-  <a class="navbar-brand" href="#">
-    <img src="images/coding with tawfiq.jpg" alt="Logo">
-  </a>
-
-  <!-- Hamburger button -->
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
-    aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-    <i class="bi bi-list" style="font-size: 1.5rem; color: #fff;"></i>
+<nav class="new-navbar" role="navigation">
+  <div class="logo"><a href="index.html"><img src="images/coding with tawfiq.jpg" alt="Logo"></a></div>
+  <button class="hamburger" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
   </button>
-
-  <!-- Menu items (collapsible) -->
-  <div class="collapse navbar-collapse" id="navbarMenu">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-       <li class="nav-item">
-        <a class="nav-link menu-btn" href="index.html">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link menu-btn" href="#">Try quiz</a>
-      </li>
-      <li class="nav-item">
-  <a class="nav-link menu-btn" href="findjobs-manage.html">Find Jobs</a>
-      </li>
-    </ul>
-  </div>
-
-  <!-- Always visible buttons -->
-  <div class="d-flex align-items-center gap-2">
-    <button class="search-btn"><i class="bi bi-search"></i></button>
-    <a href="/public/login.html" class="btn btn-signin">Sign In</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+  <li><a href="try-quiz.html">Practice</a></li>
+  <li><a href="findjobs.html">Find Jobs</a></li>
+  </ul>
+    <div class="nav-actions">
+    <button class="search-btn" aria-label="Search"><img src="images/the search logo.jpg" alt="Search"></button>
+    <a class="card-link" href="/public/login.html">Sign In</a>
   </div>
 </nav>
 
-<!-- Navbar helper (replaces Bootstrap's JS for navbar collapse) -->
+<!-- Navbar helper (handles .new-navbar hamburger toggle) -->
 <script src="/assets/navbar.js"></script>
 
 
 
 
   <!-- ====== HERO SECTION ====== -->
-  <section id="hero">
+  <section id="hero" class="home-hero">
     <div class="hero-content">
-      <h1><code>your coding journey starts here </code></h1>
-      <p><code>Hellow This website is meant to train young people world-wide,starting at a point of little experience to fairly skilled software developers ready to get into the market place and jump on the next phase of their learning at an advanced levels.</code></p>
+      <h1>Your coding journey starts here</h1>
+      <p>Train from basics to job-ready skills with short hands-on quizzes, bite-sized tutorials and real projects. No fluff — just practice that sticks.</p>
       <div class="hero-actions">
-        <button id="start-btn"></code>Start Here</code></button>
+        <a class="btn-primary" href="try-quiz.html">Start Practice</a>
+        <a class="btn-ghost" href="findjobs.html">Find Jobs</a>
       </div>
+      <div style="margin-top:10px;color:rgba(255,255,255,0.88);font-weight:700;font-size:0.95rem">No sign-up required — try a 1-minute quiz</div>
     </div>
   </section>
 
@@ -102,7 +57,7 @@
 
   <!-- ====== COURSES SECTION ====== -->
   <section id="courses">
-    <h2>Explore Our Courses</h2>
+    <h2>Explore Our Courses 🚀📚</h2>
     <div class="course-grid">
       <div class="course-grid">
   <a href="pyhome.html" style="text-decoration: none; color: inherit;">

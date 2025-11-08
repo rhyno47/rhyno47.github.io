@@ -59,26 +59,19 @@
   </button>
 
   <!-- Menu items (collapsible) -->
-  <div class="collapse navbar-collapse" id="navbarMenu">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
- <li class="nav-item">
-        <a class="nav-link menu-btn" href="../index.html">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link menu-btn" href="#">Coding quiz</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link menu-btn" href="#">Find Jobs</a>
-      </li>
-    </ul>
-  </div>
 
-  <!-- Always visible buttons -->
-  <div class="d-flex align-items-center gap-2">
-    <button class="search-btn"><i class="bi bi-search"></i></button>
-  <a href="/public/login.html" class="btn btn-signin">Sign In</a>
-  </div>
-</nav>
+    <div class="collapse navbar-collapse" id="navbarMenu">
+      <ul class="nav-links">
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/try-quiz.html">Practice</a></li>
+  <li><a href="/findjobs.html">Find Jobs</a></li>
+      </ul>
+    </div>
+    <div class="nav-actions">
+      <button class="search-btn" aria-label="Search"><img src="/images/the search logo.jpg" alt="Search"></button>
+      <a class="card-link" href="/public/login.html">Sign In</a>
+    </div>
+  </nav>
 
 <!-- Bootstrap JS -->
 <script src="/assets/navbar.js"></script>

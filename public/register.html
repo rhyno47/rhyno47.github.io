@@ -1,232 +1,119 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Register</title>
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-<style>
-  body { 
-    margin: 0; 
-    font-family: sans-serif;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/water\ fall.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-  }
-  .navbar-custom {
-    background-color: #680202;
-    padding: 0.5rem 1rem;
-  }
-  .navbar-brand img {
-    height: 40px;
-  }
-  .menu-btn {
-    background: none;
-    border: none;
-    font-weight: 500;
-    color: #fff;
-  }
-  .search-btn {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    color: #fff;
-  }
-  .auth-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 76px);
-    padding: 20px;
-  }
-  .auth-form {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    max-width: 400px;
-    width: 100%;
-  }
-  .auth-form h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333;
-  }
-  .input-group {
-    margin-bottom: 15px;
-  }
-  .input-group label {
-    display: block;
-    margin-bottom: 5px;
-    color: #333;
-  }
-  .input-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    outline: none;
-  }
-  .auth-btn {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background: #680202;
-    color: #fff;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  .auth-btn:hover {
-    background: #7a0101;
-  }
-  .message {
-    text-align: center;
-    margin-top: 15px;
-  }
-  .message a {
-    color: #680202;
-    text-decoration: none;
-  }
-  .message a:hover {
-    text-decoration: underline;
-  }
-  .welcome-toast {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1050;
-    background: rgba(104, 2, 2, 0.95);
-    color: white;
-    padding: 15px 25px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    display: none;
-    animation: slideIn 0.5s ease-out;
-  }
-  @keyframes slideIn {
-    from {
-      transform: translateX(100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-</style>
-</head>
-<body>
-<!-- Welcome Message Toast -->
-<div id="welcomeToast" class="welcome-toast">
-  <i class="bi bi-code-square"></i> Welcome to Coding with Tawfiq! 🎉
-</div>
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-custom">
-  <!-- Logo -->
-  <a class="navbar-brand" href="/">
-    <img src="/images/coding with tawfiq.jpg" alt="Logo">
-  </a>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Register — Coding with Tawfiq</title>
+    <link href="/assets/home.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+      /* Small, focused form styles to match site colors */
+      .auth-container{display:flex;align-items:center;justify-content:center;min-height:80vh;padding:2rem}
+      .auth-card{width:100%;max-width:420px;background:#fff;border-radius:10px;padding:26px;box-shadow:0 6px 24px rgba(0,0,0,.08)}
+      .auth-card h1{margin:0 0 14px;font-size:1.4rem;color:#680202;text-align:center}
+      .form-row{margin-bottom:12px}
+      .form-row label{display:block;font-size:.95rem;margin-bottom:6px;color:#333}
+      .form-row input{width:100%;padding:10px;border:1px solid #ddd;border-radius:6px}
+      .btn-primary{background:#680202;border:0;padding:10px 14px;border-radius:6px;color:#fff;width:100%;font-weight:600}
+      .aux {text-align:center;margin-top:12px;font-size:.95rem}
+      .message{min-height:22px;text-align:center;margin-top:8px}
+    </style>
+  </head>
+  <body>
+    <!-- let assets/navbar.js inject the canonical navbar/footer; keep a placeholder element -->
+    <div class="new-navbar"></div>
 
-  <!-- Hamburger button -->
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
-    aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-    <i class="bi bi-list" style="font-size: 1.5rem; color: #fff;"></i>
-  </button>
+    <main class="auth-container">
+      <section class="auth-card" aria-labelledby="reg-title">
+        <h1 id="reg-title">Create an account</h1>
+        <form id="registerForm" autocomplete="on">
+          <div class="form-row">
+            <label for="name">Full name</label>
+            <input id="name" name="name" type="text" required>
+          </div>
+          <div class="form-row">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required>
+          </div>
+          <div class="form-row">
+            <label for="password">Password</label>
+            <div class="pw-wrap">
+              <input id="password" name="password" type="password" required minlength="6">
+              <button type="button" class="pw-toggle" aria-pressed="false" aria-label="Show password">
+                <i class="bi bi-eye" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="confirmPassword">Confirm password</label>
+            <div class="pw-wrap">
+              <input id="confirmPassword" name="confirmPassword" type="password" required minlength="6">
+              <button type="button" class="pw-toggle" aria-pressed="false" aria-label="Show password">
+                <i class="bi bi-eye" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="form-row">
+            <button type="submit" class="btn-primary">Register</button>
+          </div>
+          <div class="message" id="reg-message" aria-live="polite"></div>
+          <div class="aux">Already registered? <a class="auth-inline-link" href="/public/login.html">Sign in</a></div>
+        </form>
+      </section>
+    </main>
 
-  <!-- Menu items (collapsible) -->
-  <div class="collapse navbar-collapse" id="navbarMenu">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item">
-        <a class="nav-link menu-btn" href="/">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link menu-btn" href="#">Test Your Skills</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link menu-btn" href="#">Find Jobs</a>
-      </li>
-    </ul>
-  </div>
+    <script src="/assets/navbar.js"></script>
+    <script>
+      // Minimal client-side handling — posts to existing API and shows messages
+      const form = document.getElementById('registerForm');
+      const msg = document.getElementById('reg-message');
 
-  <!-- Search button -->
-  <div class="d-flex align-items-center">
-    <button class="search-btn"><i class="bi bi-search"></i></button>
-  </div>
-</nav>
+      // Setup password toggles for any .pw-wrap/.pw-toggle pairs on the page
+      (function setupPasswordToggles(){
+        const toggles = Array.from(document.querySelectorAll('.pw-toggle'));
+        toggles.forEach(btn => {
+          const wrap = btn.closest('.pw-wrap');
+          if (!wrap) return;
+          const input = wrap.querySelector('input');
+          const icon = btn.querySelector('i');
+          if (!input) return;
+          btn.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            const show = input.type === 'password';
+            input.type = show ? 'text' : 'password';
+            btn.setAttribute('aria-pressed', show ? 'true' : 'false');
+            btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+            if (icon) { icon.classList.toggle('bi-eye', !show); icon.classList.toggle('bi-eye-slash', show); }
+            input.focus();
+          });
+        });
+      })();
 
-<div class="auth-container">
-  <form id="register-form" action="/register" method="POST" class="auth-form">
-  <h2>Register</h2>
-  <div class="input-group">
-    <label for="username">Username</label>
-    <input type="text" id="username" name="username" required>
-  </div>
-  <div class="input-group">
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" required>
-  </div>
-  <div class="input-group">
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" required>
-  </div>
-  <div class="input-group">
-    <label for="confirm-password">Confirm Password</label>
-    <input type="password" id="confirm-password" name="confirmPassword" required>
-  </div>
-  <button type="submit" class="auth-btn">Register</button>
-  <div class="message">
-    <p>Already have an account? <a href="/public/login.html">Back to Login</a></p>
-  </div>
-</form>
-</div>
-
-<!-- Navbar helper (replaces Bootstrap's JS for navbar collapse) -->
-<script src="/assets/navbar.js"></script>
-<script>
-document.getElementById('register-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const form = e.target;
-  const data = {
-    username: form.username.value,
-    email: form.email.value,
-    password: form.password.value,
-    confirmPassword: form.confirmPassword.value
-  };
-
-  try {
-    console.log('Sending registration data:', data);
-    const res = await fetch('http://localhost:3001/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(data)
-    });
-
-    const json = await res.json();
-    if (!res.ok) {
-      alert(json.message || json.error || 'Registration failed');
-      return;
-    }
-
-    if (json.token) localStorage.setItem('token', json.token);
-    
-    // Show welcome message
-    const toast = document.getElementById('welcomeToast');
-    toast.style.display = 'block';
-    
-    // Redirect after showing message
-    setTimeout(() => {
-      window.location.href = '/';
-    }, 2000); // Wait 2 seconds before redirecting
-  } catch (err) {
-    console.error(err);
-    alert('Network error');
-  }
-});
-</script>
-
-</body>
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+    msg.textContent = '';
+        const data = {
+          name: form.name.value.trim(),
+          email: form.email.value.trim(),
+          password: form.password.value,
+          confirmPassword: form.confirmPassword.value
+        };
+        if (data.password !== data.confirmPassword) {
+          if (window.showToast) window.showToast('error', 'Passwords do not match', 'Please make sure both passwords match.');
+          else msg.innerHTML = '<span style="color:#b00020">Passwords do not match</span>';
+          return;
+        }
+        try {
+          const res = await fetch('http://localhost:5000/api/auth/register', {
+            method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data)
+          });
+          const j = await res.json();
+          if (!res.ok) { const text = (j.message||j.error||'Registration failed'); if (window.showToast) window.showToast('error','Registration failed', text); else msg.innerHTML = '<span style="color:#b00020">'+text+'</span>'; return; }
+          if (j.token) localStorage.setItem('token', j.token);
+          if (window.showToast) window.showToast('success','Welcome to Coding with Tawfiq','Registration successful — redirecting…'); else msg.innerHTML = '<span class="msg-success">Registration successful — redirecting…</span>';
+          setTimeout(()=> location.href='/', 1300);
+        } catch (err) { msg.innerHTML = '<span style="color:#b00020">Network error. Try again.</span>'; }
+      });
+    </script>
+  </body>
 </html>

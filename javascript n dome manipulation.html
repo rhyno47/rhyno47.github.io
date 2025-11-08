@@ -45,37 +45,21 @@
   }
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-custom d-flex justify-content-between align-items-center">
-  <!-- Logo -->
-  <a class="navbar-brand" href="#">
-    <img src="../images/coding with tawfiq.jpg" alt="Logo">
-  </a>
-
-  <!-- Hamburger button -->
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
-    aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-    <i class="bi bi-list" style="font-size: 1.5rem; color: #fff;"></i>
+<nav class="new-navbar" role="navigation">
+  <div class="logo"><a href="/index.html"><img src="/images/coding with tawfiq.jpg" alt="Logo"></a></div>
+  <button class="hamburger" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
   </button>
-
-  <!-- Menu items (collapsible) -->
-  <div class="collapse navbar-collapse" id="navbarMenu">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-       <li class="nav-item">
-        <a class="nav-link menu-btn" href="../index.html">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link menu-btn" href="#">Try quiz</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link menu-btn" href="#">Find Jobs</a>
-      </li>
-    </ul>
-  </div>
-
-  <!-- Always visible buttons -->
-  <div class="d-flex align-items-center gap-2">
-    <button class="search-btn"><i class="bi bi-search"></i></button>
-    <a href="/public/login.html" class="btn btn-signin">Sign In</a>
+  <ul class="nav-links">
+    <li><a href="/index.html">Home</a></li>
+    <li><a href="/try-quiz.html">Practice</a></li>
+  <li><a href="findjobs.html">Find Jobs</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="search-btn" aria-label="Search"><img src="/images/the search logo.jpg" alt="Search"></button>
+    <a class="card-link" href="/public/login.html">Sign In</a>
   </div>
 </nav>
 

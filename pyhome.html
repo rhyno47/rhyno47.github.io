@@ -8,133 +8,40 @@
   <link rel="stylesheet" href="assets/ads.css">
 </head>
 <body>
-<!-- NEW NAVBAR -->
+<!-- site-native navbar (uses .new-navbar from assets/home.css) -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  .navbar-custom {
-    background-color: #680202;
-    padding: 0.5rem 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-  }
-
-  .navbar-brand img { height: 40px; }
-
-  /* Nav links - inline by default */
-  .menu-list {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .menu-list a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 500;
-  }
-
-  /* Menu toggle (hamburger) - hidden on large screens */
-  .menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1.2rem;
-    cursor: pointer;
-  }
-
-  .search-btn {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    color: #fff;
-    cursor: pointer;
-  }
-
-  .btn-signin {
-    background-color: #b40808e1;
-    color: #fff;
-    font-weight: 500;
-    text-decoration: none;
-    padding: 6px 14px;
-    border-radius: 5px;
-  }
-
-  .btn-signin:hover { background-color: #9a0707; }
-
-  /* Small screens: hide links, show menu toggle */
-  @media (max-width: 768px) {
-    .menu-list {
-      display: none;
-      flex-direction: column;
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 100%;
-      background-color: #680202;
-      padding: 1rem 0;
-      text-align: center;
-      gap: 0.5rem;
-      z-index: 1000;
-    }
-
-    .menu-list.show {
-      display: flex;
-    }
-
-    .menu-toggle { display: block; }
-  }
-</style>
-
-<nav class="navbar-custom">
-  <!-- Logo -->
-  <a class="navbar-brand" href="#"><img src="../images/coding with tawfiq.jpg" alt="Logo"></a>
-
-  <!-- Menu links (inline on large screens) -->
-  <div class="menu-list" id="menuList">
-    <a href="index.html">Home</a>
-    <a href="#">Coding quiz</a>
-    <a href="#">Find Jobs</a>
-  </div>
-
-  <!-- Right section: search, sign in, hamburger menu -->
-  <div style="display: flex; align-items: center; gap: 0.5rem;">
-    <button class="search-btn"><i class="bi bi-search"></i></button>
-  <a href="/public/login.html" class="btn-signin">Sign In</a>
-    <button class="menu-toggle" id="menuToggle">
-      <i class="bi bi-list"></i> <!-- hamburger icon -->
-    </button>
+<nav class="new-navbar" role="navigation">
+  <div class="logo"><a href="index.html"><img src="images/coding with tawfiq.jpg" alt="Logo"></a></div>
+  <button class="hamburger" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+  <li><a href="try-quiz.html">Practice</a></li>
+  <li><a href="findjobs.html">Find Jobs</a></li>
+  </ul>
+    <div class="nav-actions">
+    <button class="search-btn" aria-label="Search"><img src="images/the search logo.jpg" alt="Search"></button>
+    <a class="card-link" href="/public/login.html">Sign In</a>
   </div>
 </nav>
 
-<script>
-  const menuToggle = document.getElementById('menuToggle');
-  const menuList = document.getElementById('menuList');
-
-  menuToggle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    menuList.classList.toggle('show');
-  });
-
-  document.addEventListener('click', (e) => {
-    if (!menuList.contains(e.target) && !menuToggle.contains(e.target)) {
-      menuList.classList.remove('show');
-    }
-  });
-</script>
+<!-- Navbar helper (handles .new-navbar hamburger toggle) -->
+<script src="/assets/navbar.js"></script>
 
 <!-- ====== HERO SECTION ====== -->
-  <section id="hero">
+  <section id="hero" class="home-hero">
     <div class="hero-content">
       <h1><code>welcome software engineers</code></h1>
+      <p>Learn Python from basics to projects with short hands-on quizzes and real examples.</p>
       <div class="hero-actions">
-        <button id="start-btn">Start Here</button>
+        <a class="btn-primary" href="python/introtopypdfs.html">Start Here</a>
+        <a class="btn-ghost" href="python/introtopypdfs.html">Explore Courses</a>
       </div>
-      </div>
+      <div style="margin-top:10px;color:rgba(255,255,255,0.88);font-weight:700;font-size:0.95rem">No sign-up required — start with the intro</div>
     </div>
   </section>
 
@@ -212,10 +119,7 @@
     </div>
 
 
-  <!-- ====== FOOTER ====== -->
-  <footer id="footer">
-    <p>© 2025 Coding with Tawfiq. All rights reserved.</p>
-  </footer>
+  <!-- Footer is injected by the canonical navbar script if absent -->
 
 <!-- non-intrusive ad (scripts removed) -->
 <div class="non-intrusive-ad" aria-hidden="true">
