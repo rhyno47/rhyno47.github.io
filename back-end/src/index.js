@@ -12,27 +12,27 @@ const whitelist = rawCors.split(',').map(o => o.trim()).filter(Boolean);
 // Always allow common local dev origins to simplify testing even when CORS_ORIGIN is set
 const devOriginRegex = /^https?:\/\/(localhost|127\.0\.0\.1|192\.168\.|10\.)/i;
 function computeCors(origin){
-	if(!origin) return { origin: true };
-	if(devOriginRegex.test(origin)) return { origin: origin, credentials:true };
-	if(whitelist.length === 0 || whitelist.includes('*') || whitelist.includes(origin)) return { origin: origin, credentials:true };
-	return { origin: false };
+	// When there is no Origin header (same-origin navigation, server-to-server, curl),
+	// do not set any CORS headers.
+	if(!origin) return null;
+	if(devOriginRegex.test(origin)) return { origin, credentials:true };
+	if(whitelist.length === 0 || whitelist.includes('*') || whitelist.includes(origin)) return { origin, credentials:true };
+	return false; // blocked
 }
 app.use((req,res,next)=>{
 	const origin = req.headers.origin;
 	const opts = computeCors(origin);
-	// If not allowed, skip setting ACAO and move on (will be blocked) but log once
-	if(!opts.origin){
-		console.warn('[CORS] Blocked origin', origin);
-		return next();
-	}
-	// Allowed: set headers manually to avoid preflight failures
-	res.setHeader('Access-Control-Allow-Origin', opts.origin === true ? origin : opts.origin);
+	// Blocked origin: log and continue without CORS headers
+	if(opts === false){ console.warn('[CORS] Blocked origin', origin); return next(); }
+	// No origin header: skip CORS headers entirely
+	if(opts === null){ return next(); }
+	// Allowed: set headers
+	res.setHeader('Access-Control-Allow-Origin', opts.origin);
 	res.setHeader('Vary', 'Origin');
-	res.setHeader('Access-Control-Allow-Credentials', 'true');
+	if(opts.credentials) res.setHeader('Access-Control-Allow-Credentials', 'true');
 	res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
 	const reqHeaders = req.headers['access-control-request-headers'];
 	if(req.method === 'OPTIONS'){
-		// reflect requested headers for preflight
 		if(reqHeaders) res.setHeader('Access-Control-Allow-Headers', reqHeaders);
 		return res.status(204).end();
 	}
