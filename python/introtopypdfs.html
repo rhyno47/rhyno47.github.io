@@ -323,6 +323,22 @@ pre {
 h2, h1, p {
   color: #f0f2f7; /* headings and paragraph text */
 }
+
+/* ===== Page-specific override: make cards span full width (not centered) ===== */
+/* Override inline wrapper max-width and centered margins */
+#python-intro > div,
+#python-datatypes > div,
+#python-challenges > div { max-width: none !important; width: 100% !important; }
+
+/* Force the info-cards to use full width on this page */
+#python-intro .info-card,
+#python-datatypes .info-card,
+#python-challenges .info-card { max-width: none !important; width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; }
+
+/* Flex containers can remain flex; full-width children will occupy the row */
+#python-intro,
+#python-datatypes,
+#python-challenges { padding-left: 0 !important; padding-right: 0 !important; }
 </style>
 
  <!-- ====== FOOTER ====== -->

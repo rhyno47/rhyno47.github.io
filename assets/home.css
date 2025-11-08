@@ -774,6 +774,8 @@ textarea{ min-height:120px }
 /* icon buttons for edit/delete using local repo images */
 .icon-btn{ background: transparent; border: none; padding:8px; border-radius:8px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center }
 .icon-btn img{ width:28px; height:28px; object-fit:contain; display:block }
+/* Make share icon match edit/delete exactly (use the same contain fit and size) */
+.icon-btn img.share-icon{ object-fit:contain; width:28px; height:28px; }
 .controls { display:flex; gap:8px; align-items:center }
 /* card action row: left for meta or nothing, right for link & controls */
 .card-actions{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:0.6rem }
