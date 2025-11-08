@@ -107,6 +107,15 @@ router.post('/', authenticate, (req, res, next) => {
     let imageUrl = req.body.imageUrl || null;
     if(req.file){
       imageUrl = '/uploads/' + req.file.filename;
+      // Verify file was actually written to disk (some hosts have ephemeral or permission issues)
+      try{
+        const abs = path.join(__dirname, '..', '..', 'uploads', req.file.filename);
+        await fs.access(abs);
+      }catch(e){
+        console.error('[posts:create] Uploaded file missing right after write', { file: req.file.filename, err: e.message });
+        // Graceful fallback: treat as no image instead of throwing 500
+        imageUrl = null;
+      }
     }
     const post = new Post({ title, body, link, imageUrl, author: req.user.id, authorEmail: req.user.email });
     await post.save();
@@ -114,7 +123,7 @@ router.post('/', authenticate, (req, res, next) => {
   }catch(e){
     console.error('[posts:create] Server error', { error: e.message, stack: e.stack && e.stack.split('\n').slice(0,4).join(' | '), trace });
     if(e.message && e.message.includes('Only image')) return res.status(400).json({ message: e.message });
-    res.status(500).json({ message: 'Server error creating post', detail: e.message });
+    res.status(500).json({ message: 'Server error creating post', detail: e.message, trace });
   }
 });
 

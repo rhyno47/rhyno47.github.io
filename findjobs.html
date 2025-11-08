@@ -234,6 +234,24 @@
           if(!res.ok){
             try{ console.error('[create-post] Failed', { status: res.status, headers: Object.fromEntries(res.headers.entries()), raw }); }catch(_e){}
             const errMsg = (data && (data.message || (data.errors && data.errors[0] && data.errors[0].msg))) || (raw || 'Failed to create/update post');
+            if(file){
+              alert('Image upload failed: ' + errMsg + '\nPosting again without image...');
+              // retry without image if the failure might be image related (status 400/500)
+              try{
+                const retry = await fetch(fullUrl, { method, headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }, body: JSON.stringify({ title: t, body: b, link: l }) });
+                const retryText = await retry.clone().text();
+                let retryJson = null; try{ retryJson = retryText ? JSON.parse(retryText) : null; }catch(_e){}
+                if(!retry.ok){
+                  alert((retryJson && (retryJson.message||retryJson.detail)) || 'Retry without image failed');
+                  return;
+                }
+                modal.classList.remove('show'); modal.setAttribute('aria-hidden','true');
+                document.getElementById('title').value = ''; document.getElementById('body').value = ''; document.getElementById('link').value = ''; document.getElementById('image').value = ''; editingPostId = null;
+                await fetchAndRender();
+                alert('Posted (image skipped).');
+                return;
+              }catch(retryErr){ console.error('[create-post] retry error', retryErr); }
+            }
             alert(errMsg);
             return;
           }
