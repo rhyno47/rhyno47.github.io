@@ -297,6 +297,27 @@
       modal.classList.add('show'); modal.setAttribute('aria-hidden','false');
     }
 
+    // Share a post by copying a deep-link URL (?post=<id>) to the clipboard
+    function sharePost(id){
+      if(!id) return;
+      const deepLink = window.location.origin + window.location.pathname + '?post=' + encodeURIComponent(id);
+      const notify = (title, body) => {
+        if(window.showToast) window.showToast('info', title, body);
+        else alert(title + '\n' + body + '\n' + deepLink);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(deepLink)
+          .then(()=> notify('Link copied', 'Share this URL to open the post directly.'))
+          .catch(()=>{
+            const ok = prompt('Copy post link:', deepLink);
+            if(ok !== null) notify('Post link ready', 'Copied (manual).');
+          });
+      }else{
+        const ok = prompt('Copy post link:', deepLink);
+        if(ok !== null) notify('Post link ready', 'Copied (manual).');
+      }
+    }
+
     // Fetch posts from server and render
     async function fetchAndRender(){
       try{
@@ -378,7 +399,17 @@
             openA.textContent = 'Open link';
             right.appendChild(openA);
           }
+          // Share button (visible to everyone); if owner, place alongside edit/delete
+          const shareBtn = document.createElement('button');
+          shareBtn.className = 'icon-btn';
+          shareBtn.title = 'Share post';
+          const shareImg = document.createElement('img');
+          shareImg.src = 'images/share logo.jpg';
+          shareImg.alt = 'Share';
+          shareBtn.appendChild(shareImg);
+          shareBtn.addEventListener('click', () => sharePost(p._id || p.id || ''));
           if(controls) right.appendChild(controls);
+          if(controls) controls.appendChild(shareBtn); else right.appendChild(shareBtn);
           actionRow.appendChild(left);
           actionRow.appendChild(right);
           node.appendChild(actionRow);
@@ -394,8 +425,33 @@
     });
 
     // initial
+    // Deep-link: if URL has ?post=<id>, show that single post view
+    function getQueryParam(name){
+      const m = new RegExp('[?&]'+name+'=([^&]*)').exec(window.location.search);
+      return m ? decodeURIComponent(m[1]) : null;
+    }
+    async function fetchSingleAndRender(id){
+      try{
+        const res = await fetch(joinUrl(API_BASE, '/api/posts/' + encodeURIComponent(id)));
+        if(!res.ok){
+          const err = await parseJsonSafe(res);
+          console.error('Single post fetch error', res.status, err);
+          feed.innerHTML = '<div class="no-posts">Post not found.</div>';
+          return;
+        }
+        const post = await parseJsonSafe(res);
+        while(feed.firstChild) feed.removeChild(feed.firstChild);
+        const header = document.createElement('div'); header.className = 'card-feed'; header.innerHTML = '<h3>Viewing single post</h3><div class="small-muted">Share this page URL to link directly to this post.</div>';
+        feed.appendChild(header);
+        const rendered = renderPostNode(post);
+        feed.appendChild(rendered.node);
+        const back = document.createElement('div'); back.className = 'card-feed'; back.style.textAlign = 'center'; back.innerHTML = '<a class="card-link" href="'+window.location.pathname+'">View all posts</a>';
+        feed.appendChild(back);
+      }catch(e){ console.error(e); feed.innerHTML = '<div class="no-posts">Unable to load post.</div>'; }
+    }
     refreshUI();
-    fetchAndRender();
+    const deepId = getQueryParam('post');
+    if(deepId) fetchSingleAndRender(deepId); else fetchAndRender();
     // dashboard and admin badge have been removed
   </script>
   <script>
@@ -416,12 +472,15 @@
         controls.className = 'controls';
         const editBtn = document.createElement('button'); editBtn.className='icon-btn'; editBtn.title='Edit post'; const editImg = document.createElement('img'); editImg.src='images/edit post logo.jpg'; editImg.alt='Edit'; editBtn.appendChild(editImg); editBtn.addEventListener('click', ()=>document.dispatchEvent(new CustomEvent('editPost',{detail:p})));
         const delBtn = document.createElement('button'); delBtn.className='icon-btn'; delBtn.title='Delete post'; const delImg = document.createElement('img'); delImg.src='images/delete post logo.jpg'; delImg.alt='Delete'; delBtn.appendChild(delImg); delBtn.addEventListener('click', ()=>document.dispatchEvent(new CustomEvent('deletePost',{detail:p._id||p.id||''})));
-        controls.appendChild(editBtn); controls.appendChild(delBtn);
+        const shareBtn = document.createElement('button'); shareBtn.className='icon-btn'; shareBtn.title='Share post'; const shareImg = document.createElement('img'); shareImg.src='images/share logo.jpg'; shareImg.alt='Share'; shareBtn.appendChild(shareImg); shareBtn.addEventListener('click', ()=>sharePost(p._id||p.id||''));
+        controls.appendChild(editBtn); controls.appendChild(delBtn); controls.appendChild(shareBtn);
       }
       const actionRow = document.createElement('div'); actionRow.className = 'card-actions';
       const left = document.createElement('div');
       const right = document.createElement('div'); right.className='right';
       if(p.link){ const openA = document.createElement('a'); openA.className='card-link open-link-btn'; openA.href = p.link; openA.target='_blank'; openA.textContent='Open link'; right.appendChild(openA); }
+      // If not owner, still show a share button in the right actions
+      if(!controls){ const shareBtnOnly = document.createElement('button'); shareBtnOnly.className='icon-btn'; shareBtnOnly.title='Share post'; const shareImgOnly = document.createElement('img'); shareImgOnly.src='images/share logo.jpg'; shareImgOnly.alt='Share'; shareBtnOnly.appendChild(shareImgOnly); shareBtnOnly.addEventListener('click', ()=>sharePost(p._id||p.id||'')); right.appendChild(shareBtnOnly); }
       if(controls) right.appendChild(controls);
       actionRow.appendChild(left); actionRow.appendChild(right);
       node.appendChild(actionRow);
