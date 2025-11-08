@@ -117,9 +117,14 @@ app.get('/whoami', async (req, res) => {
 
 // Root: redirect to frontend if configured, else serve landing page (if present), else health JSON
 app.get('/', (req, res) => {
-	// Default redirect to GitHub Pages if FRONTEND_URL not provided
-	const to = process.env.FRONTEND_URL || 'https://rhyno47.github.io';
-	if (to) return res.redirect(302, to);
+	// If INTERNAL_FRONTEND=true serve the synced static site directly.
+	// Otherwise, if FRONTEND_URL is set, redirect to that canonical front-end.
+	// Fallback: serve local index.html (API landing or synced site) else JSON health.
+	const internal = /^true$/i.test(process.env.INTERNAL_FRONTEND || '');
+	if(!internal){
+		const to = process.env.FRONTEND_URL || 'https://rhyno47.github.io';
+		if (to) return res.redirect(302, to);
+	}
 	try {
 		return res.sendFile(path.join(staticDir, 'index.html'));
 	} catch (e) {
