@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coding with Tawfiq | Home</title>
+  <link rel="stylesheet" href="../assets/home.css">
+  <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ETGGXC16CY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ETGGXC16CY');
+</script>
+  <link rel="stylesheet" href="assets/ads.css">
+</head>
+<body>
+
+<!-- site-native navbar (uses .new-navbar from assets/home.css) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<nav class="new-navbar" role="navigation">
+  <div class="logo"><a href="/index.html"><img src="/images/coding with tawfiq.jpg" alt="Logo"></a></div>
+  <button class="hamburger" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="/index.html">Home</a></li>
+    <li><a href="/try-quiz.html">Practice</a></li>
+    <li><a href="/findjobs.html">Find Jobs</a></li>
+  </ul>
+    <div class="nav-actions">
+    <button class="search-btn" aria-label="Search"><img src="/images/the search logo.jpg" alt="Search"></button>
+    <a class="card-link" href="/public/login.html">Sign In</a>
+  </div>
+</nav>
+
+<!-- Navbar helper (handles .new-navbar hamburger toggle) -->
+<script src="/assets/navbar.js"></script>
+
+<!-- ====== HERO SECTION ====== -->
+  <section id="hero">
+    <div class="hero-content">
+      <h1><code>File Handling&Exception Handling</code></h1>
+      <div class="hero-actions">
+        <button id="start-btn">Start Here</button>
+      </div>
+    </div>
+  </section>
+
+
+<!-- native ad unit -->
+
+<script>
+     
+</script>
+
+   <!-- ====== Introduction to files operations in python====== -->
+<section id="python-file-operations" style="
+    display: flex;
+    justify-content: center;
+    padding: 4rem 2rem;
+    background-image: url('images/water\ fall.jpg');
+    background-size: cover;       /* Makes image cover the section */
+    background-position: center;  /* Centers the image */
+    background-repeat: no-repeat; /* Prevent tiling */
+    background-attachment: scroll; /* Optional, prevents fixed zoom */
+">
+
+  <div style="
+      max-width: 900px; 
+      width: 100%; 
+      background-color: rgb(189, 35, 15); 
+      border-radius: 15px; 
+      box-shadow: 0 8px 20px rgba(247, 238, 238, 0.2); 
+      overflow: hidden; 
+      text-align: center; 
+      padding: 2rem;">
+
+    <!-- Image at top of the card -->
+    <div style="
+        width: 100%; 
+        height: 300px; 
+        background-image: url('images/file\ handling\ wall.PNG'); 
+        background-size: cover; 
+        background-position: center; 
+        border-radius: 10px;">
+    </div>
+
+    <!-- Content under image -->
+    <div style="margin-top: 2rem;">
+      <h2 style="margin-bottom: 2rem; color: #f0eeee;"><b>file operations and exceptions handling</b></h2>
+
+<section>
+  <article>
+    <p>🎯 <strong>Objectives of the Topic</strong></p>
+    <p>• Master Files: Get hands-on with opening, reading, writing, and closing files in Python!</p>
+    <p>• Handle Errors Like a Pro: Learn how to catch and manage errors, ensuring your code runs smoothly even when things don’t go as planned.</p>
+
+    <p>📄 <strong>What is File Handling?</strong></p>
+    <p>File Handling in Python is the ability to perform various operations on files, like reading from and writing to them. Files provide <strong>persistent storage</strong>, unlike variables which lose their values when a program ends.</p>
+    <p>File handling in Python allows you to:</p>
+    <p>1. Open files in different modes (read, write, append).</p>
+    <p>2. Read and write data in a variety of formats.</p>
+    <p>3. Close files to free up system resources.</p>
+    <p>Python’s built-in <code>open()</code> function is at the heart of this process, making your programs more robust, flexible, and useful.</p>
+
+    <p>📝 <strong>File Operations in Python</strong></p>
+    <p>Let’s start with the basics of file handling! (1.5 hours)</p>
+
+    <p>• <strong>Opening Files</strong></p>
+    <p>Use Python’s <code>open()</code> function to access a file.</p>
+    <p>Syntax: <code>open(filename, mode)</code>, where:</p>
+    <p>• <code>filename</code>: The name of the file you want to work with.</p>
+    <p>• <code>mode</code>: The mode you want to open the file in.</p>
+    <p>Common modes:</p>
+    <p>• 'r': Read mode</p>
+    <p>• 'w': Write mode (creates new file or overwrites)</p>
+    <p>• 'a': Append mode (adds content without deleting existing data)</p>
+    <p>• 'rb', 'wb': Binary modes for non-text files</p>
+    <p>Example:</p>
+    <p><code>file = open("example.txt", "r")  # Opens the file in read mode</code></p>
+
+    <p>• <strong>Reading Files</strong></p>
+    <p>Python provides multiple ways to read file contents:</p>
+    <p>• <code>.read()</code>: Reads the entire file</p>
+    <p>• <code>.readline()</code>: Reads a single line at a time</p>
+    <p>• <code>.readlines()</code>: Reads all lines and returns a list</p>
+    <p>Example:</p>
+    <p><code>with open("example.txt", "r") as file:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data = file.read()<br>
+print(data)</code></p>
+
+    <p>• <strong>Writing & Appending to Files</strong></p>
+    <p>Writing is essential for saving data, like storing a user’s progress or keeping a record.</p>
+    <p><code>write()</code> overwrites content, while <code>append()</code> adds new content without deleting.</p>
+    <p>Example:</p>
+    <p><code>with open("output.txt", "w") as file:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;file.write("Hello, Python!")</code></p>
+
+    <p>• <strong>Closing Files</strong></p>
+    <p>Files should be closed after processing to release system resources.</p>
+    <p>Using Python’s <code>with</code> statement automatically handles closing:</p>
+    <p><code>with open("example.txt", "r") as file:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data = file.read()<br>
+# File is automatically closed after this block</code></p>
+  </article>
+</section>
+    </div>
+  </div>
+</section>
+
+   <!-- ====== Introduction to exceptions handling in python====== -->
+<section id="python-exceptions-handling" style="
+    display: flex;
+    justify-content: center;
+    padding: 4rem 2rem;
+    background-image: url('images/water\ fall.jpg');
+    background-size: cover;       /* Makes image cover the section */
+    background-position: center;  /* Centers the image */
+    background-repeat: no-repeat; /* Prevent tiling */
+    background-attachment: scroll; /* Optional, prevents fixed zoom */
+">
+
+  <div style="
+      max-width: 900px; 
+      width: 100%; 
+      background-color: rgb(189, 35, 15); 
+      border-radius: 15px; 
+      box-shadow: 0 8px 20px rgba(247, 238, 238, 0.2); 
+      overflow: hidden; 
+      text-align: center; 
+      padding: 2rem;">
+
+    <!-- Image at top of the card -->
+    <div style="
+        width: 100%; 
+        height: 300px; 
+        background-image: url('images/exceptions\ handling.PNG'); 
+        background-size: cover; 
+        background-position: center; 
+        border-radius: 10px;">
+    </div>
+
+    <!-- Content under image -->
+    <div style="margin-top: 2rem;">
+      <h2 style="margin-bottom: 2rem; color: #f0eeee;"><b>exceptions handling</b></h2>
+<section>
+  <article>
+    <p>⚠️ <strong>Exception Handling</strong> (1.5 hours)</p>
+    <p>Errors happen! To make sure your programs are error-proof and user-friendly, Python provides <strong>Exception Handling</strong>. It’s the art of catching errors and handling them gracefully.</p>
+
+    <p>• <strong>Basic Structure of try-except Blocks</strong></p>
+    <p>• <code>try:</code> Runs code that might throw an error.</p>
+    <p>• <code>except:</code> Catches the error, allowing you to respond without crashing.</p>
+    <p>Example:</p>
+    <p><code>try:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;with open("nonexistent.txt", "r") as file:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = file.read()<br>
+except FileNotFoundError:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("File not found. Please check the filename.")</code></p>
+
+    <p>• <strong>Advanced Error Handling with finally and Custom Errors</strong></p>
+    <p>• <code>finally:</code> Runs no matter what, often used to clean up (like closing a file).</p>
+    <p>• <strong>Custom Errors:</strong> Create custom exceptions for special cases (e.g., <code>EmptyFileError</code>).</p>
+    <p>Example with <code>finally</code>:</p>
+    <p><code>try:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;file = open("sample.txt", "r")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data = file.read()<br>
+except FileNotFoundError:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("File not found.")<br>
+finally:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;file.close()</code></p>
+
+    <p>• <strong>Best Practices</strong></p>
+    <p>• Use <code>with</code> for file handling: auto-close files, preventing potential leaks.</p>
+    <p>• Check file existence before reading/writing to avoid crashes.</p>
+    <p>• Handle specific exceptions over general ones (e.g., <code>FileNotFoundError</code> instead of <code>Exception</code>).</p>
+    <p>• Document error messages clearly for easier debugging and user support.</p>
+  </article>
+</section>
+
+      <!-- Buttons -->
+      <div style="margin-top: 2rem;">
+        <a href="DOCUMENTS PDF/PYTHON COMPLETE NOTES WITH TAWFIQ/FILE HANDLING&EXCEPTION IN PYTHON 4/EXCEPTION HANDLING IN PYTHON.pdf" download class="card-link">Download Notes</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+   <!-- ====== FOOTER ====== -->
+  <footer id="footer">
+    <p>© 2025 Coding with Tawfiq. All rights reserved.</p>
+  </footer>

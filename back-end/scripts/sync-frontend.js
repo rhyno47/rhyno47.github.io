@@ -9,7 +9,7 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..', '..');
 const DEST = path.join(__dirname, '..', 'public');
 
-// List of top-level files to copy
+// List of top-level files to copy (root files). If a file exists in destination, it will be overwritten.
 const FILES = [
   'index.html',
   'findjobs.html',
@@ -18,9 +18,7 @@ const FILES = [
   'webdevhome.html',
   'pyhome.html',
   'login.html',
-  'register.html',
-  'public/login.html',
-  'public/register.html'
+  'register.html'
 ];
 
 // List of folders to mirror recursively
@@ -75,7 +73,7 @@ async function main(){
     }
   }
 
-  // Copy files
+  // Copy root files (overwrite destination index.html so backend shows full site)
   for(const file of FILES){
     const src = path.join(ROOT, file);
     try{

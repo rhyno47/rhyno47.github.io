@@ -1,49 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>API Backend - rhyno</title>
-  <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;display:flex;min-height:100dvh;align-items:center;justify-content:center;background:#0d1117;color:#e6edf3}
-    main{max-width:720px;padding:2rem}
-    h1{margin-top:0;font-size:2.2rem;}
-    code{background:#161b22;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.9rem}
-    a{color:#58a6ff;text-decoration:none}a:hover{text-decoration:underline}
-    .grid{display:grid;gap:1rem;margin-top:2rem}
-    footer{margin-top:3rem;font-size:0.75rem;opacity:.6}
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coding with Tawfiq | Home</title>
+  <link rel="stylesheet" href="assets/home.css">
+  <link rel="stylesheet" href="assets/ads.css">
+  <!-- preload hero wallpaper to improve perceived load quality; also preload a high-res variant for large viewports if present -->
+  <link rel="preload" as="image" href="images/hero section image 2.jpg">
+  <link rel="preload" as="image" href="images/hero section image 2@2x.jpg" media="(min-width:1600px)">
 </head>
 <body>
-  <main>
-    <h1>Backend API is Live</h1>
-    <p>This Render service hosts your Express API for auth, jobs, posts, and AI proxy.</p>
-    <div class="grid">
-      <div>
-        <strong>Health:</strong> <code>/</code>
+
+
+<!-- site-native navbar (uses .new-navbar from assets/home.css) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+<nav class="new-navbar" role="navigation">
+  <div class="logo"><a href="index.html"><img src="images/coding with tawfiq.jpg" alt="Logo"></a></div>
+  <button class="hamburger" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+  <li><a href="try-quiz.html">Practice</a></li>
+  <li><a href="findjobs.html">Find Jobs</a></li>
+  </ul>
+    <div class="nav-actions">
+    <button class="search-btn" aria-label="Search"><img src="images/the search logo.jpg" alt="Search"></button>
+    <a class="card-link" href="/public/login.html">Sign In</a>
+  </div>
+</nav>
+
+<!-- Navbar helper (handles .new-navbar hamburger toggle) -->
+<script src="/assets/navbar.js"></script>
+
+
+
+
+  <!-- ====== HERO SECTION ====== -->
+  <section id="hero" class="home-hero">
+    <div class="hero-content">
+      <h1>Your coding journey starts here</h1>
+      <p>Train from basics to job-ready skills with short hands-on quizzes, bite-sized tutorials and real projects. No fluff — just practice that sticks.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="try-quiz.html">Start Practice</a>
+        <a class="btn-ghost" href="findjobs.html">Find Jobs</a>
       </div>
-      <div>
-        <strong>Auth:</strong> <code>/api/auth/register</code>, <code>/api/auth/login</code>
+      <div style="margin-top:10px;color:rgba(255,255,255,0.88);font-weight:700;font-size:0.95rem">No sign-up required — try a 1-minute quiz</div>
+    </div>
+  </section>
+
+
+
+  <!-- ====== COURSES SECTION ====== -->
+  <section id="courses">
+    <h2>Explore Our Courses 🚀📚</h2>
+    <div class="course-grid">
+      <div class="course-grid">
+  <a href="pyhome.html" style="text-decoration: none; color: inherit;">
+    <div class="card" id="python-card">
+      <img src="images/python home...jpg" alt="Python Course">
+      <h3>Python</h3>
+      <p>Learn Python for automation, web apps, and data science.</p>
+    </div>
+  </a>
+</div>
+
+      <a href="webdevhome.html" style="text-decoration: none; color: inherit;">
+        <div class="card" id="webdev-card">
+          <img src="images/website dev home logo.jpg" alt="Web Development">
+          <h3>Website Development</h3>
+          <p>HTML,CSS,and JavaScript.</p>
+        </div>
+      </a>
+
+      <div class="card" id="flutter-card">
+        <img src="images/dart home logo.jpg" alt="Dart and Flutter">
+        <h3>Dart-Flutter</h3>
+        <p>Build mobile apps for Android and iOS.</p>
       </div>
-      <div>
-        <strong>Jobs:</strong> <code>/api/jobs</code>
+
+      <div class="card" id="ai-card">
+        <img src="images/ai home logo.jpg" alt="AI for Software Engineering">
+        <h3>AI for Software Engineering</h3>
+        <p>Explore AI integration in development and automation.</p>
       </div>
-      <div>
-        <strong>Posts:</strong> <code>/api/posts</code>
-      </div>
-      <div>
-        <strong>AI Chat:</strong> <code>/api/ai/chat</code>
+
+      <a href="databasehome.html" style="text-decoration: none; color: inherit;">
+        <div class="card" id="database-card">
+          <img src="images/project 1.jpg" alt="Database Design">
+          <h3>Database Design</h3>
+          <p>Learn relational databases, SQL, and backend structure.</p>
+        </div>
+      </a>
+
+      <div class="card" id="software-card">
+        <img src="images/soft eng home logo.jpg" alt="Software Engineering Essentials">
+        <h3>Software Engineering Essentials</h3>
+        <p>Understand teamwork,Git, SDLC, and Agile fundamentals.</p>
       </div>
     </div>
-    <p>If you expected the full frontend here, remember your static site is served separately (e.g. GitHub Pages). Set <code>FRONTEND_URL</code> in Render env vars to auto-redirect visitors from this root to your main site.</p>
-    <p>Example fetch from frontend:</p>
-    <pre><code>fetch('https://YOUR-BACKEND.onrender.com/api/jobs')
-  .then(r => r.json())
-  .then(console.log)</code></pre>
-    <footer>
-      &copy; <span id="year"></span> rhyno backend. Secure your secrets & rotate credentials if accidentally exposed.
-    </footer>
-  </main>
-  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+  </section>
+
+
+<!-- native ad unit -->
+
+<script>
+     
+</script>
+
+
+<!-- non-intrusive ad (scripts removed) -->
+<div class="non-intrusive-ad" aria-hidden="true">
+  <div class="ad-content">
+    <!-- Ad placeholder — scripts intentionally removed. Original ad HTML is available in backups/ -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-1523965413574724"
+         data-ad-slot="1588668042"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+  </div>
+</div>
 </body>
 </html>

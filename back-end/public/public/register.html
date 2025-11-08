@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Register — Coding with Tawfiq</title>
+    <link href="/assets/home.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+      /* Small, focused form styles to match site colors */
+      .auth-container{display:flex;align-items:center;justify-content:center;min-height:80vh;padding:2rem}
+      .auth-card{width:100%;max-width:420px;background:#fff;border-radius:10px;padding:26px;box-shadow:0 6px 24px rgba(0,0,0,.08)}
+      .auth-card h1{margin:0 0 14px;font-size:1.4rem;color:#680202;text-align:center}
+      .form-row{margin-bottom:12px}
+      .form-row label{display:block;font-size:.95rem;margin-bottom:6px;color:#333}
+      .form-row input{width:100%;padding:10px;border:1px solid #ddd;border-radius:6px}
+      .btn-primary{background:#680202;border:0;padding:10px 14px;border-radius:6px;color:#fff;width:100%;font-weight:600}
+      .aux {text-align:center;margin-top:12px;font-size:.95rem}
+      .message{min-height:22px;text-align:center;margin-top:8px}
+    </style>
+  </head>
+  <body>
+    <!-- let assets/navbar.js inject the canonical navbar/footer; keep a placeholder element -->
+    <div class="new-navbar"></div>
+
+    <main class="auth-container">
+      <section class="auth-card" aria-labelledby="reg-title">
+        <h1 id="reg-title">Create an account</h1>
+        <form id="registerForm" autocomplete="on">
+          <div class="form-row">
+            <label for="name">Full name</label>
+            <input id="name" name="name" type="text" required>
+          </div>
+          <div class="form-row">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required>
+          </div>
+          <div class="form-row">
+            <label for="password">Password</label>
+            <div class="pw-wrap">
+              <input id="password" name="password" type="password" required minlength="6">
+              <button type="button" class="pw-toggle" aria-pressed="false" aria-label="Show password">
+                <i class="bi bi-eye" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="confirmPassword">Confirm password</label>
+            <div class="pw-wrap">
+              <input id="confirmPassword" name="confirmPassword" type="password" required minlength="6">
+              <button type="button" class="pw-toggle" aria-pressed="false" aria-label="Show password">
+                <i class="bi bi-eye" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="form-row">
+            <button type="submit" class="btn-primary">Register</button>
+          </div>
+          <div class="message" id="reg-message" aria-live="polite"></div>
+          <div class="aux">Already registered? <a class="auth-inline-link" href="/public/login.html">Sign in</a></div>
+        </form>
+      </section>
+    </main>
+
+  <script src="/assets/env.js"></script>
+  <script src="/assets/navbar.js"></script>
+    <script>
+      // Minimal client-side handling — posts to existing API and shows messages
+      const form = document.getElementById('registerForm');
+      const msg = document.getElementById('reg-message');
+
+      // Setup password toggles for any .pw-wrap/.pw-toggle pairs on the page
+      (function setupPasswordToggles(){
+        const toggles = Array.from(document.querySelectorAll('.pw-toggle'));
+        toggles.forEach(btn => {
+          const wrap = btn.closest('.pw-wrap');
+          if (!wrap) return;
+          const input = wrap.querySelector('input');
+          const icon = btn.querySelector('i');
+          if (!input) return;
+          btn.addEventListener('click', (ev) => {
+            ev.preventDefault();
+            const show = input.type === 'password';
+            input.type = show ? 'text' : 'password';
+            btn.setAttribute('aria-pressed', show ? 'true' : 'false');
+            btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+            if (icon) { icon.classList.toggle('bi-eye', !show); icon.classList.toggle('bi-eye-slash', show); }
+            input.focus();
+          });
+        });
+      })();
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+    msg.textContent = '';
+        const data = {
+          name: form.name.value.trim(),
+          email: form.email.value.trim(),
+          password: form.password.value,
+          confirmPassword: form.confirmPassword.value
+        };
+        if (data.password !== data.confirmPassword) {
+          if (window.showToast) window.showToast('error', 'Passwords do not match', 'Please make sure both passwords match.');
+          else msg.innerHTML = '<span style="color:#b00020">Passwords do not match</span>';
+          return;
+        }
+        try {
+          const base = (window.API_BASE || '').replace(/\/$/, '');
+          const url = base ? (base + '/api/auth/register') : '/api/auth/register';
+          const res = await fetch(url, {
+            method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data)
+          });
+          const j = await res.json();
+          if (!res.ok) { const text = (j.message||j.error||'Registration failed'); if (window.showToast) window.showToast('error','Registration failed', text); else msg.innerHTML = '<span style="color:#b00020">'+text+'</span>'; return; }
+          if (j.token) localStorage.setItem('token', j.token);
+          if (window.showToast) window.showToast('success','Welcome to Coding with Tawfiq','Registration successful — redirecting…'); else msg.innerHTML = '<span class="msg-success">Registration successful — redirecting…</span>';
+          setTimeout(()=> location.href='/', 1300);
+        } catch (err) { msg.innerHTML = '<span style="color:#b00020">Network error. Try again.</span>'; }
+      });
+    </script>
+  </body>
+</html>

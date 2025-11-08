@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Coding with Tawfiq | Jobs & Announcements</title>
+    <link rel="stylesheet" href="assets/home.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Front-end runtime configuration (defines window.API_BASE) -->
+  <script src="assets/env.js"></script>
+    
+  </head>
+  <body class="find-jobs-page">
+
+  <!-- navbar -->
+  <nav class="new-navbar" role="navigation">
+    <div class="logo"><a href="index.html"><img src="images/coding with tawfiq.jpg" alt="Coding with Tawfiq logo"></a></div>
+    <button class="hamburger" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="try-quiz.html">Practice</a></li>
+  <li><a href="findjobs.html">Find Jobs</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="search-btn" aria-label="Search"><img src="images/the search logo.jpg" alt="Search"></button>
+      <a class="card-link" href="public/login.html">Sign In</a>
+    </div>
+  </nav>
+  <script src="assets/navbar.js"></script>
+
+  <main class="page">
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Jobs & Announcements</h1>
+        <p class="lead">Browse the latest job openings and important announcements. Signed-in users can post opportunities which will appear here for users to read. We curate remote and on-site positions and highlight application tips to help you stand out.</p>
+        <div class="hero-actions">
+          <button id="heroCreateBtn" class="card-link" style="display:none">Create a post</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="layout">
+      <!-- Feed -->
+      <section class="feed" id="feed">
+        <!-- welcome card removed (not needed) -->
+
+        <!-- inline create card removed — creation is handled from the hero Create button or the modal -->
+
+        <!-- dynamic posts inserted here -->
+      </section>
+
+      <!-- Right drawer removed — announcements shown in feed -->
+    </div>
+  </main>
+
+  <!-- Floating admin post button removed. Posting is available to signed-in users via the inline create card. -->
+
+  <!-- Modal create post -->
+  <div id="modalBackdrop" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true">
+    <h3>Create announcement</h3>
+      <div style="height:8px"></div>
+
+      <div class="form-row">
+        <div class="col"><input id="title" placeholder="Job title or announcement title"/></div>
+        <div class="col"><input id="link" placeholder="Optional: link (https://)"/></div>
+      </div>
+      <div style="height:8px"></div>
+      <input id="image" type="file" accept="image/*" />
+      <div style="height:8px"></div>
+      <textarea id="body" placeholder="Details, responsibilities, location, salary..."></textarea>
+
+      <div class="actions">
+        <button id="submitPost" class="btn-primary-strong">Post</button>
+        <button id="closeModal" class="btn-ghost">Cancel</button>
+      </div>
+      <div id="modalPreview" style="margin-top:0.8rem; display:none">
+        <h4 style="margin:0;color:#fff">Preview</h4>
+        <div id="modalPreviewCard" class="card-feed" style="margin-top:0.6rem"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  // Uses the existing /api/auth and /api/posts endpoints.
+    // Stores token and user in sessionStorage under 'token' and 'user'.
+  const modal = document.getElementById('modalBackdrop');
+    const submitBtn = document.getElementById('submitPost');
+    const closeModal = document.getElementById('closeModal');
+  const imageInput = document.getElementById('image');
+    const feed = document.getElementById('feed');
+    const previewCard = document.getElementById('modalPreviewCard');
+
+  // API base: dynamic from env.js (window.API_BASE). Fallback to localhost if not set.
+  const API_BASE = (window.API_BASE || 'http://localhost:5000');
+
+  // Helper to safely join base and path ensuring a single slash
+  function joinUrl(base, path){
+    const b = String(base||'').replace(/\/$/, '');
+    const p = String(path||'').replace(/^\//, '');
+    return b + '/' + p;
+  }
+  // Resolve media/image URLs that may be relative from the API
+  function resolveMediaUrl(u){
+    if(!u) return '';
+    if(/^https?:\/\//i.test(u)) return u;
+    return joinUrl(API_BASE, u);
+  }
+
+    // Safe JSON parser: some error responses or empty responses may not be valid JSON
+    async function parseJsonSafe(res){
+      try{
+        const text = await res.text();
+        return text ? JSON.parse(text) : null;
+      }catch(e){
+        return null;
+      }
+    }
+
+  // Read token/user from sessionStorage or fallback to localStorage (login page stores in localStorage)
+  function getToken(){ return sessionStorage.getItem('token') || localStorage.getItem('token'); }
+  function getUser(){
+    try{
+      const s = sessionStorage.getItem('user');
+      const l = localStorage.getItem('user');
+      const raw = s || l || null;
+      return raw ? JSON.parse(raw) : null;
+    }catch(e){ return null; }
+  }
+
+  // Show inline create only for signed-in users; dashboard list is visible to all users
+  function refreshUI(){
+    const u = getUser();
+    const hb = document.getElementById('heroCreateBtn');
+    if(u){ 
+      if(typeof createCard !== 'undefined' && createCard) createCard.style.display = 'block'; 
+      if(hb) hb.style.display = 'inline-block';
+    } else { 
+      if(typeof createCard !== 'undefined' && createCard) createCard.style.display = 'none'; 
+      if(hb) hb.style.display = 'none';
+    }
+  // no dashboard to toggle; posts are shown inline in the feed
+  }
+
+    // Authentication is handled by the site's sign-in page. No admin login controls here.
+
+    // Dashboard removed — no toggle behavior
+
+    // Modal open/close (hook hero create button and safe fallback)
+    function openCreateModal(){
+      modal.classList.add('show');
+      modal.setAttribute('aria-hidden','false');
+      const t = document.getElementById('title'); if(t) t.focus();
+      const mp = document.getElementById('modalPreview'); if(mp) mp.style.display = 'none';
+      if(previewCard) previewCard.innerHTML = '';
+    }
+    const heroCreateBtnEl = document.getElementById('heroCreateBtn');
+    if(heroCreateBtnEl) heroCreateBtnEl.addEventListener('click', openCreateModal);
+    closeModal.addEventListener('click', ()=>{
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden','true');
+    });
+
+    // Simple esc key to close
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') { modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); } });
+
+    function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    function escapeAttr(s){ return String(s).replace(/"/g,'%22').replace(/'/g,'%27'); }
+
+    function updateModalPreview(){
+      const tRaw = document.getElementById('title').value || '';
+      const bRaw = document.getElementById('body').value || '';
+      const lRaw = document.getElementById('link').value || '';
+      const t = escapeHtml(tRaw.trim() || 'Untitled');
+      const b = escapeHtml(bRaw);
+      const l = lRaw.trim();
+      previewCard.innerHTML = `<h3>${t}</h3><div class="card-meta">Posted: preview</div><p style="margin-top:0.6rem">${b}</p>${l? `<p><a href="${escapeAttr(l)}" target="_blank" style="color:#ffdede">Open link</a></p>`: ''}`;
+      document.getElementById('modalPreview').style.display = (tRaw || bRaw || l) ? 'block' : 'none';
+    }
+    ['title','body','link'].forEach(id => { const el = document.getElementById(id); if(el) el.addEventListener('input', updateModalPreview); });
+
+  imageInput.addEventListener('change', (e)=>{
+      const f = e.target.files && e.target.files[0];
+      if(!f) return;
+  // Client-side validations to avoid server 400/500
+  const max = 5 * 1024 * 1024; // 5MB
+  const okTypes = ['image/jpeg','image/png','image/webp','image/gif'];
+  if(f.size > max){ alert('Image too large (max 5MB)'); imageInput.value=''; return; }
+  if(okTypes.indexOf(f.type) === -1){ alert('Unsupported image format. Use JPG, PNG, WEBP or GIF.'); imageInput.value=''; return; }
+      const url = URL.createObjectURL(f);
+      updateModalPreview();
+      const img = document.createElement('img');
+      // avoid blocking other resources — preview image can be lazy
+      img.loading = 'lazy';
+      img.src = url;
+      img.style.width = '100%'; img.style.maxHeight = '220px'; img.style.objectFit = 'cover'; img.style.borderRadius = '8px'; img.style.marginTop = '0.6rem';
+      previewCard.appendChild(img);
+      img.addEventListener('load', ()=> URL.revokeObjectURL(url));
+    });
+
+    // Inline create UI removed; posting is available via the hero Create button and modal.
+
+    // Create post (tries server if logged in; otherwise falls back to local)
+    // Any authenticated user may create a post; owner is set server-side.
+    let editingPostId = null; // null for create, id for edit
+  submitBtn.addEventListener('click', async ()=>{
+      const t = document.getElementById('title').value.trim();
+      const b = document.getElementById('body').value.trim();
+      const l = document.getElementById('link').value.trim();
+      if(!t){ alert('Title required'); return; }
+    // Backend requires both title and body; provide a clearer client-side validation
+    if(!b){ alert('Body/details required'); return; }
+
+      if(getToken()){
+        // send to server (create or edit)
+        try{
+          const method = editingPostId ? 'PUT' : 'POST';
+          const url = editingPostId ? ('/api/posts/' + editingPostId) : '/api/posts';
+          // If an image was selected, send multipart/form-data
+          const file = imageInput.files && imageInput.files[0];
+          let res;
+          const fullUrl = url.startsWith('/') ? joinUrl(API_BASE, url) : url;
+          const token = getToken();
+          // Debug: log outgoing request summary (omit sensitive token value)
+          try{ console.log('[create-post] Sending', { method, url: fullUrl, withImage: !!file, hasToken: !!token, payload: file ? ['title','body','link','image'] : { title: t, body: (b||'').slice(0,140), link: l } }); }catch(_e){}
+          if(file){
+            const fd = new FormData(); fd.append('title', t); fd.append('body', b); fd.append('link', l); fd.append('image', file);
+            res = await fetch(fullUrl, { method, headers: { 'Authorization': 'Bearer ' + token }, body: fd });
+          }else{
+            res = await fetch(fullUrl, { method, headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }, body: JSON.stringify({ title: t, body: b, link: l }) });
+          }
+          // Robust response handling: read raw text and attempt JSON parse for clearer error logs
+          const raw = await res.clone().text();
+          let data = null; try{ data = raw ? JSON.parse(raw) : null; }catch(_e){ data = null; }
+          if(!res.ok){
+            try{ console.error('[create-post] Failed', { status: res.status, headers: Object.fromEntries(res.headers.entries()), raw }); }catch(_e){}
+            const errMsg = (data && (data.message || (data.errors && data.errors[0] && data.errors[0].msg))) || (raw || 'Failed to create/update post');
+            if(file){
+              alert('Image upload failed: ' + errMsg + '\nPosting again without image...');
+              // retry without image if the failure might be image related (status 400/500)
+              try{
+                const retry = await fetch(fullUrl, { method, headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }, body: JSON.stringify({ title: t, body: b, link: l }) });
+                const retryText = await retry.clone().text();
+                let retryJson = null; try{ retryJson = retryText ? JSON.parse(retryText) : null; }catch(_e){}
+                if(!retry.ok){
+                  alert((retryJson && (retryJson.message||retryJson.detail)) || 'Retry without image failed');
+                  return;
+                }
+                modal.classList.remove('show'); modal.setAttribute('aria-hidden','true');
+                document.getElementById('title').value = ''; document.getElementById('body').value = ''; document.getElementById('link').value = ''; document.getElementById('image').value = ''; editingPostId = null;
+                await fetchAndRender();
+                alert('Posted (image skipped).');
+                return;
+              }catch(retryErr){ console.error('[create-post] retry error', retryErr); }
+            }
+            alert(errMsg);
+            return;
+          }
+          modal.classList.remove('show'); modal.setAttribute('aria-hidden','true');
+          document.getElementById('title').value = ''; document.getElementById('body').value = ''; document.getElementById('link').value = ''; document.getElementById('image').value = ''; editingPostId = null;
+          await fetchAndRender();
+          alert(editingPostId ? 'Updated' : 'Posted');
+        }catch(e){ console.error(e); alert('Error posting'); }
+        return;
+      }
+
+    // fallback: local-only behavior — use centralized renderer so controls match server-rendered posts
+    const uLocal = getUser();
+    const localPost = { title: t, body: b, link: l, createdAt: new Date().toISOString(), author: uLocal ? uLocal.id : null };
+    const renderedLocal = renderPostNode(localPost);
+  feed.insertBefore(renderedLocal.node, feed.children[1] || null);
+    modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); document.getElementById('title').value = ''; document.getElementById('body').value = ''; document.getElementById('link').value = ''; document.getElementById('image').value = '';
+    alert('Posted locally (not saved to server).');
+    });
+
+    // Delete a post (owner only)
+    async function deletePost(id){
+      if(!confirm('Delete this post?')) return;
+      try{
+  const res = await fetch(API_BASE + '/api/posts/' + id, { method:'DELETE', headers: { 'Authorization': 'Bearer ' + getToken() } });
+  const data = await parseJsonSafe(res);
+  if(!res.ok){ alert((data && data.message) || 'Delete failed'); return; }
+        await fetchAndRender();
+      }catch(e){ console.error(e); alert('Delete error'); }
+    }
+
+    // Edit a post: prefill modal and set editingPostId
+    function editPost(id, title, body, link){
+      editingPostId = id;
+      document.getElementById('title').value = title || '';
+      document.getElementById('body').value = body || '';
+      document.getElementById('link').value = link || '';
+      modal.classList.add('show'); modal.setAttribute('aria-hidden','false');
+    }
+
+    // Fetch posts from server and render
+    async function fetchAndRender(){
+      try{
+  const res = await fetch(API_BASE + '/api/posts');
+  if(!res.ok){ const err = await parseJsonSafe(res); console.error('Posts fetch error', res.status, err); feed.innerHTML = '<div class="no-posts">Unable to load posts from server.</div>'; return; }
+  const posts = await parseJsonSafe(res) || [];
+        // clear feed (keep first welcome card)
+        while(feed.children.length > 1) feed.removeChild(feed.lastChild);
+  // clear any previous dynamic posts in feed (keep welcome card)
+        if(!Array.isArray(posts) || posts.length === 0){
+          // show a friendly message in the feed when there are no posts
+          const placeholder = document.createElement('div');
+          placeholder.className = 'no-posts';
+          placeholder.textContent = 'No announcements yet.';
+          feed.appendChild(placeholder);
+          return;
+        }
+        posts.forEach(p => {
+          const node = document.createElement('div'); node.className = 'card-feed';
+          // render edit/delete buttons if this user is the owner
+          const u = getUser();
+          const isOwner = u && p.author && (String(p.author) === String(u.id));
+          // Only owners may edit/delete posts from the UI (no admin dashboard controls)
+          const canManage = isOwner;
+          // build controls as real DOM nodes (avoid inlining JSON into HTML attributes)
+          let controls = null;
+          if(canManage){
+            controls = document.createElement('div');
+            controls.className = 'controls';
+            // edit icon button
+            const editBtn = document.createElement('button');
+            editBtn.className = 'icon-btn';
+            editBtn.title = 'Edit post';
+            const editImg = document.createElement('img');
+            editImg.src = 'images/edit post logo.jpg';
+            editImg.alt = 'Edit';
+            editBtn.appendChild(editImg);
+            editBtn.addEventListener('click', () => document.dispatchEvent(new CustomEvent('editPost', { detail: p })));
+
+            // delete icon button
+            const delBtn = document.createElement('button');
+            delBtn.className = 'icon-btn';
+            delBtn.title = 'Delete post';
+            const delImg = document.createElement('img');
+            delImg.src = 'images/delete post logo.jpg';
+            delImg.alt = 'Delete';
+            delBtn.appendChild(delImg);
+            delBtn.addEventListener('click', () => document.dispatchEvent(new CustomEvent('deletePost', { detail: p._id || p.id || '' })));
+
+            controls.appendChild(editBtn);
+            controls.appendChild(delBtn);
+          }
+          // include image if present (prefix with API_BASE when needed)
+          let imgHtml = '';
+          if(p.imageUrl){
+            const src = resolveMediaUrl(p.imageUrl);
+            imgHtml = `<a class="post-image" href="${escapeAttr(src)}" title="Click to view full image" aria-label="Open full image in lightbox"><img class="post-thumb" loading="lazy" src="${escapeAttr(src)}" alt="post image"></a>`;
+          }
+          node.innerHTML = `<h3>${escapeHtml(p.title)}</h3><div class="card-meta">Posted: ${new Date(p.createdAt).toLocaleString()}</div><p style="margin-top:0.6rem">${escapeHtml(p.body)}</p>${imgHtml}`;
+          // Attach an image error fallback so broken URLs are visible and clickable
+          const thumb = node.querySelector('img.post-thumb');
+          if(thumb){
+            thumb.addEventListener('error', ()=>{
+              const fallback = document.createElement('div');
+              fallback.className = 'no-posts';
+              fallback.textContent = 'Image failed to load';
+              thumb.replaceWith(fallback);
+            });
+          }
+          // build action row: place Open link and controls on the right
+          const actionRow = document.createElement('div'); actionRow.className = 'card-actions';
+          const left = document.createElement('div'); // reserved for future use (meta)
+          const right = document.createElement('div'); right.className = 'right';
+          if(p.link){
+            const openA = document.createElement('a');
+            openA.className = 'card-link open-link-btn';
+            openA.href = p.link;
+            openA.target = '_blank';
+            openA.textContent = 'Open link';
+            right.appendChild(openA);
+          }
+          if(controls) right.appendChild(controls);
+          actionRow.appendChild(left);
+          actionRow.appendChild(right);
+          node.appendChild(actionRow);
+          feed.appendChild(node);
+        });
+  }catch(e){ console.error(e); feed.innerHTML = '<div class="no-posts">Unable to load posts (network)</div>'; }
+    }
+
+    // wire up custom events dispatched from dynamic buttons
+    document.addEventListener('deletePost', e => deletePost(e.detail));
+    document.addEventListener('editPost', e => {
+      const p = e.detail; editPost(p._id || p.id, p.title, p.body, p.link);
+    });
+
+    // initial
+    refreshUI();
+    fetchAndRender();
+    // dashboard and admin badge have been removed
+  </script>
+  <script>
+    // helper to render a single post node (keeps controls consistent)
+    function renderPostNode(p){
+      const node = document.createElement('div'); node.className = 'card-feed';
+  const imgHtml = p.imageUrl ? (function(){ const s = resolveMediaUrl(p.imageUrl); return `<a class="post-image" href="${escapeAttr(s)}" title="Click to view full image" aria-label="Open full image in lightbox"><img class="post-thumb" loading="lazy" src="${escapeAttr(s)}" alt="post image"></a>` })() : '';
+      node.innerHTML = `<h3>${escapeHtml(p.title)}</h3><div class="card-meta">Posted: ${new Date(p.createdAt).toLocaleString()}</div><p style="margin-top:0.6rem">${escapeHtml(p.body)}</p>${imgHtml}`;
+      // ownership
+  const u = getUser();
+  // normalize author id: server may return author as string or object
+  const authorId = p.author ? (typeof p.author === 'string' ? p.author : (p.author._id || p.author.id || p.author)) : null;
+  const isOwner = u && authorId && (String(authorId) === String(u.id));
+      const canManage = !!isOwner;
+      let controls = null;
+      if(canManage){
+        controls = document.createElement('div');
+        controls.className = 'controls';
+        const editBtn = document.createElement('button'); editBtn.className='icon-btn'; editBtn.title='Edit post'; const editImg = document.createElement('img'); editImg.src='images/edit post logo.jpg'; editImg.alt='Edit'; editBtn.appendChild(editImg); editBtn.addEventListener('click', ()=>document.dispatchEvent(new CustomEvent('editPost',{detail:p})));
+        const delBtn = document.createElement('button'); delBtn.className='icon-btn'; delBtn.title='Delete post'; const delImg = document.createElement('img'); delImg.src='images/delete post logo.jpg'; delImg.alt='Delete'; delBtn.appendChild(delImg); delBtn.addEventListener('click', ()=>document.dispatchEvent(new CustomEvent('deletePost',{detail:p._id||p.id||''})));
+        controls.appendChild(editBtn); controls.appendChild(delBtn);
+      }
+      const actionRow = document.createElement('div'); actionRow.className = 'card-actions';
+      const left = document.createElement('div');
+      const right = document.createElement('div'); right.className='right';
+      if(p.link){ const openA = document.createElement('a'); openA.className='card-link open-link-btn'; openA.href = p.link; openA.target='_blank'; openA.textContent='Open link'; right.appendChild(openA); }
+      if(controls) right.appendChild(controls);
+      actionRow.appendChild(left); actionRow.appendChild(right);
+      node.appendChild(actionRow);
+      const summary = document.createElement('div'); summary.className='no-posts'; summary.innerHTML = `<strong>${escapeHtml(p.title)}</strong><div class="small-muted">${new Date(p.createdAt).toLocaleString()}</div>`;
+      return { node, summary };
+    }
+
+    // Replace previous inline rendering with the helper
+    const originalFetchAndRender = fetchAndRender;
+    fetchAndRender = async function(){
+      try{
+        const res = await fetch(API_BASE + '/api/posts');
+        if(!res.ok){ const err = await parseJsonSafe(res); console.error('Posts fetch error', res.status, err); feed.innerHTML = '<div class="no-posts">Unable to load posts from server.</div>'; return; }
+        const posts = await parseJsonSafe(res) || [];
+        while(feed.children.length > 1) feed.removeChild(feed.lastChild);
+        if(!Array.isArray(posts) || posts.length === 0){ const placeholder = document.createElement('div'); placeholder.className='no-posts'; placeholder.textContent='No announcements yet.'; feed.appendChild(placeholder); return; }
+        posts.forEach(p => {
+          // normalize createdAt
+          if(!p.createdAt) p.createdAt = new Date().toISOString();
+            const rendered = renderPostNode(p);
+            feed.appendChild(rendered.node);
+            // Attach error handler for newly inserted thumbnail
+            const thumb = rendered.node.querySelector('img.post-thumb');
+            if(thumb){ thumb.addEventListener('error', ()=>{ const fb=document.createElement('div'); fb.className='no-posts'; fb.textContent='Image failed to load'; thumb.replaceWith(fb); }); }
+        });
+      }catch(e){ console.error(e); feed.innerHTML = '<div class="no-posts">Unable to load posts (network)</div>'; }
+    }
+
+    // All local fallback insertion is handled inside the modal submit handler above and uses renderPostNode.
+  </script>
+  <script>
+    // Simple delegated lightbox for post images — responsive and accessible
+    (function(){
+      // create lightbox element
+      const lb = document.createElement('div');
+      lb.id = 'imgLightbox';
+      lb.className = 'img-lightbox';
+      lb.innerHTML = '<div class="img-lightbox-inner"><img src="" alt="Full image"><button class="img-lightbox-close" aria-label="Close">×</button></div>';
+      document.body.appendChild(lb);
+      const lbImg = lb.querySelector('img');
+
+      // close when clicking background or close button
+      lb.addEventListener('click', e => {
+        if(e.target === lb || e.target.closest('.img-lightbox-close')){
+          lb.classList.remove('show'); lb.setAttribute('aria-hidden','true'); lbImg.src = '';
+        }
+      });
+
+      // open when clicking a thumbnail (delegated)
+      document.addEventListener('click', e => {
+        const a = e.target.closest && e.target.closest('.post-image');
+        if(!a) return;
+        e.preventDefault();
+        const src = a.getAttribute('href') || a.querySelector('img')?.src;
+        if(!src) return;
+        lbImg.src = src;
+        lb.classList.add('show'); lb.setAttribute('aria-hidden','false');
+      });
+
+      // ESC to close
+      document.addEventListener('keydown', e => { if(e.key === 'Escape'){ lb.classList.remove('show'); lb.setAttribute('aria-hidden','true'); lbImg.src = ''; } });
+    })();
+  </script>
+
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" aria-label="Coding with Tawfiq home"><img src="images/coding with tawfiq.jpg" alt="Coding with Tawfiq logo"></a>
+        <div class="footer-links">
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="privacy.html">Privacy</a>
+        </div>
+      </div>
+
+      <div class="footer-right">
+        <div class="footer-copy">© <span id="footerYear">2025</span> Coding with Tawfiq. All rights reserved.</div>
+        <div class="footer-social" aria-label="Social links">
+          <a href="#" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+          <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" aria-label="GitHub"><i class="bi bi-github"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // auto-update footer year
+    (function(){ const el = document.getElementById('footerYear'); if(el) el.textContent = new Date().getFullYear(); })();
+  </script>
+
+  </body>
+</html>

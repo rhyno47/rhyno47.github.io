@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Login — Coding with Tawfiq</title>
+    <link href="/assets/home.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+      .auth-container{display:flex;align-items:center;justify-content:center;min-height:80vh;padding:2rem}
+      .auth-card{width:100%;max-width:420px;background:#fff;border-radius:10px;padding:26px;box-shadow:0 6px 24px rgba(0,0,0,.08)}
+      .auth-card h1{margin:0 0 14px;font-size:1.4rem;color:#680202;text-align:center}
+      .form-row{margin-bottom:12px}
+      .form-row input{width:100%;padding:10px;border:1px solid #ddd;border-radius:6px}
+      .btn-primary{background:#680202;border:0;padding:10px 14px;border-radius:6px;color:#fff;width:100%;font-weight:600}
+      .aux {text-align:center;margin-top:12px;font-size:.95rem}
+      .message{min-height:22px;text-align:center;margin-top:8px}
+    </style>
+  </head>
+  <body>
+    <div class="new-navbar"></div>
+
+    <main class="auth-container">
+      <section class="auth-card" aria-labelledby="login-title">
+        <h1 id="login-title">Sign in to your account</h1>
+        <form id="loginForm" autocomplete="on">
+          <div class="form-row">
+            <input name="email" type="email" placeholder="Email" required>
+          </div>
+          <div class="form-row">
+            <div class="pw-wrap">
+              <input name="password" id="password" type="password" placeholder="Password" required>
+              <button type="button" class="pw-toggle" aria-pressed="false" aria-label="Show password">
+                <i class="bi bi-eye" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="form-row">
+            <button type="submit" class="btn-primary">Login</button>
+          </div>
+          <div class="message" id="login-message" aria-live="polite"></div>
+          <div class="aux">Don't have an account? <a class="auth-inline-link" href="/public/register.html">Register</a></div>
+        </form>
+      </section>
+    </main>
+
+  <script src="/assets/env.js"></script>
+  <script src="/assets/navbar.js"></script>
+    <script>
+      const form = document.getElementById('loginForm');
+      const msg = document.getElementById('login-message');
+
+      // Password show/hide toggle — accessible and works without dependencies
+      (function setupPasswordToggle(){
+        const pwInput = document.getElementById('password');
+        const pwToggle = form.querySelector('.pw-toggle');
+        if (!pwInput || !pwToggle) return;
+        const icon = pwToggle.querySelector('i');
+        function update(visible){
+          pwInput.type = visible ? 'text' : 'password';
+          pwToggle.setAttribute('aria-pressed', visible ? 'true' : 'false');
+          pwToggle.setAttribute('aria-label', visible ? 'Hide password' : 'Show password');
+          if (icon) {
+            icon.classList.toggle('bi-eye', !visible);
+            icon.classList.toggle('bi-eye-slash', visible);
+          }
+        }
+        pwToggle.addEventListener('click', (e) => { e.preventDefault(); const now = pwInput.type === 'password'; update(now); pwInput.focus(); });
+      })();
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault(); msg.textContent = '';
+        const data = { email: form.email.value.trim(), password: form.password.value };
+        try {
+          const base = (window.API_BASE || '').replace(/\/$/, '');
+          const url = base ? (base + '/api/auth/login') : '/api/auth/login';
+          const res = await fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data) });
+          const j = await res.json();
+          if (!res.ok) { const text = (j.message||j.error||'Login failed'); if (window.showToast) window.showToast('error','Login failed', text); else msg.innerHTML = '<span style="color:#b00020">'+text+'</span>'; return; }
+          if (j.token) localStorage.setItem('token', j.token);
+          if (j.user) try{ localStorage.setItem('user', JSON.stringify(j.user)); }catch(e){}
+          if (window.showToast) window.showToast('success','Welcome back!','Login successful — redirecting…'); else msg.innerHTML = '<span class="msg-success">Login successful — redirecting…</span>';
+          setTimeout(()=> location.href='/findjobs.html', 900);
+        } catch (err) { if (window.showToast) window.showToast('error','Network error','Please try again later.'); else msg.innerHTML = '<span style="color:#b00020">Network error. Try again.</span>'; }
+      });
+    </script>
+  </body>
+</html>
