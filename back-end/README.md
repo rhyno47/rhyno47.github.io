@@ -6,7 +6,7 @@ Small express backend for authentication (register/login) and job listings API u
 1. Copy `.env.example` to `.env` and fill required variables (`MONGODB_URI`, `JWT_SECRET`).
 2. Install dependencies: `npm install` (run in `back-end` folder).
 3. Start server locally: `npm run dev` (auto-restarts) or `npm start`.
-4. Test health: visit `http://localhost:5000/` should return `{ ok: true }`.
+4. Test health (local): visit `http://localhost:5000/` should return `{ ok: true }`. In production use your Render URL (e.g. `https://your-service.onrender.com/`).
 
 ### Environment Variables
 | Name | Required | Description |
@@ -43,6 +43,36 @@ fetch('https://your-service.onrender.com/api/jobs')
 ```
 
 If you encounter CORS issues ensure `CORS_ORIGIN` includes `https://rhyno47.github.io`.
+
+### Frontend configuration (env.js)
+The static site reads a public runtime config from `assets/env.js` and expects a global `window.API_BASE`.
+
+- File: `assets/env.js`
+- Value: set to your deployed backend base URL without a trailing slash.
+
+Example:
+```html
+<script src="/assets/env.js"></script>
+<script>
+	// Now window.API_BASE is available
+	fetch(window.API_BASE + '/api/jobs').then(r=>r.json()).then(console.log);
+</script>
+```
+
+Caching note: GitHub Pages can cache aggressively. If you update `env.js` and don’t see changes, do a hard refresh (Ctrl+F5) or append a cache buster when referencing it:
+```html
+<script src="/assets/env.js?v=2025-11-08"></script>
+```
+
+### MongoDB Atlas IP allowlist (Render)
+Atlas blocks connections by default. Ensure your Render service can reach the cluster:
+
+1. In MongoDB Atlas → Network Access → Add IP Address.
+	 - Option A (recommended): Add Render’s outbound IPs (Render shows them under your service → Networking). Add each IP/CIDR individually.
+	 - Option B (temporary): Add 0.0.0.0/0 to allow all. Use only for testing, then remove.
+2. Verify credentials in your `MONGODB_URI` (user, password, database) and that the user has the right roles.
+3. Redeploy the Render service after changes to env vars.
+4. Check logs for `MongoDB connected`.
 
 ## Endpoints
 - `POST /api/auth/register` — register user (body: { name, email, password })

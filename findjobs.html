@@ -6,6 +6,8 @@
     <title>Coding with Tawfiq | Jobs & Announcements</title>
     <link rel="stylesheet" href="assets/home.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Front-end runtime configuration (defines window.API_BASE) -->
+  <script src="assets/env.js"></script>
     
   </head>
   <body class="find-jobs-page">
@@ -93,9 +95,8 @@
     const feed = document.getElementById('feed');
     const previewCard = document.getElementById('modalPreviewCard');
 
-  // API base: point to the backend server (change if your backend runs on a different host/port)
-  // Using localhost to match the login page and local backend default port
-  const API_BASE = 'http://localhost:5000';
+  // API base: dynamic from env.js (window.API_BASE). Fallback to localhost if not set.
+  const API_BASE = (window.API_BASE || 'http://localhost:5000');
 
     // Safe JSON parser: some error responses or empty responses may not be valid JSON
     async function parseJsonSafe(res){

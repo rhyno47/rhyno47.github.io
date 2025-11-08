@@ -354,7 +354,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // Try to call server-side AI proxy; fall back to a local echo if unavailable
       async function queryAI(prompt){
         try{
-          const res = await fetch('/api/ai/chat', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({message:prompt}) });
+          const base = (window.API_BASE || '').replace(/\/$/, '');
+          const url = base ? (base + '/api/ai/chat') : '/api/ai/chat';
+          const res = await fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({message:prompt}) });
           if (res.ok){ const j = await res.json(); if (j && j.reply) return j.reply; }
         }catch(e){ /* ignore network errors and fall through to local fallback */ }
         // local fallback: short delay and friendly echo
