@@ -34,7 +34,8 @@ app.use('/api/ai', require('./routes/ai'));
 
 // Root: redirect to frontend if configured, else serve landing page (if present), else health JSON
 app.get('/', (req, res) => {
-	const to = process.env.FRONTEND_URL;
+	// Default redirect to GitHub Pages if FRONTEND_URL not provided
+	const to = process.env.FRONTEND_URL || 'https://rhyno47.github.io';
 	if (to) return res.redirect(302, to);
 	try {
 		return res.sendFile(path.join(staticDir, 'index.html'));
