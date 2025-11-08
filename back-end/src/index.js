@@ -71,6 +71,21 @@ app.use('/uploads', express.static(uploadsPath, {
 	}
 }));
 
+// Placeholder redirect for missing uploaded images (after express.static fallthrough)
+// If a requested /uploads/* file doesn't exist (Render ephemeral disk or old reference),
+// we redirect to a configurable placeholder so the frontend shows an image instead of a broken icon.
+// Customize with UPLOADS_PLACEHOLDER_URL env var; defaults to a generic placeholder service.
+app.use('/uploads', (req, res, next) => {
+	if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+	// If we reached here, express.static did not find the file.
+	const requested = req.path.replace(/^\/+/, '');
+	console.warn('[uploads] missing file, serving placeholder:', requested);
+	const placeholder = process.env.UPLOADS_PLACEHOLDER_URL || 'https://via.placeholder.com/480x320?text=Image+Missing';
+	// Provide lightweight caching; missing files might appear later after new deployments.
+	res.setHeader('Cache-Control', 'public, max-age=60');
+	return res.redirect(302, placeholder);
+});
+
 // Connect DB
 connectDB();
 
