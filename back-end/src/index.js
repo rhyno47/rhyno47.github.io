@@ -5,12 +5,26 @@ const connectDB = require('./config/db');
 const path = require('path');
 
 const app = express();
-// Allow restricting CORS origins via CORS_ORIGIN env (comma-separated list). Defaults to '*'.
-const allowedOrigins = (process.env.CORS_ORIGIN || '*')
-	.split(',')
-	.map(o => o.trim())
-	.filter(Boolean);
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+// Robust CORS: if CORS_ORIGIN is unset or '*', reflect the request origin (so credentials are valid).
+// Otherwise, only allow the listed origins (comma-separated).
+const rawCors = process.env.CORS_ORIGIN || '';
+const whitelist = rawCors.split(',').map(o => o.trim()).filter(Boolean);
+const corsOptions = {
+	origin(origin, cb) {
+		// allow server-to-server or same-origin requests without an Origin header
+		if (!origin) return cb(null, true);
+		// If no whitelist provided or it includes '*', reflect the origin (works with credentials)
+		if (whitelist.length === 0 || whitelist.includes('*') || whitelist.includes(origin)) {
+			return cb(null, true);
+		}
+		return cb(new Error('CORS: Origin not allowed: ' + origin));
+	},
+	credentials: true,
+	methods: ['GET','HEAD','PUT','PATCH','POST','DELETE','OPTIONS'],
+	allowedHeaders: ['Content-Type','Authorization']
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(express.json());
 
 // Static assets (optional landing page)
