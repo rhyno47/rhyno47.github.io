@@ -45,6 +45,9 @@ function computeCors(origin){
 	if(normalizedWhitelist.has(n) || normalizedWhitelist.has('*')) return { origin, credentials: true };
 	return false; // blocked
 }
+// Track last blocked origin for diagnostics (not persisted)
+let lastBlockedOrigin = null;
+
 app.use((req,res,next)=>{
 	const origin = req.headers.origin;
 	const opts = computeCors(origin);
@@ -53,7 +56,9 @@ app.use((req,res,next)=>{
 	// No origin header: skip CORS headers entirely
 	if(opts === null){ return next(); }
 	// Allowed: set headers
-	res.setHeader('Access-Control-Allow-Origin', opts.origin);
+		// Diagnostics: log allowed origin per-request (keeps console noise small)
+		if (origin) console.log('[CORS] Allowing origin', origin);
+		res.setHeader('Access-Control-Allow-Origin', opts.origin);
 	res.setHeader('Vary', 'Origin');
 	if(opts.credentials) res.setHeader('Access-Control-Allow-Credentials', 'true');
 	res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
@@ -63,6 +68,23 @@ app.use((req,res,next)=>{
 		// Cache preflight to reduce subsequent OPTIONS calls
 		res.setHeader('Access-Control-Max-Age', '600');
 		return res.status(204).end();
+	}
+	next();
+});
+// Wrap the middleware to set lastBlockedOrigin when blocked
+// (We add this afterwards so the variable is in scope above as well.)
+
+// Recreate the middleware pattern with explicit blocked logging
+app._router.stack = app._router.stack; // no-op to satisfy some linters
+
+// Update blocked origin behavior: set lastBlockedOrigin when blocked
+// We adjust by adding a small middleware earlier in chain to capture blocked origins
+app.use((req, res, next) => {
+	const origin = req.headers.origin;
+	const opts = computeCors(origin);
+	if (opts === false) {
+		lastBlockedOrigin = origin || '<no-origin-header>';
+		console.warn('[CORS] Blocking origin (recorded):', lastBlockedOrigin);
 	}
 	next();
 });
@@ -87,6 +109,23 @@ app.use(function corsErrorHandler(err, req, res, next){
 // Static assets (optional landing page)
 const staticDir = path.join(__dirname, '..', 'public');
 app.use(express.static(staticDir));
+
+// Debug diagnostics endpoint (only enabled when DEBUG_DIAG=true)
+// Returns runtime CORS info useful for remote troubleshooting.
+if (/^true$/i.test(process.env.DEBUG_DIAG || '')){
+	app.get('/diag', (req, res) => {
+		return res.json({
+			ok: true,
+			frontendUrl,
+			rawCors: rawCors || null,
+			normalizedWhitelist: Array.from(normalizedWhitelist || []),
+			lastBlockedOrigin: lastBlockedOrigin || null,
+			requestOrigin: req.headers.origin || null,
+			timestamp: new Date().toISOString()
+		});
+	});
+	console.log('[startup] DEBUG_DIAG enabled: /diag available');
+}
 
 // Serve uploaded files
 const uploadsPath = path.join(__dirname, '..', 'uploads');
@@ -161,4 +200,12 @@ app.get('/', (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
+// Diagnostic startup logs to help debug CORS / env issues
+try{
+	console.log('[startup] PORT=', PORT);
+	console.log('[startup] FRONTEND_URL=', frontendUrl);
+	console.log('[startup] raw CORS_ORIGIN=', rawCors || '<not-set>');
+	console.log('[startup] normalized whitelist=', Array.from(normalizedWhitelist).join(', ') || '<empty>');
+}catch(e){ /* ignore */ }
+
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
