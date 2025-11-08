@@ -5,18 +5,39 @@ const { authenticate } = require('../middleware/auth');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs').promises;
+const cloudinary = require('cloudinary').v2;
 
-// Multer storage config - store uploads in back-end/uploads
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, '..', '..', 'uploads'));
-  },
-  filename: function (req, file, cb) {
-    const ext = path.extname(file.originalname);
-    const name = Date.now() + '-' + Math.round(Math.random() * 1e9) + ext;
-    cb(null, name);
-  }
-});
+// Configure Cloudinary from env (CLOUDINARY_URL or explicit keys)
+if(process.env.CLOUDINARY_URL || (process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET)){
+  try{
+    cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+      secure: true
+    });
+  }catch(e){ console.error('[cloudinary] config error', e); }
+}
+
+// Multer storage
+// If Cloudinary is configured, keep files in memory and stream to Cloudinary.
+// Otherwise, fall back to disk storage under /uploads.
+let storage;
+const useCloudinary = !!(process.env.CLOUDINARY_URL || process.env.CLOUDINARY_CLOUD_NAME);
+if(useCloudinary){
+  storage = multer.memoryStorage();
+}else{
+  storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, path.join(__dirname, '..', '..', 'uploads'));
+    },
+    filename: function (req, file, cb) {
+      const ext = path.extname(file.originalname);
+      const name = Date.now() + '-' + Math.round(Math.random() * 1e9) + ext;
+      cb(null, name);
+    }
+  });
+}
 // Ensure uploads directory exists proactively (important for ephemeral deployments)
 async function ensureUploadsDir(){
   try{
@@ -26,7 +47,7 @@ async function ensureUploadsDir(){
     console.error('[posts] Failed to create uploads dir', e);
   }
 }
-ensureUploadsDir();
+if(!useCloudinary) ensureUploadsDir();
 
 const upload = multer({
   storage,
@@ -114,15 +135,33 @@ router.post('/', authenticate, (req, res, next) => {
     }
     let imageUrl = req.body.imageUrl || null;
     if(req.file){
-      imageUrl = '/uploads/' + req.file.filename;
-      // Verify file was actually written to disk (some hosts have ephemeral or permission issues)
-      try{
-        const abs = path.join(__dirname, '..', '..', 'uploads', req.file.filename);
-        await fs.access(abs);
-      }catch(e){
-        console.error('[posts:create] Uploaded file missing right after write', { file: req.file.filename, err: e.message });
-        // Graceful fallback: treat as no image instead of throwing 500
-        imageUrl = null;
+      if(useCloudinary){
+        // Stream upload to Cloudinary
+        const buf = req.file.buffer;
+        const uploadStream = () => new Promise((resolve,reject)=>{
+          const stream = cloudinary.uploader.upload_stream({ folder: 'posts', resource_type:'image' }, (err, result)=>{
+            if(err) return reject(err); resolve(result);
+          });
+          stream.end(buf);
+        });
+        try{
+          const result = await uploadStream();
+          imageUrl = result.secure_url;
+        }catch(e){
+          console.error('[posts:create] Cloudinary upload failed', e);
+          // Fallback: save without image
+          imageUrl = null;
+        }
+      }else{
+        imageUrl = '/uploads/' + req.file.filename;
+        // Verify file was actually written to disk
+        try{
+          const abs = path.join(__dirname, '..', '..', 'uploads', req.file.filename);
+          await fs.access(abs);
+        }catch(e){
+          console.error('[posts:create] Uploaded file missing right after write', { file: req.file.filename, err: e.message });
+          imageUrl = null;
+        }
       }
     }
     const post = new Post({ title, body, link, imageUrl, author: req.user.id, authorEmail: req.user.email });
@@ -145,9 +184,21 @@ router.put('/:id', authenticate, upload.single('image'), async (req, res) => {
   if(!isOwner(req, post)) return res.status(403).json({ message: 'Forbidden' });
     ['title','body','link'].forEach(k => { if(req.body[k] !== undefined) post[k] = req.body[k]; });
     if(req.file){
-      // if replacing an existing uploaded image, remove the old file
+      // if replacing an existing uploaded image, remove the old file (only if local uploads)
       if(post.imageUrl){ await removeUploadedFile(post.imageUrl); }
-      post.imageUrl = '/uploads/' + req.file.filename;
+      if(useCloudinary){
+        const buf = req.file.buffer;
+        const uploadStream = () => new Promise((resolve,reject)=>{
+          const stream = cloudinary.uploader.upload_stream({ folder: 'posts', resource_type:'image' }, (err, result)=>{
+            if(err) return reject(err); resolve(result);
+          });
+          stream.end(buf);
+        });
+        try{ const result = await uploadStream(); post.imageUrl = result.secure_url; }
+        catch(e){ console.error('[posts:update] Cloudinary upload failed', e); }
+      }else{
+        post.imageUrl = '/uploads/' + req.file.filename;
+      }
     }else if(req.body.imageUrl !== undefined){
       // if client explicitly cleared image (empty string/null) and there was a previous local upload, remove it
       if((req.body.imageUrl === '' || req.body.imageUrl === null) && post.imageUrl){ await removeUploadedFile(post.imageUrl); post.imageUrl = null; }

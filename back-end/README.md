@@ -17,6 +17,7 @@ Small express backend for authentication (register/login) and job listings API u
 | HF_API_TOKEN | no | HuggingFace Inference API token (enables real AI responses). |
 | HF_MODEL | no | Model name (default `gpt2`). |
 | CORS_ORIGIN | no | Comma-separated list of allowed origins (e.g. `https://rhyno47.github.io`). |
+| CLOUDINARY_URL | no | Cloudinary connection string `cloudinary://<api_key>:<api_secret>@<cloud_name>`. Enables image uploads. |
 
 If `CORS_ORIGIN` is omitted the server falls back to `*` (all origins). Prefer setting explicit origins in production.
 
@@ -27,8 +28,9 @@ If `CORS_ORIGIN` is omitted the server falls back to `*` (all origins). Prefer s
 4. Environment → Add variables shown above (at minimum `MONGODB_URI` and `JWT_SECRET`).
 5. Build Command: (leave blank – Render will run `npm install` automatically) or explicitly `npm install`.
 6. Start Command: `npm start`.
-7. (Optional) Add a Persistent Disk if you want to retain uploaded images across deploys:
-	 - Add Disk → Size (e.g. 1GB) → Mount Path `/opt/render/project/src/back-end/uploads`.
+7. Choose image storage option:
+	- Recommended: Cloudinary. Set `CLOUDINARY_URL` env var. No disk required.
+	- Optional: Persistent Disk to keep local `/uploads` across deploys: Add Disk → Size (e.g. 1GB) → Mount Path `/opt/render/project/src/back-end/uploads`.
 8. Save & Deploy. First deploy should show `Server listening on port ...` in logs.
 9. Test health endpoint: open the Render service URL root (`/`) or `/api/jobs`.
 
@@ -43,6 +45,12 @@ fetch('https://your-service.onrender.com/api/jobs')
 ```
 
 If you encounter CORS issues ensure `CORS_ORIGIN` includes `https://rhyno47.github.io`.
+
+### Cloudinary setup
+1. Create a Cloudinary account (free tier works).
+2. Copy your API env var in Dashboard → Product Environment Credentials → Environment variable.
+3. In Render, add env var `CLOUDINARY_URL` with that value.
+4. Deploy. Image uploads will now store to Cloudinary and posts will contain `imageUrl` set to the `secure_url`.
 
 ### Frontend configuration (env.js)
 The static site reads a public runtime config from `assets/env.js` and expects a global `window.API_BASE`.
