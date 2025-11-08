@@ -1,0 +1,370 @@
+[
+  {
+    "path": "createpost.html",
+    "title": "Create Job Post",
+    "headings": [
+      "Create Job Post"
+    ],
+    "snippet": ""
+  },
+  {
+    "path": "css3 transition and animation.html",
+    "title": "Coding with Tawfiq | Home",
+    "headings": [
+      "CSS3 Transition,Animation and advanced javascript",
+      "🎨 CSS3 Transitions & Animations",
+      "1️⃣ CSS3 Transitions: Smooth Changes Over Time 🚶‍♀️➡️🏃‍♂️",
+      "2️⃣ CSS3 Animations: Keyframe-Based Motion 🕺💃",
+      "💡 Best Practices",
+      "🛠️ Tools & Libraries",
+      "JavaScript Functions 🛠️",
+      "1. What Are Functions?",
+      "2. Scope in Functions 🌐",
+      "3. Function Parameters 🎯",
+      "4. Return Values 🔄",
+      "5. Arrow Functions 🏹",
+      "6. Best Practices ✅",
+      "Try Yourself! 🚀",
+      "Combining CSS Animations with JavaScript 🎨⚡",
+      "1. Why Combine CSS + JS? 🤔",
+      "2. CSS Animation Basics 🎥",
+      "3. Adding Interactivity with JavaScript 🖱️",
+      "4. Using Inline Styles for More Control",
+      "5. Controlling Animations with Events 🚀",
+      "6. Example: Interactive Modal",
+      "7. Tips & Tools 🛠️",
+      "Additional Resources for Learning 🚀",
+      "1. CSS3 Transitions and Animations for Dynamic Styling Effects",
+      "2. JavaScript Functions: Scope, Parameters, Return Values",
+      "3. Combining CSS Animations with JavaScript for Interactive Elements",
+      "4. AI Prompts for Further Learning 🤖"
+    ],
+    "snippet": "CSS3 transitions and animations breathe life into web pages by creating smooth and engaging visual effects. From hover effects to complex animated sequences, th"
+  },
+  {
+    "path": "database/handling-nulls.html",
+    "title": "Handling NULL Values",
+    "headings": [
+      "Handling NULL Values",
+      "Overview"
+    ],
+    "snippet": "Placeholder for NULL handling content (COALESCE, NULLIF, strategies)."
+  },
+  {
+    "path": "database/intro.html",
+    "title": "Introduction to Database Design",
+    "headings": [
+      "Introduction to Database Design",
+      "Overview on Databases",
+      "BASIC DATABASE CONCEPT:Where the Magic Happens🚨🚧",
+      "� Welcome to SQL: The Universal Database Language 🐍",
+      "1. Conceptualize Your Needs⬇️"
+    ],
+    "snippet": "A Database is a collection of related data organized in a way that can be easily accessed, managed, and updated. Databases are like the super-organized fridges "
+  },
+  {
+    "path": "database/joins.html",
+    "title": "Mastering SQL Joins",
+    "headings": [
+      "Mastering SQL Joins",
+      "Overview"
+    ],
+    "snippet": "Placeholder for SQL joins content and examples."
+  },
+  {
+    "path": "database/manipulation-transactions.html",
+    "title": "Data Manipulation & Transactions",
+    "headings": [
+      "Data Manipulation & Transactions",
+      "Overview"
+    ],
+    "snippet": "Placeholder for data manipulation and transaction content."
+  },
+  {
+    "path": "database/security.html",
+    "title": "Foundation of Database Security",
+    "headings": [
+      "Foundation of Database Security",
+      "Overview"
+    ],
+    "snippet": "Placeholder for database security basics."
+  },
+  {
+    "path": "database/statements-filtering.html",
+    "title": "Mastering Statements & Filtering",
+    "headings": [
+      "Mastering Statements & Filtering",
+      "Overview"
+    ],
+    "snippet": "Placeholder for statements and filtering content."
+  },
+  {
+    "path": "databasehome.html",
+    "title": "Coding with Tawfiq | Database Design",
+    "headings": [
+      "Welcome to Database Design",
+      "1. Introduction to Database Design",
+      "2. Mastering Statements & Filtering Data",
+      "3. Data Manipulation & Transactions",
+      "4. Data Manipulation & Handling Null Values",
+      "5. Foundation of Database Security",
+      "6. Mastering SQL Joins"
+    ],
+    "snippet": "© 2025 Coding with Tawfiq. All rights reserved."
+  },
+  {
+    "path": "findjobs.html",
+    "title": "Find Jobs",
+    "headings": [
+      "Find Jobs & Post Opportunities",
+      "Announcements",
+      "Job Listings",
+      "Search Posts & Users"
+    ],
+    "snippet": "Welcome to the Find Jobs section! Here you can browse job posts, search for opportunities, and connect with fellow users. If you want to share a job or opportun"
+  },
+  {
+    "path": "index.html",
+    "title": "Coding with Tawfiq | Home",
+    "headings": [
+      "your coding journey starts here",
+      "Explore Our Courses",
+      "Python",
+      "Website Development",
+      "Dart-Flutter",
+      "AI for Software Engineering",
+      "Database Design",
+      "Software Engineering Essentials"
+    ],
+    "snippet": "Hellow This website is meant to train young people world-wide,starting at a point of little experience to fairly skilled software developers ready to get into t"
+  },
+  {
+    "path": "Introduction to css.html",
+    "title": "Coding with Tawfiq | Home",
+    "headings": [
+      "\"introduction to css\"",
+      "🎯 Objectives",
+      "📚 Content Overview",
+      "🧩 Inline, Internal, and External CSS",
+      "🌀 Vibe Coding Session + AI Partner",
+      "✅ Challenge",
+      "🎯 CSS Styling Tutorial — Foundations & Basic Properties",
+      "🎓 Objectives",
+      "📚 Content Overview",
+      "🎨 Basic Styling Properties",
+      "🌀 Vibe Coding Session + AI Remix",
+      "🎨 Try It Yourself - CSS Basics",
+      "CSS Basics Example",
+      "Text Styling",
+      "📦 Try It Yourself - CSS Box Model",
+      "CSS Box Model"
+    ],
+    "snippet": "By the end of this tutorial, you will:"
+  },
+  {
+    "path": "introduction to html.html",
+    "title": "Coding with Tawfiq | Home",
+    "headings": [
+      "\"Skills To Give You Confidence To Start Your own Website\"",
+      "💻 Try It Yourself",
+      "Hello, World!",
+      "💻 Try It Yourself - Full HTML5 Webpage",
+      "Welcome to Coding with Tawfiq",
+      "Introduction to HTML5"
+    ],
+    "snippet": "✏Welcome to the exciting world of Web Development! Imagine the internet as a gigantic library🎁 filled with millions of books📒(websites) that everyone can read"
+  },
+  {
+    "path": "javascript n dome manipulation.html",
+    "title": "Coding with Tawfiq | Home",
+    "headings": [
+      "java script and dom manipulation",
+      "💪 JavaScript: Powering Dynamic Websites",
+      "🛠️ JavaScript Basics: Variables, Data Types, Operators, and Functions",
+      "🗂️ Variables: Storing Information",
+      "🏗️ Data Types: Understanding JavaScript's Building Blocks",
+      "➕ Operators: Performing Actions",
+      "✍️ Assignment Operators",
+      "🧐 Comparison Operators",
+      "🤝 Logical Operators",
+      "🧵 String Operators",
+      "🔍 Type & Special Operators",
+      "🧠 Understanding JavaScript Functions",
+      "💻 Try It Yourself",
+      "JavaScript Function Example",
+      "🌀 JavaScript Loops – Complete Lesson",
+      "Why Use Loops?",
+      "Types of Loops in JavaScript 🌀",
+      "1️⃣ For Loop 🧮",
+      "2️⃣ While Loop ♻️",
+      "3️⃣ Do...While Loop 🔄",
+      "4️⃣ For...In Loop 🔍",
+      "5️⃣ For...Of Loop 🌟",
+      "6️⃣ Special Keywords 🚦",
+      "7️⃣ Nested Loops 🔗",
+      "Looping Through Strings and Arrays",
+      "Infinite Loops 🚨",
+      "Tips for Using Loops",
+      "🌳 JavaScript DOM – Complete Lesson",
+      "What is the DOM?",
+      "Visualizing the DOM 🌳",
+      "Selecting Elements in the DOM 🎯",
+      "Modifying HTML Elements 🛠️",
+      "Interactive Examples 🎮",
+      "Exploring DOM Events 🎆",
+      "📚 Additional Resources: JavaScript & DOM",
+      "Websites 🌐",
+      "Videos 🎥",
+      "AI Prompts for Further Learning 🤖"
+    ],
+    "snippet": "JavaScript is the powerhouse behind interactive and dynamic websites. Whether it's animating a button,\r\n    updating content dynamically, or creating entire web"
+  },
+  {
+    "path": "javascript-events.html",
+    "title": "Coding with Tawfiq | Home",
+    "headings": [
+      "\"introduction to Java Script Eents 'n' basic interactivity\"",
+      "Event Handling in JavaScript 🎯",
+      "🚀 Event Handling & Interactive Elements",
+      "Event Handling in JavaScript 🎯",
+      "🚀 Event Handling & Form Validation",
+      "Event Handling 🎯",
+      "Form Validation 📝",
+      "Summary 🎉",
+      "📚 Additional Resources - Event Handling & Form Validation",
+      "Websites 🌐",
+      "Videos 🎥",
+      "AI Prompts for Deeper Learning 🤖"
+    ],
+    "snippet": "We'll explore event handling, interactive elements, and form validation in JavaScript. These concepts are crucial for creating dynamic and user-friendly web exp"
+  },
+  {
+    "path": "public/forgot.html",
+    "title": "Coding with Tawfiq | Reset Password",
+    "headings": [
+      "Reset Password"
+    ],
+    "snippet": "Remembered your password? Login"
+  },
+  {
+    "path": "public/login.html",
+    "title": "Login",
+    "headings": [
+      "Login"
+    ],
+    "snippet": "Don't have an account? Register"
+  },
+  {
+    "path": "public/register.html",
+    "title": "Register",
+    "headings": [
+      "Register"
+    ],
+    "snippet": "Already have an account? Back to Login"
+  },
+  {
+    "path": "pyhome.html",
+    "title": "Coding with Tawfiq | Home",
+    "headings": [
+      "welcome software engineers",
+      "INTRODUCTION TO PYTHON",
+      "PYTHON DATA STRUCTURE",
+      "FLOWS AND FUNCTIONS",
+      "FILE HANDLING AND EXCEPTIONS",
+      "OBJECT ORIENTED PROGRAMMING",
+      "PYTHON LIBRARIES",
+      "BASIC DATA ANALYSIS"
+    ],
+    "snippet": "Here you will learn python Installation and setup python data types EG:list,sets and variables"
+  },
+  {
+    "path": "python/datanalypdf.html",
+    "title": "Coding with Tawfiq | Home",
+    "headings": [
+      "DATA ANALYSIS"
+    ],
+    "snippet": "📊 Data Analysis Techniques: Filtering, Sorting, and Aggregating Data (1.5 hours)"
+  },
+  {
+    "path": "python/flow&funpdf.html",
+    "title": "Coding with Tawfiq | Home",
+    "headings": [
+      "Understanding functions,conditional statement,list comprehension and loops",
+      "PYTHON FUNCTIONS",
+      "PYTHON CONDITIONAL STATEMENT",
+      "LIST COMPREHENSION IN PYTHON",
+      "LOOPS IN PYTHON"
+    ],
+    "snippet": "🛠️ Functions are a fundamental part of Python programming. They allow you to encapsulate reusable blocks of code to make programs modular, easier to understand"
+  },
+  {
+    "path": "python/fyl&excep handl.html",
+    "title": "Coding with Tawfiq | Home",
+    "headings": [
+      "File Handling&Exception Handling",
+      "file operations and exceptions handling",
+      "exceptions handling"
+    ],
+    "snippet": "🎯 Objectives of the Topic"
+  },
+  {
+    "path": "python/introtopypdfs.html",
+    "title": "Coding with Tawfiq | Home",
+    "headings": [
+      "Introduction to python,list,tuple,Dictionary",
+      "� Welcome to the Python Development world 🐍",
+      "Try Python Code 🐍",
+      "💡 Try these beginner projects — Challenge Card"
+    ],
+    "snippet": "Python is not just a language — it’s a superpower. ⚡ In this course, you’ll go from writing your first line of code to building cool projects that’ll make you s"
+  },
+  {
+    "path": "python/libraries.html",
+    "title": "Coding with Tawfiq | Home",
+    "headings": [
+      "welcome to libraries"
+    ],
+    "snippet": "📚 Python Libraries"
+  },
+  {
+    "path": "python/opp.html",
+    "title": "Coding with Tawfiq | Home",
+    "headings": [
+      "Welcome to Python OOP",
+      "Introduction to OOP: Classes, Objects, Attributes, and Methods (1 hour)"
+    ],
+    "snippet": "📘 Introduction to OOP: Classes, Objects, Attributes, and Methods (1 hour)"
+  },
+  {
+    "path": "python/pydatastructurepdf.html",
+    "title": "Coding with Tawfiq | Home",
+    "headings": [
+      "Welcome to Python Data Structure"
+    ],
+    "snippet": "So far, you have only stored small pieces of data in a variable, such as an integer, Boolean, or string."
+  },
+  {
+    "path": "try-quiz.html",
+    "title": "Beginner Web Dev Quiz - Try Live!",
+    "headings": [
+      "Beginner Web Dev Quiz (HTML, CSS, JS, Python, MERN)",
+      "Hello World"
+    ],
+    "snippet": "Test me!"
+  },
+  {
+    "path": "webdevhome.html",
+    "title": "Coding with Tawfiq | Home",
+    "headings": [
+      "\"Welcome Home Website Designers 🎊\"",
+      "Introduction to website development",
+      "Html5,Enhance content&Build forms",
+      "Introduction to CSS",
+      "CSS Layout-responsive design",
+      "Java Script-Dom Manipulation",
+      "Java Script Events🎭",
+      "CSS3 Transition and animation"
+    ],
+    "snippet": "START"
+  }
+]
