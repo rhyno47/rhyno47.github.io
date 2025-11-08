@@ -5,18 +5,44 @@ const connectDB = require('./config/db');
 const path = require('path');
 
 const app = express();
-// Robust CORS: if CORS_ORIGIN is unset or '*', reflect the request origin (so credentials are valid).
-// Otherwise, only allow the listed origins (comma-separated).
+// Robust CORS handling with sane defaults and origin normalization
+// - If CORS_ORIGIN is unset: allow known frontend (FRONTEND_URL or GitHub Pages) and dev origins
+// - If CORS_ORIGIN is set: allow any of the comma-separated origins (trailing slashes tolerated)
+// - Always reflect the exact request Origin value when allowing (to support credentials)
 const rawCors = process.env.CORS_ORIGIN || '';
-const whitelist = rawCors.split(',').map(o => o.trim()).filter(Boolean);
+const frontendUrl = (process.env.FRONTEND_URL || 'https://rhyno47.github.io').trim();
+
+function norm(o){
+	if(!o) return '';
+	try{
+		// Ensure scheme+host(+port) only, drop trailing slash and paths
+		const u = new URL(o.includes('://') ? o : ('https://' + o));
+		const host = u.host.toLowerCase();
+		const proto = (u.protocol || 'https:').toLowerCase();
+		return proto + '//' + host;
+	}catch(e){
+		// Fallback to simple trim of trailing slash
+		return String(o).trim().replace(/\/$/, '').toLowerCase();
+	}
+}
+
+let whitelist = rawCors.split(',').map(o => o.trim()).filter(Boolean);
+// If not provided, seed with FRONTEND_URL and our GitHub Pages default
+if(whitelist.length === 0){
+	whitelist = [frontendUrl, 'https://rhyno47.github.io'];
+}
+const normalizedWhitelist = new Set(whitelist.map(norm));
+
 // Always allow common local dev origins to simplify testing even when CORS_ORIGIN is set
-const devOriginRegex = /^https?:\/\/(localhost|127\.0\.0\.1|192\.168\.|10\.)/i;
+const devOriginRegex = /^https?:\/\/(localhost(?::\d+)?|127\.0\.0\.1(?::\d+)?|192\.168\.[0-9.]+(?::\d+)?|10\.[0-9.]+(?::\d+)?)/i;
+
 function computeCors(origin){
-	// When there is no Origin header (same-origin navigation, server-to-server, curl),
-	// do not set any CORS headers.
+	// When there is no Origin header (same-origin navigation, server-to-server, curl), skip CORS headers.
 	if(!origin) return null;
-	if(devOriginRegex.test(origin)) return { origin, credentials:true };
-	if(whitelist.length === 0 || whitelist.includes('*') || whitelist.includes(origin)) return { origin, credentials:true };
+	// Always allow local dev
+	if(devOriginRegex.test(origin)) return { origin, credentials: true };
+	const n = norm(origin);
+	if(normalizedWhitelist.has(n) || normalizedWhitelist.has('*')) return { origin, credentials: true };
 	return false; // blocked
 }
 app.use((req,res,next)=>{
@@ -34,6 +60,8 @@ app.use((req,res,next)=>{
 	const reqHeaders = req.headers['access-control-request-headers'];
 	if(req.method === 'OPTIONS'){
 		if(reqHeaders) res.setHeader('Access-Control-Allow-Headers', reqHeaders);
+		// Cache preflight to reduce subsequent OPTIONS calls
+		res.setHeader('Access-Control-Max-Age', '600');
 		return res.status(204).end();
 	}
 	next();
