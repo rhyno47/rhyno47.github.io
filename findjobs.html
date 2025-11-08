@@ -98,6 +98,19 @@
   // API base: dynamic from env.js (window.API_BASE). Fallback to localhost if not set.
   const API_BASE = (window.API_BASE || 'http://localhost:5000');
 
+  // Helper to safely join base and path ensuring a single slash
+  function joinUrl(base, path){
+    const b = String(base||'').replace(/\/$/, '');
+    const p = String(path||'').replace(/^\//, '');
+    return b + '/' + p;
+  }
+  // Resolve media/image URLs that may be relative from the API
+  function resolveMediaUrl(u){
+    if(!u) return '';
+    if(/^https?:\/\//i.test(u)) return u;
+    return joinUrl(API_BASE, u);
+  }
+
     // Safe JSON parser: some error responses or empty responses may not be valid JSON
     async function parseJsonSafe(res){
       try{
@@ -170,7 +183,7 @@
     }
     ['title','body','link'].forEach(id => { const el = document.getElementById(id); if(el) el.addEventListener('input', updateModalPreview); });
 
-      imageInput.addEventListener('change', (e)=>{
+  imageInput.addEventListener('change', (e)=>{
       const f = e.target.files && e.target.files[0];
       if(!f) return;
       const url = URL.createObjectURL(f);
@@ -194,6 +207,8 @@
       const b = document.getElementById('body').value.trim();
       const l = document.getElementById('link').value.trim();
       if(!t){ alert('Title required'); return; }
+    // Backend requires both title and body; provide a clearer client-side validation
+    if(!b){ alert('Body/details required'); return; }
 
       if(getToken()){
         // send to server (create or edit)
@@ -203,15 +218,25 @@
           // If an image was selected, send multipart/form-data
           const file = imageInput.files && imageInput.files[0];
           let res;
-          const fullUrl = (url.startsWith('/')) ? (API_BASE + url) : url;
+          const fullUrl = url.startsWith('/') ? joinUrl(API_BASE, url) : url;
+          const token = getToken();
+          // Debug: log outgoing request summary (omit sensitive token value)
+          try{ console.log('[create-post] Sending', { method, url: fullUrl, withImage: !!file, hasToken: !!token, payload: file ? ['title','body','link','image'] : { title: t, body: (b||'').slice(0,140), link: l } }); }catch(_e){}
           if(file){
             const fd = new FormData(); fd.append('title', t); fd.append('body', b); fd.append('link', l); fd.append('image', file);
-            res = await fetch(fullUrl, { method, headers: { 'Authorization': 'Bearer ' + getToken() }, body: fd });
+            res = await fetch(fullUrl, { method, headers: { 'Authorization': 'Bearer ' + token }, body: fd });
           }else{
-            res = await fetch(fullUrl, { method, headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + getToken() }, body: JSON.stringify({ title: t, body: b, link: l }) });
+            res = await fetch(fullUrl, { method, headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }, body: JSON.stringify({ title: t, body: b, link: l }) });
           }
-          const data = await parseJsonSafe(res);
-          if(!res.ok){ alert((data && data.message) || 'Failed to create/update post'); return; }
+          // Robust response handling: read raw text and attempt JSON parse for clearer error logs
+          const raw = await res.clone().text();
+          let data = null; try{ data = raw ? JSON.parse(raw) : null; }catch(_e){ data = null; }
+          if(!res.ok){
+            try{ console.error('[create-post] Failed', { status: res.status, headers: Object.fromEntries(res.headers.entries()), raw }); }catch(_e){}
+            const errMsg = (data && (data.message || (data.errors && data.errors[0] && data.errors[0].msg))) || (raw || 'Failed to create/update post');
+            alert(errMsg);
+            return;
+          }
           modal.classList.remove('show'); modal.setAttribute('aria-hidden','true');
           document.getElementById('title').value = ''; document.getElementById('body').value = ''; document.getElementById('link').value = ''; document.getElementById('image').value = ''; editingPostId = null;
           await fetchAndRender();
@@ -304,10 +329,20 @@
           // include image if present (prefix with API_BASE when needed)
           let imgHtml = '';
           if(p.imageUrl){
-            const src = (p.imageUrl.startsWith('http') ? p.imageUrl : (API_BASE + p.imageUrl));
+            const src = resolveMediaUrl(p.imageUrl);
             imgHtml = `<a class="post-image" href="${escapeAttr(src)}" title="Click to view full image" aria-label="Open full image in lightbox"><img class="post-thumb" loading="lazy" src="${escapeAttr(src)}" alt="post image"></a>`;
           }
           node.innerHTML = `<h3>${escapeHtml(p.title)}</h3><div class="card-meta">Posted: ${new Date(p.createdAt).toLocaleString()}</div><p style="margin-top:0.6rem">${escapeHtml(p.body)}</p>${imgHtml}`;
+          // Attach an image error fallback so broken URLs are visible and clickable
+          const thumb = node.querySelector('img.post-thumb');
+          if(thumb){
+            thumb.addEventListener('error', ()=>{
+              const fallback = document.createElement('div');
+              fallback.className = 'no-posts';
+              fallback.textContent = 'Image failed to load';
+              thumb.replaceWith(fallback);
+            });
+          }
           // build action row: place Open link and controls on the right
           const actionRow = document.createElement('div'); actionRow.className = 'card-actions';
           const left = document.createElement('div'); // reserved for future use (meta)
@@ -344,7 +379,7 @@
     // helper to render a single post node (keeps controls consistent)
     function renderPostNode(p){
       const node = document.createElement('div'); node.className = 'card-feed';
-  const imgHtml = p.imageUrl ? (function(){ const s = (p.imageUrl.startsWith('http') ? p.imageUrl : (API_BASE + p.imageUrl)); return `<a class="post-image" href="${escapeAttr(s)}" title="Click to view full image" aria-label="Open full image in lightbox"><img class="post-thumb" loading="lazy" src="${escapeAttr(s)}" alt="post image"></a>` })() : '';
+  const imgHtml = p.imageUrl ? (function(){ const s = resolveMediaUrl(p.imageUrl); return `<a class="post-image" href="${escapeAttr(s)}" title="Click to view full image" aria-label="Open full image in lightbox"><img class="post-thumb" loading="lazy" src="${escapeAttr(s)}" alt="post image"></a>` })() : '';
       node.innerHTML = `<h3>${escapeHtml(p.title)}</h3><div class="card-meta">Posted: ${new Date(p.createdAt).toLocaleString()}</div><p style="margin-top:0.6rem">${escapeHtml(p.body)}</p>${imgHtml}`;
       // ownership
   const u = getUser();
@@ -385,6 +420,9 @@
           if(!p.createdAt) p.createdAt = new Date().toISOString();
             const rendered = renderPostNode(p);
             feed.appendChild(rendered.node);
+            // Attach error handler for newly inserted thumbnail
+            const thumb = rendered.node.querySelector('img.post-thumb');
+            if(thumb){ thumb.addEventListener('error', ()=>{ const fb=document.createElement('div'); fb.className='no-posts'; fb.textContent='Image failed to load'; thumb.replaceWith(fb); }); }
         });
       }catch(e){ console.error(e); feed.innerHTML = '<div class="no-posts">Unable to load posts (network)</div>'; }
     }

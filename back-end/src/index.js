@@ -21,7 +21,8 @@ const corsOptions = {
 	},
 	credentials: true,
 	methods: ['GET','HEAD','PUT','PATCH','POST','DELETE','OPTIONS'],
-	allowedHeaders: ['Content-Type','Authorization']
+	// Do not hardcode allowedHeaders; let the CORS middleware reflect
+	// the Access-Control-Request-Headers from the browser automatically.
 };
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
