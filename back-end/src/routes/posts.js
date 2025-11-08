@@ -33,6 +33,9 @@ const upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
   fileFilter: function (req, file, cb) {
     if (!file.mimetype.startsWith('image/')) return cb(new Error('Only image uploads allowed'));
+    // optional: restrict to common web formats
+    const okTypes = ['image/jpeg','image/png','image/webp','image/gif'];
+    if (okTypes.indexOf(file.mimetype) === -1) return cb(new Error('Unsupported image format'));
     cb(null, true);
   }
 });
@@ -92,6 +95,11 @@ router.post('/', authenticate, (req, res, next) => {
   upload.single('image')(req, res, function(err){
     if(err){
       console.error('[posts:create] Multer error', err);
+      // Distinguish Multer-specific codes for clearer UX
+      if (err.name === 'MulterError'){
+        if (err.code === 'LIMIT_FILE_SIZE') return res.status(400).json({ message: 'Image too large (max 5MB)', code: err.code });
+        return res.status(400).json({ message: 'Upload error', code: err.code });
+      }
       return res.status(400).json({ message: err.message || 'Upload error' });
     }
     next();

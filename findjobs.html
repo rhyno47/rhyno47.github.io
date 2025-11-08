@@ -186,6 +186,11 @@
   imageInput.addEventListener('change', (e)=>{
       const f = e.target.files && e.target.files[0];
       if(!f) return;
+  // Client-side validations to avoid server 400/500
+  const max = 5 * 1024 * 1024; // 5MB
+  const okTypes = ['image/jpeg','image/png','image/webp','image/gif'];
+  if(f.size > max){ alert('Image too large (max 5MB)'); imageInput.value=''; return; }
+  if(okTypes.indexOf(f.type) === -1){ alert('Unsupported image format. Use JPG, PNG, WEBP or GIF.'); imageInput.value=''; return; }
       const url = URL.createObjectURL(f);
       updateModalPreview();
       const img = document.createElement('img');
