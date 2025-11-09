@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dart Intro | Coding with Tawfiq</title>
+<link rel="stylesheet" href="../assets/home.css" />
+<style>
+  /* Page-local readability tweaks */
+  .lesson-prose h3 { margin-top: 0.4rem; }
+  .lesson-prose h4 { margin-top: 1rem; margin-bottom: 0.35rem; }
+  .lesson-prose h5 { margin-top: 0.6rem; margin-bottom: 0.25rem; color: #ffdede; }
+  .lesson-prose ul { margin: 0 0 0.4rem 1.1rem; }
+  .lesson-prose li { margin: 0.18rem 0; }
+  .time-badge { display: inline-block; margin-left: 6px; padding: 3px 8px; border-radius: 999px; background: rgba(255,255,255,0.12); color: #fff; font-size: 0.82rem; font-weight: 800; }
+  .activity-callout { background: rgba(255,255,255,0.06); border: 1px dashed rgba(255,255,255,0.18); padding: 10px; border-radius: 10px; margin: 8px 0; }
+  .notice h4 { margin: 0 0 6px; }
+  /* Keep links readable inside the card */
+  .info-card a { color: #fff; text-decoration: underline; }
+  .info-card a:hover{ color: #ffdede; }
+  /* Hero quick nav: allow wrapping buttons on small screens */
+  #hero .hero-actions { flex-wrap: wrap; }
+  #hero .hero-actions a { min-width: 120px; }
+  /* Hero responsive sizing and layout */
+  #hero { overflow: visible; }
+  #hero .hero-content { max-width: 1100px; margin: 0 auto; padding: 20px; text-align: center; }
+  #hero h1 { margin-bottom: 10px; }
+  @media (max-width: 700px){ #hero { height: auto !important; background-attachment: scroll !important; } }
+  @media (max-width: 720px){ #hero .hero-actions a { flex: 1 1 46%; } }
+  @media (max-width: 480px){ #hero .hero-actions a { flex: 1 1 100%; } }
+  /* Ensure share row sits at the end of the lesson card */
+  .info-card.lesson-prose { display: flex; flex-direction: column; }
+  .info-card.lesson-prose .inline-share-actions { margin-top: 12px; align-self: flex-end; }
+</style>
+</head>
+<body>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+<nav class="new-navbar" role="navigation">
+  <div class="logo"><a href="../index.html"><img src="../images/coding with tawfiq.jpg" alt="Logo" /></a></div>
+  <button class="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="dart-topics.html">Dart Topics</a></li>
+  <li><a href="../findjobs.html">Find Jobs</a></li>
+  </ul>
+  <div class="nav-actions">
+  <button class="search-btn" aria-label="Search"><img src="../images/the search logo.jpg" alt="Search" /></button>
+    <a class="card-link" href="/public/login.html">Sign In</a>
+  </div>
+</nav>
+<script src="/assets/navbar.js"></script>
+<section id="hero" class="home-hero">
+  <div class="hero-content">
+    <h1>Introduction to Dart</h1>
+    <p>Set up environment, learn syntax basics and understand the Dart toolchain.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#objectives">Objectives</a>
+      <a class="btn-ghost" href="#setup">Setup</a>
+      <a class="btn-ghost" href="#syntax">Dart Syntax</a>
+      <a class="btn-ghost" href="#control-flow">Control Flow</a>
+      <a class="btn-ghost" href="#recap">Recap</a>
+      <a class="btn-ghost" href="#assignment">Assignment</a>
+      <a class="btn-ghost" href="dart-topics.html">Back to Topics</a>
+    </div>
+  </div>
+</section>
+<section id="intro-card">
+  <div class="info-card lesson-prose">
+    <h3 style="text-align:center">Getting Started</h3>
+
+    <div class="notice" role="note" id="objectives">
+      <h4>Introduction to Dart</h4>
+      <p><strong>Objective:</strong> Understand Dart's role in mobile app development, identify key language features, and create foundational programs.</p>
+      <h4>Outcomes</h4>
+      <ul>
+        <li>Explain the benefits of Dart for mobile development.</li>
+        <li>Set up the Dart SDK and code editor.</li>
+        <li>Understand basic Dart syntax and control flow structures.</li>
+        <li>Write simple Dart programs using variables, data types, and control flow statements.</li>
+      </ul>
+    </div>
+
+    <h3>Lesson Outline</h3>
+
+    <h4 id="intro">Introduction to Dart <span class="time-badge">20 min</span></h4>
+    <h5>Welcome &amp; Course Overview</h5>
+    <ul>
+      <li>Brief introduction to the Dart programming language.</li>
+      <li>Discuss Dart's purpose and use cases (especially Flutter).</li>
+    </ul>
+    <h5>Benefits of Dart</h5>
+    <ul>
+      <li>How Dart simplifies mobile development.</li>
+      <li>Performance, ease of use, strong typing.</li>
+    </ul>
+
+    <h4 id="setup">Setting Up</h4>
+    <ul>
+      <li><strong>Install Dart SDK:</strong> Download and install from the official website.</li>
+      <li><strong>Install VS Code + Flutter Plugin:</strong> Add Flutter/Dart extensions for a great developer experience.</li>
+    </ul>
+
+    <h4 id="syntax">Dart Syntax <span class="time-badge">40 min</span></h4>
+    <h5>Variables and Data Types</h5>
+    <ul>
+      <li>Declaring variables.</li>
+      <li>Types: <code>int</code>, <code>double</code>, <code>String</code>, <code>bool</code>.</li>
+    </ul>
+    <h5>Operators</h5>
+    <ul>
+      <li>Arithmetic: +, -, *, /</li>
+      <li>Assignment: =, +=, -=, …</li>
+      <li>Logical: &&, ||, !</li>
+    </ul>
+    <div class="activity-callout">
+      <strong>Vibe Coding:</strong> Write small snippets using variables and operators. Use AI helpers (ChatGPT/Gemini) to brainstorm and debug. Share one fun output per group.
+    </div>
+
+    <h4 id="control-flow">Control Flow <span class="time-badge">40 min</span></h4>
+    <h5>Conditionals</h5>
+    <ul>
+      <li><code>if</code>-<code>else</code> with examples.</li>
+      <li><code>switch</code> and when to prefer it.</li>
+    </ul>
+    <h5>Loops</h5>
+    <ul>
+      <li><code>for</code> loops.</li>
+      <li><code>while</code> and <code>do-while</code> with practical examples.</li>
+    </ul>
+    <div class="activity-callout">
+      <strong>Vibe Coding:</strong> Build a console app that reads input and branches/loops based on logic. Test in DartPad or VS Code and present briefly.
+    </div>
+
+    <h4 id="recap">Recap &amp; Q&amp;A <span class="time-badge">20 min</span></h4>
+    <ul>
+      <li>Key points: setup, syntax, control flow.</li>
+      <li>Open Q&amp;A and showcase creative outputs.</li>
+    </ul>
+
+    <h4 id="assignment">Assignment</h4>
+    <p>The assignment is available on the LMS.</p>
+  </div>
+</section>
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="../images/coding with tawfiq.jpg" alt="Logo" />
+        <span class="footer-copy">© 2025 Coding with Tawfiq. All rights reserved.</span>
+      </div>
+      <div class="footer-links">
+        <a href="../index.html">Home</a>
+        <a href="dart-topics.html">Dart Topics</a>
+      </div>
+    </div>
+  </footer>
+
+<script defer src="/assets/share.js"></script>
+</body>
+</html>
