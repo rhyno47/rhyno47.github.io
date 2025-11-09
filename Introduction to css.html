@@ -3,51 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coding with Tawfiq | Home</title>
-  <link rel="stylesheet" href="assets/home.css">
+  <title>Introduction to CSS</title>
+  <link rel="stylesheet" href="/assets/home.css">
   <style>
-    /* ensure anchor links land below sticky navbar */
-    .anchor-target{ scroll-margin-top: 90px; }
+    .btn-signin {
+      background-color: #b40808e1; /* updated sign in button color */
+      color: #fff;
+      font-weight: 500;
+    }
+    .btn-signin:hover {
+      background-color: #9a0707; /* slightly darker on hover */
+      color: #fff;
+    }
+    .menu-btn {
+      background: none;
+      border: none;
+      font-weight: 500;
+      color: #fff; /* make menu text visible on dark navbar */
+    }
+    .search-btn {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: #fff; /* make search icon visible */
+    }
   </style>
-  
+
 </head>
+
 <body>
-<!-- NEW NAVBAR -->
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-
-<style>
-  .navbar-custom {
-    background-color: #680202; /* updated navbar color */
-    padding: 0.5rem 1rem;
-  }
-  .navbar-brand img {
-    height: 40px;
-  }
-  .btn-signin {
-    background-color: #b40808e1; /* updated sign in button color */
-    color: #fff;
-    font-weight: 500;
-  }
-  .btn-signin:hover {
-    background-color: #9a0707; /* slightly darker on hover */
-    color: #fff;
-  }
-  .menu-btn {
-    background: none;
-    border: none;
-    font-weight: 500;
-    color: #fff; /* make menu text visible on dark navbar */
-  }
-  .search-btn {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    color: #fff; /* make search icon visible */
-  }
-</style>
-
 <nav class="new-navbar" role="navigation">
   <div class="logo"><a href="/index.html"><img src="/images/coding with tawfiq.jpg" alt="Logo"></a></div>
   <button class="hamburger" aria-label="Toggle menu">
@@ -253,6 +237,14 @@ p {
     <li>💡 Let AI assist with structure, naming, or layout inspiration.</li>
   </ul>
 
+  <!-- Static bottom share row fallback for this lesson card -->
+  <div class="inline-share-actions">
+    <button type="button" class="icon-btn share-btn" aria-label="Share this card">
+      <img src="images/share%20logo.jpg" alt="Share" class="share-icon" onerror="this.style.display='none'">
+      <span class="share-label">Share</span>
+    </button>
+  </div>
+
 </div>
 
 <div class="lesson-card">
@@ -370,6 +362,14 @@ p {
     <li>Use padding, margin, and color rules to improve layout.</li>
     <li>Let AI tools suggest class names, themes, or spacing ideas.</li>
   </ul>
+
+  <!-- Static bottom share row fallback for this lesson card -->
+  <div class="inline-share-actions">
+    <button type="button" class="icon-btn share-btn" aria-label="Share this card">
+      <img src="images/share%20logo.jpg" alt="Share" class="share-icon" onerror="this.style.display='none'">
+      <span class="share-label">Share</span>
+    </button>
+  </div>
 
 <style>
 .lesson-card {
@@ -532,6 +532,14 @@ hr {
   <button onclick="runCssCode(this)" style="margin-top: 10px; padding: 10px 20px; background-color: #fff; color: #680202; font-weight: bold; border: none; border-radius: 8px; cursor: pointer;">▶ Run</button>
 
   <iframe style="width: 100%; height: 350px; margin-top: 15px; border: 2px solid #000; border-radius: 8px; background: #fff;"></iframe>
+
+  <!-- Static bottom share row fallback -->
+  <div class="inline-share-actions">
+    <button type="button" class="icon-btn share-btn" aria-label="Share this card">
+      <img src="images/share%20logo.jpg" alt="Share" class="share-icon" onerror="this.style.display='none'">
+      <span class="share-label">Share</span>
+    </button>
+  </div>
 </div>
 
 <script>
@@ -542,7 +550,9 @@ function runCssCode(button) {
   iframe.srcdoc = code;
 }
 </script>
-</div>
+<!-- Close body/html -->
+</body>
+</html>
 
 <!-- 🌟 Try It Yourself Card - CSS Box Model -->
 <div id="css-box-model" class="code-card anchor-target" style="max-width: 100%; background: #680202; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); padding: 20px; margin: 20px 0;">
@@ -574,6 +584,14 @@ function runCssCode(button) {
 
   <p style="color: #fff;"><strong>✅ Challenge:</strong> Build a layout with clear margins, paddings, and borders. Use <code>box-sizing</code> intentionally and test layouts in dev tools.</p>
 
+  <!-- Static bottom share row fallback -->
+  <div class="inline-share-actions">
+    <button type="button" class="icon-btn share-btn" aria-label="Share this card">
+      <img src="images/share%20logo.jpg" alt="Share" class="share-icon" onerror="this.style.display='none'">
+      <span class="share-label">Share</span>
+    </button>
+  </div>
+
 </div>
 
 <script>
@@ -603,59 +621,4 @@ function runBoxCode(button) {
   iframe.srcdoc = fullCode;
 }
 </script>
-<!-- Unified Share Buttons Injection (lesson-card, code-card, info-card) -->
-<script>
-(function(){
-  const selectors = ['.lesson-card','.info-card','.code-card'];
-  // Build a robust relative URL for the logo so it works when opened from file:// or served
-  const logoSrc = new URL('images/share%20logo.jpg', window.location.href).toString();
-
-  function buildShareButton(card){
-    const btn = document.createElement('button');
-    btn.type='button';
-    btn.className='icon-btn share-btn';
-    btn.setAttribute('aria-label','Share this card');
-  btn.innerHTML = `<img src="${logoSrc}" alt="Share" class="share-icon" onerror="this.style.display='none'"/><span class="share-label">Share</span>`;
-    btn.addEventListener('click',()=>{
-      const heading = card.querySelector('h1,h2,h3,h4');
-      const text = heading ? heading.innerText.trim() : (document.title || 'Share');
-      const url = location.href.split('#')[0];
-      if(navigator.share){
-        navigator.share({title: document.title, text, url}).catch(()=>copyFallback(text,url,btn));
-      } else {
-        copyFallback(text,url,btn);
-      }
-    });
-    return btn;
-  }
-
-  function copyFallback(text,url,btn){
-    const payload = `${text}\n${url}`;
-    if(navigator.clipboard){
-      navigator.clipboard.writeText(payload).then(()=>{
-        const label = btn.querySelector('.share-label');
-        if(label){ label.textContent='Copied!'; setTimeout(()=>label.textContent='Share',1600); }
-      });
-    }
-  }
-
-  selectors.forEach(sel => {
-    document.querySelectorAll(sel).forEach(card => {
-      if(card.dataset.shareInjected) return; // prevent duplicates
-      card.dataset.shareInjected = 'true';
-
-      // Overlay (top-right)
-      const overlay = document.createElement('div');
-      overlay.className='card-share-overlay';
-      overlay.appendChild(buildShareButton(card));
-      card.prepend(overlay);
-
-      // Inline row (bottom)
-      const inlineRow = document.createElement('div');
-      inlineRow.className='inline-share-actions';
-      inlineRow.appendChild(buildShareButton(card));
-      card.appendChild(inlineRow);
-    });
-  });
-})();
-</script>
+<script defer src="/assets/share.js"></script>

@@ -799,6 +799,12 @@ textarea{ min-height:120px }
 .card-share-overlay .icon-btn img.share-icon{ width:18px; height:18px; margin:0 }
 .card-share-overlay .icon-btn:hover{ filter:brightness(1.1); transform:translateY(-3px) }
 .info-card, .code-card{ position:relative; }
+/* Inline shared link display panel */
+.shared-link-display{ margin-top:6px; display:flex; gap:6px; align-items:center; background: rgba(0,0,0,0.35); padding:6px 8px; border-radius:8px; border:1px solid rgba(255,255,255,0.10); }
+.shared-link-display input{ flex:1; background:transparent; border:0; color:#fff; font-size:0.7rem; font-weight:600; letter-spacing:.3px; overflow:hidden; text-overflow:ellipsis; }
+.shared-link-display .copy-link-btn{ background:#ffcc33; color:#222; border:0; padding:6px 10px; font-weight:800; font-size:0.7rem; border-radius:6px; cursor:pointer; box-shadow:0 4px 14px rgba(0,0,0,0.35); }
+.shared-link-display .copy-link-btn:hover{ filter:brightness(1.08); }
+.shared-link-display .copy-link-btn:active{ filter:brightness(.96); }
 
 /* Make modal visually use the same wallpaper with a dark overlay for readability */
 .modal {
@@ -830,6 +836,8 @@ input[type="file"]::-webkit-file-upload-button {
   cursor: pointer;
   font-weight: 700;
 }
+
+/* (Removed share panel styles to revert to simpler layout) */
 
 /* Make the hero Create button more prominent and button-like */
 #heroCreateBtn {

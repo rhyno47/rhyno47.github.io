@@ -377,4 +377,16 @@ document.addEventListener('DOMContentLoaded', () => {
       input.addEventListener('keydown', (e)=>{ if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); send.click(); } });
     } catch (e) { console.error('AI widget injection failed', e); }
   })();
+
+  // Load unified global share logic on every page that includes navbar.js
+  (function loadShare(){
+    try{
+      if (!document.querySelector('script[src$="/assets/share.js"], script[src*="/assets/share.js?"]')){
+        const s = document.createElement('script');
+        s.src = '/assets/share.js';
+        s.defer = true;
+        document.head.appendChild(s);
+      }
+    }catch(e){ /* ignore */ }
+  })();
 });

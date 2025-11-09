@@ -302,11 +302,9 @@
       if(!id) return;
       const deepLink = window.location.origin + window.location.pathname + '?post=' + encodeURIComponent(id);
       const notify = (title, body) => {
-        // Use 'success' variant so the toast matches site accent (#680202) instead of blue info style
         if(window.showToast) window.showToast('success', title, body);
         else alert(title + '\n' + body + '\n' + deepLink);
       };
-      // Try Web Share API first (mobile-friendly)
       if(navigator.share){
         navigator.share({
           title: document.title || 'Jobs & Announcements',
@@ -315,7 +313,6 @@
         })
         .then(()=> notify('Shared', 'Post shared via your device.'))
         .catch(()=>{
-          // If user cancels or share fails, fall back to clipboard
           if(navigator.clipboard && navigator.clipboard.writeText){
             navigator.clipboard.writeText(deepLink)
               .then(()=> notify('Link copied', 'Share this URL to open the post directly.'))
@@ -330,7 +327,6 @@
         });
         return;
       }
-      // Clipboard fallback
       if(navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(deepLink)
           .then(()=> notify('Link copied', 'Share this URL to open the post directly.'))
@@ -499,7 +495,7 @@
         controls.className = 'controls';
         const editBtn = document.createElement('button'); editBtn.className='icon-btn'; editBtn.title='Edit post'; const editImg = document.createElement('img'); editImg.src='images/edit post logo.jpg'; editImg.alt='Edit'; editBtn.appendChild(editImg); editBtn.addEventListener('click', ()=>document.dispatchEvent(new CustomEvent('editPost',{detail:p})));
         const delBtn = document.createElement('button'); delBtn.className='icon-btn'; delBtn.title='Delete post'; const delImg = document.createElement('img'); delImg.src='images/delete post logo.jpg'; delImg.alt='Delete'; delBtn.appendChild(delImg); delBtn.addEventListener('click', ()=>document.dispatchEvent(new CustomEvent('deletePost',{detail:p._id||p.id||''})));
-  const shareBtn = document.createElement('button'); shareBtn.className='icon-btn'; shareBtn.title='Share post'; const shareImg = document.createElement('img'); shareImg.src='images/share logo.jpg'; shareImg.alt='Share'; shareImg.className='share-icon'; shareBtn.appendChild(shareImg); shareBtn.addEventListener('click', ()=>sharePost(p._id||p.id||''));
+        const shareBtn = document.createElement('button'); shareBtn.className='icon-btn'; shareBtn.title='Share post'; const shareImg = document.createElement('img'); shareImg.src='images/share logo.jpg'; shareImg.alt='Share'; shareImg.className='share-icon'; shareBtn.appendChild(shareImg); shareBtn.addEventListener('click', ()=>sharePost(p._id||p.id||''));
         controls.appendChild(editBtn); controls.appendChild(delBtn); controls.appendChild(shareBtn);
       }
       const actionRow = document.createElement('div'); actionRow.className = 'card-actions';
@@ -507,7 +503,7 @@
       const right = document.createElement('div'); right.className='right';
       if(p.link){ const openA = document.createElement('a'); openA.className='card-link open-link-btn'; openA.href = p.link; openA.target='_blank'; openA.textContent='Open link'; right.appendChild(openA); }
       // If not owner, still show a share button in the right actions
-  if(!controls){ const shareBtnOnly = document.createElement('button'); shareBtnOnly.className='icon-btn'; shareBtnOnly.title='Share post'; const shareImgOnly = document.createElement('img'); shareImgOnly.src='images/share logo.jpg'; shareImgOnly.alt='Share'; shareImgOnly.className='share-icon'; shareBtnOnly.appendChild(shareImgOnly); shareBtnOnly.addEventListener('click', ()=>sharePost(p._id||p.id||'')); right.appendChild(shareBtnOnly); }
+      if(!controls){ const shareBtnOnly = document.createElement('button'); shareBtnOnly.className='icon-btn'; shareBtnOnly.title='Share post'; const shareImgOnly = document.createElement('img'); shareImgOnly.src='images/share logo.jpg'; shareImgOnly.alt='Share'; shareImgOnly.className='share-icon'; shareBtnOnly.appendChild(shareImgOnly); shareBtnOnly.addEventListener('click', ()=>sharePost(p._id||p.id||'')); right.appendChild(shareBtnOnly); }
       if(controls) right.appendChild(controls);
       actionRow.appendChild(left); actionRow.appendChild(right);
       node.appendChild(actionRow);
