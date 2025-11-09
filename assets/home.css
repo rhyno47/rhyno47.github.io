@@ -4,8 +4,15 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
-  overflow-x: hidden;
+  /* Do not globally hide horizontal overflow; it can clip carousels and code blocks */
 }
+
+/* Constrain horizontal overflow at the page level instead */
+html, body { max-width: 100%; overflow-x: hidden; }
+
+/* Fluid media: ensure images/videos/iframes never overflow on small screens */
+img, svg, video, canvas, iframe { max-width: 100%; height: auto; }
+iframe { width: 100%; border: 0; }
 
 :root{
   --hero-img-1: url('../images/hero%20section%20image%202.jpg');
@@ -73,6 +80,11 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+/* Generic container padding for narrow screens */
+.container,
+main,
+.page { padding-left: clamp(12px, 4vw, 32px); padding-right: clamp(12px, 4vw, 32px); }
 
 
 /* NEW NAVBAR */
@@ -311,6 +323,20 @@ html {
   .hero-content h1{ font-size:1.6rem }
 }
 
+/* Ultra narrow devices (<=340px width) */
+@media (max-width:340px){
+  #hero{ padding:0.9rem 0.6rem; }
+  .hero-actions{ flex-wrap:wrap; }
+  .hero-actions a{ flex:1 1 100%; }
+}
+
+/* Short landscape devices (height <= 420px) */
+@media (max-height:420px){
+  #hero{ min-height:300px; height:auto; background-attachment: scroll; }
+  .hero-content{ gap:0.4rem; }
+  .hero-actions{ margin-top:0.4rem; }
+}
+
 /* ====== COURSES SECTION ====== */
 #courses {
   padding: 3rem 8%;
@@ -332,6 +358,11 @@ html {
   gap: 1.5rem;
 }
 
+/* Extra small devices: make cards fit even on ~320px screens */
+@media (max-width: 360px) {
+  .course-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+}
+
 .card {
   position: relative; /* for pseudo overlay */
   overflow: hidden;   /* clip pseudo-element to rounded corners */
@@ -340,6 +371,11 @@ html {
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   transition: 0.3s ease;
+}
+
+@media (max-width: 420px) {
+  .card { padding: 1rem; }
+  .card img { width: 56px; }
 }
 
 .card:hover {
@@ -387,6 +423,8 @@ html {
 }
 /* Top image that sits inside cards (consistent size & rounded top corners) */
 .card-top-image{ display:block; width:100%; height:300px; object-fit:cover; border-top-left-radius:12px; border-top-right-radius:12px; margin-bottom:1rem }
+
+@media (max-width: 480px){ .card-top-image{ height: 220px; } }
 
 /* Ensure images inside .info-card are not obscured by the card overlay pseudo-element */
 .info-card > .card-top-image { position: relative; z-index: 1; border-radius: 12px 12px 0 0; }
@@ -666,6 +704,23 @@ html {
   
 }
 
+/* ====== RESPONSIVE TABLES AND CODE ====== */
+/* Optional wrapper for tables; use in new content, but also add safe defaults below */
+.table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.table-responsive table { width: 100%; border-collapse: collapse; }
+
+/* Safe defaults so legacy tables don't overflow viewport */
+table { max-width: 100%; border-collapse: collapse; }
+th, td { word-break: break-word; }
+
+/* Code blocks should wrap/scroll instead of forcing the page wide */
+pre { white-space: pre-wrap; word-wrap: break-word; overflow: auto; }
+code { white-space: pre-wrap; }
+
+/* Responsive embed wrapper for 16:9 videos/iframes */
+.embed-responsive{ position:relative; width:100%; padding-bottom:56.25%; height:0; overflow:hidden; }
+.embed-responsive iframe, .embed-responsive video{ position:absolute; top:0; left:0; width:100%; height:100%; }
+
 /* Ensure fragment anchors are visible below the sticky navbar */
 #html5 {
   /* adjust this value if your navbar height changes */
@@ -932,6 +987,10 @@ input[type="file"]::-webkit-file-upload-button {
   border: 1px solid rgba(255,255,255,0.04);
   box-shadow: 0 6px 20px rgba(0,0,0,0.45);
 }
+
+/* Ads and placeholders should be fluid */
+.ad-slot, .non-intrusive-ad, .ad-center, .ad-between { max-width: 100%; overflow: hidden; }
+.ad-slot ins, .non-intrusive-ad ins { max-width: 100% !important; }
 .result{ font-weight:700 }
 .result .correct{ color: var(--accent); }
 .result .incorrect{ color:#b00020 }
@@ -981,6 +1040,11 @@ input[type="file"]::-webkit-file-upload-button {
 
 /* background duplication & subtle zoom effect for quiz pages only */
 .quiz-bg { background-color: #0b0b0b; background-image: url('/images/dragon%20image.jpg'); background-repeat: no-repeat; background-position: center top; background-size: cover; min-height:100vh; }
+
+@media (max-width: 480px){
+  .quiz-panel{ padding:18px; }
+  .quiz-card{ padding:14px; }
+}
 
 /* remove duplicated pseudo-layer to avoid visual clipping; if a subtle overlay is desired we can re-introduce it with lower opacity */
 

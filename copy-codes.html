@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Copy Codes | Coding with Tawfiq</title>
+  <link rel="stylesheet" href="assets/home.css" />
+  <link rel="stylesheet" href="assets/ads.css" />
+  <!-- Google AdSense Auto Ads -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1523965413574724" crossorigin="anonymous"></script>
+  <style>
+    /* Page-local styles for the snippet gallery */
+    .page-wrap{max-width:1280px;margin:0 auto;padding:20px}
+    /* Center section titles */
+    .section>h2{color:#fff;text-align:center;margin:0 0 12px}
+    /* Responsive grid with larger cards and centered layout */
+    .snippet-grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));justify-content:center}
+    @media (max-width:640px){.snippet-grid{grid-template-columns:1fr}}
+    .snippet-card{background:#750707;color:#fff;border-radius:16px;padding:18px;box-shadow:0 8px 26px rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.12)}
+    .snippet-card h3{margin:2px 0 10px;font-size:1.2rem}
+    .snippet-meta{opacity:.9;font-size:.9rem;margin-bottom:10px}
+    .snippet-actions{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+    .snippet-actions button{cursor:pointer;border:none;border-radius:10px;padding:10px 14px;font-weight:700}
+    .btn-preview{background:#fff;color:#680202}
+  .btn-copy{background:#680202;color:#fff;border:1px solid rgba(255,255,255,.18)}
+  .btn-open{background:#ffe8e8;color:#680202}
+    .preview-wrap{background:#111;border:1px solid #2a2a2a;border-radius:12px;margin:10px 0}
+    .preview-wrap iframe{width:100%;height:340px;border:0;border-radius:12px;background:#fff}
+    .code-wrap textarea{width:100%;height:300px;background:#0f0f0f;color:#eaeaea;border:1px solid #2a2a2a;border-radius:12px;padding:12px;font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;font-size:.92rem}
+    .tag{display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);padding:2px 8px;border-radius:999px;font-size:.75rem;margin-right:6px}
+    .section{margin: 28px 0}
+    /* Toast */
+    .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#222;color:#fff;padding:10px 14px;border-radius:10px;box-shadow:0 8px 26px rgba(0,0,0,.35);z-index:9999;opacity:.98}
+  </style>
+</head>
+<body>
+  <!-- Early fallback: define global snippet handlers immediately so inline onclick never errors.
+       External assets/snippets.js will later override these with richer versions. -->
+  <script>
+    (function(){
+      function safeText(btn){
+        try{ const ta = btn.closest('.snippet-card').querySelector('textarea'); return ta?ta.value:''; }catch(e){ return ''; }
+      }
+      window.previewSnippet = window.previewSnippet || function(btn){
+        try{
+          const card = btn.closest('.snippet-card');
+          const iframe = card.querySelector('iframe');
+          const ta = card.querySelector('textarea');
+          if(!iframe||!ta) return;
+          let html = ta.value.trim() || '<!doctype html><title>Empty</title><p style="font-family:system-ui;margin:16px">No code.</p>';
+          try{ iframe.srcdoc = html; }catch(_){
+            const blob = new Blob([html], {type:'text/html'}); iframe.src = URL.createObjectURL(blob); setTimeout(()=>URL.revokeObjectURL(iframe.src),6000);
+          }
+        }catch(e){ console.warn('previewSnippet fallback error', e); }
+      };
+      window.copySnippet = window.copySnippet || function(btn){
+        const code = safeText(btn);
+        let ok = false;
+        if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(code).then(()=>{ ok=true; },()=>{}); }
+        if(!ok){ try{ const ta=document.createElement('textarea'); ta.value=code; ta.style.position='fixed'; ta.style.left='-9999px'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); ok=true; }catch(_){ } }
+        if(!ok){ prompt('Copy code manually:', code); }
+        try{ btn.textContent='Copied!'; setTimeout(()=>btn.textContent='Copy code',1400); }catch(_){ }
+      };
+      window.openSnippet = window.openSnippet || function(btn){
+        try{
+          const code = safeText(btn).trim() || '<!doctype html><title>Empty</title><p>No code.</p>';
+          const blob = new Blob([code], {type:'text/html'});
+          const url = URL.createObjectURL(blob);
+          window.open(url, '_blank', 'noopener');
+          setTimeout(()=>URL.revokeObjectURL(url), 8000);
+        }catch(e){ console.warn('openSnippet fallback error', e); }
+      };
+      console.debug('[copy-codes] early fallback handlers ready');
+    })();
+  </script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+  <nav class="new-navbar" role="navigation">
+    <div class="logo"><a href="index.html"><img src="images/coding with tawfiq.jpg" alt="Logo" /></a></div>
+    <button class="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="try-quiz.html">Practice</a></li>
+      <li><a href="findjobs.html">Find Jobs</a></li>
+      <li><a href="copy-codes.html" aria-current="page">Copy Codes</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="search-btn" aria-label="Search"><img src="images/the search logo.jpg" alt="Search" /></button>
+      <a class="card-link" href="/public/login.html">Sign In</a>
+    </div>
+  </nav>
+  <script src="assets/navbar.js"></script>
+
+  <section id="hero" class="home-hero" style="overflow:visible">
+    <div class="hero-content">
+      <h1>Copy Codes</h1>
+      <p>Preview and copy ready-to-use UI snippets: navbars, buttons, forms, cards, and brand blocks.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#navbars">Navbars</a>
+        <a class="btn-ghost" href="#buttons">Buttons</a>
+        <a class="btn-ghost" href="#forms">Forms</a>
+        <a class="btn-ghost" href="#cards">Cards</a>
+        <a class="btn-ghost" href="#brand">Brand/Logo</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="page-wrap">
+    <!-- Navbars Section -->
+    <div id="navbars" class="section">
+      <h2 style="color:#fff; margin-bottom:8px">Navbars</h2>
+      <div class="snippet-grid">
+        <!-- Site Navbar (sticky) -->
+        <div class="snippet-card card" data-no-share="1">
+          <h3>Sticky Navbar (Site Theme)</h3>
+          <div class="snippet-meta">
+            <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Responsive</span>
+          </div>
+          <div class="snippet-actions">
+            <button type="button" class="btn-preview" onclick="previewSnippet(this)">Preview</button>
+            <button type="button" class="btn-open" onclick="openSnippet(this)">Open in new tab</button>
+            <button type="button" class="btn-copy" onclick="copySnippet(this)" aria-label="Copy code">Copy code</button>
+          </div>
+          <div class="preview-wrap"><iframe title="Navbar preview"></iframe></div>
+          <div class="code-wrap">
+<textarea spellcheck="false"><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Navbar</title>
+  <style>
+    :root{ --brand:#680202; --brand2:#8b0b0b; --text:#fff }
+    body{margin:0;font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial}
+    .new-navbar{position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;background:var(--brand);padding:10px 14px}
+    .new-navbar .logo img{height:38px;border-radius:6px}
+    .new-navbar .nav-links{list-style:none;display:flex;gap:12px;margin:0;padding:0}
+    .new-navbar .nav-links a{color:var(--text);text-decoration:none;font-weight:600}
+    .new-navbar .nav-actions{display:flex;gap:10px;align-items:center}
+    .hamburger{display:inline-flex;flex-direction:column;gap:4px;background:none;border:0}
+    .hamburger span{display:block;width:22px;height:2px;background:#fff}
+    @media(max-width:760px){ .new-navbar .nav-links{display:none} }
+  </style>
+</head>
+<body>
+  <nav class="new-navbar" role="navigation">
+    <div class="logo"><a href="#"><img src="images/coding with tawfiq.jpg" alt="Logo"></a></div>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Practice</a></li>
+      <li><a href="#">Find Jobs</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a class="card-link" href="#">Sign In</a>
+    </div>
+  </nav>
+</body>
+</html></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buttons Section -->
+    <div id="buttons" class="section">
+      <h2 style="color:#fff; margin-bottom:8px">Buttons</h2>
+      <div class="snippet-grid">
+        <div class="snippet-card card" data-no-share="1">
+          <h3>Primary + Ghost Buttons</h3>
+          <div class="snippet-meta"><span class="tag">HTML</span><span class="tag">CSS</span></div>
+          <div class="snippet-actions">
+            <button type="button" class="btn-preview" onclick="previewSnippet(this)">Preview</button>
+            <button type="button" class="btn-open" onclick="openSnippet(this)">Open in new tab</button>
+            <button type="button" class="btn-copy" onclick="copySnippet(this)">Copy code</button>
+          </div>
+          <div class="preview-wrap"><iframe title="Buttons preview"></iframe></div>
+          <div class="code-wrap">
+<textarea spellcheck="false"><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Buttons</title>
+  <style>
+    :root{ --brand:#680202; --text:#fff }
+    body{margin:0;display:grid;place-items:center;height:100vh;background:#fff4f4;font-family:system-ui, -apple-system}
+    .btn{padding:10px 16px;border-radius:10px;border:0;font-weight:800;cursor:pointer;margin:6px}
+    .btn-primary{background:var(--brand);color:var(--text)}
+    .btn-ghost{background:#fff;color:var(--brand);border:2px solid var(--brand)}
+    .btn-primary:hover{filter:brightness(1.08)}
+    .btn-ghost:hover{background:#fff0f0}
+  </style>
+</head>
+<body>
+  <button class="btn btn-primary">Primary</button>
+  <button class="btn btn-ghost">Ghost</button>
+</body>
+</html></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Forms Section -->
+    <div id="forms" class="section">
+      <h2 style="color:#fff; margin-bottom:8px">Forms</h2>
+      <div class="snippet-grid">
+        <div class="snippet-card card" data-no-share="1">
+          <h3>Compact Sign-in Form</h3>
+          <div class="snippet-meta"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Accessible</span></div>
+          <div class="snippet-actions">
+            <button type="button" class="btn-preview" onclick="previewSnippet(this)">Preview</button>
+            <button type="button" class="btn-open" onclick="openSnippet(this)">Open in new tab</button>
+            <button type="button" class="btn-copy" onclick="copySnippet(this)">Copy code</button>
+          </div>
+          <div class="preview-wrap"><iframe title="Form preview"></iframe></div>
+          <div class="code-wrap">
+<textarea spellcheck="false"><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign in</title>
+  <style>
+    :root{ --brand:#680202 }
+    body{margin:0;min-height:100vh;display:grid;place-items:center;background:#fff4f4;font-family:system-ui, -apple-system}
+    .card{background:#fff;border-radius:14px;padding:18px;box-shadow:0 6px 20px rgba(0,0,0,.08);width:320px;border:1px solid #eee}
+    h2{margin:0 0 10px}
+    label{display:block;margin:10px 0 6px;font-weight:600}
+    input{width:100%;padding:10px;border-radius:8px;border:1px solid #ccc}
+    .actions{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+    .btn{padding:10px 16px;border-radius:10px;border:0;font-weight:800;cursor:pointer}
+    .btn-primary{background:var(--brand);color:#fff}
+    a{color:var(--brand);text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="card" role="form" aria-label="Sign in form">
+    <h2>Welcome back</h2>
+    <label for="email">Email</label>
+    <input id="email" type="email" placeholder="name@example.com" required />
+    <label for="pass">Password</label>
+    <input id="pass" type="password" placeholder="Your password" required />
+    <div class="actions">
+      <a href="#">Forgot password?</a>
+      <button class="btn btn-primary" type="submit">Sign in</button>
+    </div>
+  </div>
+</body>
+</html></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cards Section -->
+    <div id="cards" class="section">
+      <h2 style="color:#fff; margin-bottom:8px">Content Cards</h2>
+      <div class="snippet-grid">
+        <div class="snippet-card card" data-no-share="1">
+          <h3>Info Card (Site Theme)</h3>
+          <div class="snippet-meta"><span class="tag">HTML</span><span class="tag">CSS</span></div>
+          <div class="snippet-actions">
+            <button type="button" class="btn-preview" onclick="previewSnippet(this)">Preview</button>
+            <button type="button" class="btn-open" onclick="openSnippet(this)">Open in new tab</button>
+            <button type="button" class="btn-copy" onclick="copySnippet(this)">Copy code</button>
+          </div>
+          <div class="preview-wrap"><iframe title="Card preview"></iframe></div>
+          <div class="code-wrap">
+<textarea spellcheck="false"><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Info Card</title>
+  <style>
+    body{margin:0;display:grid;place-items:center;min-height:100vh;background:#120404;font-family:system-ui,-apple-system}
+    .info-card{max-width:680px;width:92%;background:linear-gradient(145deg,#680202,#8b0b0b);color:#fff;border-radius:18px;padding:22px;border:1px solid rgba(255,255,255,.15);box-shadow:0 8px 26px rgba(0,0,0,.35)}
+    .info-card h3{margin:0 0 8px}
+    .info-card p{opacity:.95;line-height:1.7}
+    a.card-link{display:inline-block;margin-top:10px;color:#fff;text-decoration:underline}
+    a.card-link:hover{color:#ffdede}
+  </style>
+</head>
+<body>
+  <div class="info-card">
+    <h3>Lesson Title</h3>
+    <p>Short description goes here. Use this card for announcements, lessons, or resource blocks.</p>
+    <a class="card-link" href="#">Open</a>
+  </div>
+</body>
+</html></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Brand Section -->
+    <div id="brand" class="section">
+      <h2 style="color:#fff; margin-bottom:8px">Brand/Logo Block</h2>
+      <div class="snippet-grid">
+        <div class="snippet-card card" data-no-share="1">
+          <h3>Brand Header with Logo</h3>
+          <div class="snippet-meta"><span class="tag">HTML</span><span class="tag">CSS</span></div>
+          <div class="snippet-actions">
+            <button type="button" class="btn-preview" onclick="previewSnippet(this)">Preview</button>
+            <button type="button" class="btn-open" onclick="openSnippet(this)">Open in new tab</button>
+            <button type="button" class="btn-copy" onclick="copySnippet(this)">Copy code</button>
+          </div>
+          <div class="preview-wrap"><iframe title="Brand preview"></iframe></div>
+          <div class="code-wrap">
+<textarea spellcheck="false"><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brand</title>
+  <style>
+    body{margin:0;font-family:system-ui, -apple-system}
+    .brand{display:flex;align-items:center;gap:10px;padding:12px 16px;background:#680202;color:#fff}
+    .brand img{height:44px;border-radius:8px}
+    .brand .name{font-size:1.1rem;font-weight:800}
+  </style>
+</head>
+<body>
+  <header class="brand">
+    <img src="images/coding with tawfiq.jpg" alt="Logo">
+    <div class="name">Coding with Tawfiq</div>
+  </header>
+</body>
+</html></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Footers Section -->
+    <div id="footers" class="section">
+      <h2>Footers</h2>
+      <div class="snippet-grid">
+        <div class="snippet-card card" data-no-share="1">
+          <h3>Deluxe Footer (3 Columns + Newsletter)</h3>
+          <div class="snippet-meta"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Responsive</span></div>
+          <div class="snippet-actions">
+            <button type="button" class="btn-preview" onclick="previewSnippet(this)">Preview</button>
+            <button type="button" class="btn-open" onclick="openSnippet(this)">Open in new tab</button>
+            <button type="button" class="btn-copy" onclick="copySnippet(this)">Copy code</button>
+          </div>
+          <div class="preview-wrap"><iframe title="Footer preview"></iframe></div>
+          <div class="code-wrap">
+<textarea spellcheck="false"><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Footer</title>
+  <style>
+    :root{ --brand:#680202 }
+    body{margin:0;font-family:system-ui,-apple-system;background:#101010;color:#eaeaea}
+    .footer{background:#1a1a1a;color:#ddd;padding:28px 18px}
+    .footer .grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:22px}
+    .footer h4{margin:0 0 10px}
+    .footer a{color:#fff;text-decoration:none;opacity:.9}
+    .footer a:hover{opacity:1;text-decoration:underline}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand img{height:44px;border-radius:8px}
+    form.news input{width:100%;padding:10px;border-radius:8px;border:1px solid #333;background:#0f0f0f;color:#fff;margin-bottom:8px}
+    form.news button{width:100%;padding:10px 14px;border-radius:10px;border:0;background:var(--brand);color:#fff;font-weight:800;cursor:pointer}
+    .sub{border-top:1px solid #2a2a2a;margin-top:16px;padding-top:10px;font-size:.9rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    @media(max-width:840px){.footer .grid{grid-template-columns:1fr}}
+  </style>
+  </head>
+  <body>
+    <footer class="footer">
+      <div class="grid">
+        <div>
+          <div class="brand">
+            <img src="images/coding with tawfiq.jpg" alt="Logo" />
+            <div>
+              <strong>Coding with Tawfiq</strong>
+              <div>Learn. Build. Share.</div>
+            </div>
+          </div>
+          <p style="opacity:.9;margin:10px 0 0">Join our newsletter for tips and updates.</p>
+          <form class="news" onsubmit="event.preventDefault(); alert('Subscribed!');">
+            <input type="email" placeholder="Your email" required />
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <nav>
+            <a href="#">Home</a><br/>
+            <a href="#">Practice</a><br/>
+            <a href="#">Find Jobs</a>
+          </nav>
+        </div>
+        <div>
+          <h4>Resources</h4>
+          <nav>
+            <a href="#">Docs</a><br/>
+            <a href="#">Blog</a><br/>
+            <a href="#">Support</a>
+          </nav>
+        </div>
+      </div>
+      <div class="sub">
+        <span>© <script>document.write(new Date().getFullYear())</script> Coding with Tawfiq</span>
+        <span><a href="#">Privacy</a> · <a href="#">Terms</a></span>
+      </div>
+    </footer>
+  </body>
+</html></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom ad (non-intrusive) -->
+    <div class="ad-slot ad-center ad-between">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1523965413574724" data-ad-slot="2315208152" data-ad-format="auto" data-full-width-responsive="true"></ins>
+    </div>
+  </main>
+
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="images/coding with tawfiq.jpg" alt="Logo" />
+        <span class="footer-copy">© <span id="footerYear"></span> Coding with Tawfiq</span>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="try-quiz.html">Practice</a>
+        <a href="findjobs.html">Find Jobs</a>
+      </div>
+    </div>
+  </footer>
+  <script>try{document.getElementById('footerYear').textContent = new Date().getFullYear();}catch(e){}</script>
+  <script src="assets/snippets.js"></script>
+  <!-- Removed late fallback (now defined early); external script will enhance these functions. -->
+  </body>
+</html>
