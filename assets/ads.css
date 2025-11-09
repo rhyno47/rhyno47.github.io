@@ -1,0 +1,17 @@
+/* Unified ad styling across the site */
+.ad-slot{ display:block; min-height: 60px; }
+.ad-center{ margin: 16px auto; max-width: 100%; text-align: center; }
+.ad-muted-note{ color: rgba(255,255,255,0.75); font-size: 0.85rem; text-align: center; margin: 6px 0 0; }
+.non-intrusive-ad{ margin: 20px auto; max-width: 1100px; }
+.non-intrusive-ad .ad-content{ display:block; padding:8px; border-radius:10px; background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06); }
+
+/* In-content ad spacing */
+.ad-between{ margin: 24px 0; }
+.ad-mid { margin: 50px auto; text-align:center; }
+.ad-mid[data-lazy] { opacity:0; transition: opacity .6s ease; }
+.ad-mid[data-init] { opacity:1; }
+
+/* Responsive safety */
+@media (max-width: 700px){
+  .ad-between{ margin: 18px 0; }
+}
