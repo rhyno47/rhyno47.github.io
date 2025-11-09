@@ -3,82 +3,100 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coding with Tawfiq | Home</title>
+  <title>CSS Layout & Responsive Design | Coding with Tawfiq</title>
   <link rel="stylesheet" href="assets/home.css">
   
 </head>
 <body>
-<!-- NEW NAVBAR -->
-<!-- Bootstrap CSS -->
+<!-- Default site navbar -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
+<nav class="new-navbar" role="navigation"></nav>
+<!-- Navbar helper (renders nav + injects footer & share) -->
+<script src="/assets/navbar.js"></script>
+
 <style>
-  .navbar-custom {
-    background-color: #680202; /* updated navbar color */
-    padding: 0.5rem 1rem;
-  }
-  .navbar-brand img {
-    height: 40px;
-  }
-  .btn-signin {
-    background-color: #b40808e1; /* updated sign in button color */
-    color: #fff;
-    font-weight: 500;
-  }
-  .btn-signin:hover {
-    background-color: #9a0707; /* slightly darker on hover */
-    color: #fff;
-  }
-  .menu-btn {
-    background: none;
-    border: none;
-    font-weight: 500;
-    color: #fff; /* make menu text visible on dark navbar */
-  }
   .search-btn {
     background: none;
     border: none;
     font-size: 1.2rem;
     color: #fff; /* make search icon visible */
   }
+  /* Ensure hero content expands and page can scroll on small devices */
+  @media (max-width: 700px){
+    #hero{ overflow: visible !important; height: auto !important; background-attachment: scroll !important; }
+  }
+
+  /* Themed containers to remove white panels and match site accent */
+  .themed-card {
+    background: linear-gradient(145deg, #680202, #8b0b0b);
+    color: #fff;
+    border-left: 6px solid #680202;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 25px 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  }
+  .themed-card h2, .themed-card h3 { color: #fff !important; }
+  .themed-card p { color: #fff !important; }
+  .themed-card ul, .themed-card li { color:#fff !important; }
+  .themed-card a { color:#ffe07a; text-decoration: underline; }
+  .themed-card a:hover{ color:#fff1b0; }
+
+  .themed-panel{
+    background: linear-gradient(145deg, #680202, #8b0b0b) !important;
+    color: #fff !important;
+    padding: 40px 20px;
+    border-radius: 16px;
+    max-width: 1200px;
+    margin: 40px auto;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+  }
+  .themed-panel h2, .themed-panel h3, .themed-panel h4 { color:#fff !important; }
+  .themed-panel p { color:#fff !important; }
+  .themed-panel ul, .themed-panel li { color:#fff !important; }
+  .themed-panel a { color: #ffe07a; text-decoration: underline; }
+  .themed-panel a:hover { color: #fff1b0; }
+  .themed-panel pre { background: rgba(255,255,255,0.10) !important; color: #fff !important; border-left: 5px solid #ffdede; }
+  /* Darken textarea/code box within this panel */
+  .themed-panel .code-box { background:#1a1a1a !important; color:#f8f8f2 !important; border: 2px solid #a11212 !important; }
+  .themed-panel .output-frame { border-color: #ffdede !important; }
+  .themed-panel pre code { color:#fff !important; }
+
+  /* Hero topic buttons responsive wrap */
+  #hero .hero-actions { flex-wrap: wrap; row-gap:8px; }
+  #hero .hero-actions a { flex: 1 1 auto; min-width:120px; text-align:center; }
+  @media (max-width:720px){
+    #hero .hero-actions{ justify-content:center; }
+    #hero .hero-actions a { flex: 1 1 46%; }
+  }
+  @media (max-width:480px){
+    #hero .hero-actions a { flex:1 1 100%; }
+  }
+
+  /* Themed notice / warning card styles (unify with site accent) */
+  .notice, .warning, .info-callout { 
+    background: linear-gradient(135deg,#680202,#8a0808);
+    color:#fff; 
+    padding:18px 20px; 
+    border-radius:14px; 
+    border:1px solid rgba(255,255,255,0.15);
+    box-shadow:0 6px 20px rgba(0,0,0,0.35);
+    position:relative;
+    overflow:hidden;
+  }
+  .notice::before, .warning::before, .info-callout::before{ content:""; position:absolute; inset:0; background: radial-gradient(circle at 18% 22%, rgba(255,255,255,0.12), rgba(255,255,255,0)); pointer-events:none; }
+  .notice h3, .warning h3, .info-callout h3{ color:#ffdede; margin-top:0; }
+  .notice a, .warning a, .info-callout a{ color:#ffe07a; text-decoration:underline; }
+  .notice a:hover{ color:#fff1b0; }
+  /* Share notice styling (matches Introduction page) */
+  .share-notice { display:inline-flex; gap:6px; align-items:center; font-size:0.75rem; background:rgba(255,255,255,0.10); color:#ffe9e9; padding:6px 10px; border-radius:8px; margin:10px 0 6px; line-height:1.2; }
+  .share-notice strong { color:#ffd700; }
+  .inline-share-actions { margin-top:4px; }
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-custom d-flex justify-content-between align-items-center">
-  <!-- Logo -->
-  <a class="navbar-brand" href="#">
-    <img src="../images/coding with tawfiq.jpg" alt="Logo">
-  </a>
-
-  <!-- Hamburger button -->
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
-    aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-    <i class="bi bi-list" style="font-size: 1.5rem; color: #fff;"></i>
-  </button>
-
-  <!-- Menu items (collapsible) -->
-  <div class="collapse navbar-collapse" id="navbarMenu">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-       <li class="nav-item">
-        <a class="nav-link menu-btn" href="index.html">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link menu-btn" href="#">Try quiz</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link menu-btn" href="#">Find Jobs</a>
-      </li>
-    </ul>
-  </div>
-
-  <!-- Always visible buttons -->
-  <div class="d-flex align-items-center gap-2">
-    <button class="search-btn"><i class="bi bi-search"></i></button>
-    <a href="/public/login.html" class="btn btn-signin">Sign In</a>
-  </div>
-</nav>
-
-<!-- Bootstrap JS -->
+<!-- Bootstrap JS (optional, kept for other components) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 
@@ -87,12 +105,38 @@
     <div class="hero-content">
       <h1><code>"introduction to CSS layout & responsive design"</code></h1>
       <div class="hero-actions">
+        <a class="btn-primary" href="#layout-basics">Layout Basics</a>
+        <a class="btn-ghost" href="#box-model">Box Model</a>
+        <a class="btn-ghost" href="#positioning">Positioning</a>
+        <a class="btn-ghost" href="#flexbox">Flexbox</a>
+        <a class="btn-ghost" href="#grid">Grid</a>
+        <a class="btn-ghost" href="#responsive-design">Responsive Design</a>
       </div>
     </div>
   </section>
 
+  <!-- Intro section: brief overview and what you'll learn -->
+  <section id="intro-css-layout" class="themed-card">
+    <h2>CSS Layout & Responsive Design — Introduction</h2>
+    <p style="line-height:1.7;">
+      Layout is how elements are arranged on a page, and responsive design ensures those layouts adapt beautifully
+      across phones, tablets, and desktops. In this mini‑guide you’ll learn the core building blocks — from the
+      box model and positioning to modern Flexbox and Grid — and how to make designs adjust to any screen size.
+    </p>
+    <p style="line-height:1.7;">
+      By the end, you’ll be able to structure pages confidently, align and distribute items, and add media queries
+      to create mobile‑first, accessible experiences.
+    </p>
+    <ul style="margin:0; padding-left:18px; line-height:1.8;">
+      <li>Understand normal flow, display types, and the CSS box model</li>
+      <li>Place elements with positioning and build responsive rows/columns</li>
+      <li>Use Flexbox for 1‑D layouts and Grid for 2‑D, complex compositions</li>
+      <li>Apply media queries, fluid units, and scalable typography</li>
+    </ul>
+  </section>
+
 <!-- 🌐 CSS Layout Principles Card -->
-<div style="background:#fff; border-left:6px solid #680202; border-radius:12px; padding:20px; margin:25px 0; box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+<div id="layout-basics" class="themed-card">
 
   <h2 style="color:#680202;">🎨 CSS Layout Principles: Organizing Web Content</h2>
 
@@ -122,12 +166,17 @@
   </ul>
 
   <!-- ⚠️ Warning Notice -->
-  <div style="background:#8a0a0a; color:#fff; padding:15px; border-radius:10px; margin:20px 0;">
-    <h3 style="color:#ffd700;">⚠️ Important Notice</h3>
+  <div class="notice">
+    <h3>⚠️ Important Notice</h3>
     <p>
       CSS layout examples need some <strong>HTML structure</strong> to display results.
-      If you haven’t learned HTML yet, check our <a href="#" style="color:#ffd700;">HTML5 class</a> first.
+      If you haven’t learned HTML yet, check our <a href="#">HTML5 class</a> first.
     </p>
+    <div class="share-notice" role="note" aria-label="Share notice">🔗 <span>Tip: Click <strong>Share</strong> to copy a direct link to this notice.</span></div>
+    <!-- Share button auto-injected by /assets/share.js; existing inline row below acts as fallback if script fails -->
+    <div class="inline-share-actions">
+      <button type="button" class="icon-btn share-btn" aria-label="Share this card"><span class="share-label">Share</span></button>
+    </div>
   </div>
 
   <!-- 💻 Try It Card 1 -->
@@ -144,9 +193,11 @@
 
     <button onclick="runCode(this)" style="margin-top:10px; padding:10px 20px; background:white; color:#680202; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">▶ Run</button>
     <iframe style="width:100%; height:200px; margin-top:15px; border:2px solid black; border-radius:8px; background:white;"></iframe>
+    <div class="share-notice" role="note" aria-label="Share notice">🔗 <span>Tip: Click <strong>Share</strong> to copy a direct link to this interactive example.</span></div>
+    <div class="inline-share-actions"><button type="button" class="icon-btn share-btn" aria-label="Share this card"><span class="share-label">Share</span></button></div>
   </div>
 
-  <h3 style="color:#680202; margin-top:30px;">📦 The Box Model</h3>
+  <h3 id="box-model" style="color:#680202; margin-top:30px;">📦 The Box Model</h3>
   <p>Every element in CSS is a box made up of content, padding, border, and margin.</p>
 
   <!-- 💻 Try It Card 2 -->
@@ -163,9 +214,11 @@
 
     <button onclick="runCode(this)" style="margin-top:10px; padding:10px 20px; background:white; color:#680202; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">▶ Run</button>
     <iframe style="width:100%; height:220px; margin-top:15px; border:2px solid black; border-radius:8px; background:white;"></iframe>
+    <div class="share-notice" role="note" aria-label="Share notice">🔗 <span>Tip: Click <strong>Share</strong> to copy a direct link to this box model example.</span></div>
+    <div class="inline-share-actions"><button type="button" class="icon-btn share-btn" aria-label="Share this card"><span class="share-label">Share</span></button></div>
   </div>
 
-  <h3 style="color:#680202; margin-top:30px;">📍 Positioning Elements</h3>
+  <h3 id="positioning" style="color:#680202; margin-top:30px;">📍 Positioning Elements</h3>
   <p>CSS positioning defines how elements are placed on the page. Let’s test a few examples:</p>
 
   <!-- 💻 Try It Card 3 -->
@@ -185,9 +238,11 @@
 
     <button onclick="runCode(this)" style="margin-top:10px; padding:10px 20px; background:white; color:#680202; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">▶ Run</button>
     <iframe style="width:100%; height:230px; margin-top:15px; border:2px solid black; border-radius:8px; background:white;"></iframe>
+    <div class="share-notice" role="note" aria-label="Share notice">🔗 <span>Tip: Click <strong>Share</strong> to copy a direct link to this positioning example.</span></div>
+    <div class="inline-share-actions"><button type="button" class="icon-btn share-btn" aria-label="Share this card"><span class="share-label">Share</span></button></div>
   </div>
 
-  <h3 style="color:#680202; margin-top:30px;">🧱 Flexbox Example</h3>
+  <h3 id="flexbox" style="color:#680202; margin-top:30px;">🧱 Flexbox Example</h3>
   <p>Flexbox makes it easy to align and space items dynamically.</p>
 
   <!-- 💻 Try It Card 4 -->
@@ -205,9 +260,11 @@
 
     <button onclick="runCode(this)" style="margin-top:10px; padding:10px 20px; background:white; color:#680202; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">▶ Run</button>
     <iframe style="width:100%; height:240px; margin-top:15px; border:2px solid black; border-radius:8px; background:white;"></iframe>
+    <div class="share-notice" role="note" aria-label="Share notice">🔗 <span>Tip: Click <strong>Share</strong> to copy a direct link to this flexbox example.</span></div>
+    <div class="inline-share-actions"><button type="button" class="icon-btn share-btn" aria-label="Share this card"><span class="share-label">Share</span></button></div>
   </div>
 
-  <h3 style="color:#680202; margin-top:30px;">🧩 Grid Layout</h3>
+  <h3 id="grid" style="color:#680202; margin-top:30px;">🧩 Grid Layout</h3>
   <p>CSS Grid helps arrange elements in rows and columns.</p>
 
   <!-- 💻 Try It Card 5 -->
@@ -225,6 +282,8 @@
 
     <button onclick="runCode(this)" style="margin-top:10px; padding:10px 20px; background:white; color:#680202; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">▶ Run</button>
     <iframe style="width:100%; height:240px; margin-top:15px; border:2px solid black; border-radius:8px; background:white;"></iframe>
+    <div class="share-notice" role="note" aria-label="Share notice">🔗 <span>Tip: Click <strong>Share</strong> to copy a direct link to this grid example.</span></div>
+    <div class="inline-share-actions"><button type="button" class="icon-btn share-btn" aria-label="Share this card"><span class="share-label">Share</span></button></div>
   </div>
 
 </div>
@@ -249,9 +308,9 @@ function runCode(button) {
 </script>
 
 <!-- 🌍 Responsive Web Design Section -->
-<section style="background: #fff; color: #333; padding: 40px 20px; border-radius: 16px; max-width: 1200px; margin: 40px auto; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+<section id="responsive-design" class="themed-panel">
 
-  <h2 style="color: #680202; text-align: center; font-size: 2em; margin-bottom: 20px;">
+  <h2 style="color: #fff; text-align: center; font-size: 2em; margin-bottom: 20px;">
     🌍📱 Making Websites Look Great Everywhere
   </h2>
   <p style="text-align: center; font-size: 1.1em; color: #444;">
@@ -350,9 +409,9 @@ body {
 }</code></pre>
 
   <!-- ⚠️ Notice -->
-  <div style="background:#ffe6e6; border-left:5px solid #a11212; padding:15px; border-radius:8px; margin-top:20px; color:#680202;">
+  <div class="notice" style="margin-top:20px;">
     ⚠️ <b>Note:</b> CSS code won’t run alone — you need HTML structure for a full demo.
-    Learn about HTML basics in our <a href="#" style="color:darkred; text-decoration:underline;">HTML5 Class</a>.
+    Learn about HTML basics in our <a href="#">HTML5 Class</a>.
   </div>
 
   <!-- 💻 Try It Yourself Card -->

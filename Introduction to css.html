@@ -27,6 +27,23 @@
       font-size: 1.2rem;
       color: #fff; /* make search icon visible */
     }
+    /* Share hint shown above each Share button */
+    /* NOTE: Share buttons are handled by /assets/share.js (auto-link & copy fallback).
+       The .share-notice elements are page-specific guidance blocks added manually. */
+    .share-notice {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      font-size: 0.8rem;
+      background: rgba(255,255,255,0.1);
+      color: #ffe9e9;
+      padding: 6px 10px;
+      border-radius: 8px;
+      margin: 10px 0 6px;
+      line-height: 1.2;
+    }
+    .share-notice strong { color: #ffd700; }
+    .inline-share-actions { margin-top: 4px; }
   </style>
 
 </head>
@@ -238,6 +255,7 @@ p {
   </ul>
 
   <!-- Static bottom share row fallback for this lesson card -->
+  <div class="share-notice" role="note" aria-label="Share notice">🔗 <span>Tip: Click <strong>Share</strong> to copy a direct link to this section.</span></div>
   <div class="inline-share-actions">
     <button type="button" class="icon-btn share-btn" aria-label="Share this card">
       <img src="images/share%20logo.jpg" alt="Share" class="share-icon" onerror="this.style.display='none'">
@@ -364,6 +382,7 @@ p {
   </ul>
 
   <!-- Static bottom share row fallback for this lesson card -->
+  <div class="share-notice" role="note" aria-label="Share notice">🔗 <span>Tip: Click <strong>Share</strong> to copy a direct link to this section.</span></div>
   <div class="inline-share-actions">
     <button type="button" class="icon-btn share-btn" aria-label="Share this card">
       <img src="images/share%20logo.jpg" alt="Share" class="share-icon" onerror="this.style.display='none'">
@@ -534,6 +553,7 @@ hr {
   <iframe style="width: 100%; height: 350px; margin-top: 15px; border: 2px solid #000; border-radius: 8px; background: #fff;"></iframe>
 
   <!-- Static bottom share row fallback -->
+  <div class="share-notice" role="note" aria-label="Share notice">🔗 <span>Tip: Click <strong>Share</strong> to copy a direct link to this live example.</span></div>
   <div class="inline-share-actions">
     <button type="button" class="icon-btn share-btn" aria-label="Share this card">
       <img src="images/share%20logo.jpg" alt="Share" class="share-icon" onerror="this.style.display='none'">
@@ -585,6 +605,7 @@ function runCssCode(button) {
   <p style="color: #fff;"><strong>✅ Challenge:</strong> Build a layout with clear margins, paddings, and borders. Use <code>box-sizing</code> intentionally and test layouts in dev tools.</p>
 
   <!-- Static bottom share row fallback -->
+  <div class="share-notice" role="note" aria-label="Share notice">🔗 <span>Tip: Click <strong>Share</strong> to copy a direct link to this box model example.</span></div>
   <div class="inline-share-actions">
     <button type="button" class="icon-btn share-btn" aria-label="Share this card">
       <img src="images/share%20logo.jpg" alt="Share" class="share-icon" onerror="this.style.display='none'">

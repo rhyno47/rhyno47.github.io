@@ -1,405 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coding with Tawfiq | Introduction to Python</title>
-  <link rel="stylesheet" href="../assets/home.css">
-  <!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ETGGXC16CY"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-ETGGXC16CY');
-</script>
-  <link rel="stylesheet" href="../assets/ads.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Coding with Tawfiq | Python Intro</title>
+	<link rel="stylesheet" href="../assets/home.css">
+	<link rel="stylesheet" href="../assets/ads.css">
+	<link rel="preload" as="image" href="../images/hero section image 2.jpg">
+	<link rel="preload" as="image" href="../images/hero section image 2@2x.jpg" media="(min-width:1600px)">
 </head>
 <body>
-
-
-<!-- site-native navbar (uses .new-navbar from assets/home.css) -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-
 <nav class="new-navbar" role="navigation">
-  <div class="logo"><a href="../index.html"><img src="../images/coding with tawfiq.jpg" alt="Logo"></a></div>
-  <button class="hamburger" aria-label="Toggle menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-  <ul class="nav-links">
-    <li><a href="../index.html">Home</a></li>
-  <li><a href="../try-quiz.html">Practice</a></li>
-  <li><a href="../findjobs.html">Find Jobs</a></li>
-  </ul>
-    <div class="nav-actions">
-    <button class="search-btn" aria-label="Search"><img src="../images/the search logo.jpg" alt="Search"></button>
-    <a class="card-link" href="/public/login.html">Sign In</a>
-  </div>
+	<div class="logo"><a href="../index.html"><img src="../images/coding with tawfiq.jpg" alt="Logo"></a></div>
+	<button class="hamburger" aria-label="Toggle menu">
+		<span></span><span></span><span></span>
+	</button>
+	<ul class="nav-links">
+		<li><a href="../index.html">Home</a></li>
+		<li><a href="../try-quiz.html">Practice</a></li>
+		<li><a href="../findjobs.html">Find Jobs</a></li>
+	</ul>
+	<div class="nav-actions">
+		<button class="search-btn" aria-label="Search"><img src="../images/the search logo.jpg" alt="Search"></button>
+		<a class="card-link" href="/public/login.html">Sign In</a>
+	</div>
 </nav>
-
-<!-- Navbar helper (handles .new-navbar hamburger toggle) -->
 <script src="/assets/navbar.js"></script>
+<section id="hero" class="home-hero python-hero">
+	<div class="hero-content">
+		<h1>Python Introduction</h1>
+		<p>Select a topic below to begin exploring Python basics with interactive examples.</p>
+		<div class="hero-actions toc-hero-actions" style="flex-wrap:wrap; justify-content:center; max-width:900px;">
+			<a class="btn-primary" href="#py-getting-started">Getting Started</a>
+			<a class="btn-ghost" href="#py-datatypes">Data Types</a>
+			<a class="btn-ghost" href="#py-variables">Variables</a>
+			<a class="btn-ghost" href="#py-control-flow">Control Flow</a>
+		</div>
+		<div style="margin-top:10px;color:rgba(255,255,255,0.88);font-weight:700;font-size:0.9rem">Scroll or tap a topic to jump to its card.</div>
+	</div>
+</section>
+<section id="python-intro" class="page">
+	<h2>Introduction to Python</h2>
+	<article id="py-getting-started" class="info-card" data-share-icon-only="1">
+		<img class="card-top-image" src="../images/python%20home...jpg" alt="Python Getting Started">
+		<h3>Getting Started</h3>
+		<h4>Welcome to the Python Development</h4>
+		<p class="card-text">Python is not just a language, it’s a superpower. In this course, you’ll go from writing your first line of code to building cool projects that’ll make you say, “Wow, I did that! 😎”</p>
+		<p class="card-text">Whether you’re totally new to coding or just looking to sharpen your Python skills, get ready for an epic journey filled with coding magic, challenges, and lots of fun moments.</p>
+		<h4>Python Language Quick Overview</h4>
+		<p class="card-text">Python is a high-level, interpreted programming language used for many different purposes, from web development to scientific computing to machine learning.</p>
+		<p class="card-text">Why Python is a great choice:</p>
+		<ul>
+			<li><strong>Easy to learn</strong>: Simple, readable syntax makes it friendly for beginners.</li>
+			<li><strong>Versatile</strong>: Great for web apps, data analysis, AI/ML, automation, and more.</li>
+			<li><strong>Large community</strong>: Tons of learning resources, tutorials, and Q&A support.</li>
+			<li><strong>Rich libraries</strong>: NumPy, pandas, Matplotlib and many more to do more with less code.</li>
+			<li><strong>Cross‑platform</strong>: Runs on Windows, macOS, and Linux with the same code.</li>
+		</ul>
+		<h4>Install Python 3 and VS Code on Windows</h4>
+		<p class="card-text"><strong>Install Python</strong></p>
+		<ol>
+			<li>Download the latest Python from <a href="https://www.python.org/downloads/" target="_blank" rel="noopener">python.org</a>.</li>
+			<li>Run the installer and follow the steps.</li>
+			<li><strong>Important</strong>: Check “Add Python to environment variables” during installation so you can run Python from anywhere.</li>
+			<li>(Optional) Choose a custom installation path if you prefer.</li>
+		</ol>
+		<p class="muted">Note: Many Unix-based systems (Linux, macOS) come with Python preinstalled.</p>
+		<p class="muted">Tip: You can also run Python right in the browser below using the live editors — no install needed.</p>
+		<div class="code-card py-example" data-name="getting-started-1">
+			<h3>Try it: Check Python basics</h3>
+			<textarea class="py-code" rows="8">import sys
+print("Python runtime (simulated with Pyodide)")
+print("Version:", sys.version)
+print("3 + 4 =", 3 + 4)</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+				<button class="run-btn">Run</button>
+				<button class="clear-btn">Clear Output</button>
+			</div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+	</article>
+	<article id="py-datatypes" class="info-card" data-share-icon-only="1">
+		<img class="card-top-image" src="../images/project%201.jpg" alt="Understanding Python Datatypes">
+		<h3>Understanding Python Datatypes</h3>
+		<p class="card-text">In programming, <strong>data types</strong> describe the kind of data a variable can hold. Example:</p>
+		<pre><code>num = 24  # 24 is an int so num is of class int</code></pre>
+		<p class="card-text">Since everything is an object in Python, data types are actually <em>classes</em>, and variables are <em>instances</em> of these classes.</p>
+		<h4>Python Core Data Type Categories</h4>
+		<div style="overflow-x:auto;">
+			<table style="width:100%; border-collapse:collapse; font-size:0.92rem;">
+				<thead><tr style="background:rgba(255,255,255,0.08);"><th style="padding:6px; text-align:left;">Category</th><th style="padding:6px; text-align:left;">Classes</th><th style="padding:6px; text-align:left;">Description</th></tr></thead>
+				<tbody>
+					<tr><td style="padding:6px;">Numeric</td><td style="padding:6px;">int, float, complex</td><td style="padding:6px;">Holds numeric values</td></tr>
+					<tr><td style="padding:6px;">String</td><td style="padding:6px;">str</td><td style="padding:6px;">Sequence of characters</td></tr>
+					<tr><td style="padding:6px;">Sequence</td><td style="padding:6px;">list, tuple, range</td><td style="padding:6px;">Ordered collection of items</td></tr>
+					<tr><td style="padding:6px;">Mapping</td><td style="padding:6px;">dict</td><td style="padding:6px;">Key–value pairs</td></tr>
+					<tr><td style="padding:6px;">Boolean</td><td style="padding:6px;">bool</td><td style="padding:6px;">True or False</td></tr>
+					<tr><td style="padding:6px;">Set</td><td style="padding:6px;">set</td><td style="padding:6px;">Unique unordered items</td></tr>
+					</article>
 
+					<!-- Variables Info Card -->
+					<article id="py-variables" class="info-card" data-share-icon-only="1">
+						<img class="card-top-image" src="../images/soft%20eng%20home%20logo.jpg" alt="Variables in Python">
+						<h3>Variables in Python</h3>
 
+						<p class="card-text">In programming, a <strong>variable</strong> is a container (storage area) used to hold data.</p>
+						<pre><code>number = 10
+		</div>
 
+						<h4>Assigning values to variables</h4>
+						<p class="card-text">Use the assignment operator <code>=</code> to assign a value to a variable.</p>
+						<pre><code>site_name = "Power Learn Project"
+		<h4>Numeric Types</h4>
+		<p class="card-text">Python numbers: <code>int</code> (arbitrary length), <code>float</code> (double precision ~15 decimal places), and <code>complex</code> (rarely used early on).</p>
+		<div class="code-card py-example" data-name="dt-numeric">
 
-<!-- ====== HERO SECTION ====== -->
-  <section id="hero" class="home-hero">
-    <div class="hero-content">
-      <h1>Introduction to Python — Start building with examples</h1>
-      <p>Get hands-on with lists, tuples, dictionaries and basic programs. Follow the notes and try the interactive examples below.</p>
-      <div class="hero-actions" style="flex-wrap:wrap; gap:10px;">
-        <a class="btn-primary" href="#python-intro">Overview</a>
-        <a class="btn-ghost" href="#python-datatypes">Data Types</a>
-        <a class="btn-ghost" href="#python-challenges">Projects</a>
-      </div>
-      <div style="margin-top:10px;color:rgba(255,255,255,0.88);font-weight:700;font-size:0.95rem">No sign-up required — run the in-browser examples</div>
-    </div>
-  </section>
+						<p class="muted"><strong>Note:</strong> Python is a <em>type‑inferred</em> language. You don’t have to explicitly declare the type; Python infers that <code>"Power Learn Project"</code> is a <code>str</code>, so <code>site_name</code> is a string.</p>
 
-<!-- ====== Introduction to Python Card Section ====== -->
-<section id="python-intro" style="
-  display: flex;
-  justify-content: center;
-  padding: 4rem 2rem;
-  background-image: url('../images/water fall.jpg');
-  background-size: cover;">
-  <div style="max-width:900px;width:100%;">
+						<h4>Changing the value of a variable</h4>
+						<pre><code>site_name = "Power Learn Project"
+			<h3>Try it: Numeric and type()</h3>
+			<textarea class="py-code" rows="10">num1 = 55      # int
+num2 = 5.3     # float
+num3 = 2 + 3j  # complex
+print(num1, type(num1))
+print(num2, type(num2))
+print(num3, type(num3))
+print("num1 + num2 =", num1 + num2)</textarea>
 
-      <p>Use <code>type()</code> to check a value's type:</p>
-      <code>
-print(type(24))     # &lt;class 'int'&gt;<br>
-print(type(5.3))    # &lt;class 'float'&gt;<br>
-print(type('Hi'))   # &lt;class 'str'&gt;
-      </code>
+						<h4>Assigning multiple values</h4>
+						<pre><code>a, b, c = 5, 7, "Hello world"
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap"><button class="run-btn">Run</button><button class="clear-btn">Clear Output</button></div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
 
-      <!-- Interactive Python Cards Start -->
-      <h2>Try Python Code 🐍</h2>
+						<h4>Rules for naming Python variables</h4>
+						<ul>
+							<li>Use letters (a–z, A–Z), digits (0–9), and underscore <code>_</code>. Don’t start with a digit.</li>
+							<li>Python is case‑sensitive: <code>num</code> and <code>Num</code> are different.</li>
+							<li>Avoid using Python keywords like <code>if</code>, <code>True</code>, <code>class</code>, etc.</li>
+							<li>Common styles: <code>snake_case</code>, <code>MACRO_CASE</code>, <code>camelCase</code>, <code>CapsWords</code>.</li>
+						</ul>
+						<pre><code>num = 55
+		<h4>List (Mutable Ordered Sequence)</h4>
+		<p class="card-text">Lists hold ordered items and can mix types. Defined with <code>[ ]</code>.</p>
+		<div class="code-card py-example" data-name="dt-list">
 
-      <!-- Numeric Types Card -->
-      <div class="code-card">
-        <p>🔢 <strong>Numeric Types</strong></p>
-        <textarea id="code-num">
-a = 5       # int
-b = 5.0     # float
-c = 2 + 4j  # complex
+						<div class="code-card py-example" data-name="vars-demo">
+							<h3>Try it: Variables quick demo</h3>
+							<textarea class="py-code" rows="14"># Variable basics
+			number = 10
+			print("number:", number, type(number))
 
-print(type(a))
-print(type(b))
-print(type(c))
-        </textarea>
-        <button onclick="runPython('code-num','output-num')">▶ Run</button>
-        <pre id="output-num">Output will appear here...</pre>
-      </div>
+			site_name = "Power Learn Project"
+			print(site_name)
 
-      <!-- List Example Card -->
-      <div class="code-card">
-        <p>📚 <strong>List Example</strong></p>
-        <textarea id="code-list">
-languages = ["Python", "Dart", "Web", 23]
+			# Change value
+			site_name = "I love coding"
+			print(site_name)
+
+			# Multiple assignment
+			a, b, c = 5, 7, "Hello world"
+			print(a, b, c)
+
+			# Case sensitivity
+			num = 55
+			Num = 510
+			print(num, Num)
+							</textarea>
+							<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+								<button class="run-btn">Run</button>
+								<button class="clear-btn">Clear Output</button>
+							</div>
+							<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+						</div>
+
+						<h4>More Resources</h4>
+						<ul>
+							<li><a href="https://realpython.com/python-variables/" target="_blank" rel="noopener">Real Python — Variables</a></li>
+							<li><a href="https://www.simplilearn.com/tutorials/python-tutorial/python-variables" target="_blank" rel="noopener">Simplilearn — Python Variables</a></li>
+							<li><a href="https://www.guru99.com/variables-in-python.html" target="_blank" rel="noopener">Guru99 — Variables in Python</a></li>
+							<li><a href="https://www.tutorialspoint.com/python/python_variables.htm" target="_blank" rel="noopener">TutorialsPoint — Python Variables</a></li>
+						</ul>
+					</article>
+
+					<!-- Additional cards (control flow, projects) omitted to keep layout focused -->
+			<h3>Try it: List basics</h3>
+			<textarea class="py-code" rows="12">languages = ["Python", "Dart", "Web", 23]
 print(languages)
-print(languages[1])
-        </textarea>
-        <button onclick="runPython('code-list','output-list')">▶ Run</button>
-        <pre id="output-list">Output will appear here...</pre>
-      </div>
-
-      <!-- Tuple Example Card -->
-      <div class="code-card">
-        <p>🔒 <strong>Tuple Example</strong></p>
-        <textarea id="code-tuple">
-products = ('XBox', 499.99, 'Habibi', 23)
+print("Second item:", languages[1])
+languages.append("NewItem")
+print("After append:", languages)
+print("Slice first two:", languages[:2])</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap"><button class="run-btn">Run</button><button class="clear-btn">Clear Output</button></div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+		<h4>Tuple (Immutable Ordered Sequence)</h4>
+		<p class="card-text">Tuples use <code>( )</code> and once created cannot be modified.</p>
+		<div class="code-card py-example" data-name="dt-tuple">
+			<h3>Try it: Tuple basics</h3>
+			<textarea class="py-code" rows="10">products = ("XBox", 499.99, "Habibi", 23)
 print(products)
-print(products[2])
-        </textarea>
-        <button onclick="runPython('code-tuple','output-tuple')">▶ Run</button>
-        <pre id="output-tuple">Output will appear here...</pre>
-      </div>
-
-      <!-- Dictionary Example Card -->
-      <div class="code-card">
-        <p>🗺️ <strong>Dictionary Example</strong></p>
-        <textarea id="code-dict">
-capital_city = {"Kenya": "Nairobi", "Nigeria": "Lagos"}
+print("Third item:", products[2])
+# Immutability demo
+try:
+    products[0] = "PlayStation"
+except TypeError as e:
+    print("Cannot modify tuple:", e)</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap"><button class="run-btn">Run</button><button class="clear-btn">Clear Output</button></div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+		<h4>String</h4>
+		<p class="card-text">Strings are sequences of characters in quotes. They support indexing and slicing.</p>
+		<div class="code-card py-example" data-name="dt-string">
+			<h3>Try it: String basics</h3>
+			<textarea class="py-code" rows="11">site_name = "Power Learn Project"
+print(site_name)
+print("First 5 chars:", site_name[:5])
+print("Upper:", site_name.upper())
+print("Contains 'Learn'?:", "Learn" in site_name)</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap"><button class="run-btn">Run</button><button class="clear-btn">Clear Output</button></div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+		<h4>Set (Unique Unordered Collection)</h4>
+		<p class="card-text">Sets use <code>{ }</code> and automatically remove duplicates. They don’t support indexing.</p>
+		<div class="code-card py-example" data-name="dt-set">
+			<h3>Try it: Set basics</h3>
+			<textarea class="py-code" rows="12">student_ids = {112, 114, 117, 113, 114}
+print(student_ids)
+print("Length:", len(student_ids))
+other = {117, 200}
+print("Intersection:", student_ids & other)
+print("Union:", student_ids | other)</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap"><button class="run-btn">Run</button><button class="clear-btn">Clear Output</button></div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+		<h4>Dictionary (Ordered Key–Value Store)</h4>
+		<p class="card-text">Dictionaries map keys to values. Keys must be unique.</p>
+		<div class="code-card py-example" data-name="dt-dict">
+			<h3>Try it: Dictionary basics</h3>
+			<textarea class="py-code" rows="13">capital_city = {"Kenya": "Nairobi", "Nigeria": "Lagos"}
 print(capital_city)
-print(capital_city['Kenya'])
-        </textarea>
-        <button onclick="runPython('code-dict','output-dict')">▶ Run</button>
-        <pre id="output-dict">Output will appear here...</pre>
-      </div>
-
-      <!-- Boolean Example Card -->
-      <div class="code-card">
-        <p>3️⃣ <strong>Boolean Example</strong></p>
-        <textarea id="code-bool">
-print(type(True))
-print(type(False))
-
-if 1:
-    print("1 is truthy")
-if not 0:
-    print("0 is falsy")
-        </textarea>
-        <button onclick="runPython('code-bool','output-bool')">▶ Run</button>
-        <pre id="output-bool">Output will appear here...</pre>
-      </div>
-
-      <!-- Set Example Card -->
-      <div class="code-card">
-        <p>4️⃣ <strong>Set Example</strong></p>
-        <textarea id="code-set">
-s1 = set("GeeksForGeeks")
-print(s1)
-s2 = set(["Geeks", "For", "Geeks"])
-print(s2)
-for i in s2:
-    print(i, end=" ")
-print("Geeks" in s2)
-        </textarea>
-        <button onclick="runPython('code-set','output-set')">▶ Run</button>
-        <pre id="output-set">Output will appear here...</pre>
-      </div>
-      <!-- Interactive Python Cards End -->
-
-      <p>🔗 <strong>Resources & Further Reading</strong></p>
-      <ul>
-        <li>GeeksforGeeks — Python Data Types</li>
-        <li>Real Python — Python Data Types</li>
-        <li>DigitalOcean — Python Data Types</li>
-        <li>Python Data Science Handbook — Understanding Data</li>
-      </ul>
-  </div>
+print("Keys:", list(capital_city.keys()))
+capital_city["Tanzania"] = "Dodoma"
+print("Updated:", capital_city)
+for country, city in capital_city.items():
+    print(country, "=>", city)</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap"><button class="run-btn">Run</button><button class="clear-btn">Clear Output</button></div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+		<h4>More Resources</h4>
+		<ul>
+			<li><a href="https://www.geeksforgeeks.org/python-data-types/" target="_blank" rel="noopener">GeeksforGeeks: Python Data Types</a></li>
+			<li><a href="https://realpython.com/python-data-types/" target="_blank" rel="noopener">Real Python: Data Types</a></li>
+			<li><a href="https://www.digitalocean.com/community/tutorials/python-data-types" target="_blank" rel="noopener">DigitalOcean: Python Data Types</a></li>
+			<li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/02.01-understanding-data" target="_blank" rel="noopener">Python Data Science Handbook (Chapter excerpt)</a></li>
+		</ul>
+	</article>
+	<!-- Additional cards (variables, control flow, projects) omitted to keep layout focused -->
 </section>
-
-<script defer src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
-<script>
-// Lightweight lazy-load of Pyodide: initialize only on first Run click
-let pyodideReady = false;
-async function ensurePyodide(){
-  if(pyodideReady) return window.pyodide;
-  // Wait if script not yet parsed
-  if(typeof loadPyodide !== 'function'){
-    await new Promise(r => setTimeout(r, 200));
-  }
-  if(typeof loadPyodide !== 'function'){
-    throw new Error('Python runtime failed to load. Check your connection.');
-  }
-  window.pyodide = await loadPyodide();
-  pyodideReady = true;
-  return window.pyodide;
-}
-
-async function runPython(codeId, outputId) {
-  const outEl = document.getElementById(outputId);
-  try{
-    const py = await ensurePyodide();
-    const code = document.getElementById(codeId).value;
-    const result = await py.runPythonAsync(code);
-    outEl.textContent = result ?? "";
-  }catch(err){
-    outEl.textContent = err && err.message ? err.message : String(err);
-  }
-}
-</script>
-
 <style>
-
-textarea {
-  width: 100%;
-  height: 150px;
-  font-family: monospace;
-  font-size: 16px;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  margin-top: 10px;
-  background-color: #f0f2f7; /* textarea background */
-  color: #680202; /* textarea text */
-}
-button {
-  background-color: #680202; /* button background */
-  border: none;
-  color: #f0f2f7; /* button text */
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 10px;
-  font-weight: bold;
-}
-button:hover {
-  background-color: #500101; /* darker hover */
-}
-pre {
-  background: #f0f2f7; /* output background */
-  color: #680202; /* output text */
-  padding: 15px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  overflow-x: auto;
-  white-space: pre-wrap;
-  margin-top: 10px;
-}
-.code-card {
-  margin-top: 20px;
-  padding: 15px;
-  background: #680202; /* card background */
-  color: #f0f2f7; /* card text */
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.05);
-}
-h2, h1, p {
-  color: #f0f2f7; /* headings and paragraph text */
-}
-
-/* ===== Page-specific override: make cards span full width (not centered) ===== */
-/* Override inline wrapper max-width and centered margins */
-#python-intro > div,
-#python-datatypes > div,
-#python-challenges > div { max-width: none !important; width: 100% !important; }
-
-/* Force the info-cards to use full width on this page */
-#python-intro .info-card,
-#python-datatypes .info-card,
-#python-challenges .info-card { max-width: none !important; width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; }
-
-/* Flex containers can remain flex; full-width children will occupy the row */
-#python-intro,
-#python-datatypes,
-#python-challenges { padding-left: 0 !important; padding-right: 0 !important; }
+	#python-intro .terminal{background:#0b0b0b;color:#e6eef6;border-radius:8px;padding:12px;margin-top:10px;border:1px solid rgba(255,255,255,0.06);max-height:220px;overflow:auto;font-family:ui-monospace,Menlo,Monaco,"Roboto Mono",monospace}
+	#python-intro .py-code{width:100%;padding:10px;resize:vertical;min-height:110px}
+	@media (max-width:700px){#python-intro .py-code{min-height:120px}}
+	#python-intro .code-card{overflow:visible}
+	#python-intro .card-top-image{max-height:220px}
+	@media (max-width:700px){#python-intro .card-top-image{max-height:160px}}
+  /* Icon-only share for marked info-cards */
+  .info-card[data-share-icon-only="1"] .inline-share-actions .share-label{ display:none !important; }
+  .info-card[data-share-icon-only="1"] .inline-share-actions .share-icon{ width:22px; height:22px; }
 </style>
-
- <!-- ====== FOOTER ====== -->
- 
-<!-- ====== Challenge Card: Projects for practice ====== -->
-<section id="python-challenges" style="display:flex; justify-content:center; padding:3rem 2rem; background-image:url('../images/pdf cards back.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat; background-attachment:scroll;">
-  <div style="max-width:900px; width:100%;">
-    <article class="info-card" aria-labelledby="challenge-title">
-      <h3 id="challenge-title">💡 Try these beginner projects — Challenge Card</h3>
-      <p class="muted">Finish the notes? Try one of these small projects to practice — fun and beginner-friendly! 🎯</p>
-
-      <ol>
-        <li><strong>Personalized Greeting App</strong> 🖐️
-          <p>Create a program that asks for the user’s name and favorite color, then prints a personalized greeting, e.g., <code>Hello, [Name]! Your favorite color, [Color], is awesome!</code></p>
-        </li>
-        <li><strong>Simple Quiz Game</strong> ❓
-          <p>Build a multiple-choice quiz about Python, movies, or any topic. Show the score at the end and allow the user to play again.</p>
-        </li>
-        <li><strong>Random Joke Generator</strong> 😂
-          <p>Store a list of jokes and display a randomly selected one each run. Add a programming-themed twist for laughs.</p>
-        </li>
-      </ol>
-
-      <p class="muted">These small projects help you practice input/output, lists, conditionals, loops, and functions — core Python skills. 🚀</p>
-
-      <div style="margin-top:1rem; text-align:center;">
-        <a href="pydatastructurepdf.html" class="card-link" style="display:inline-block; padding:0.8rem 1.2rem; background:#680202; color:#fff; border-radius:8px; text-decoration:none; font-weight:700;">CLICK TO GO TO THE NEXT TOPIC: PYTHON DATA STRUCTURE ➜</a>
-      </div>
-    </article>
-  </div>
-</section>
-
-  <footer id="footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <a href="/index.html" aria-label="Coding with Tawfiq home"><img src="/images/coding with tawfiq.jpg" alt="Coding with Tawfiq logo"></a>
-        <div class="footer-links">
-          <a href="/about.html">About</a>
-          <a href="/contact.html">Contact</a>
-          <a href="/privacy.html">Privacy</a>
-        </div>
-      </div>
-      <div class="footer-right">
-        <div class="footer-copy">© <span id="footerYear"></span> Coding with Tawfiq. All rights reserved.</div>
-        <div class="footer-social" aria-label="Social links">
-          <a href="#" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
-          <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-          <a href="#" aria-label="GitHub"><i class="bi bi-github"></i></a>
-        </div>
-      </div>
-    </div>
-  </footer>
-  <script>try{document.getElementById('footerYear').textContent = new Date().getFullYear();}catch(e){}</script>
-  
-  <!-- Share buttons on cards + performance tweaks -->
-  <script>
-  (function(){
-    // Make hero lighter on scroll (avoid fixed backgrounds)
-    try{
-      var hero = document.getElementById('hero');
-      if(hero && hero.classList.contains('home-hero')){
-        hero.style.backgroundAttachment = 'scroll';
-      }
-    }catch(_e){}
-
-    function notify(kind, title, body, url){
-      if(window.showToast) window.showToast(kind||'success', title, body);
-      else alert(title + '\n' + (body||'') + (url? ('\n' + url) : ''));
-    }
-
-    function shareUrl(url, titleText){
-      if(!url) return;
-      var title = titleText || document.title || 'Intro to Python';
-      if(navigator.share){
-        navigator.share({ title: title, text: 'Check this out on Coding with Tawfiq', url: url })
-          .then(function(){ notify('success','Shared','Link shared via your device.', url); })
-          .catch(function(){
-            if(navigator.clipboard && navigator.clipboard.writeText){
-              navigator.clipboard.writeText(url)
-                .then(function(){ notify('success','Link copied','Share this URL directly.', url); })
-                .catch(function(){ var ok = prompt('Copy link:', url); if(ok!==null) notify('success','Link ready','Copied (manual).', url); });
-            }else{
-              var ok = prompt('Copy link:', url); if(ok!==null) notify('success','Link ready','Copied (manual).', url);
-            }
-          });
-        return;
-      }
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(url)
-          .then(function(){ notify('success','Link copied','Share this URL directly.', url); })
-          .catch(function(){ var ok = prompt('Copy link:', url); if(ok!==null) notify('success','Link ready','Copied (manual).', url); });
-      }else{
-        var ok = prompt('Copy link:', url); if(ok!==null) notify('success','Link ready','Copied (manual).', url);
-      }
-    }
-
-    function bestAnchorForCard(card){
-      // Prefer a heading with an id inside the card
-      var h = card.querySelector('h2[id], h3[id], h4[id], h5[id]');
-      if(h && h.id){ return h.id; }
-      // Else ensure card has an id
-      if(!card.id){ card.id = 'card-' + Math.random().toString(36).slice(2,8); }
-      return card.id;
-    }
-
-    function addShareButtons(){
-      var cards = Array.prototype.slice.call(document.querySelectorAll('.info-card'));
-      if(!cards.length) return;
-      cards.forEach(function(card){
-        if(card.querySelector('.inline-share-actions')) return; // avoid duplicates
-        var anchorId = bestAnchorForCard(card);
-        var url = window.location.origin + window.location.pathname + '#' + encodeURIComponent(anchorId);
-        var actions = document.createElement('div'); actions.className = 'card-actions inline-share-actions';
-        var left = document.createElement('div'); var right = document.createElement('div'); right.className = 'right';
-        var btn = document.createElement('button'); btn.className = 'icon-btn'; btn.title = 'Share';
-        var img = document.createElement('img'); img.src = '../images/share logo.jpg'; img.alt = 'Share'; img.className = 'share-icon';
-        btn.appendChild(img);
-        btn.addEventListener('click', function(){
-          // Use the heading text as title if available
-          var ttl = (card.querySelector('h2,h3,h4,h5') || {}).textContent || document.title;
-          shareUrl(url, ttl);
-        });
-        right.appendChild(btn); actions.appendChild(left); actions.appendChild(right);
-        card.appendChild(actions);
-      });
-    }
-
-    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addShareButtons); else addShareButtons();
-  })();
-  </script>
+<script defer src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+<script>(function(){let pyodideReady;async function ensurePyodide(){if(!pyodideReady){if(typeof loadPyodide!=='function'){await new Promise(r=>setTimeout(r,300))}if(typeof loadPyodide!=='function'){throw new Error('Python runtime failed to load. Check your connection.')}pyodideReady=loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/'})}return pyodideReady}function append(o,t,c){if(!o)return;const s=document.createElement('span');if(c)s.className=c;s.textContent=String(t);o.appendChild(s);o.appendChild(document.createTextNode('\n'));o.scrollTop=o.scrollHeight}function setupExample(e){const r=e.querySelector('.run-btn'),cl=e.querySelector('.clear-btn'),code=e.querySelector('.py-code'),term=e.querySelector('.terminal');if(!r||!code||!term)return;cl&&cl.addEventListener('click',()=>{term.textContent=''});r.addEventListener('click',async()=>{r.disabled=true;r.textContent='Running…';try{const p=await ensurePyodide();p.setStdout({batched:s=>append(term,s)});p.setStderr({batched:s=>append(term,s,'stderr')});await p.runPythonAsync(code.value)}catch(err){append(term,(err&&err.message)?err.message:String(err),'stderr')}finally{r.disabled=false;r.textContent='Run'}})}function initAll(){document.querySelectorAll('.py-example').forEach(setupExample)}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initAll);else initAll()})();</script>
+</body>
+</html>

@@ -9,6 +9,12 @@
   <!-- preload hero wallpaper to improve perceived load quality; also preload a high-res variant for large viewports if present -->
   <link rel="preload" as="image" href="images/hero section image 2.jpg">
   <link rel="preload" as="image" href="images/hero section image 2@2x.jpg" media="(min-width:1600px)">
+  <style>
+    /* Hide any existing share UI on opted-out cards (defensive) */
+    .card[data-no-share] .inline-share-actions,
+    .card[data-no-share] .share-btn,
+    .card[data-no-share] .shared-link-display { display: none !important; }
+  </style>
 </head>
 <body>
 
@@ -61,7 +67,7 @@
     <div class="course-grid">
       <div class="course-grid">
   <a href="pyhome.html" style="text-decoration: none; color: inherit;">
-    <div class="card" id="python-card">
+  <div class="card" id="python-card" data-no-share="1">
       <img src="images/python home...jpg" alt="Python Course">
       <h3>Python</h3>
       <p>Learn Python for automation, web apps, and data science.</p>
@@ -70,34 +76,34 @@
 </div>
 
       <a href="webdevhome.html" style="text-decoration: none; color: inherit;">
-        <div class="card" id="webdev-card">
+  <div class="card" id="webdev-card" data-no-share="1">
           <img src="images/website dev home logo.jpg" alt="Web Development">
           <h3>Website Development</h3>
           <p>HTML,CSS,and JavaScript.</p>
         </div>
       </a>
 
-      <div class="card" id="flutter-card">
+  <div class="card" id="flutter-card" data-no-share="1">
         <img src="images/dart home logo.jpg" alt="Dart and Flutter">
         <h3>Dart-Flutter</h3>
         <p>Build mobile apps for Android and iOS.</p>
       </div>
 
-      <div class="card" id="ai-card">
+  <div class="card" id="ai-card" data-no-share="1">
         <img src="images/ai home logo.jpg" alt="AI for Software Engineering">
         <h3>AI for Software Engineering</h3>
         <p>Explore AI integration in development and automation.</p>
       </div>
 
       <a href="databasehome.html" style="text-decoration: none; color: inherit;">
-        <div class="card" id="database-card">
+  <div class="card" id="database-card" data-no-share="1">
           <img src="images/project 1.jpg" alt="Database Design">
           <h3>Database Design</h3>
           <p>Learn relational databases, SQL, and backend structure.</p>
         </div>
       </a>
 
-      <div class="card" id="software-card">
+  <div class="card" id="software-card" data-no-share="1">
         <img src="images/soft eng home logo.jpg" alt="Software Engineering Essentials">
         <h3>Software Engineering Essentials</h3>
         <p>Understand teamwork,Git, SDLC, and Agile fundamentals.</p>

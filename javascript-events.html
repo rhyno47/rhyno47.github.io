@@ -42,6 +42,22 @@
     font-size: 1.2rem;
     color: #fff; /* make search icon visible */
   }
+  /* --- Hero responsiveness (page-specific) --- */
+  #hero { overflow: visible; }
+  #hero .hero-content { max-width: 1100px; margin: 0 auto; padding: 20px; text-align: center; }
+  #hero h1 { margin-bottom: 10px; }
+  #hero h1 code { font-size: clamp(1.1rem, 5vw, 2rem); white-space: normal; word-break: break-word; }
+  #hero .hero-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  #hero .hero-actions a { display: inline-block; text-align: center; padding: 10px 14px; min-width: 120px; }
+  @media (max-width: 700px){
+    #hero { height: auto !important; background-attachment: scroll !important; }
+  }
+  @media (max-width: 720px){
+    #hero .hero-actions a { flex: 1 1 46%; }
+  }
+  @media (max-width: 480px){
+    #hero .hero-actions a { flex: 1 1 100%; }
+  }
 </style>
 
 <nav class="new-navbar" role="navigation">
@@ -71,12 +87,16 @@
     <div class="hero-content">
       <h1><code>"introduction to Java Script Eents 'n' basic interactivity"</code></h1>
       <div class="hero-actions">
+        <a class="btn-primary" href="#events-overview">Events Overview</a>
+        <a class="btn-ghost" href="#interactive-elements">Interactive Elements</a>
+        <a class="btn-ghost" href="#form-validation">Form Validation</a>
+        <a class="btn-ghost" href="#resources">Resources</a>
       </div>
     </div>
   </section>
 
   <!-- 🌟 Event Handling Card -->
-<div class="code-card" style="background:#680202; color:white; border-radius:16px; padding:20px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
+<div id="events-overview" class="code-card" style="background:#680202; color:white; border-radius:16px; padding:20px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
 
     if (button) button.onclick = function () {
 
@@ -168,7 +188,7 @@ input.onchange = function () {<br>
 </div>
 
 <!-- 🌟 Event Handling & Interactive Elements Card -->
-<div class="code-card" style="background:#680202; color:white; border-radius:16px; padding:20px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
+<div id="interactive-elements" class="code-card" style="background:#680202; color:white; border-radius:16px; padding:20px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
 
   <h2>🚀 Event Handling & Interactive Elements</h2>
 
@@ -320,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <!-- 🌟 Event Handling & Form Validation Card -->
-<div class="code-card" style="background:#680202; color:white; border-radius:16px; padding:20px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
+<div id="form-validation" class="code-card" style="background:#680202; color:white; border-radius:16px; padding:20px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
 
   <h2>🚀 Event Handling & Form Validation</h2>
 
@@ -431,7 +451,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 <!-- 🌟 Additional Resources Card -->
-<div class="code-card" style="background:#680202; color:white; border-radius:16px; padding:20px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
+<div id="resources" class="code-card" style="background:#680202; color:white; border-radius:16px; padding:20px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
 
   <h2>📚 Additional Resources - Event Handling & Form Validation</h2>
 

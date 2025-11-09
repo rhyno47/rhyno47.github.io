@@ -1,6 +1,6 @@
 // Global unified share button injector
 (function(){
-  const CARD_SELECTOR = '.card, .card-feed, .lesson-card, .info-card, .code-card, .pdf-card, .resource-card';
+  const CARD_SELECTOR = '.card, .card-feed, .lesson-card, .info-card, .code-card, .pdf-card, .resource-card, .notice, .warning, .info-callout, .try-card';
   const SHARE_IMG = '/images/share logo.jpg';
 
   function ensureId(el, idx){
@@ -32,7 +32,9 @@
   }
 
   function injectButtons(){
-    const cards = Array.from(document.querySelectorAll(CARD_SELECTOR));
+    const cards = Array.from(document.querySelectorAll(CARD_SELECTOR))
+      // allow per-card opt-out via attribute or class
+      .filter(card => !(card.hasAttribute('data-no-share') || card.classList.contains('no-share')));
     cards.forEach((card, idx) => {
       // If card already contains a share button, just ensure it has proper class
       const existing = card.querySelector('.share-btn, .icon-btn .share-icon');

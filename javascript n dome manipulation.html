@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coding with Tawfiq | Home</title>
-  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="/assets/home.css">
   
 </head>
 <body>
@@ -43,25 +43,26 @@
     font-size: 1.2rem;
     color: #fff; /* make search icon visible */
   }
+  /* --- Hero responsiveness (page-specific) --- */
+  #hero { overflow: visible; }
+  #hero .hero-content { max-width: 1100px; margin: 0 auto; padding: 20px; text-align: center; }
+  #hero h1 { margin-bottom: 10px; }
+  #hero h1 code { font-size: clamp(1.1rem, 5vw, 2rem); white-space: normal; word-break: break-word; }
+  #hero .hero-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  #hero .hero-actions a { display: inline-block; text-align: center; padding: 10px 14px; min-width: 120px; }
+  @media (max-width: 700px){
+    #hero { height: auto !important; background-attachment: scroll !important; }
+  }
+  @media (max-width: 720px){
+    #hero .hero-actions a { flex: 1 1 46%; }
+  }
+  @media (max-width: 480px){
+    #hero .hero-actions a { flex: 1 1 100%; }
+  }
 </style>
 
-<nav class="new-navbar" role="navigation">
-  <div class="logo"><a href="/index.html"><img src="/images/coding with tawfiq.jpg" alt="Logo"></a></div>
-  <button class="hamburger" aria-label="Toggle menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-  <ul class="nav-links">
-    <li><a href="/index.html">Home</a></li>
-    <li><a href="/try-quiz.html">Practice</a></li>
-  <li><a href="findjobs.html">Find Jobs</a></li>
-  </ul>
-  <div class="nav-actions">
-    <button class="search-btn" aria-label="Search"><img src="/images/the search logo.jpg" alt="Search"></button>
-    <a class="card-link" href="/public/login.html">Sign In</a>
-  </div>
-</nav>
+<!-- canonical navbar placeholder: content injected by /assets/navbar.js -->
+<nav class="new-navbar" role="navigation"></nav>
 
 <!-- Bootstrap JS -->
 <script src="/assets/navbar.js"></script>
@@ -72,12 +73,18 @@
     <div class="hero-content">
       <h1><code>java script and dom manipulation</code></h1>
       <div class="hero-actions">
+        <a class="btn-primary" href="#js-basics">JS Basics</a>
+        <a class="btn-ghost" href="#notice-functions">Notice</a>
+        <a class="btn-ghost" href="#try-functions">Try Functions</a>
+        <a class="btn-ghost" href="#loops">Loops</a>
+        <a class="btn-ghost" href="#dom-complete">DOM Lesson</a>
+        <a class="btn-ghost" href="#resources">Resources</a>
       </div>
     </div>
   </section>
 
 <!-- 🌟 JavaScript Basics Learning Card -->
-<div class="try-card" style="background-color: #680202; color: #fff; padding: 25px; border-radius: 16px; box-shadow: 0 5px 15px rgba(0,0,0,0.4); font-family: 'Poppins', sans-serif; margin: 25px 0;">
+<div id="js-basics" class="try-card" style="background-color: #680202; color: #fff; padding: 25px; border-radius: 16px; box-shadow: 0 5px 15px rgba(0,0,0,0.4); font-family: 'Poppins', sans-serif; margin: 25px 0;">
 
   <h2 style="color: #ffd700;">💪 JavaScript: Powering Dynamic Websites</h2>
 
@@ -208,9 +215,15 @@ console.log(defaultName); // Guest
   </script>
 </div>
 
+  <!-- Default share button fallback for the learning card -->
+  <div class="inline-share-actions">
+    <button type="button" class="icon-btn share-btn" aria-label="Share this card"><span class="share-label">Share</span></button>
+  
+  </div>
+
 <!-- 🌟 Notice Section -->
 <!-- 🌟 Notice Section -->
-<div style="background:#9b141488; color:white; padding:20px; border-radius:12px; margin-bottom:15px;">
+<div id="notice-functions" style="background:#9b141488; color:white; padding:20px; border-radius:12px; margin-bottom:15px;">
   <h2 style="color:#fff;">🧠 Understanding JavaScript Functions</h2>
   <p>Functions make your code reusable and easier to maintain. Below, you can <b>edit</b> the example and click <b>Run</b> to see it in action!</p>
   
@@ -221,7 +234,7 @@ console.log(defaultName); // Guest
 </div>
 
 <!-- 🌟 Try It Yourself Card -->
-<div class="code-card" style="max-width:100%; background:#750707; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.2); padding:20px; margin:20px 0;">
+<div id="try-functions" class="code-card" style="max-width:100%; background:#750707; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.2); padding:20px; margin:20px 0;">
   <h3 style="color:white;">💻 Try It Yourself</h3>
   <p style="color:#f5f5f5;">Edit the code below and click <b>Run</b> to see how functions work.</p>
 
@@ -268,6 +281,8 @@ function greetUser(name) {
   <button onclick="runCode(this)" style="margin-top:10px; padding:10px 20px; background-color:#007bff; border:none; color:white; font-weight:bold; border-radius:8px; cursor:pointer;">▶ Run</button>
 
   <iframe style="width:100%; height:300px; margin-top:15px; border:2px solid #000; border-radius:8px; background:#fff;"></iframe>
+  <!-- Default share button fallback for this code card -->
+  <div class="inline-share-actions"><button type="button" class="icon-btn share-btn" aria-label="Share this card"><span class="share-label">Share</span></button></div>
 </div>
 
 <script>
@@ -280,7 +295,7 @@ function runCode(button) {
 </script>
 
 <!-- 🌟 Complete JavaScript Loops Card -->
-<div class="code-card" style="background:#680202; color:white; border-radius:16px; padding:20px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
+<div id="loops" class="code-card" style="background:#680202; color:white; border-radius:16px; padding:20px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
 
   <h2>🌀 JavaScript Loops – Complete Lesson</h2>
   <p>Loops are one of the most powerful tools in JavaScript. They allow us to execute a block of code repeatedly, saving time and effort. Imagine you need to print numbers from 1 to 100—doing it manually would be exhausting! Loops let you automate this process, making your code efficient and concise.</p>
@@ -400,8 +415,10 @@ for(let num of numbers){<br>
   </ul>
 
 </div>
+<!-- Default share button fallback for this code card -->
+<div class="inline-share-actions"><button type="button" class="icon-btn share-btn" aria-label="Share this card"><span class="share-label">Share</span></button></div>
 <!-- 🌟 Complete DOM Card -->
-<div class="code-card" style="background:#680202; color:white; border-radius:16px; padding:20px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
+<div id="dom-complete" class="code-card" style="background:#680202; color:white; border-radius:16px; padding:20px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
 
   <h2>🌳 JavaScript DOM – Complete Lesson</h2>
   <p>The Document Object Model (DOM) is the foundation of every modern web page. It allows JavaScript to interact with HTML and CSS dynamically. In this guide, we’ll explore what the DOM is, how to select elements, and how to manipulate them to create interactive websites. 🎉</p>
@@ -602,9 +619,11 @@ document.querySelectorAll("selector"); // all matches (NodeList)
   <p>By mastering the DOM, you can create dynamic, interactive, and user-friendly websites. Happy coding! 🎉</p>
 
 </div>
+<!-- Default share button fallback for this code card -->
+<div class="inline-share-actions"><button type="button" class="icon-btn share-btn" aria-label="Share this card"><span class="share-label">Share</span></button></div>
 
 <!-- 🌟 Additional Resources Card -->
-<div class="code-card" style="background:#680202; color:white; border-radius:16px; padding:20px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
+<div id="resources" class="code-card" style="background:#680202; color:white; border-radius:16px; padding:20px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
 
   <h2>📚 Additional Resources: JavaScript & DOM</h2>
   <p>Here’s a curated list of websites, videos, and tutorials to help you learn JavaScript and DOM manipulation in-depth. These resources cater to beginners and intermediate learners while providing hands-on experience.</p>
@@ -670,5 +689,7 @@ document.querySelectorAll("selector"); // all matches (NodeList)
   </code>
 
 </div>
+<!-- Default share button fallback for this code card -->
+<div class="inline-share-actions"><button type="button" class="icon-btn share-btn" aria-label="Share this card"><span class="share-label">Share</span></button></div>
 
 

@@ -42,6 +42,22 @@
     font-size: 1.2rem;
     color: #fff; /* make search icon visible */
   }
+  /* --- Hero responsiveness (page-specific) --- */
+  #hero { overflow: visible; }
+  #hero .hero-content { max-width: 1100px; margin: 0 auto; padding: 20px; text-align: center; }
+  #hero h1 { margin-bottom: 10px; }
+  #hero h1 code { font-size: clamp(1.1rem, 5vw, 2rem); white-space: normal; word-break: break-word; }
+  #hero .hero-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  #hero .hero-actions a { display: inline-block; text-align: center; padding: 10px 14px; min-width: 120px; }
+  @media (max-width: 700px){
+    #hero { height: auto !important; background-attachment: scroll !important; }
+  }
+  @media (max-width: 720px){
+    #hero .hero-actions a { flex: 1 1 46%; }
+  }
+  @media (max-width: 480px){
+    #hero .hero-actions a { flex: 1 1 100%; }
+  }
 </style>
 
 <nav class="new-navbar" role="navigation">
@@ -71,12 +87,16 @@
     <div class="hero-content">
       <h1><code>CSS3 Transition,Animation and advanced javascript</code></h1>
       <div class="hero-actions">
+        <a class="btn-primary" href="#transitions-animations">Transitions & Animations</a>
+        <a class="btn-ghost" href="#js-functions">JS Functions</a>
+        <a class="btn-ghost" href="#css-js-animations">CSS + JS</a>
+        <a class="btn-ghost" href="#resources">Resources</a>
       </div>
     </div>
   </section>
 
   <!-- 🌟 CSS3 Transitions & Animations Card -->
-<div class="code-card" style="background:#680202; color:white; border-radius:16px; padding:25px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
+<div id="transitions-animations" class="code-card" style="background:#680202; color:white; border-radius:16px; padding:25px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
 
   <h2>🎨 CSS3 Transitions & Animations</h2>
 
@@ -220,9 +240,11 @@
   <p style="color:#FFD700;"><strong>Notice:</strong> Experiment with hover, animation, and transition combinations to create interactive designs. Students can modify values and see effects instantly!</p>
 
 </div>
+<!-- Default share fallback for this card -->
+<div class="inline-share-actions"><button type="button" class="icon-btn share-btn" aria-label="Share this card"><span class="share-label">Share</span></button></div>
 
 
-<div style="background:#680202; color:white; border-radius:16px; padding:25px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
+<div id="js-functions" class="info-card" style="background:#680202; color:white; border-radius:16px; padding:25px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
 
   <h2 style="color:#ffcc00;">JavaScript Functions 🛠️</h2>
 
@@ -360,8 +382,10 @@ console.log(square(5)); // 25
   </script>
 
 </div>
+<!-- Default share fallback for this card -->
+<div class="inline-share-actions"><button type="button" class="icon-btn share-btn" aria-label="Share this card"><span class="share-label">Share</span></button></div>
 
-<div style="background:#680202; color:white; border-radius:16px; padding:25px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
+<div id="css-js-animations" class="info-card" style="background:#680202; color:white; border-radius:16px; padding:25px; margin:20px 0; font-family:Arial, sans-serif; max-width:100%; overflow:auto;">
 
   <h2 style="color:#ffcc00;">Combining CSS Animations with JavaScript 🎨⚡</h2>
   <p>CSS animations add life to web pages, while JavaScript allows you to control and trigger animations dynamically. Let’s explore how to combine them!</p>
@@ -485,9 +509,11 @@ console.log(square(5)); // 25
   <p>By combining CSS animations and JavaScript, you can craft interactive, engaging websites. Experiment, test, and let your creativity shine! 🚀✨</p>
 
 </div>
+<!-- Default share fallback for this card -->
+<div class="inline-share-actions"><button type="button" class="icon-btn share-btn" aria-label="Share this card"><span class="share-label">Share</span></button></div>
 
  
-<div style="background-color:#680202; color:white; padding:20px; border-radius:12px; font-family:Arial, sans-serif; max-width:900px; margin:auto;">
+<div id="resources" class="resource-card" style="background-color:#680202; color:white; padding:20px; border-radius:12px; font-family:Arial, sans-serif; max-width:900px; margin:auto;">
 
   <h2 style="color:#ffcc00;">Additional Resources for Learning 🚀</h2>
 
@@ -546,4 +572,6 @@ console.log(square(5)); // 25
   <p>These resources will help you dive deeper into each topic, offering insights, examples, and practical knowledge. Happy learning! 🚀</p>
 
 </div>
+<!-- Default share fallback for this card -->
+<div class="inline-share-actions"><button type="button" class="icon-btn share-btn" aria-label="Share this card"><span class="share-label">Share</span></button></div>
 
