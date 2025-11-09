@@ -55,9 +55,10 @@
     <div class="hero-content">
       <h1>Introduction to Python — Start building with examples</h1>
       <p>Get hands-on with lists, tuples, dictionaries and basic programs. Follow the notes and try the interactive examples below.</p>
-      <div class="hero-actions">
-        <a class="btn-primary" href="#python-intro">Start Learning</a>
-        <a class="btn-ghost" href="#python-datatypes">Try Code</a>
+      <div class="hero-actions" style="flex-wrap:wrap; gap:10px;">
+        <a class="btn-primary" href="#python-intro">Overview</a>
+        <a class="btn-ghost" href="#python-datatypes">Data Types</a>
+        <a class="btn-ghost" href="#python-challenges">Projects</a>
       </div>
       <div style="margin-top:10px;color:rgba(255,255,255,0.88);font-weight:700;font-size:0.95rem">No sign-up required — run the in-browser examples</div>
     </div>
@@ -77,7 +78,7 @@
   <div style="max-width:900px; width:100%;">
 
     <article class="info-card" style="margin-top:1rem;" aria-labelledby="py-intro-title">
-      <div class="card-top-image" aria-hidden="true"></div>
+      <img class="card-top-image" src="../images/python home logo.jpg" alt="Python logo" loading="lazy" />
       <h3 id="py-intro-title">� Welcome to the Python Development world 🐍</h3>
 
       <p class="muted">Python is not just a language — it’s a superpower. ⚡ In this course, you’ll go from writing your first line of code to building cool projects that’ll make you say, ‘Wow, I did that! 😎’</p>
@@ -124,7 +125,7 @@
 <section id="python-datatypes" style="display:flex; justify-content:center; padding:4rem 2rem; background-image:url('images/pdf\ cards\ back.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat; background-attachment:scroll;">
     <div style="max-width:900px; width:100%;">
     <article class="info-card" style="margin-top:1rem;" aria-labelledby="py-dt-title">
-      <img class="card-top-image" src="../images/project 3.jpg" alt="Project preview" />
+  <img class="card-top-image" src="../images/project 3.jpg" alt="Project preview" loading="lazy" />
 <section>
   <div>
     <article>
@@ -250,27 +251,33 @@ print("Geeks" in s2)
   </div>
 </section>
 
-<script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+<script defer src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
 <script>
+// Lightweight lazy-load of Pyodide: initialize only on first Run click
 let pyodideReady = false;
-async function loadPyodideAndPackages() {
+async function ensurePyodide(){
+  if(pyodideReady) return window.pyodide;
+  // Wait if script not yet parsed
+  if(typeof loadPyodide !== 'function'){
+    await new Promise(r => setTimeout(r, 200));
+  }
+  if(typeof loadPyodide !== 'function'){
+    throw new Error('Python runtime failed to load. Check your connection.');
+  }
   window.pyodide = await loadPyodide();
   pyodideReady = true;
-  console.log("Python ready!");
+  return window.pyodide;
 }
-loadPyodideAndPackages();
 
 async function runPython(codeId, outputId) {
-  if (!pyodideReady) {
-    alert("Python is still loading...");
-    return;
-  }
-  const code = document.getElementById(codeId).value;
-  try {
-    const result = await pyodide.runPythonAsync(code);
-    document.getElementById(outputId).textContent = result ?? "";
-  } catch (err) {
-    document.getElementById(outputId).textContent = err;
+  const outEl = document.getElementById(outputId);
+  try{
+    const py = await ensurePyodide();
+    const code = document.getElementById(codeId).value;
+    const result = await py.runPythonAsync(code);
+    outEl.textContent = result ?? "";
+  }catch(err){
+    outEl.textContent = err && err.message ? err.message : String(err);
   }
 }
 </script>
@@ -392,3 +399,80 @@ h2, h1, p {
     </div>
   </footer>
   <script>try{document.getElementById('footerYear').textContent = new Date().getFullYear();}catch(e){}</script>
+  
+  <!-- Share buttons on cards + performance tweaks -->
+  <script>
+  (function(){
+    // Make hero lighter on scroll (avoid fixed backgrounds)
+    try{
+      var hero = document.getElementById('hero');
+      if(hero && hero.classList.contains('home-hero')){
+        hero.style.backgroundAttachment = 'scroll';
+      }
+    }catch(_e){}
+
+    function notify(kind, title, body, url){
+      if(window.showToast) window.showToast(kind||'success', title, body);
+      else alert(title + '\n' + (body||'') + (url? ('\n' + url) : ''));
+    }
+
+    function shareUrl(url, titleText){
+      if(!url) return;
+      var title = titleText || document.title || 'Intro to Python';
+      if(navigator.share){
+        navigator.share({ title: title, text: 'Check this out on Coding with Tawfiq', url: url })
+          .then(function(){ notify('success','Shared','Link shared via your device.', url); })
+          .catch(function(){
+            if(navigator.clipboard && navigator.clipboard.writeText){
+              navigator.clipboard.writeText(url)
+                .then(function(){ notify('success','Link copied','Share this URL directly.', url); })
+                .catch(function(){ var ok = prompt('Copy link:', url); if(ok!==null) notify('success','Link ready','Copied (manual).', url); });
+            }else{
+              var ok = prompt('Copy link:', url); if(ok!==null) notify('success','Link ready','Copied (manual).', url);
+            }
+          });
+        return;
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url)
+          .then(function(){ notify('success','Link copied','Share this URL directly.', url); })
+          .catch(function(){ var ok = prompt('Copy link:', url); if(ok!==null) notify('success','Link ready','Copied (manual).', url); });
+      }else{
+        var ok = prompt('Copy link:', url); if(ok!==null) notify('success','Link ready','Copied (manual).', url);
+      }
+    }
+
+    function bestAnchorForCard(card){
+      // Prefer a heading with an id inside the card
+      var h = card.querySelector('h2[id], h3[id], h4[id], h5[id]');
+      if(h && h.id){ return h.id; }
+      // Else ensure card has an id
+      if(!card.id){ card.id = 'card-' + Math.random().toString(36).slice(2,8); }
+      return card.id;
+    }
+
+    function addShareButtons(){
+      var cards = Array.prototype.slice.call(document.querySelectorAll('.info-card'));
+      if(!cards.length) return;
+      cards.forEach(function(card){
+        if(card.querySelector('.inline-share-actions')) return; // avoid duplicates
+        var anchorId = bestAnchorForCard(card);
+        var url = window.location.origin + window.location.pathname + '#' + encodeURIComponent(anchorId);
+        var actions = document.createElement('div'); actions.className = 'card-actions inline-share-actions';
+        var left = document.createElement('div'); var right = document.createElement('div'); right.className = 'right';
+        var btn = document.createElement('button'); btn.className = 'icon-btn'; btn.title = 'Share';
+        var img = document.createElement('img'); img.src = '../images/share logo.jpg'; img.alt = 'Share'; img.className = 'share-icon';
+        btn.appendChild(img);
+        btn.addEventListener('click', function(){
+          // Use the heading text as title if available
+          var ttl = (card.querySelector('h2,h3,h4,h5') || {}).textContent || document.title;
+          shareUrl(url, ttl);
+        });
+        right.appendChild(btn); actions.appendChild(left); actions.appendChild(right);
+        card.appendChild(actions);
+      });
+    }
+
+    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addShareButtons); else addShareButtons();
+  })();
+  </script>

@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Coding with Tawfiq | Python Intro</title>
+	<!-- Match global site styles (adjusted relative paths) -->
+	<link rel="stylesheet" href="../assets/home.css">
+	<link rel="stylesheet" href="../assets/ads.css">
+	<!-- Preload hero images for perceived performance (paths adjusted) -->
+	<link rel="preload" as="image" href="../images/hero section image 2.jpg">
+	<link rel="preload" as="image" href="../images/hero section image 2@2x.jpg" media="(min-width:1600px)">
+</head>
+<body>
+
+<!-- site-native navbar (will be unified by navbar.js) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+<nav class="new-navbar" role="navigation">
+	<div class="logo"><a href="../index.html"><img src="../images/coding with tawfiq.jpg" alt="Logo"></a></div>
+	<button class="hamburger" aria-label="Toggle menu">
+		<span></span>
+		<span></span>
+		<span></span>
+	</button>
+	<ul class="nav-links">
+		<li><a href="../index.html">Home</a></li>
+		<li><a href="../try-quiz.html">Practice</a></li>
+		<li><a href="../findjobs.html">Find Jobs</a></li>
+	</ul>
+	<div class="nav-actions">
+		<button class="search-btn" aria-label="Search"><img src="../images/the search logo.jpg" alt="Search"></button>
+		<a class="card-link" href="/public/login.html">Sign In</a>
+	</div>
+</nav>
+
+<!-- Navbar helper script (canonicalizes nav + injects footer) -->
+<script src="/assets/navbar.js"></script>
+
+<!-- ====== HERO SECTION (repurposed as Python intro menu) ====== -->
+<section id="hero" class="home-hero python-hero">
+	<div class="hero-content">
+		<h1>Python Introduction</h1>
+		<p>Select a topic below to begin exploring Python basics with interactive examples.</p>
+		<div class="hero-actions toc-hero-actions" style="flex-wrap:wrap; justify-content:center; max-width:900px;">
+			<a class="btn-primary" href="#py-getting-started">Getting Started</a>
+			<a class="btn-ghost" href="#py-datatypes">Data Types</a>
+			<a class="btn-ghost" href="#py-variables">Variables</a>
+			<a class="btn-ghost" href="#py-control-flow">Control Flow</a>
+		</div>
+		<div style="margin-top:10px;color:rgba(255,255,255,0.88);font-weight:700;font-size:0.9rem">Scroll or tap a topic to jump to its card.</div>
+	</div>
+</section>
+
+<!-- Python Intro Content -->
+<section id="python-intro" class="page">
+	<h2>Introduction to Python</h2>
+
+	<!-- Table of contents for quick navigation -->
+			<!-- TOC removed (now integrated into hero buttons) -->
+
+	<!-- Getting Started Card -->
+	<article id="py-getting-started" class="info-card">
+		<img class="card-top-image" src="../images/python%20home...jpg" alt="Python Getting Started">
+		<h3>Getting Started</h3>
+			<h4>Welcome to the Python Development</h4>
+			<p class="card-text">Python is not just a language, it’s a superpower. In this course, you’ll go from writing your first line of code to building cool projects that’ll make you say, “Wow, I did that! 😎”</p>
+			<p class="card-text">Whether you’re totally new to coding or just looking to sharpen your Python skills, get ready for an epic journey filled with coding magic, challenges, and lots of fun moments.</p>
+
+			<h4>Python Language Quick Overview</h4>
+			<p class="card-text">Python is a high-level, interpreted programming language used for many different purposes, from web development to scientific computing to machine learning.</p>
+			<p class="card-text">Why Python is a great choice:</p>
+			<ul>
+				<li><strong>Easy to learn</strong>: Simple, readable syntax makes it friendly for beginners.</li>
+				<li><strong>Versatile</strong>: Great for web apps, data analysis, AI/ML, automation, and more.</li>
+				<li><strong>Large community</strong>: Tons of learning resources, tutorials, and Q&A support.</li>
+				<li><strong>Rich libraries</strong>: NumPy, pandas, Matplotlib and many more to do more with less code.</li>
+				<li><strong>Cross‑platform</strong>: Runs on Windows, macOS, and Linux with the same code.</li>
+			</ul>
+
+			<h4>Install Python 3 and VS Code on Windows</h4>
+			<p class="card-text"><strong>Install Python</strong></p>
+			<ol>
+				<li>Download the latest Python from <a href="https://www.python.org/downloads/" target="_blank" rel="noopener">python.org</a>.</li>
+				<li>Run the installer and follow the steps.</li>
+				<li><strong>Important</strong>: Check “Add Python to environment variables” during installation so you can run Python from anywhere.</li>
+				<li>(Optional) Choose a custom installation path if you prefer.</li>
+			</ol>
+			<p class="muted">Note: Many Unix-based systems (Linux, macOS) come with Python preinstalled.</p>
+			<p class="muted">Tip: You can also run Python right in the browser below using the live editors — no install needed.</p>
+
+		<div class="code-card py-example" data-name="getting-started-1">
+			<h3>Try it: Check Python basics</h3>
+			<textarea class="py-code" rows="8">import sys
+print("Python runtime (simulated with Pyodide)")
+print("Version:", sys.version)
+print("3 + 4 =", 3 + 4)
+			</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+				<button class="run-btn">Run</button>
+				<button class="clear-btn">Clear Output</button>
+			</div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+	</article>
+
+		<!-- Understanding Python Datatypes Card -->
+		<article id="py-datatypes" class="info-card">
+			<img class="card-top-image" src="../images/project%201.jpg" alt="Understanding Python Datatypes">
+			<h3>Understanding Python Datatypes</h3>
+			<p class="card-text">In programming, <strong>data types</strong> describe the kind of data a variable can hold. Example:</p>
+			<pre><code>num = 24  # 24 is an int so num is of class int</code></pre>
+			<p class="card-text">Since everything is an object in Python, data types are actually <em>classes</em>, and variables are <em>instances</em> of these classes.</p>
+
+			<h4>Python Core Data Type Categories</h4>
+			<div style="overflow-x:auto;">
+				<table style="width:100%; border-collapse:collapse; font-size:0.92rem;">
+					<thead>
+						<tr style="background:rgba(255,255,255,0.08);">
+							<th style="padding:6px; text-align:left;">Category</th>
+							<th style="padding:6px; text-align:left;">Classes</th>
+							<th style="padding:6px; text-align:left;">Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr><td style="padding:6px;">Numeric</td><td style="padding:6px;">int, float, complex</td><td style="padding:6px;">Holds numeric values</td></tr>
+						<tr><td style="padding:6px;">String</td><td style="padding:6px;">str</td><td style="padding:6px;">Sequence of characters</td></tr>
+						<tr><td style="padding:6px;">Sequence</td><td style="padding:6px;">list, tuple, range</td><td style="padding:6px;">Ordered collection of items</td></tr>
+						<tr><td style="padding:6px;">Mapping</td><td style="padding:6px;">dict</td><td style="padding:6px;">Key–value pairs</td></tr>
+						<tr><td style="padding:6px;">Boolean</td><td style="padding:6px;">bool</td><td style="padding:6px;">True or False</td></tr>
+						<tr><td style="padding:6px;">Set</td><td style="padding:6px;">set</td><td style="padding:6px;">Unique unordered items</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h4>Numeric Types</h4>
+			<p class="card-text">Python numbers: <code>int</code> (arbitrary length), <code>float</code> (double precision ~15 decimal places), and <code>complex</code> (rarely used early on).</p>
+			<div class="code-card py-example" data-name="dt-numeric">
+				<h3>Try it: Numeric and type()</h3>
+				<textarea class="py-code" rows="10">num1 = 55      # int
+	num2 = 5.3     # float
+	num3 = 2 + 3j  # complex
+
+	print(num1, type(num1))
+	print(num2, type(num2))
+	print(num3, type(num3))
+	print("num1 + num2 =", num1 + num2)
+				</textarea>
+				<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+					<button class="run-btn">Run</button>
+					<button class="clear-btn">Clear Output</button>
+				</div>
+				<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+			</div>
+
+			<h4>List (Mutable Ordered Sequence)</h4>
+			<p class="card-text">Lists hold ordered items and can mix types. Defined with <code>[ ]</code>.</p>
+			<div class="code-card py-example" data-name="dt-list">
+				<h3>Try it: List basics</h3>
+				<textarea class="py-code" rows="12">languages = ["Python", "Dart", "Web", 23]
+	print(languages)
+	print("Second item:", languages[1])
+	languages.append("NewItem")
+	print("After append:", languages)
+	print("Slice first two:", languages[:2])
+				</textarea>
+				<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+					<button class="run-btn">Run</button>
+					<button class="clear-btn">Clear Output</button>
+				</div>
+				<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+			</div>
+
+			<h4>Tuple (Immutable Ordered Sequence)</h4>
+			<p class="card-text">Tuples use <code>( )</code> and once created cannot be modified.</p>
+			<div class="code-card py-example" data-name="dt-tuple">
+				<h3>Try it: Tuple basics</h3>
+				<textarea class="py-code" rows="10">products = ("XBox", 499.99, "Habibi", 23)
+	print(products)
+	print("Third item:", products[2])
+
+	# Immutability demo
+	try:
+			products[0] = "PlayStation"
+	except TypeError as e:
+			print("Cannot modify tuple:", e)
+				</textarea>
+				<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+					<button class="run-btn">Run</button>
+					<button class="clear-btn">Clear Output</button>
+				</div>
+				<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+			</div>
+
+			<h4>String</h4>
+			<p class="card-text">Strings are sequences of characters in quotes. They support indexing and slicing.</p>
+			<div class="code-card py-example" data-name="dt-string">
+				<h3>Try it: String basics</h3>
+				<textarea class="py-code" rows="11">site_name = "Power Learn Project"
+	print(site_name)
+	print("First 5 chars:", site_name[:5])
+	print("Upper:", site_name.upper())
+	print("Contains 'Learn'?:", "Learn" in site_name)
+				</textarea>
+				<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+					<button class="run-btn">Run</button>
+					<button class="clear-btn">Clear Output</button>
+				</div>
+				<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+			</div>
+
+			<h4>Set (Unique Unordered Collection)</h4>
+			<p class="card-text">Sets use <code>{ }</code> and automatically remove duplicates. They don’t support indexing.</p>
+			<div class="code-card py-example" data-name="dt-set">
+				<h3>Try it: Set basics</h3>
+				<textarea class="py-code" rows="12">student_ids = {112, 114, 117, 113, 114}
+	print(student_ids)
+	print("Length:", len(student_ids))
+
+	other = {117, 200}
+	print("Intersection:", student_ids & other)
+	print("Union:", student_ids | other)
+				</textarea>
+				<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+					<button class="run-btn">Run</button>
+					<button class="clear-btn">Clear Output</button>
+				</div>
+				<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+			</div>
+
+			<h4>Dictionary (Ordered Key–Value Store)</h4>
+			<p class="card-text">Dictionaries map keys to values. Keys must be unique.</p>
+			<div class="code-card py-example" data-name="dt-dict">
+				<h3>Try it: Dictionary basics</h3>
+				<textarea class="py-code" rows="13">capital_city = {"Kenya": "Nairobi", "Nigeria": "Lagos"}
+	print(capital_city)
+	print("Keys:", list(capital_city.keys()))
+	capital_city["Tanzania"] = "Dodoma"
+	print("Updated:", capital_city)
+	for country, city in capital_city.items():
+			print(country, "=>", city)
+				</textarea>
+				<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+					<button class="run-btn">Run</button>
+					<button class="clear-btn">Clear Output</button>
+				</div>
+				<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+			</div>
+
+			<h4>More Resources</h4>
+			<ul>
+				<li><a href="https://www.geeksforgeeks.org/python-data-types/" target="_blank" rel="noopener">GeeksforGeeks: Python Data Types</a></li>
+				<li><a href="https://realpython.com/python-data-types/" target="_blank" rel="noopener">Real Python: Data Types</a></li>
+				<li><a href="https://www.digitalocean.com/community/tutorials/python-data-types" target="_blank" rel="noopener">DigitalOcean: Python Data Types</a></li>
+				<li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/02.01-understanding-data" target="_blank" rel="noopener">Python Data Science Handbook (Chapter excerpt)</a></li>
+			</ul>
+		</article>
+
+	<!-- Variables & Data Types Card -->
+	<article id="py-variables" class="info-card">
+		<img class="card-top-image" src="../images/soft%20eng%20home%20logo.jpg" alt="Variables">
+		<h3>Variables & Data Types</h3>
+		<p class="card-text"><strong>Definition:</strong> In programming, a <em>variable</em> is a container (storage area) that holds data so you can reference and manipulate it later.</p>
+		<pre><code>number = 10  # 'number' is a variable storing 10</code></pre>
+		<h4>Assigning Values</h4>
+		<p class="card-text">Use the assignment operator <code>=</code> to bind a name to a value.</p>
+		<pre><code>site_name = "Power Learn Project"
+print(site_name)</code></pre>
+		<p class="muted">Python is <strong>type-inferred</strong>; you don’t declare types explicitly. It knows <code>"Power Learn Project"</code> is a <code>str</code>.</p>
+
+		<h4>Changing a Variable's Value</h4>
+		<pre><code>site_name = "Power Learn Project"
+print(site_name)
+
+site_name = "I love coding"
+print(site_name)</code></pre>
+		<p class="card-text">The second assignment rebinds <code>site_name</code> to a new string.</p>
+
+		<h4>Multiple Assignment</h4>
+		<pre><code>a, b, c = 5, 7, "Hello world"
+print(a)  # 5
+print(b)  # 7
+print(c)  # Hello world</code></pre>
+
+		<h4>Naming Rules & Conventions</h4>
+		<ul>
+			<li>Use letters (a–z, A–Z), digits (0–9), and underscore <code>_</code>.</li>
+			<li>Cannot start with a digit.</li>
+			<li>Case-sensitive: <code>num</code> and <code>Num</code> are different.</li>
+			<li>Avoid Python keywords (<code>if</code>, <code>True</code>, <code>class</code>, ...).</li>
+			<li>Common styles: <code>snake_case</code>, <code>camelCase</code>, <code>MACRO_CASE</code>, <code>CapsWords</code>.</li>
+		</ul>
+		<pre><code>num = 55
+Num = 510
+print(num)  # 55
+print(Num)  # 510</code></pre>
+
+		<h4>More Resources</h4>
+		<ul>
+			<li><a href="https://realpython.com/python-variables/" target="_blank" rel="noopener">Real Python: Variables</a></li>
+			<li><a href="https://www.simplilearn.com/tutorials/python-tutorial/python-variables" target="_blank" rel="noopener">Simplilearn: Python Variables</a></li>
+			<li><a href="https://www.guru99.com/variables-in-python.html" target="_blank" rel="noopener">Guru99: Variables in Python</a></li>
+			<li><a href="https://www.tutorialspoint.com/python/python_variables.htm" target="_blank" rel="noopener">TutorialsPoint: Python Variables</a></li>
+		</ul>
+
+		<div class="code-card py-example" data-name="vars-1">
+			<h3>Try it: Basic assignments</h3>
+			<textarea class="py-code" rows="12"># Basic variable assignments
+number = 10
+site_name = "Power Learn Project"
+
+print(number, type(number))
+print(site_name, type(site_name))
+
+# Reassignment
+number = number + 5
+print("After +5:", number)
+
+# Multiple assignment
+a, b, c = 5, 7, "Hello world"
+print(a, b, c)
+			</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+				<button class="run-btn">Run</button>
+				<button class="clear-btn">Clear Output</button>
+			</div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+
+		<div class="code-card py-example" data-name="vars-2">
+			<h3>Try it: Naming & containers</h3>
+			<textarea class="py-code" rows="14"># Case sensitivity
+num = 55
+Num = 510
+print("num:", num)
+print("Num:", Num)
+
+# Containers
+nums = [1, 2, 3]
+nums.append(4)
+person = {"name": "Tawfiq", "role": "Engineer"}
+person["country"] = "TZ"
+
+print("nums:", nums)
+print("person keys:", list(person.keys()))
+print("Hello,", person["name"], "from", person["country"]) 
+			</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+				<button class="run-btn">Run</button>
+				<button class="clear-btn">Clear Output</button>
+			</div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+	</article>
+
+	<!-- Control Flow Card -->
+	<article id="py-control-flow" class="info-card">
+		<img class="card-top-image" src="../images/dart%20home%20logo.jpg" alt="Control Flow">
+		<h3>Control Flow</h3>
+		<p class="card-text">Use <code>if/elif/else</code> for decisions and <code>for</code>/<code>while</code> loops to repeat actions. Functions group reusable logic.</p>
+
+		<div class="code-card py-example" data-name="flow-1">
+			<h3>Try it: Conditions and loops</h3>
+			<textarea class="py-code" rows="12">for i in range(1, 6):
+		if i % 2 == 0:
+				print(i, "is even")
+		else:
+				print(i, "is odd")
+			</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+				<button class="run-btn">Run</button>
+				<button class="clear-btn">Clear Output</button>
+			</div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+
+		<div class="code-card py-example" data-name="flow-2">
+			<h3>Try it: Functions</h3>
+			<textarea class="py-code" rows="12">def greet(name: str) -> str:
+		return f"Hello, {name}!"
+
+print(greet("Engineer"))
+			</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+				<button class="run-btn">Run</button>
+				<button class="clear-btn">Clear Output</button>
+			</div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+	</article>
+
+	<!-- Beginner Project / Games Ideas Card -->
+	<article id="py-project-ideas" class="info-card">
+		<img class="card-top-image" src="../images/python%20home...jpg" alt="Beginner Python Project Ideas">
+		<h3>Beginner Project & Game Ideas</h3>
+		<p class="card-text">Ready to build something fun? These tiny projects reinforce what you just learned. Start small, then expand with new features as you progress.</p>
+
+		<h4>1. Personalized Greeting App</h4>
+		<p class="card-text">Ask the user for their <code>name</code> and <code>favorite color</code>, then print a customized message like: <em>Hello, Aisha! Your favorite color, blue, is awesome!</em></p>
+		<div class="code-card py-example" data-name="proj-greeting">
+			<h3>Try it: Greeting App</h3>
+			<textarea class="py-code" rows="12"># Greeting App (input simulation)
+name = "Aisha"          # Replace with input() when running locally
+color = "blue"          # Replace with input() when running locally
+message = f"Hello, {name}! Your favorite color, {color}, is awesome!"
+print(message)
+
+# Stretch ideas:
+# - Ask age and show age in 5 years.
+# - Validate non-empty name/color.
+			</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+				<button class="run-btn">Run</button>
+				<button class="clear-btn">Clear Output</button>
+			</div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+
+		<h4>2. Simple Quiz Game</h4>
+		<p class="card-text">Make a multiple-choice quiz about Python, movies, or sports. Track the score and offer replay. Below is a minimal structure showing how you might organize questions.</p>
+		<div class="code-card py-example" data-name="proj-quiz">
+			<h3>Try it: Mini Quiz (logic skeleton)</h3>
+			<textarea class="py-code" rows="16"># Mini quiz skeleton (input() omitted for browser runtime)
+questions = [
+    {"q": "What keyword defines a function?", "answer": "def"},
+    {"q": "Which type holds decimals?", "answer": "float"},
+]
+
+score = 0
+for item in questions:
+    # Simulated user answer; replace with input() locally
+    user_answer = item["answer"]  # pretend user got it right
+    if user_answer.lower() == item["answer"].lower():
+        print("Correct!", item["q"]) 
+        score += 1
+    else:
+        print("Wrong.")
+
+print(f"Final score: {score}/{len(questions)}")
+print("Add: randomization, multiple choices, replay loop.")
+			</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+				<button class="run-btn">Run</button>
+				<button class="clear-btn">Clear Output</button>
+			</div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+
+		<h4>3. Random Joke Generator</h4>
+		<p class="card-text">Store a list of jokes and randomly select one every time the program runs. Extend it with categories or a no-repeat option.</p>
+		<div class="code-card py-example" data-name="proj-jokes">
+			<h3>Try it: Joke Generator</h3>
+			<textarea class="py-code" rows="14">import random
+
+jokes = [
+    "Why did the developer go broke? Because he used up all his cache!",
+    "Python: Batteries included, but bring coffee.",
+    "IndentationError: Life needs structure too!",
+]
+
+print("Random Joke:")
+print(random.choice(jokes))
+
+# Stretch ideas:
+# - Add categories (list of dicts).
+# - Prevent repeating the last joke.
+# - Let user request another joke.
+			</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+				<button class="run-btn">Run</button>
+				<button class="clear-btn">Clear Output</button>
+			</div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+
+		<h4>Next Step</h4>
+		<p class="card-text">Finished exploring the intro? You can:</p>
+		<ul>
+			<li><a class="card-link" href="../try-quiz.html">Take the Intro Python Quiz</a> to test what you learned.</li>
+			<li><a class="card-link" href="pydatastructurepdf.html">Continue to: Python Data Structures</a></li>
+		</ul>
+	</article>
+
+</section>
+
+<!-- Footer will be auto-injected by navbar.js if not present -->
+
+<!-- Non-intrusive ad placeholder (optional; match site pattern) -->
+<div class="non-intrusive-ad" aria-hidden="true">
+	<div class="ad-content">
+		<ins class="adsbygoogle"
+				 style="display:block"
+				 data-ad-client="ca-pub-1523965413574724"
+				 data-ad-slot="1588668042"
+				 data-ad-format="auto"
+				 data-full-width-responsive="true"></ins>
+	</div>
+</div>
+
+<!-- Lightweight styles for on-page terminals/editors (scoped safely) -->
+<style>
+	#python-intro .terminal{
+		background:#0b0b0b; color:#e6eef6; border-radius:8px; padding:12px; margin-top:10px;
+		border:1px solid rgba(255,255,255,0.06); max-height:220px; overflow:auto; font-family: ui-monospace, Menlo, Monaco, "Roboto Mono", monospace;
+	}
+	#python-intro .py-code{ width:100%; padding:10px; resize:vertical; min-height:110px; }
+	#python-intro .code-actions .run-btn, #python-intro .code-actions .clear-btn{ cursor:pointer }
+	@media (max-width:700px){ #python-intro .py-code{ min-height:120px } }
+	/* Fix code-card overflow on small screens */
+	#python-intro .code-card{ overflow: visible; }
+	#python-intro .card-top-image{ max-height: 220px; }
+	@media (max-width:700px){ #python-intro .card-top-image{ max-height:160px } }
+</style>
+
+<!-- Pyodide (in-browser Python) and runner wiring -->
+<script defer src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+<script>
+	// Initialize Pyodide once and attach runners to each example.
+	(function(){
+		let pyodideReady;
+		async function ensurePyodide(){
+			if (!pyodideReady){
+				if (typeof loadPyodide !== 'function'){
+					// wait a moment for the deferred script to load
+					await new Promise(r=>setTimeout(r, 300));
+				}
+				if (typeof loadPyodide !== 'function'){
+					throw new Error('Python runtime failed to load. Check your connection.');
+				}
+				pyodideReady = loadPyodide({ indexURL: 'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/' });
+			}
+			return pyodideReady;
+		}
+
+		function append(outEl, text, cls){
+			if (!outEl) return;
+			const span = document.createElement('span');
+			if (cls) span.className = cls;
+			span.textContent = String(text);
+			outEl.appendChild(span);
+			outEl.appendChild(document.createTextNode('\n'));
+			outEl.scrollTop = outEl.scrollHeight;
+		}
+
+		function setupExample(example){
+			const runBtn = example.querySelector('.run-btn');
+			const clearBtn = example.querySelector('.clear-btn');
+			const codeEl = example.querySelector('.py-code');
+			const term = example.querySelector('.terminal');
+			if (!runBtn || !codeEl || !term) return;
+			clearBtn && clearBtn.addEventListener('click', ()=>{ term.textContent=''; });
+			runBtn.addEventListener('click', async ()=>{
+				runBtn.disabled = true; runBtn.textContent = 'Running…';
+				try{
+					const pyodide = await ensurePyodide();
+					// Redirect stdout/stderr to this example's terminal
+					pyodide.setStdout({ batched: (s)=> append(term, s) });
+					pyodide.setStderr({ batched: (s)=> append(term, s, 'stderr') });
+					const code = codeEl.value;
+					await pyodide.runPythonAsync(code);
+				}catch(err){ append(term, (err && err.message) ? err.message : String(err), 'stderr'); }
+				finally{ runBtn.disabled = false; runBtn.textContent = 'Run'; }
+			});
+		}
+
+		function initAll(){
+			document.querySelectorAll('.py-example').forEach(setupExample);
+		}
+		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initAll); else initAll();
+	})();
+</script>
+
+</body>
+</html>

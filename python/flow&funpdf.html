@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coding with Tawfiq | Home</title>
+  <title>Coding with Tawfiq | Python Flow & Functions</title>
   <link rel="stylesheet" href="../assets/home.css">
   <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -19,7 +19,13 @@
   gtag('config', 'G-ETGGXC16CY');
 </script>
 
-  <link rel="stylesheet" href="assets/ads.css">
+  <!-- Removed ads.css (not present) and unnecessary image preloads to avoid 404s and wasted bytes -->
+  <style>
+    /* Page-local hero tweaks: left-align content and show topic buttons */
+    #hero.home-hero .hero-content{ text-align:left; }
+    #hero .hero-actions{ display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-start; }
+    @media (max-width:700px){ #hero .hero-actions a{ width:100%; text-align:center; } }
+  </style>
 </head>
 <body>
 
@@ -27,548 +33,458 @@
 <!-- site-native navbar (uses .new-navbar from assets/home.css) -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
-<nav class="new-navbar" role="navigation">
-  <div class="logo"><a href="/index.html"><img src="/images/coding with tawfiq.jpg" alt="Logo"></a></div>
-  <button class="hamburger" aria-label="Toggle menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-  <ul class="nav-links">
-    <li><a href="/index.html">Home</a></li>
-    <li><a href="/try-quiz.html">Practice</a></li>
-    <li><a href="/findjobs.html">Find Jobs</a></li>
-  </ul>
-    <div class="nav-actions">
-    <button class="search-btn" aria-label="Search"><img src="/images/the search logo.jpg" alt="Search"></button>
-    <a class="card-link" href="/public/login.html">Sign In</a>
+<nav class="new-navbar" role="navigation"></nav>
+<!-- Navbar helper (handles .new-navbar hamburger toggle and injects consistent markup) -->
+<script src="/assets/navbar.js" defer></script>
+
+<!-- ====== HERO SECTION ====== -->
+<section id="hero" class="home-hero">
+  <div class="hero-content">
+    <h1>Python Flow & Functions</h1>
+    <p class="lead">Jump to the topic you need: conditionals, loops, and list comprehensions.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#python-conditionals">Conditionals</a>
+      <a class="btn-ghost" href="#python-loops">Loops</a>
+      <a class="btn-ghost" href="#python-list-comprehension">List Comprehensions</a>
+    </div>
   </div>
-</nav>
+  
+</section>
 
-<!-- Navbar helper (handles .new-navbar hamburger toggle) -->
-<script src="/assets/navbar.js"></script>
+<!-- ====== Conditionals Card ====== -->
+<section id="python-conditionals" class="page">
+  <div class="info-card" style="max-width:950px;margin:40px auto;">
+  <img class="card-top-image" src="../images/variables.jpg" alt="Python variables and conditionals concept" loading="lazy" onerror="this.onerror=null;this.src='../images/conditinal state example.PNG';this.style.background='linear-gradient(145deg,#680202,#310202)';">
+  <h3>Python Conditional Statements</h3>
+  <p>Conditional statements drive decision-making. They execute code only when a boolean expression is true.</p>
 
+  <h4>Basic if</h4>
+  <pre><code>temperature = 30
+if temperature &gt; 25:
+  print("It's a hot day!")</code></pre>
 
-  <!-- ====== HERO SECTION ====== -->
-  <section id="hero">
-    <div class="hero-content">
-      <h1>Understanding functions,conditional statement,list comprehension and loops </h1>
-      <div class="hero-actions">
-        <button id="start-btn">Start Here</button>
-      </div>
+  <h4>if / else</h4>
+  <pre><code>temperature = 20
+if temperature &gt; 25:
+  print("Hot")
+else:
+  print("Cool")</code></pre>
+
+  <h4>if / elif / else</h4>
+  <pre><code>temperature = 15
+if temperature &gt; 25:
+  print("Hot")
+elif temperature &gt; 15:
+  print("Warm")
+else:
+  print("Cold")</code></pre>
+
+  <p class="muted">Practice with relational (&gt;, &gt;=, &lt;, &lt;=) and logical (<code>and</code>, <code>or</code>, <code>not</code>) operators for richer conditions.</p>
+
+  <h4>Challenge</h4>
+  <p>Write a grading system using <code>if/elif/else</code>:</p>
+  <pre><code>score = 83
+if score &gt;= 90:
+  print("A")
+elif score &gt;= 80:
+  print("B")
+elif score &gt;= 70:
+  print("C")
+elif score &gt;= 60:
+  print("D")
+else:
+  print("F")</code></pre>
+
+  <p class="muted"><strong>Tip:</strong> Order matters—first matching branch wins.</p>
+
+  <h4>Try it live (simple decision)</h4>
+  <div class="code-card" data-example="cond-basic" style="background:#121212; border:1px solid #242424; border-radius:12px; padding:14px; margin-top:12px;">
+    <p style="margin:0 0 6px; font-weight:600; color:#fff">Run and modify the code below:</p>
+    <textarea class="py-snippet" rows="8" spellcheck="false">temperature = 30
+if temperature > 25:
+    print("It's a hot day!")
+else:
+    print("Not hot today.")
+print("Done.")</textarea>
+    <div class="actions" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+      <button class="run-btn btn-primary" type="button">Run</button>
+      <button class="clear-btn btn-ghost" type="button">Clear Output</button>
     </div>
-  </section>
+    <pre class="output" aria-live="polite" style="margin-top:8px; background:#0d0d0d; color:#d6f5d6; padding:10px; border-radius:8px; min-height:54px; font-size:0.85rem"></pre>
+  </div>
 
-  <!-- ====== Introduction to functions in python====== -->
-<section id="python-functions" style="
-    display: flex;
-    justify-content: center;
-    padding: 4rem 2rem;
-    background-image: url('../images/water fall.jpg');
-    background-size: cover;       /* Makes image cover the section */
-    background-position: center;  /* Centers the image */
-    background-repeat: no-repeat; /* Prevent tiling */
-    background-attachment: scroll; /* Optional, prevents fixed zoom */
-">
-
-  <div style="
-      max-width: 900px; 
-      width: 100%; 
-      background-color: rgba(122, 19, 5, 0.575); 
-      border-radius: 15px; 
-      box-shadow: 0 8px 20px rgba(247, 238, 238, 0.2); 
-      overflow: hidden; 
-      text-align: center; 
-      padding: 2rem;">
-
-    <!-- Image at top of the card -->
-    <div style="
-        width: 100%; 
-        height: 300px; 
-        background-image: url('../images/python\ home...jpg'); 
-        background-size: cover; 
-        background-position: center; 
-        border-radius: 10px;">
+  <h4>Try it: grading system</h4>
+  <div class="code-card" data-example="cond-grade" style="background:#121212; border:1px solid #242424; border-radius:12px; padding:14px; margin-top:12px;">
+    <p style="margin:0 0 6px; font-weight:600; color:#fff">Adjust score and rerun:</p>
+    <textarea class="py-snippet" rows="10" spellcheck="false">score = 83
+if score >= 90:
+    print("A")
+elif score >= 80:
+    print("B")
+elif score >= 70:
+    print("C")
+elif score >= 60:
+    print("D")
+else:
+    print("F")</textarea>
+    <div class="actions" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+      <button class="run-btn btn-primary" type="button">Run</button>
+      <button class="clear-btn btn-ghost" type="button">Clear Output</button>
     </div>
+    <pre class="output" aria-live="polite" style="margin-top:8px; background:#0d0d0d; color:#d6f5d6; padding:10px; border-radius:8px; min-height:54px; font-size:0.85rem"></pre>
+  </div>
 
-    <!-- Content under image -->
-    <div style="margin-top: 2rem;">
-      <h2 style="margin-bottom: 2rem; color: #f0eeee;"><b>PYTHON FUNCTIONS</b></h2>
+  <h4>Try it: logical operators</h4>
+  <div class="code-card" data-example="cond-logic" style="background:#121212; border:1px solid #242424; border-radius:12px; padding:14px; margin-top:12px;">
+    <p style="margin:0 0 6px; font-weight:600; color:#fff">Experiment with and/or/not:</p>
+    <textarea class="py-snippet" rows="10" spellcheck="false">age = 19
+has_id = True
+if age >= 18 and has_id:
+    print("Entry allowed")
+elif age >= 18 and not has_id:
+    print("Need ID")
+else:
+    print("Underage")
 
-      <div style="color: #f1efef; text-align: center;">
-
-            <p>🛠️ <strong>Functions</strong> are a fundamental part of Python programming. They allow you to encapsulate reusable blocks of code to make programs modular, easier to understand, and maintain.</p>
-
-    <p>❓ <strong>What is a Function?</strong></p>
-    <p>A function is a block of code designed to perform a specific task. You define a function once and can use it multiple times throughout your code.</p>
-
-    <p>💻 <strong>Syntax:</strong></p>
-    <p><code>
-def function_name(parameters):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;"""Optional docstring explaining the function."""<br>
-&nbsp;&nbsp;&nbsp;&nbsp;# Code block<br>
-&nbsp;&nbsp;&nbsp;&nbsp;return value  # Optional return statement
-    </code></p>
-
-    <p>📌 <strong>Types of Functions:</strong></p>
-    <p>1. Built-in Functions: Predefined functions in Python (e.g., <code>print()</code>, <code>len()</code>, <code>type()</code>)</p>
-    <p>2. User-defined Functions: Functions created by the user.</p>
-
-    <p>📝 <strong>Defining and Calling a Function:</strong></p>
-    <p><code>
-# Function definition<br>
-def greet(name):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;"""Greet a person by their name."""<br>
-&nbsp;&nbsp;&nbsp;&nbsp;return f"Hello, {name}!"<br>
-<br>
-# Function call<br>
-print(greet("Alice"))  # Output: Hello, Alice!
-    </code></p>
-
-    <p>⚙️ <strong>Key Components of a Function:</strong></p>
-    <p>1. Function Name: Should be descriptive and follow naming conventions.</p>
-    <p>2. Parameters: Variables passed into the function.</p>
-    <p>3. Docstring: An optional description of what the function does.</p>
-    <p>4. Return Statement: Outputs a value from the function (optional).</p>
-
-    <p>📥 <strong>Parameters and Arguments:</strong></p>
-    <p>Functions can accept zero or more arguments.</p>
-
-    <p>1️⃣ Positional Arguments:</p>
-    <p><code>
-def add(a, b):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;return a + b<br>
-print(add(3, 5))  # Output: 8
-    </code></p>
-
-    <p>2️⃣ Default Arguments:</p>
-    <p><code>
-def greet(name="Guest"):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;return f"Hello, {name}!"<br>
-print(greet())          # Output: Hello, Guest!<br>
-print(greet("Alice"))   # Output: Hello, Alice!
-    </code></p>
-
-    <p>3️⃣ Keyword Arguments:</p>
-    <p><code>
-def introduce(name, age):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;return f"My name is {name}, and I'm {age} years old."<br>
-print(introduce(age=25, name="Bob"))  # Output: My name is Bob, and I'm 25 years old.
-    </code></p>
-
-    <p>🔄 <strong>Returning Values:</strong></p>
-    <p><code>
-def square(number):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;return number ** 2<br>
-result = square(4)<br>
-print(result)  # Output: 16
-    </code></p>
-
-    <p>🎭 <strong>Anonymous Functions: Lambda</strong></p>
-    <p><code>
-# Lambda function for adding two numbers<br>
-add = lambda x, y: x + y<br>
-print(add(3, 5))  # Output: 8<br>
-<br>
-# Using lambda with map()<br>
-numbers = [1, 2, 3, 4]<br>
-squares = list(map(lambda x: x**2, numbers))<br>
-print(squares)  # Output: [1, 4, 9, 16]
-    </code></p>
-
-    <p>🔁 <strong>Recursive Functions:</strong></p>
-    <p><code>
-def factorial(n):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;if n == 1:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 1<br>
-&nbsp;&nbsp;&nbsp;&nbsp;return n * factorial(n - 1)<br>
-print(factorial(5))  # Output: 120
-    </code></p>
-
-    <p>💡 <strong>Benefits of Functions:</strong></p>
-    <p>1. Reusability: Write once, and use multiple times.</p>
-    <p>2. Modularity: Break programs into smaller, manageable parts.</p>
-    <p>3. Improved Readability: Descriptive names make code easier to understand.</p>
-
-    <p>✅ <strong>Conclusion:</strong></p>
-    <p>Functions are a powerful tool that makes your code cleaner, more efficient, and easier to maintain. Mastering their use is essential for any Python developer. Start experimenting with different types of functions to understand their versatility!</p>
-  </article>
-      </div>
+temp = 14
+print("Warm?", 15 <= temp <= 25)</textarea>
+    <div class="actions" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+      <button class="run-btn btn-primary" type="button">Run</button>
+      <button class="clear-btn btn-ghost" type="button">Clear Output</button>
     </div>
+    <pre class="output" aria-live="polite" style="margin-top:8px; background:#0d0d0d; color:#d6f5d6; padding:10px; border-radius:8px; min-height:54px; font-size:0.85rem"></pre>
+  </div>
+
+  <hr>
+  <p><strong>In Python, there are three forms of the <code>if...else</code> statement:</strong></p>
+  <ol>
+    <li><strong>if</strong> statement</li>
+    <li><strong>if...else</strong> statement</li>
+    <li><strong>if...elif...else</strong> statement</li>
+  </ol>
+
+  <h5>More examples</h5>
+  <pre><code># Basic if
+temperature = 30
+if temperature &gt; 25:
+  print("It's a hot day!")
+
+# if...else
+temperature = 20
+if temperature &gt; 25:
+  print("It's a hot day!")
+else:
+  print("It's a cool day!")
+
+# if...elif...else
+temperature = 15
+if temperature &gt; 25:
+  print("It's a hot day!")
+elif temperature &gt; 15:
+  print("It's a warm day!")
+else:
+  print("It's a cold day!")</code></pre>
+
+  <p>🔗 <strong>More Resources:</strong></p>
+  <ul>
+    <li><a href="https://www.programiz.com/python-programming/if-elif-else" target="_blank" rel="noopener">Programiz — Python if/elif/else</a></li>
+    <li><a href="https://www.codecademy.com/resources/docs/python/conditionals" target="_blank" rel="noopener">Codecademy — Python Conditionals</a></li>
+  </ul>
   </div>
 </section>
 
 
-<!-- native ad unit -->
+<!-- ====== List Comprehension Card ====== -->
+<section id="python-list-comprehension" class="page">
+  <div class="info-card" style="max-width:950px;margin:40px auto;">
+  <img class="card-top-image" src="../images/python datatypes.PNG" alt="Python data types and list comprehension" loading="lazy" onerror="this.onerror=null;this.src='../images/HTML 03.jpg';this.style.background='linear-gradient(145deg,#680202,#310202)';">
+  <h3>List Comprehensions</h3>
+  <p>Concise, expressive syntax for generating and transforming lists.</p>
+  <h4>Syntax</h4>
+  <pre><code>[expression for item in iterable if condition]</code></pre>
+  <p class="muted">Optional condition filters items.</p>
+  <h4>Basic Example</h4>
+  <pre><code># Traditional loop
+squares = []
+for x in range(5):
+  squares.append(x**2)
 
+# List comprehension
+squares = [x**2 for x in range(5)]
+print(squares)</code></pre>
+  <h4>Filtering</h4>
+  <pre><code>even = [x for x in range(10) if x % 2 == 0]
+print(even)</code></pre>
+  <h4>Nested</h4>
+  <pre><code>matrix = [[i*j for j in range(1,4)] for i in range(1,4)]
+print(matrix)</code></pre>
+  <h4>Transforming</h4>
+  <pre><code>names = ["Alice","Bob","Charlie"]
+upper = [n.upper() for n in names]
+print(upper)</code></pre>
+  <h4>Flatten</h4>
+  <pre><code>nested = [[1,2],[3,4],[5,6]]
+flat = [item for group in nested for item in group]
+print(flat)</code></pre>
+  <h4>Complex? Use loops</h4>
+  <pre><code># Hard to read comprehension
+result = [x*y for x in range(10) for y in range(5) if x + y > 5]
+
+# Clearer loop
+result = []
+for x in range(10):
+  for y in range(5):
+    if x + y > 5:
+      result.append(x*y)</code></pre>
+  <p class="muted"><strong>Tip:</strong> Prefer clarity over cleverness—readability scales.</p>
+  <hr>
+  <h4>Try it live: build and transform lists</h4>
+  <div class="code-card" data-example="lc-basic" style="background:#121212; border:1px solid #242424; border-radius:12px; padding:14px; margin-top:12px;">
+    <p style="margin:0 0 6px; font-weight:600; color:#fff">Basic squares vs comprehension:</p>
+    <textarea class="py-snippet" rows="10" spellcheck="false">squares_loop = []
+for x in range(1, 6):
+    squares_loop.append(x*x)
+
+squares_comp = [x*x for x in range(1, 6)]
+print("Loop:", squares_loop)
+print("Comp:", squares_comp)</textarea>
+    <div class="actions" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+      <button class="run-btn btn-primary" type="button">Run</button>
+      <button class="clear-btn btn-ghost" type="button">Clear Output</button>
+    </div>
+    <pre class="output" aria-live="polite" style="margin-top:8px; background:#0d0d0d; color:#d6f5d6; padding:10px; border-radius:8px; min-height:54px; font-size:0.85rem"></pre>
+  </div>
+
+  <div class="code-card" data-example="lc-filter" style="background:#121212; border:1px solid #242424; border-radius:12px; padding:14px; margin-top:14px;">
+    <p style="margin:0 0 6px; font-weight:600; color:#fff">Filtering even numbers:</p>
+    <textarea class="py-snippet" rows="9" spellcheck="false">nums = list(range(1, 21))
+evens = [n for n in nums if n % 2 == 0]
+odds  = [n for n in nums if n % 2 == 1]
+print("Evens:", evens)
+print("Odds:", odds)</textarea>
+    <div class="actions" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+      <button class="run-btn btn-primary" type="button">Run</button>
+      <button class="clear-btn btn-ghost" type="button">Clear Output</button>
+    </div>
+    <pre class="output" aria-live="polite" style="margin-top:8px; background:#0d0d0d; color:#d6f5d6; padding:10px; border-radius:8px; min-height:54px; font-size:0.85rem"></pre>
+  </div>
+
+  <div class="code-card" data-example="lc-nested" style="background:#121212; border:1px solid #242424; border-radius:12px; padding:14px; margin-top:14px;">
+    <p style="margin:0 0 6px; font-weight:600; color:#fff">Flatten & condition in one go:</p>
+    <textarea class="py-snippet" rows="11" spellcheck="false">nested = [[1,2,3],[4,5],[6],[7,8,9]]
+flat_all = [item for group in nested for item in group]
+flat_gt5 = [item for group in nested for item in group if item > 5]
+print("All:", flat_all)
+print(">5:", flat_gt5)
+
+# Equivalent readable loop
+flat_loop = []
+for group in nested:
+    for item in group:
+        if item > 5:
+            flat_loop.append(item)
+print("Loop >5:", flat_loop)</textarea>
+    <div class="actions" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+      <button class="run-btn btn-primary" type="button">Run</button>
+      <button class="clear-btn btn-ghost" type="button">Clear Output</button>
+    </div>
+    <pre class="output" aria-live="polite" style="margin-top:8px; background:#0d0d0d; color:#d6f5d6; padding:10px; border-radius:8px; min-height:54px; font-size:0.85rem"></pre>
+  </div>
+  </div>
+</section>
+
+<!-- ====== Loops Card ====== -->
+<section id="python-loops" class="page">
+  <div class="info-card" style="max-width:950px;margin:40px auto;">
+    <img class="card-top-image" src="../images/HTML 03.jpg" alt="Python Loops">
+    <h3>Loops in Python</h3>
+    <p>Loops repeat a block of code. Two primary forms: <strong>for</strong> (definite) and <strong>while</strong> (indefinite).</p>
+    <h4>For Loop</h4>
+    <pre><code>fruits = ["apple","banana","cherry"]
+for f in fruits:
+    print(f"I love {f}!")</code></pre>
+    <h4>range()</h4>
+    <pre><code>for n in range(1, 6):
+    print("Number:", n)</code></pre>
+    <h4>While Loop</h4>
+    <pre><code>count = 1
+while count <= 5:
+    print("Count:", count)
+    count += 1</code></pre>
+    <h4>break / continue</h4>
+    <pre><code>for n in range(1, 10):
+    if n == 5:
+        print("Break at 5")
+        break
+    elif n % 2 == 0:
+        continue
+    print("Process", n)</code></pre>
+    <h4>Nested Loops</h4>
+    <pre><code>for i in range(1,4):
+    for j in range(1,4):
+        print(i, j)</code></pre>
+    <p class="muted">Use <code>break</code> to exit, <code>continue</code> to skip, and nest loops carefully—they scale multiplicatively.</p>
+    <hr>
+    <h4>Try it live: loop patterns</h4>
+    <div class="code-card" data-example="loop-accumulate" style="background:#121212; border:1px solid #242424; border-radius:12px; padding:14px; margin-top:12px;">
+      <p style="margin:0 0 6px; font-weight:600; color:#fff">Sum numbers with for:</p>
+      <textarea class="py-snippet" rows="9" spellcheck="false">total = 0
+for n in range(1, 11):
+    total += n
+print("1..10 total:", total)
+
+# Using sum built-in for comparison
+print("Built-in sum:", sum(range(1,11)))</textarea>
+      <div class="actions" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+        <button class="run-btn btn-primary" type="button">Run</button>
+        <button class="clear-btn btn-ghost" type="button">Clear Output</button>
+      </div>
+      <pre class="output" aria-live="polite" style="margin-top:8px; background:#0d0d0d; color:#d6f5d6; padding:10px; border-radius:8px; min-height:54px; font-size:0.85rem"></pre>
+    </div>
+
+    <div class="code-card" data-example="loop-while" style="background:#121212; border:1px solid #242424; border-radius:12px; padding:14px; margin-top:14px;">
+      <p style="margin:0 0 6px; font-weight:600; color:#fff">Countdown with while:</p>
+      <textarea class="py-snippet" rows="9" spellcheck="false">count = 5
+while count > 0:
+    print("Tick", count)
+    count -= 1
+print("Blast off!")</textarea>
+      <div class="actions" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+        <button class="run-btn btn-primary" type="button">Run</button>
+        <button class="clear-btn btn-ghost" type="button">Clear Output</button>
+      </div>
+      <pre class="output" aria-live="polite" style="margin-top:8px; background:#0d0d0d; color:#d6f5d6; padding:10px; border-radius:8px; min-height:54px; font-size:0.85rem"></pre>
+    </div>
+
+    <div class="code-card" data-example="loop-break-continue" style="background:#121212; border:1px solid #242424; border-radius:12px; padding:14px; margin-top:14px;">
+      <p style="margin:0 0 6px; font-weight:600; color:#fff">Break / continue demo:</p>
+      <textarea class="py-snippet" rows="12" spellcheck="false">for n in range(1, 12):
+    if n % 2 == 0:
+        continue  # skip evens
+    if n == 9:
+        print("Stopping early at", n)
+        break
+    print("Odd:", n)
+else:
+    print("Loop finished without break")</textarea>
+      <div class="actions" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+        <button class="run-btn btn-primary" type="button">Run</button>
+        <button class="clear-btn btn-ghost" type="button">Clear Output</button>
+      </div>
+      <pre class="output" aria-live="polite" style="margin-top:8px; background:#0d0d0d; color:#d6f5d6; padding:10px; border-radius:8px; min-height:54px; font-size:0.85rem"></pre>
+    </div>
+  </div>
+</section>
+
+<script defer src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
 <script>
-     
+// Lazy Pyodide usage for this page's trial examples
+(function(){
+  let pyReady = false; let pyPromise = null;
+  async function ensurePy(){
+    if(pyReady) return window.pyodide;
+    if(!pyPromise){
+      if(typeof loadPyodide !== 'function'){
+        // wait briefly for script tag
+        await new Promise(r=>setTimeout(r,200));
+      }
+      pyPromise = loadPyodide();
+    }
+    window.pyodide = await pyPromise;
+    pyReady = true; return window.pyodide;
+  }
+  function attach(){
+    document.querySelectorAll('.code-card').forEach(card => {
+      const runBtn = card.querySelector('.run-btn');
+      const clearBtn = card.querySelector('.clear-btn');
+      const ta = card.querySelector('textarea.py-snippet');
+      const out = card.querySelector('pre.output');
+      if(!runBtn || !ta || !out) return;
+      clearBtn && clearBtn.addEventListener('click', () => { out.textContent=''; });
+      runBtn.addEventListener('click', async () => {
+        runBtn.disabled = true; const orig = runBtn.textContent; runBtn.textContent='Running…';
+        try{
+          const py = await ensurePy();
+          py.setStdout({ batched: s => { out.textContent += s; } });
+          py.setStderr({ batched: s => { out.textContent += s; } });
+          out.textContent='';
+          await py.runPythonAsync(ta.value);
+        }catch(err){ out.textContent = (err && err.message) ? err.message : String(err); }
+        finally{ runBtn.disabled=false; runBtn.textContent=orig; }
+      });
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', attach); else attach();
+})();
 </script>
 
-  <!-- ====== Introduction to conditinal if,else,elf statement in python====== -->
-<section id="python-conditinal-statement" style="
-    display: flex;
-    justify-content: center;
-    padding: 4rem 2rem;
-    background-image: url('../images/water fall.jpg');
-    background-size: cover;       /* Makes image cover the section */
-    background-position: center;  /* Centers the image */
-    background-repeat: no-repeat; /* Prevent tiling */
-    background-attachment: scroll; /* Optional, prevents fixed zoom */
-">
+<!-- Share buttons for each card (info-card and code-card) -->
+<script>
+(function(){
+  function sectionUrlFor(el){
+    let anchorId = el.closest('section')?.id || el.id;
+    if(!anchorId){ el.id = 'card-' + Math.random().toString(36).slice(2,8); anchorId = el.id; }
+    return window.location.origin + window.location.pathname + '#' + encodeURIComponent(anchorId);
+  }
+  function makeShareBtn(){
+    const btn = document.createElement('button'); btn.className='icon-btn'; btn.title='Share';
+    const img = document.createElement('img'); img.src='../images/share logo.jpg'; img.alt='Share'; img.className='share-icon';
+    btn.appendChild(img); return btn;
+  }
+  function wireShare(btn, el){
+    btn.addEventListener('click', () => {
+      const url = sectionUrlFor(el);
+      const title = (el.querySelector('h3')?.textContent) || document.title;
+      const shareData = { title, text: 'Check this topic on Coding with Tawfiq', url };
+      if(navigator.share){ navigator.share(shareData).catch(()=>fallbackCopy(url)); }
+      else fallbackCopy(url);
+    });
+  }
+  function fallbackCopy(url){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(()=> alert('Link copied: '+url)).catch(()=>{ prompt('Copy section link:', url); });
+    } else { prompt('Copy section link:', url); }
+  }
+  function addShares(){
+    // For info-cards, append a right-aligned icon row if missing
+    document.querySelectorAll('.info-card').forEach(card => {
+      if(card.querySelector('.inline-share-actions')) return;
+      const actions = document.createElement('div'); actions.className='card-actions inline-share-actions';
+      const left = document.createElement('div'); const right = document.createElement('div'); right.className='right';
+      const btn = makeShareBtn(); wireShare(btn, card); right.appendChild(btn);
+      actions.appendChild(left); actions.appendChild(right); card.appendChild(actions);
+    });
+    // For code-cards, add a share icon into the existing actions row
+    document.querySelectorAll('.code-card').forEach(card => {
+      if(card.querySelector('.code-share-btn')) return;
+      const actions = card.querySelector('.actions') || (()=>{ const d=document.createElement('div'); d.className='actions'; card.appendChild(d); return d; })();
+      const btn = makeShareBtn(); btn.classList.add('code-share-btn'); wireShare(btn, card);
+      // place at end of actions row
+      actions.appendChild(btn);
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', addShares); else addShares();
+})();
+</script>
 
-  <div style="
-      max-width: 900px; 
-      width: 100%; 
-      background-color: rgba(173, 22, 2, 0.952); 
-      border-radius: 15px; 
-      box-shadow: 0 8px 20px rgba(247, 238, 238, 0.2); 
-      overflow: hidden; 
-      text-align: center; 
-      padding: 2rem;">
-
-    <!-- Image at top of the card -->
-    <div style="
-        width: 100%; 
-        height: 300px; 
-        background-image: url('images/conditinal\ state\ example.PNG'); 
-        background-size: cover; 
-        background-position: center; 
-        border-radius: 10px;">
-    </div>
-
-    <!-- Content under image -->
-    <div style="margin-top: 2rem;">
-      <h2 style="margin-bottom: 2rem; color: #f0eeee;"><b>PYTHON CONDITIONAL STATEMENT</b></h2>
-
-<section>
-  <article>
-    <p>🔀 <strong>Conditional Statements</strong></p>
-    <p>As you start this lesson, make sure you have a good understanding of <strong>boolean variables</strong> and expressions since they are building blocks of conditional statements.</p>
-    <p>Conditional statements help in the decision-making process. For example:</p>
-    <p>• “Are you hungry? If so, then eat” is a conditional statement.</p>
-    <p>Phrased as: If you’re hungry, then eat.</p>
-
-    <p>Let's break this down to pick a boolean expression in our conditional statement:</p>
-    <p>• “Are you hungry” is the boolean expression here, so the conditional statement is checking if it’s True.</p>
-    <p>• If <code>“are you hungry” == True</code>, the conditional statement will be executed and you will eat.</p>
-    <p>• If [you are hungry], then [eat food]</p>
-
-    <p>In computer programming, we use the <code>if</code> statement to run a block of code only when a certain condition is met.</p>
-
-    <p>In Python, there are three forms of the <code>if...else</code> statement:</p>
-    <p>1. if statement</p>
-    <p>2. if...else statement</p>
-    <p>3. if...elif...else statement</p>
-
-    <p>1️⃣ <strong>Python if Statement</strong></p>
-    <p>The basic syntax for the <code>if</code> statement:</p>
-    <p><code>
-# Example of a basic if statement<br>
-temperature = 30<br>
-if temperature > 25:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;print("It's a hot day!")
-    </code></p>
-    <p>The <code>if</code> statement evaluates the condition:</p>
-    <p>• If condition is True, the code inside the body of <code>if</code> is executed.</p>
-    <p>• If condition is False, the code inside the body of <code>if</code> is skipped.</p>
-    <p>Practice more using relational operators (<code>></code>, <code>>=</code>, <code><</code>, <code><=</code>) and boolean operators (<code>and</code>, <code>or</code>, <code>not</code>).</p>
-
-    <p>2️⃣ <strong>Python if...else Statement</strong></p>
-    <p>Syntax:</p>
-    <p><code>
-# Example of an if-else statement<br>
-temperature = 20<br>
-if temperature > 25:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;print("It's a hot day!")<br>
-else:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;print("It's a cool day!")
-    </code></p>
-    <p>If the condition evaluates to True:</p>
-    <p>• Code inside <code>if</code> is executed.</p>
-    <p>• Code inside <code>else</code> is skipped.</p>
-    <p>If the condition evaluates to False:</p>
-    <p>• Code inside <code>else</code> is executed.</p>
-    <p>• Code inside <code>if</code> is skipped.</p>
-
-    <p>3️⃣ <strong>Python if...elif...else Statement</strong></p>
-    <p>Use <code>if...elif...else</code> when choosing between more than two alternatives:</p>
-    <p><code>
-# Example of an if...elif...else statement<br>
-temperature = 15<br>
-if temperature > 25:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;print("It's a hot day!")<br>
-elif temperature > 15:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;print("It's a warm day!")<br>
-else:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;print("It's a cold day!")
-    </code></p>
-    <p>Here:</p>
-    <p>1. If the first condition is True, code block 1 is executed.</p>
-    <p>2. If the first condition is False, the next condition is evaluated.</p>
-    <p>3. If the second condition is True, code block 2 is executed.</p>
-    <p>4. If all conditions are False, code block 3 is executed.</p>
-
-    <p>📝 <strong>Test Yourself:</strong></p>
-    <p>Write an <code>if/elif/else</code> statement for a college grading system:</p>
-    <p>• If grade is 90 or higher, print "A"</p>
-    <p>• Else if grade is 80 or higher, print "B"</p>
-    <p>• Else if grade is 70 or higher, print "C"</p>
-    <p>• Else if grade is 60 or higher, print "D"</p>
-    <p>• Else, print "F"</p>
-
-    <p>🔗 <strong>More Resources:</strong></p>
-    <ul>
-      <li><a href="https://www.programiz.com/python-programming/if-elif-else" target="_blank">Programiz — Python if/elif/else</a></li>
-      <li><a href="https://www.codecademy.com/resources/docs/python/conditionals" target="_blank">Codecademy — Python Conditionals</a></li>
-    </ul>
-  </article>
-</section>
-    </div>
-  </div>
-</section>
-
-
-  <!-- ====== LIST COMPREHENSION in python====== -->
-<section id="python-functions" style="
-    display: flex;
-    justify-content: center;
-    padding: 4rem 2rem;
-    background-image: url('../images/water fall.jpg');
-    background-size: cover;       /* Makes image cover the section */
-    background-position: center;  /* Centers the image */
-    background-repeat: no-repeat; /* Prevent tiling */
-    background-attachment: scroll; /* Optional, prevents fixed zoom */
-">
-
-  <div style="
-      max-width: 900px; 
-      width: 100%; 
-      background-color: rgb(189, 35, 15); 
-      border-radius: 15px; 
-      box-shadow: 0 8px 20px rgba(247, 238, 238, 0.2); 
-      overflow: hidden; 
-      text-align: center; 
-      padding: 2rem;">
-
-    <!-- Image at top of the card -->
-    <div style="
-        width: 100%; 
-        height: 300px; 
-        background-image: url('images/HTML\ 03.jpg'); 
-        background-size: cover; 
-        background-position: center; 
-        border-radius: 10px;">
-    </div>
-
-    <!-- Content under image -->
-    <div style="margin-top: 2rem;">
-      <h2 style="margin-bottom: 2rem; color: #f0eeee;"><b>LIST COMPREHENSION IN PYTHON</b></h2>
-
-<section>
-  <article>
-    <p>📝 <strong>List Comprehensions in Python</strong></p>
-    <p>List comprehensions provide a concise and elegant way to create and manipulate lists. They offer a more readable and expressive alternative to traditional loops for generating lists.</p>
-
-    <p>What is a List Comprehension?</p>
-    <p>A list comprehension is a compact syntax for creating a list by evaluating an expression for each element in an iterable, optionally filtering elements based on a condition.</p>
-
-    <p>Syntax:</p>
-    <p><code>[expression for item in iterable if condition]</code></p>
-    <p>• <code>expression</code>: The value or transformation applied to each element.</p>
-    <p>• <code>item</code>: A variable that represents each element in the iterable.</p>
-    <p>• <code>iterable</code>: A sequence (like a list, tuple, or range) to iterate over.</p>
-    <p>• <code>condition</code>: (Optional) A filter that determines whether to include the element.</p>
-
-    <p>Basic Example:</p>
-    <p><code>
-# Traditional loop<br>
-squares = []<br>
-for x in range(5):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;squares.append(x**2)<br>
-# List comprehension<br>
-squares = [x**2 for x in range(5)]<br>
-print(squares)  # Output: [0, 1, 4, 9, 16]
-    </code></p>
-
-    <p>Using Conditions in List Comprehensions:</p>
-    <p><code>
-# List comprehension with a condition<br>
-even_numbers = [x for x in range(10) if x % 2 == 0]<br>
-print(even_numbers)  # Output: [0, 2, 4, 6, 8]
-    </code></p>
-
-    <p>Nested List Comprehensions:</p>
-    <p><code>
-# Create a 3x3 matrix using nested list comprehensions<br>
-matrix = [[i * j for j in range(1, 4)] for i in range(1, 4)]<br>
-print(matrix)  # Output: [[1, 2, 3], [2, 4, 6], [3, 6, 9]]
-    </code></p>
-
-    <p>Examples of List Comprehensions:</p>
-    <p>1. Transforming Data:</p>
-    <p><code>
-names = ["Alice", "Bob", "Charlie"]<br>
-uppercased_names = [name.upper() for name in names]<br>
-print(uppercased_names)  # Output: ['ALICE', 'BOB', 'CHARLIE']
-    </code></p>
-
-    <p>2. Filtering Data:</p>
-    <p><code>
-numbers = [10, 15, 20, 25, 30]<br>
-divisible_by_5 = [num for num in numbers if num % 5 == 0]<br>
-print(divisible_by_5)  # Output: [10, 15, 20, 25, 30]
-    </code></p>
-
-    <p>3. Flattening a List:</p>
-    <p><code>
-nested_list = [[1, 2], [3, 4], [5, 6]]<br>
-flat_list = [item for sublist in nested_list for item in sublist]<br>
-print(flat_list)  # Output: [1, 2, 3, 4, 5, 6]
-    </code></p>
-
-    <p>Advantages of List Comprehensions:</p>
-    <p>1. Conciseness: More compact than traditional loops.</p>
-    <p>2. Readability: Easier to understand when used appropriately.</p>
-    <p>3. Performance: Faster than loops in many cases due to optimization.</p>
-
-    <p>When Not to Use List Comprehensions:</p>
-    <p>While list comprehensions are powerful, they can become hard to read if too complex. In such cases, traditional loops or generator functions may be better:</p>
-    <p><code>
-# Complex list comprehension (less readable)<br>
-result = [x * y for x in range(10) for y in range(5) if x + y > 5]<br>
-# Better as a loop (more readable)<br>
-result = []<br>
-for x in range(10):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;for y in range(5):<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if x + y > 5:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result.append(x * y)
-    </code></p>
-
-    <p>Conclusion:</p>
-    <p>List comprehensions are a versatile and efficient tool in Python, enabling you to write cleaner and faster code. They are ideal for transforming, filtering, or generating lists in a Pythonic way. Start practicing them to enhance your coding skills!</p>
-  </article>
-</section>
-
-
-  </div>
-</section>
-
-  <!-- ====== LOOPS in python====== -->
-<section id="python-loops" style="
-    display: flex;
-    justify-content: center;
-    padding: 4rem 2rem;
-    background-image: url('../images/water fall.jpg');
-    background-size: cover;       /* Makes image cover the section */
-    background-position: center;  /* Centers the image */
-    background-repeat: no-repeat; /* Prevent tiling */
-    background-attachment: scroll; /* Optional, prevents fixed zoom */
-">
-
-  <div style="
-      max-width: 900px; 
-      width: 100%; 
-      background-color: rgb(189, 35, 15); 
-      border-radius: 15px; 
-      box-shadow: 0 8px 20px rgba(247, 238, 238, 0.2); 
-      overflow: hidden; 
-      text-align: center; 
-      padding: 2rem;">
-
-    <!-- Image at top of the card -->
-    <div style="
-        width: 100%; 
-        height: 300px; 
-        background-image: url('images/HTML\ 03.jpg'); 
-        background-size: cover; 
-        background-position: center; 
-        border-radius: 10px;">
-    </div>
-
-    <!-- Content under image -->
-    <div style="margin-top: 2rem;">
-      <h2 style="margin-bottom: 2rem; color: #f0eeee;"><b>LOOPS IN PYTHON</b></h2>
-
-<section>
-  <article>
-    <p>🔁 <strong>Python Loops</strong></p>
-    <p>In computer programming, loops are used to repeat a block of code. This process is called iteration.</p>
-    <p>There are 2 types of loops in Python:</p>
-    <p>• <strong>for loop</strong></p>
-    <p>• <strong>while loop</strong></p>
-    <p>Programming languages like Python implement two types of iteration:</p>
-    <p>1. Indefinite iteration: Number of times the loop executes depends on a condition.</p>
-    <p>2. Definite iteration: Number of times the loop executes is predefined (e.g., based on collection size).</p>
-
-    <p>With for loops, we know in advance how many times the loop will iterate because we work on a collection of predefined length.</p>
-
-    <p>For loop syntax:</p>
-    <p><code>
-# Example of a for loop<br>
-fruits = ["apple", "banana", "cherry"]<br>
-for fruit in fruits:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;print(f"I love {fruit}!")
-    </code></p>
-
-    <p>Example Explanation:</p>
-    <p>1. List: <code>fruits</code> contains "apple", "banana", "cherry".</p>
-    <p>2. Loop: The for loop iterates through each item.</p>
-    <p>3. Action: <code>fruit</code> represents the current item, and <code>print</code> outputs a message.</p>
-
-    <p>For Loops: Using <code>range()</code>:</p>
-    <p>A range is a series of values between two numbers. We use <code>range()</code> to generate this sequence.</p>
-    <p><code>
-five_steps = range(5)<br>
-# five_steps contains: 0, 1, 2, 3, 4<br>
-for number in range(1, 6):  # Loops from 1 to 5<br>
-&nbsp;&nbsp;&nbsp;&nbsp;print(f"Number: {number}")
-    </code></p>
-
-    <p>While Loops:</p>
-    <p>A while loop runs instructions as long as a condition is True.</p>
-    <p><code>
-count = 1<br>
-while count <= 5:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;print(f"Count: {count}")<br>
-&nbsp;&nbsp;&nbsp;&nbsp;count += 1  # Increment the counter
-    </code></p>
-
-    <p>Loop controls: <strong>break</strong> and <strong>continue</strong></p>
-    <p><code>
-for number in range(1, 10):  # Loop through 1 to 9<br>
-&nbsp;&nbsp;&nbsp;&nbsp;if number == 5:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print("Breaking the loop at 5")<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break  # Exit loop<br>
-&nbsp;&nbsp;&nbsp;&nbsp;elif number % 2 == 0:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(f"Skipping {number} because it's even")<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue  # Skip this iteration<br>
-&nbsp;&nbsp;&nbsp;&nbsp;print(f"Processing number: {number}")
-    </code></p>
-
-    <p>Nested Loops:</p>
-    <p>Loops can be nested inside other loops. Useful for iterating over nested lists.</p>
-    <p><code>
-for i in range(1, 4):  # Outer loop<br>
-&nbsp;&nbsp;&nbsp;&nbsp;for j in range(1, 4):  # Inner loop<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(f"Outer loop: {i}, Inner loop: {j}")
-    </code></p>
-
-    <p>More Resources for loops:</p>
-    <ul>
-      <li><a href="https://www.codecademy.com/resources/docs/python/loops" target="_blank">Codecademy — Loops</a></li>
-      <li><a href="https://www.programiz.com/python-programming/if-elif-else" target="_blank">Programiz — If, Elif, Else</a></li>
-      <li><a href="https://www.programiz.com/python-programming/for-loop" target="_blank">Programiz — For Loop</a></li>
-      <li><a href="https://www.programiz.com/python-programming/while-loop" target="_blank">Programiz — While Loop</a></li>
-      <li><a href="https://www.programiz.com/python-programming/break-continue" target="_blank">Programiz — Break & Continue</a></li>
-    </ul>
-  </article>
-</section>
-
-  </div>
-</section>
-
-   <!-- ====== FOOTER ====== -->
+   <!-- ====== FOOTER (match index style) ====== -->
   <footer id="footer">
-    <p>© 2025 Coding with Tawfiq. All rights reserved.</p>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="/images/coding with tawfiq.jpg" alt="Logo">
+        <span class="footer-copy">© <span id="footerYear"></span> Coding with Tawfiq</span>
+      </div>
+      <div class="footer-links">
+        <a href="/index.html">Home</a>
+        <a href="/try-quiz.html">Practice</a>
+        <a href="/findjobs.html">Find Jobs</a>
+      </div>
+      <div class="footer-right">
+        <div class="footer-social">
+          <a href="#" aria-label="GitHub"><i class="bi bi-github"></i></a>
+          <a href="#" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+        </div>
+      </div>
+    </div>
   </footer>
+  <script>try{document.getElementById('footerYear').textContent = new Date().getFullYear();}catch(e){}</script>

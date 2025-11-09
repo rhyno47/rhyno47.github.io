@@ -3,21 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Coding with Tawfiq | Home</title>
+  <title>Coding with Tawfiq | Introduction to HTML</title>
   <link rel="stylesheet" href="assets/home.css" />
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
+      rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
   </head>
   <body>
     
 
 <!-- site-native navbar (uses .new-navbar from assets/home.css) -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
-<nav class="new-navbar" role="navigation">
+<nav class="new-navbar" role="navigation" style="position:sticky; top:0; z-index:1000;">
   <div class="logo"><a href="index.html"><img src="images/coding with tawfiq.jpg" alt="Logo"></a></div>
   <button class="hamburger" aria-label="Toggle menu">
     <span></span>
@@ -39,13 +40,67 @@
 <script src="/assets/navbar.js"></script>
 
 
+    <!-- Removed top canvas demo block to relocate at end -->
 <!-- ====== HERO SECTION ====== -->
-  <section id="hero">
+  <section id="hero" class="site-hero" style="margin-top:0; padding-top:60px;">
     <div class="hero-content">
-      <h1><code>"Skills To Give You Confidence To Start Your own Website"</code></h1>
+      <h1>Introduction to HTML</h1>
+      <p class="lead" style="color:rgba(255,255,255,0.92)">Build strong fundamentals in HTML5, structure, semantics, accessibility, and SEO basics.</p>
+      <div class="hero-actions" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+        <a class="card-link" href="#introduction-web-development">Overview</a>
+        <a class="card-link" href="#purporse-of-html5">Why HTML5</a>
+        <a class="card-link" href="#HTML5">HTML5 Basics</a>
+        <a class="card-link" href="#Accessibility-SEO%20Basics">Accessibility & SEO</a>
+        <a class="card-link" href="DOCUMENTS PDF/WEB DEVELOPMENT AND HTML COMPLETE THE FIRST/WHAT IS WEB DEVELOPMENT 1/🌟 Welcome to the World of HTML5 3.pdf" download>Download Notes</a>
       </div>
     </div>
   </section>
+
+  <style>
+    /* Ensure hero appears immediately after navbar without unexpected preceding elements */
+    body{margin:0;}
+    .new-navbar + #hero.site-hero{margin-top:0 !important;}
+    /* Fallback: if any stray text nodes or comments create space, force hero upward */
+    #hero.site-hero{scroll-margin-top:90px;}
+    /* Page-scoped styling for HTML Intro (match site theme) */
+    #introduction-web-development, #purporse-of-html5, #HTML5, #Accessibility-SEO\ Basics { scroll-margin-top: 90px; }
+    .html-card{ background: linear-gradient(145deg,#680202,#8b0b0b); border:1px solid rgba(255,255,255,0.12); color:#f6f6f6; }
+    .html-card h2, .html-card h3{ color:#fff }
+    .html-card p{ color:#f0f0f0; line-height:1.6 }
+    .html-card code{ display:inline-block; max-width:100%; overflow-x:auto }
+    .html-card p code{ background: rgba(0,0,0,0.35); padding:2px 4px; border-radius:4px }
+    /* code-card visual tweaks to align with theme */
+    .code-card { background: #750707; }
+    .code-card h3 { color:#fff; }
+    .code-card p { color:#eee; }
+    /* Consistent run button styling (replace blue) */
+    .run-btn{ background-color:#680202; color:#fff; border:none; padding:10px 20px; border-radius:8px; font-weight:600; cursor:pointer }
+    .run-btn:hover{ background-color:#8b0b0b }
+    @media (max-width: 780px){
+      section#introduction-web-development, section#purporse-of-html5, section#HTML5, section#Accessibility-SEO\ Basics{ padding:2.2rem 1rem !important }
+      .info-card.html-card{ padding:1.4rem 1.3rem !important; border-radius:14px !important }
+      .info-card.html-card h2{ font-size:1.35rem !important }
+      .info-card.html-card p, .info-card.html-card code{ font-size:0.95rem !important }
+    }
+    @media (max-width:520px){
+      .info-card.html-card{ padding:1.1rem 1rem !important }
+      .info-card.html-card h2{ font-size:1.22rem !important }
+      .info-card.html-card p{ font-size:0.92rem !important }
+    }
+  </style>
+
+  <!-- Global runCode handler (single definition) -->
+  <script>
+    function runCode(btn){
+      try{
+        const card = btn.closest('.code-card');
+        if(!card) return;
+        const iframe = card.querySelector('iframe');
+        const ta = card.querySelector('textarea');
+        if(iframe && ta){ iframe.srcdoc = ta.value; }
+      }catch(e){ console.error('runCode error', e); }
+    }
+  </script>
 
     <!-- ====== Introduction to website development ====== -->
     <section
@@ -54,36 +109,13 @@
         display: flex;
         justify-content: center;
         padding: 4rem 2rem;
-        background-image: url('../images/water fall.jpg');
-        background-size: cover; /* Makes image cover the section */
-        background-position: center; /* Centers the image */
-        background-repeat: no-repeat; /* Prevent tiling */
-        background-attachment: scroll; /* Optional, prevents fixed zoom */
+        background: transparent;
+        margin-top:0;
       "
     >
-      <div
-        style="
-          max-width: 900px;
-          width: 100%;
-          background-color: rgb(158, 27, 9);
-          border-radius: 15px;
-          box-shadow: 0 8px 20px rgba(247, 238, 238, 0.2);
-          overflow: hidden;
-          text-align: center;
-          padding: 2rem;
-        "
-      >
+      <div class="info-card html-card" style="max-width: 950px; width: 100%; border-radius: 18px; overflow: hidden; text-align: center; padding: 2rem 2.2rem;">
         <!-- Image at top of the card -->
-        <div
-          style="
-            width: 100%;
-            height: 300px;
-            background-image: url('images/HTML\ 02.jpg');
-            background-size: cover;
-            background-position: center;
-            border-radius: 10px;
-          "
-        ></div>
+        <div style="width: 100%; height: 300px; background-image: url('images/HTML\ 02.jpg'); background-size: cover; background-position: center; border-radius: 12px;"></div>
 
         <!-- Content under image -->
         <div style="margin-top: 2rem">
@@ -101,7 +133,7 @@
             </p>
 
             <!-- 🌟 Try It Yourself Card -->
-<div class="code-card" style="max-width: 100%; background: #750707; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 20px; margin: 20px 0;">
+<div class="code-card" style="max-width: 100%; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 20px; margin: 20px 0;">
   <h3 style="color: #333;">💻 <code>Try It Yourself</code></h3>
   <p style="color: #555;">Edit the code below and click <b>Run</b> to see the result.</p>
 
@@ -144,19 +176,10 @@ console.log("Welcome to Coding with Tawfiq!");
 </html>
   </textarea>
 
-  <button onclick="runCode(this)" style="margin-top: 10px; padding: 10px 20px; background-color: #007bff; border: none; color: white; font-weight: bold; border-radius: 8px; cursor: pointer;">▶ Run</button>
+  <button onclick="runCode(this)" class="run-btn" style="margin-top:10px">▶ Run</button>
 
   <iframe style="width: 100%; height: 300px; margin-top: 15px; border: 2px solid #000; border-radius: 8px; background: #fff;"></iframe>
 </div>
-
-<script>
-function runCode(button) {
-  const card = button.closest('.code-card');
-  const iframe = card.querySelector('iframe');
-  const code = card.querySelector('#code').value;
-  iframe.srcdoc = code;
-}
-</script>
 
             <p>
                Web development is the art and science of creating websites and web applications that people 
@@ -240,11 +263,6 @@ function runCode(button) {
     </section>
 
 
-<!-- native ad unit -->
-
-<script>
-     
-</script>
 
         <!-- ====== purpose of html5 in web development ====== -->
     <section
@@ -253,25 +271,11 @@ function runCode(button) {
         display: flex;
         justify-content: center;
         padding: 4rem 2rem;
-        background-image: url('../images/water fall.jpg');
-        background-size: cover; /* Makes image cover the section */
-        background-position: center; /* Centers the image */
-        background-repeat: no-repeat; /* Prevent tiling */
-        background-attachment: scroll; /* Optional, prevents fixed zoom */
+        background: transparent;
+        margin-top:0;
       "
     >
-      <div
-        style="
-          max-width: 900px;
-          width: 100%;
-          background-color: #9c0909f3;
-          border-radius: 15px;
-          box-shadow: 0 8px 20px rgba(247, 238, 238, 0.2);
-          overflow: hidden;
-          text-align: center;
-          padding: 2rem;
-        "
-      >
+      <div class="info-card html-card" style="max-width: 950px; width: 100%; border-radius: 18px; overflow: hidden; text-align: center; padding: 2rem 2.2rem;">
         <!-- Image at top of the card -->
         <div
           style="
@@ -298,7 +302,7 @@ and flexibility of web applications and websites. <b>Below are its key roles and
             </p>
 
 <!-- 🌟 Try It Yourself Card -->
-<div class="code-card" style="max-width: 100%; background: #750707; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); padding: 20px; margin: 20px 0;">
+<div class="code-card" style="max-width: 100%; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); padding: 20px; margin: 20px 0;">
   <h3 style="color: #fff;">💻 <code>Try It Yourself - Full HTML5 Webpage</code></h3>
   <p style="color: #ddd;"><code>Edit or  Run to see your own mini website!you can copy code free!</code></p>
 
@@ -427,19 +431,10 @@ and flexibility of web applications and websites. <b>Below are its key roles and
 </html>
   </textarea>
 
-  <button onclick="runCode(this)" style="margin-top: 10px; padding: 10px 20px; background-color: #00bfff; border: none; color: white; font-weight: bold; border-radius: 8px; cursor: pointer;">▶ Run</button>
+  <button onclick="runCode(this)" class="run-btn" style="margin-top:10px">▶ Run</button>
 
   <iframe style="width: 100%; height: 350px; margin-top: 15px; border: 2px solid #000; border-radius: 8px; background: #fff;"></iframe>
 </div>
-
-<script>
-function runCode(button) {
-  const card = button.closest('.code-card');
-  const iframe = card.querySelector('iframe');
-  const code = card.querySelector('#code').value;
-  iframe.srcdoc = code;
-}
-</script>
 
 
          <p>
@@ -648,36 +643,12 @@ development.
         display: flex;
         justify-content: center;
         padding: 4rem 2rem;
-        background-image: url('../images/water fall.jpg');
-        background-size: cover; /* Makes image cover the section */
-        background-position: center; /* Centers the image */
-        background-repeat: no-repeat; /* Prevent tiling */
-        background-attachment: scroll; /* Optional, prevents fixed zoom */
+        background: transparent;
       "
     >
-      <div
-        style="
-          max-width: 900px;
-          width: 100%;
-          background-color: rgb(189, 35, 15);
-          border-radius: 15px;
-          box-shadow: 0 8px 20px rgba(247, 238, 238, 0.2);
-          overflow: hidden;
-          text-align: center;
-          padding: 2rem;
-        "
-      >
+      <div class="info-card html-card" style="max-width: 950px; width: 100%; border-radius: 18px; overflow: hidden; text-align: center; padding: 2rem 2.2rem;">
         <!-- Image at top of the card -->
-        <div
-          style="
-            width: 100%;
-            height: 300px;
-            background-image: url('images/HTML\ 01.jpg');
-            background-size: cover;
-            background-position: center;
-            border-radius: 10px;
-          "
-        ></div>
+        <div style="width: 100%; height: 300px; background-image: url('images/HTML\ 01.jpg'); background-size: cover; background-position: center; border-radius: 12px;"></div>
 
         <!-- Content under image -->
         <div style="margin-top: 2rem">
@@ -727,61 +698,111 @@ beautiful web pages!</P>
               <p></p>
           </div>
 
-          <!-- Buttons -->
-            <a
-              href="DOCUMENTS PDF/WEB DEVELOPMENT AND HTML COMPLETE THE FIRST/WHAT IS WEB DEVELOPMENT 1/🌟 Welcome to the World of HTML5 3.pdf"
-              download
-              style="
-                display: inline-block;
-                padding: 0.6rem 1.2rem;
-                border-radius: 6px;
-                background-color: #680202;
-                border: 1px solid #680202;
-                color: white;
-                font-weight: bold;
-                text-decoration: none;
-              "
-            >
-              View more PAGES on this section here
-            </a>
+          <!-- Live Example: Basic Elements -->
+          <div class="code-card" style="max-width:100%; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.15); padding:20px; margin:25px 0;">
+            <h3>🔤 <code>Basic Elements Demo</code></h3>
+            <p>Play with headings, paragraphs, lists, and images.</p>
+            <textarea id="code" style="width:100%; height:260px; border:1px solid #9b141488; border-radius:8px; padding:10px; font-family:monospace;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Basic Elements</title>
+<style>
+ body{font-family:Arial; margin:0; padding:18px; background:#fff4f4}
+ h1{color:#b80b0b; margin-top:0}
+ ul{padding-left:20px}
+ img{max-width:120px; border-radius:8px}
+ .box{background:#fff; padding:14px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1)}
+</style>
+</head>
+<body>
+  <h1>HTML Basics</h1>
+  <div class="box">
+    <p>This is a paragraph. Change me!</p>
+    <ul>
+      <li>List Item One</li>
+      <li>List Item Two</li>
+      <li>List Item Three</li>
+    </ul>
+    <img src="https://via.placeholder.com/120" alt="Placeholder">
+  </div>
+</body>
+</html>
+            </textarea>
+            <button onclick="runCode(this)" class="run-btn" style="margin-top:10px">▶ Run</button>
+            <iframe style="width:100%; height:300px; margin-top:15px; border:2px solid #000; border-radius:8px; background:#fff;"></iframe>
           </div>
-        </div>
-      </div>
-    </section>
 
+            <!-- Live Example: Semantic HTML5 Layout -->
+            <div class="code-card" style="max-width:100%; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.1); padding:20px; margin:20px 0;">
+              <h3>🧱 <code>Semantic Layout (header/nav/section/article/footer)</code></h3>
+              <p>Edit and run to preview a simple semantic HTML5 layout.</p>
+              <textarea id="code" style="width:100%; height:320px; border:1px solid #9b141488; border-radius:8px; padding:10px; font-family:monospace;">
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantic Layout</title>
+    <style>
+      body{margin:0; font-family:Arial, sans-serif}
+      header, nav, main, footer{padding:16px}
+      header{background:#b80b0b; color:#fff}
+      nav{background:#8a0a0a}
+      nav a{color:#fff; margin-right:10px; text-decoration:none}
+      main{display:grid; grid-template-columns: 2fr 1fr; gap:16px; padding:20px}
+      article, aside{background:#fff; border-radius:10px; padding:16px; box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+      body{background:#fff4f4}
+      footer{background:#b80b0b; color:#fff; text-align:center}
+      @media(max-width:700px){ main{grid-template-columns:1fr} }
+    </style>
+    </head>
+    <body>
+      <header>
+        <h1>Coding with Tawfiq</h1>
+        <p>HTML5 Semantic Structure</p>
+      </header>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#tutorials">Tutorials</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <main>
+        <article>
+          <h2>Article Area</h2>
+          <p>This is where your main content lives. Use headings and paragraphs for clarity.</p>
+        </article>
+        <aside>
+          <h3>Aside</h3>
+          <p>Useful links or related info can go here.</p>
+        </aside>
+      </main>
+      <footer>
+        <small>© 2025 Coding with Tawfiq</small>
+      </footer>
+    </body>
+    </html>
+              </textarea>
+              <button onclick="runCode(this)" class="run-btn" style="margin-top:10px">▶ Run</button>
+              <iframe style="width:100%; height:340px; margin-top:15px; border:2px solid #000; border-radius:8px; background:#fff;"></iframe>
+            </div>
 
-<!-- native ad unit -->
+            <!-- Buttons -->
+    
+            <!-- Removed misplaced canvas demo (will be reinserted at end) -->
 
-<script>
-     
-</script>
-
-     <!-- ====== Introduction to Introduction to Accessibility and SEO Basics ====== -->
+     <!-- ====== Introduction to Accessibility and SEO Basics ====== -->
     <section
       id="Accessibility-SEO Basics"
       style="
         display: flex;
         justify-content: center;
         padding: 4rem 2rem;
-        background-image: url('../images/water fall.jpg');
-        background-size: cover; /* Makes image cover the section */
-        background-position: center; /* Centers the image */
-        background-repeat: no-repeat; /* Prevent tiling */
-        background-attachment: scroll; /* Optional, prevents fixed zoom */
+        background: transparent;
       "
     >
-      <div
-        style="
-          max-width: 900px;
-          width: 100%;
-          background-color: rgb(189, 35, 15);
-          border-radius: 15px;
-          box-shadow: 0 8px 20px rgba(247, 238, 238, 0.2);
-          overflow: hidden;
-          text-align: center;
-          padding: 2rem;
-        "
-      >
+      <div class="info-card html-card" style="max-width: 950px; width: 100%; border-radius: 18px; overflow: hidden; text-align: center; padding: 2rem 2.2rem;">
         <!-- Image at top of the card -->
         <div
           style="
@@ -864,6 +885,48 @@ standards like WCAG (Web Content Accessibility Guidelines).
               <p></p>
           </div>
 
+          <!-- Live Example: Accessible Form -->
+          <div class="code-card" style="max-width:100%; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.15); padding:20px; margin:25px 0;">
+            <h3>♿ <code>Accessible Form</code></h3>
+            <p>Labels, required fields, and ARIA attributes in action.</p>
+            <textarea id="code" style="width:100%; height:300px; border:1px solid #9b141488; border-radius:8px; padding:10px; font-family:monospace;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Accessible Form</title>
+<style>
+ body{font-family:Arial; background:#fff4f4; margin:0; padding:18px}
+ form{background:#fff; padding:16px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); max-width:400px}
+ label{display:block; margin-top:10px; font-weight:600}
+ input, select{width:100%; padding:8px; margin-top:4px; border:1px solid #ccc; border-radius:6px}
+ button{margin-top:14px; background:#680202; color:#fff; border:none; padding:10px 18px; border-radius:8px; cursor:pointer}
+ button:hover{background:#8b0b0b}
+</style>
+</head>
+<body>
+ <h1>Signup Form</h1>
+ <form aria-label="Signup form">
+   <label for="name">Name</label>
+   <input id="name" name="name" required placeholder="Your name" aria-required="true">
+   <label for="email">Email</label>
+   <input id="email" type="email" name="email" required placeholder="name@example.com" aria-required="true">
+   <label for="role">Role</label>
+   <select id="role" name="role" aria-label="Select role">
+     <option>Student</option>
+     <option>Developer</option>
+     <option>Designer</option>
+   </select>
+   <button type="submit">Submit</button>
+ </form>
+</body>
+</html>
+            </textarea>
+            <button onclick="runCode(this)" class="run-btn" style="margin-top:10px">▶ Run</button>
+            <iframe style="width:100%; height:340px; margin-top:15px; border:2px solid #000; border-radius:8px; background:#fff;"></iframe>
+          </div>
+          </section>
+
           <!-- Buttons -->
             <a
               href="DOCUMENTS PDF/WEB DEVELOPMENT AND HTML COMPLETE THE FIRST/WHAT IS WEB DEVELOPMENT 1/🌟 Welcome to the World of HTML5 3.pdf"
@@ -885,3 +948,119 @@ standards like WCAG (Web Content Accessibility Guidelines).
         </div>
       </div>
     </section>
+
+    <!-- ====== Canvas Demo (moved to end) ====== -->
+    <section id="canvas-demo" style="display:flex; justify-content:center; padding: 2rem 2rem; background: transparent;">
+      <div class="code-card" style="max-width:950px; width:100%; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.15); padding:20px;">
+        <h3>🎨 <code>Canvas Drawing</code></h3>
+        <p>Draw shapes on an HTML5 canvas using JavaScript. Modify colors or add shapes and rerun.</p>
+        <textarea id="code" style="width:100%; height:260px; border:1px solid #9b141488; border-radius:8px; padding:10px; font-family:monospace;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas Demo</title>
+  <style>
+    body{background:#fff4f4; font-family:Arial; margin:0; padding:18px}
+    .wrap{background:#fff; border-radius:10px; padding:16px; box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+    canvas{border:2px solid #000; border-radius:8px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <canvas id="c" width="320" height="200" aria-label="Demo canvas"></canvas>
+  </div>
+  <script>
+    const ctx = document.getElementById('c').getContext('2d');
+    ctx.clearRect(0,0,320,200);
+    // Rectangle
+    ctx.fillStyle = '#b80b0b';
+    ctx.fillRect(10, 10, 120, 80);
+    // Circle
+    ctx.beginPath();
+    ctx.arc(220, 60, 40, 0, Math.PI * 2);
+    ctx.fillStyle = '#680202';
+    ctx.fill();
+    // Text
+    ctx.fillStyle = '#000';
+    ctx.font = '16px Arial';
+    ctx.fillText('HTML5 Canvas!', 10, 120);
+  </script>
+</body>
+</html>
+        </textarea>
+        <button onclick="runCode(this)" class="run-btn" style="margin-top:10px">▶ Run</button>
+        <iframe style="width:100%; height:300px; margin-top:15px; border:2px solid #000; border-radius:8px; background:#fff;"></iframe>
+      </div>
+    </section>
+
+  <!-- Share buttons for each info-card -->
+  <script>
+  (function(){
+    function sectionUrlFor(el){
+      let anchorId = el.closest('section')?.id || el.id;
+      if(!anchorId){ el.id = 'card-' + Math.random().toString(36).slice(2,8); anchorId = el.id; }
+      return window.location.origin + window.location.pathname + '#' + encodeURIComponent(anchorId);
+    }
+    function buildShareButton(card){
+      const btn = document.createElement('button');
+      btn.className='icon-btn share-btn';
+      btn.type='button';
+      btn.setAttribute('aria-label','Share this card');
+      const img = document.createElement('img'); img.src='images/share logo.jpg'; img.alt=''; img.className='share-icon';
+      img.onerror = () => { img.style.display='none'; };
+      const lbl = document.createElement('span'); lbl.className='share-label'; lbl.textContent='Share';
+      btn.appendChild(img); btn.appendChild(lbl);
+      btn.addEventListener('click', () => {
+        const url = sectionUrlFor(card);
+        const title = (card.querySelector('h2, h3, p strong')?.textContent?.trim()) || document.title;
+        const shareData = { title, text: 'Check this topic on Coding with Tawfiq', url };
+        if(navigator.share){ navigator.share(shareData).catch(()=>fallbackCopy(url)); }
+        else fallbackCopy(url);
+      });
+      return btn;
+    }
+    function fallbackCopy(url){
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(()=> alert('Link copied: '+url)).catch(()=>{ prompt('Copy section link:', url); });
+      } else { prompt('Copy section link:', url); }
+    }
+    function addShares(){
+      document.querySelectorAll('.info-card, .code-card').forEach(card => {
+        if(!card.querySelector('.card-share-overlay')){
+          const overlay = document.createElement('div'); overlay.className='card-share-overlay';
+          overlay.appendChild(buildShareButton(card));
+          card.appendChild(overlay);
+        }
+        if(!card.querySelector('.inline-share-actions')){
+          const actions = document.createElement('div'); actions.className='inline-share-actions';
+          actions.appendChild(buildShareButton(card));
+          card.appendChild(actions);
+        }
+      });
+    }
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', addShares); else addShares();
+  })();
+  </script>
+
+   <!-- ====== FOOTER (match index style) ====== -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="/images/coding with tawfiq.jpg" alt="Logo">
+        <span class="footer-copy">© <span id="footerYear"></span> Coding with Tawfiq</span>
+      </div>
+      <div class="footer-links">
+        <a href="/index.html">Home</a>
+        <a href="/try-quiz.html">Practice</a>
+        <a href="/findjobs.html">Find Jobs</a>
+      </div>
+      <div class="footer-right">
+        <div class="footer-social">
+          <a href="#" aria-label="GitHub"><i class="bi bi-github"></i></a>
+          <a href="#" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script>try{document.getElementById('footerYear').textContent = new Date().getFullYear();}catch(e){}</script>

@@ -1,172 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Coding with Tawfiq | Home</title>
-    <link rel="stylesheet" href="../assets/home.css" />
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-  <!-- site-native navbar (uses .new-navbar from assets/home.css) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coding with Tawfiq | Python Data Structures</title>
+  <link rel="stylesheet" href="../assets/home.css" />
+  <link rel="stylesheet" href="../assets/ads.css" />
+  <!-- Preload hero wallpapers for better quality -->
+  <link rel="preload" as="image" href="../images/hero section image 2.jpg">
+  <link rel="preload" as="image" href="../images/hero section image 2@2x.jpg" media="(min-width:1600px)">
+</head>
+<body>
 
-  <nav class="new-navbar" role="navigation">
-    <div class="logo"><a href="/index.html"><img src="/images/coding with tawfiq.jpg" alt="Logo"></a></div>
-    <button class="hamburger" aria-label="Toggle menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <ul class="nav-links">
-      <li><a href="/index.html">Home</a></li>
-      <li><a href="/try-quiz.html">Practice</a></li>
-      <li><a href="/findjobs.html">Find Jobs</a></li>
-    </ul>
-      <div class="nav-actions">
-      <button class="search-btn" aria-label="Search"><img src="/images/the search logo.jpg" alt="Search"></button>
-      <a class="card-link" href="/public/login.html">Sign In</a>
-    </div>
-  </nav>
-
-  <!-- Navbar helper (handles .new-navbar hamburger toggle) -->
-  <script src="/assets/navbar.js"></script>
-  }
-</style>
+<!-- site-native navbar (uses .new-navbar from assets/home.css) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
 <nav class="new-navbar" role="navigation">
-  <div class="logo"><a href="/index.html"><img src="/images/coding with tawfiq.jpg" alt="Logo"></a></div>
+  <div class="logo"><a href="../index.html"><img src="../images/coding with tawfiq.jpg" alt="Logo"></a></div>
   <button class="hamburger" aria-label="Toggle menu">
     <span></span>
     <span></span>
     <span></span>
   </button>
   <ul class="nav-links">
-    <li><a href="/index.html">Home</a></li>
-    <li><a href="#">Coding quiz</a></li>
-  <li><a href="../findjobs.html">Find Jobs</a></li>
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../try-quiz.html">Practice</a></li>
+    <li><a href="../findjobs.html">Find Jobs</a></li>
   </ul>
   <div class="nav-actions">
-    <button class="search-btn" aria-label="Search"><img src="/images/the search logo.jpg" alt="Search"></button>
+    <button class="search-btn" aria-label="Search"><img src="../images/the search logo.jpg" alt="Search"></button>
     <a class="card-link" href="/public/login.html">Sign In</a>
   </div>
-</nav>
+  </nav>
 
-<!-- Bootstrap JS -->
+<!-- Navbar helper (handles .new-navbar hamburger toggle and footer injection) -->
 <script src="/assets/navbar.js"></script>
 
-
-<!-- ====== HERO SECTION ====== -->
-  <section id="hero">
-    <div class="hero-content">
-      <h1><code>Welcome to Python Data Structure</code></h1>
-         <div class="hero-actions">
-        <button id="start-btn">Start Here</button>
-      </div>
-      </div>
+<!-- ====== HERO SECTION (topics menu) ====== -->
+<section id="hero" class="home-hero python-hero">
+  <div class="hero-content">
+    <h1>Python Data Structures</h1>
+    <p>Jump into the core built-in structures and practice with hands-on examples.</p>
+    <div class="hero-actions" style="flex-wrap:wrap; justify-content:center; max-width:980px;">
+      <a class="btn-primary" href="#python-datatypes">Overview</a>
+      <a class="btn-ghost" href="#python-lists-tuples">Lists & Tuples</a>
+      <a class="btn-ghost" href="#python-dictionaries">Dictionaries</a>
+      <a class="btn-ghost" href="#python-sets">Sets</a>
+      <a class="btn-ghost" href="#python-strings">Strings</a>
+      <a class="btn-ghost" href="#python-practice">Practice</a>
     </div>
-  </section>
+    <div style="margin-top:10px;color:rgba(255,255,255,0.88);font-weight:700;font-size:0.9rem">Tap a topic to jump to its card.</div>
+  </div>
+</section>
 
-    <!-- ====== Introduction to Python data types ====== -->
-    <section
-      id="python-datatypes"
-      style="
-        display: flex;
-        justify-content: center;
-        padding: 4rem 2rem;
-        background-image: url('../images/water fall.jpg');
-        background-size: cover; /* Makes image cover the section */
-        background-position: center; /* Centers the image */
-        background-repeat: no-repeat; /* Prevent tiling */
-        background-attachment: scroll; /* Optional, prevents fixed zoom */
-      "
-    >
-      <div class="card"
-        style="
-          max-width: 900px;
-          width: 100%;
-          background-color: rgb(189, 35, 15);
-          border-radius: 15px;
-          box-shadow: 0 8px 20px rgba(247, 238, 238, 0.2);
-          overflow: hidden;
-          text-align: center;
-          padding: 2rem;
-        "
-      >
-        <!-- Image at top of the card -->
-        <div
-          style="
-            width: 100%;
-            height: 300px;
-            background-image: url('../images/example\ of\ data\ structure.PNG');
-            background-size: cover;
-            background-position: center;
-            border-radius: 10px;
-          "
-        ></div>
+    <!-- ====== Overview Card (Python Data Types) ====== -->
+    <section id="python-datatypes" class="page">
+      <div class="info-card" style="max-width:950px;margin:40px auto;">
+        <img class="card-top-image" src="../images/example of data structure.PNG" alt="Overview of Data Structures">
+        <h3>Data Structures in Python</h3>
+        <p>So far you've stored small pieces of data (integers, booleans, strings). To represent richer collections (lists of users, mapping countries to capitals, unique IDs) you use <strong>data structures</strong>.</p>
+        <p>Python's built-ins: <strong>list</strong>, <strong>dict</strong>, <strong>tuple</strong>, <strong>set</strong>. These are <em>non-primitive</em> (object-based) and each optimizes certain operations (fast lookups, ordered sequences, uniqueness, immutability).</p>
+        <p>You can also build custom structures (stacks, queues, trees) to better fit performance or modeling needs.</p>
+        <h4>Mutability vs Immutability</h4>
+        <ul>
+          <li><strong>Mutable</strong>: contents can change (list, dict, set).</li>
+          <li><strong>Immutable</strong>: cannot change after creation (tuple) — safer for fixed records & usable as dict keys if composed of immutables.</li>
+        </ul>
+        <div class="code-card py-example" data-name="ds-mutability" style="margin-top:18px;">
+          <h3>Try it: Mutability demo</h3>
+          <textarea class="py-code" rows="12"># List (mutable)
+nums = [1,2,3]
+nums.append(4)
+print("List after append:", nums)
 
-        <!-- Content under image -->
-        <div style="margin-top: 2rem">
-          <h2 style="margin-bottom: 2rem; color: #f0eeee">
-            <b>DATA STRUCTURE IN PYTHON</b>
-          </h2>
-
-          <div style="color: #f1efef; text-align: center">
-  <p>So far, you have only stored small pieces of data in a variable, such as an integer, Boolean, or string.</p>
-
-<p>But what if you need to work with more complex information, like a list of people or a collection of companies? This is where <strong>data structures</strong> come in. Data structures allow you to organize and arrange your data efficiently, making it easier to perform operations on them.</p>
-
-<p>Python provides several built-in data structures, including <strong>List</strong>, <strong>Dictionary</strong>, <strong>Tuple</strong>, and <strong>Set</strong>. These are considered <em>non-primitive</em> data structures because they are treated as objects. We will explore these in detail shortly.</p>
-
-<p>In addition to built-in structures, Python allows you to create your own custom data structures, such as <strong>Stacks</strong>, <strong>Queues</strong>, and <strong>Trees</strong>. Each data structure can be tailored to solve a specific problem or optimize an existing solution for better performance.</p>
-
-<p><strong>Mutability and Immutability</strong></p>
-<p>Data structures can be either <strong>mutable</strong> or <strong>immutable</strong>. <strong>Mutability</strong> means that the data inside the structure can be changed — you can update, add, or delete items as needed. For example, a <strong>list</strong> is mutable.</p>
-
-<p>On the other hand, <strong>immutable</strong> data structures cannot be modified once they are created. The <strong>tuple</strong> is an example of an immutable data structure. Once its data is set, it cannot be changed, which can help preserve data integrity and improve performance in certain cases.</p>
-
+# Tuple (immutable)
+point = (10, 20)
+print("Tuple:", point)
+try:
+    point[0] = 99
+except TypeError as e:
+    print("Cannot modify tuple element:", e)
+          </textarea>
+          <div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+            <button class="run-btn">Run</button>
+            <button class="clear-btn">Clear Output</button>
           </div>
+          <pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
         </div>
       </div>
     </section>
 
-    <!-- ====== Introduction to DICTIONARIES IN  PYTHON ====== -->
-    <section
-      id="python-dictionaries"
-      style="
-        display: flex;
-        justify-content: center;
-        padding: 4rem 2rem;
-        background-image: url('../images/water fall.jpg');
-        background-size: cover; /* Makes image cover the section */
-        background-position: center; /* Centers the image */
-        background-repeat: no-repeat; /* Prevent tiling */
-        background-attachment: scroll; /* Optional, prevents fixed zoom */
-      "
-    >
-      <div class="card"
-        style="
-          max-width: 900px;
-          width: 100%;
-          background-color: rgb(189, 35, 15);
-          border-radius: 15px;
-          box-shadow: 0 8px 20px rgba(247, 238, 238, 0.2);
-          overflow: hidden;
-          text-align: center;
-          padding: 2rem;
-        "
-      >
+    <!-- ====== Dictionaries ====== -->
+    <section id="python-dictionaries" class="page">
+      <div class="info-card" style="max-width:950px;margin:40px auto; text-align:left;">
         <!-- Image at top of the card -->
-        <div
-          style="
-            width: 100%;
-            height: 300px;
-            background-image: url('../images/create\ dic\ example.PNG');
-            background-size: cover;
-            background-position: center;
-            border-radius: 10px;
-          "
-        ></div>
+        <img class="card-top-image" src="../images/create dic example.PNG" alt="Dictionary example">
 
         <!-- Content under image -->
         <div style="margin-top: 2rem">
@@ -271,7 +199,7 @@ print(random_dict)
 </script>
 
     <!-- ====== Introduction to lists and tuples in python====== -->
-<section>
+<section id="python-lists-tuples" class="page">
   <div class="card">
     <article>
       <p>📋 <strong>Python Lists</strong></p>
@@ -431,9 +359,9 @@ print(my_tuple.index('banana')) # 1
 </style>
 
 
-    <!-- ====== Introduction to sets in python====== -->
+  <!-- ====== Introduction to sets in python====== -->
 
-<section>
+<section id="python-sets" class="page">
   <div class="card">
     <article>
       <p>🟢 <strong>Python Sets</strong></p>
@@ -548,7 +476,7 @@ if A == B:<br>
 </style>
 
 <!-- ====== STRING METHOD CARD ====== -->
-<section>
+<section id="python-strings" class="page">
   <div class="card">
     <article>
       <p>🔤 <strong>Python Strings</strong></p>
@@ -667,7 +595,7 @@ print(f'{name} is from {country}')  # Tawfiq is from Tanzania
 </style>
 
 
-<section>
+<section id="python-practice" class="page">
   <div class="card">
     <article>
       <p>💻 <strong>Python Practice Tasks</strong></p>
@@ -687,7 +615,8 @@ numbers = [int(x) for x in input("Enter numbers separated by space: ").split()]
 print("Sum of numbers:", sum(numbers))
       </textarea>
       <button onclick="runPythonCode()" style="margin-top:10px; padding:10px 20px; background:#680202; color:#f0f2f7; border:none; border-radius:8px; cursor:pointer;">▶ Run Code</button>
-      <pre id="pythonOutput" style="background: rgba(255,255,255,0.1); color:#f0f2f7; padding:10px; border-radius:8px; margin-top:10px; min-height:50px; border:1px solid #f0f2f7;"></pre>
+  <pre id="pythonOutput" style="background: rgba(255,255,255,0.1); color:#f0f2f7; padding:10px; border-radius:8px; margin-top:10px; min-height:50px; border:1px solid #f0f2f7; white-space:pre-wrap; overflow:auto;"></pre>
+  <p style="margin-top:6px;font-size:0.78rem;color:#f0f2f7;opacity:0.85">Tip: input() will open a browser prompt. Printed output appears above; errors are tagged with [error].</p>
     </article>
   </div>
 </section>
@@ -695,24 +624,39 @@ print("Sum of numbers:", sum(numbers))
 <!-- Pyodide JS -->
 <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
 <script>
+// Enhanced Pyodide runner: capture stdout/stderr and support input() via browser prompt
 let pyodideReady = false;
 async function loadPyodideAndPackages() {
   window.pyodide = await loadPyodide();
+  // Override builtin input with window.prompt for simple interactive usage
+  pyodide.runPython(`import builtins\nfrom js import prompt\nbuiltins.input = lambda p='': prompt(p) if p is not None else ''`);
   pyodideReady = true;
 }
 loadPyodideAndPackages();
 
 async function runPythonCode() {
-  if (!pyodideReady) {
-    alert("Python environment is still loading. Please wait a few seconds.");
-    return;
-  }
-  const code = document.getElementById("pythonCode").value;
+  const outEl = document.getElementById('pythonOutput');
+  if (!pyodideReady) { outEl.textContent = 'Environment still loading… try again shortly.'; return; }
+  const code = document.getElementById('pythonCode').value;
+  let stdoutChunks = []; let stderrChunks = [];
+  const restoreStdout = pyodide.setStdout({ batched: s => stdoutChunks.push(s) });
+  const restoreStderr = pyodide.setStderr({ batched: s => stderrChunks.push(s) });
+  outEl.textContent = 'Running…'; outEl.style.borderColor = '#f0f2f7';
   try {
-    const output = await pyodide.runPythonAsync(code);
-    document.getElementById("pythonOutput").textContent = output === undefined ? "" : output;
+    await pyodide.runPythonAsync(code);
+    const stdout = stdoutChunks.join('').trim();
+    const stderr = stderrChunks.join('').trim();
+    outEl.textContent = stdout || '';
+    if (stderr) {
+      outEl.textContent += (stdout ? '\n' : '') + '[error]\n' + stderr;
+      outEl.style.borderColor = '#ff8080';
+    }
   } catch (err) {
-    document.getElementById("pythonOutput").textContent = err;
+    outEl.textContent = 'Runtime error:\n' + (err && err.message ? err.message : String(err));
+    outEl.style.borderColor = '#ff8080';
+  } finally {
+    if (typeof restoreStdout === 'function') restoreStdout();
+    if (typeof restoreStderr === 'function') restoreStderr();
   }
 }
 </script>

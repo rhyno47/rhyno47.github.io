@@ -3,66 +3,129 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Coding with Tawfiq | Home</title>
+    <title>Coding with Tawfiq | Python Data Structures</title>
     <link rel="stylesheet" href="../assets/home.css" />
     <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-  <!-- site-native navbar (uses .new-navbar from assets/home.css) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- site-native navbar (uses .new-navbar from assets/home.css) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <style>
+      /* Page-specific wallpaper (keeps card backgrounds unchanged) */
+      body.data-structures-page {
+        background-image: url('../images/for data structure.jpg') !important;
+        background-size: cover !important;
+        background-position: center center !important;
+        background-repeat: no-repeat !important;
+        background-attachment: fixed !important;
+      }
+      /* Subtle dark overlay for legibility */
+      body.data-structures-page::before{
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.35);
+        pointer-events: none;
+        z-index: 0;
+      }
+      /* Ensure page content sits above overlay */
+      .page, #hero, .site-hero { position: relative; z-index: 1; }
+      /* Make hero show the page wallpaper by removing its built-in image */
+      #hero.home-hero{
+        background-image: linear-gradient(rgba(3,3,3,0.55), rgba(3,3,3,0.55)) !important;
+        overflow: visible !important; /* allow content to extend and page to scroll */
+      }
+      /* Mobile improvements */
+      @media (max-width: 700px){
+        #hero.home-hero{ background-attachment: scroll !important; height: auto !important; min-height: 360px !important; }
+        .hero-content h1 { font-size: 1.4rem; }
+        .hero-actions { flex-wrap: wrap; }
+        .hero-actions a { width: 100%; text-align: center; }
+        .info-card, .card { padding: 1rem; }
+        .card code, .info-card pre code { font-size: 0.9rem; }
+      }
+      @media (max-width: 480px){
+        .hero-content p { font-size: 0.92rem; }
+        .card code, .info-card pre code { font-size: 0.85rem; }
+      }
+    </style>
+  </head>
+  <body class="data-structures-page">
+    <nav class="new-navbar" role="navigation"></nav>
+    <!-- Navbar helper (injects markup and behaviors) -->
+    <script src="/assets/navbar.js" defer></script>
 
-  <nav class="new-navbar" role="navigation">
-    <div class="logo"><a href="/index.html"><img src="/images/coding with tawfiq.jpg" alt="Logo"></a></div>
-    <button class="hamburger" aria-label="Toggle menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <ul class="nav-links">
-      <li><a href="/index.html">Home</a></li>
-      <li><a href="/try-quiz.html">Practice</a></li>
-      <li><a href="/findjobs.html">Find Jobs</a></li>
-    </ul>
-      <div class="nav-actions">
-      <button class="search-btn" aria-label="Search"><img src="/images/the search logo.jpg" alt="Search"></button>
-      <a class="card-link" href="/public/login.html">Sign In</a>
-    </div>
-  </nav>
-
-  <!-- Navbar helper (handles .new-navbar hamburger toggle) -->
-  <script src="/assets/navbar.js"></script>
+<script>
+// Share helper (mirrors UX from findjobs & intro pages)
+function shareTopic(anchorId){
+  if(!anchorId) return;
+  const base = window.location.origin + window.location.pathname;
+  const url = base + '#' + encodeURIComponent(anchorId);
+  const title = document.title || 'Python Data Structures';
+  const notify = (t,b)=>{ if(window.showToast) window.showToast('success', t, b); else alert(t+'\n'+b+'\n'+url); };
+  if(navigator.share){
+    navigator.share({ title, text: 'Check this Python Data Structures section', url })
+      .then(()=> notify('Shared', 'Section shared via your device.'))
+      .catch(()=>{
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(url).then(()=> notify('Link copied', 'Share this URL to open the section directly.'))
+          .catch(()=>{ const ok = prompt('Copy section link:', url); if(ok!==null) notify('Section link ready','Copied (manual).'); });
+        } else {
+          const ok = prompt('Copy section link:', url); if(ok!==null) notify('Section link ready','Copied (manual).');
+        }
+      });
+    return;
   }
-</style>
-
-<nav class="new-navbar" role="navigation">
-  <div class="logo"><a href="/index.html"><img src="/images/coding with tawfiq.jpg" alt="Logo"></a></div>
-  <button class="hamburger" aria-label="Toggle menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-  <ul class="nav-links">
-    <li><a href="/index.html">Home</a></li>
-    <li><a href="#">Coding quiz</a></li>
-  <li><a href="../findjobs.html">Find Jobs</a></li>
-  </ul>
-  <div class="nav-actions">
-    <button class="search-btn" aria-label="Search"><img src="/images/the search logo.jpg" alt="Search"></button>
-    <a class="card-link" href="/public/login.html">Sign In</a>
-  </div>
-</nav>
-
-<!-- Bootstrap JS -->
-<script src="/assets/navbar.js"></script>
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url)
+      .then(()=> notify('Link copied', 'Share this URL to open the section directly.'))
+      .catch(()=>{ const ok = prompt('Copy section link:', url); if(ok!==null) notify('Section link ready','Copied (manual).'); });
+  } else {
+    const ok = prompt('Copy section link:', url); if(ok!==null) notify('Section link ready','Copied (manual).');
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  // Append share buttons to each primary content card
+  const sectionIds = ['python-datatypes','python-dictionaries','python-lists-tuples','python-sets','python-strings','python-practice'];
+  sectionIds.forEach(id => {
+    const sec = document.getElementById(id);
+    if(!sec) return;
+    const card = sec.querySelector('.card');
+    if(!card) return;
+    // Avoid duplicate insertion
+    if(card.querySelector('.ds-share-actions')) return;
+    const actions = document.createElement('div');
+    actions.className = 'card-actions ds-share-actions';
+    const left = document.createElement('div');
+    const right = document.createElement('div'); right.className='right';
+    const shareBtn = document.createElement('button');
+    shareBtn.className = 'icon-btn';
+    shareBtn.title = 'Share section';
+    const img = document.createElement('img');
+    img.src = '../images/share logo.jpg';
+    img.alt = 'Share';
+    img.className = 'share-icon';
+    shareBtn.appendChild(img);
+    shareBtn.addEventListener('click', () => shareTopic(id));
+    right.appendChild(shareBtn);
+    actions.appendChild(left); actions.appendChild(right);
+    card.appendChild(actions);
+  });
+});
+</script>
 
 
 <!-- ====== HERO SECTION ====== -->
-  <section id="hero">
+  <section id="hero" class="home-hero">
     <div class="hero-content">
-      <h1><code>Welcome to Python Data Structure</code></h1>
-         <div class="hero-actions">
-        <button id="start-btn">Start Here</button>
-      </div>
+      <h1>Python Data Structures — learn by examples</h1>
+      <p>Explore lists, tuples, dictionaries, sets, and strings. Jump straight to a topic below.</p>
+      <div class="hero-actions" style="flex-wrap:wrap; gap:10px;">
+        <a class="btn-primary" href="#python-datatypes">Overview</a>
+        <a class="btn-ghost" href="#python-dictionaries">Dictionaries</a>
+        <a class="btn-ghost" href="#python-lists-tuples">Lists &amp; Tuples</a>
+        <a class="btn-ghost" href="#python-sets">Sets</a>
+        <a class="btn-ghost" href="#python-strings">Strings</a>
+        <a class="btn-ghost" href="#python-practice">Practice</a>
       </div>
     </div>
   </section>
@@ -74,11 +137,6 @@
         display: flex;
         justify-content: center;
         padding: 4rem 2rem;
-        background-image: url('../images/water fall.jpg');
-        background-size: cover; /* Makes image cover the section */
-        background-position: center; /* Centers the image */
-        background-repeat: no-repeat; /* Prevent tiling */
-        background-attachment: scroll; /* Optional, prevents fixed zoom */
       "
     >
       <div class="card"
@@ -137,11 +195,6 @@
         display: flex;
         justify-content: center;
         padding: 4rem 2rem;
-        background-image: url('../images/water fall.jpg');
-        background-size: cover; /* Makes image cover the section */
-        background-position: center; /* Centers the image */
-        background-repeat: no-repeat; /* Prevent tiling */
-        background-attachment: scroll; /* Optional, prevents fixed zoom */
       "
     >
       <div class="card"
@@ -271,7 +324,7 @@ print(random_dict)
 </script>
 
     <!-- ====== Introduction to lists and tuples in python====== -->
-<section>
+    <section id="python-lists-tuples">
   <div class="card">
     <article>
       <p>📋 <strong>Python Lists</strong></p>
@@ -431,9 +484,9 @@ print(my_tuple.index('banana')) # 1
 </style>
 
 
-    <!-- ====== Introduction to sets in python====== -->
+  <!-- ====== Introduction to sets in python====== -->
 
-<section>
+<section id="python-sets">
   <div class="card">
     <article>
       <p>🟢 <strong>Python Sets</strong></p>
@@ -548,7 +601,7 @@ if A == B:<br>
 </style>
 
 <!-- ====== STRING METHOD CARD ====== -->
-<section>
+<section id="python-strings">
   <div class="card">
     <article>
       <p>🔤 <strong>Python Strings</strong></p>
@@ -667,7 +720,7 @@ print(f'{name} is from {country}')  # Tawfiq is from Tanzania
 </style>
 
 
-<section>
+<section id="python-practice">
   <div class="card">
     <article>
       <p>💻 <strong>Python Practice Tasks</strong></p>
@@ -748,8 +801,26 @@ async function runPythonCode() {
 
     <!-- ====== FOOTER ====== -->
     <footer id="footer">
-      <p>© 2025 Coding with Tawfiq. All rights reserved.</p>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/index.html" aria-label="Coding with Tawfiq home"><img src="/images/coding with tawfiq.jpg" alt="Coding with Tawfiq logo"></a>
+          <div class="footer-links">
+            <a href="/about.html">About</a>
+            <a href="/contact.html">Contact</a>
+            <a href="/privacy.html">Privacy</a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <div class="footer-copy">© <span id="footerYear"></span> Coding with Tawfiq. All rights reserved.</div>
+          <div class="footer-social" aria-label="Social links">
+            <a href="#" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" aria-label="GitHub"><i class="bi bi-github"></i></a>
+          </div>
+        </div>
+      </div>
     </footer>
+    <script>try{document.getElementById('footerYear').textContent = new Date().getFullYear();}catch(e){}</script>
     <!-- non-intrusive ad (scripts removed) -->
 <div class="non-intrusive-ad" aria-hidden="true">
   <div class="ad-content">
@@ -762,5 +833,5 @@ async function runPythonCode() {
          data-full-width-responsive="true"></ins>
   </div>
 </div>
-</body>
+  </body>
 </html>

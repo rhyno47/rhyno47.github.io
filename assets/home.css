@@ -782,6 +782,24 @@ textarea{ min-height:120px }
 .card-actions .right { display:flex; gap:8px; align-items:center }
 .open-link-btn { padding:0.4rem 0.8rem; font-weight:700; font-size:0.95rem }
 
+/* ===== Inline Share Actions (global across all cards) ===== */
+.inline-share-actions{ display:flex; justify-content:flex-end; align-items:center; gap:6px; margin-top:10px; }
+.inline-share-actions .icon-btn{ background: linear-gradient(135deg,#ffcc33,#ffb300); border:2px solid #ffffff; padding:8px 14px; border-radius:10px; color:#222; font-weight:800; font-size:0.85rem; line-height:1; box-shadow:0 6px 20px rgba(0,0,0,0.40); transition: transform .15s ease, filter .15s ease; }
+.inline-share-actions .icon-btn:hover{ filter:brightness(1.08); transform:translateY(-2px); }
+.inline-share-actions .icon-btn:active{ transform:translateY(0); filter:brightness(.96); }
+.inline-share-actions .icon-btn img.share-icon{ width:22px; height:22px; margin-right:6px; }
+.inline-share-actions .icon-btn .share-label{ display:inline-block; font-weight:600; letter-spacing:.5px; }
+@media (max-width:600px){
+  .inline-share-actions .icon-btn{ padding:6px 10px; font-size:0.78rem }
+  .inline-share-actions .icon-btn img.share-icon{ width:20px; height:20px; margin-right:3px }
+}
+/* Top-right overlay variant for improved visibility */
+.card-share-overlay{ position:absolute; top:10px; right:10px; z-index:20; }
+.card-share-overlay .icon-btn{ background: linear-gradient(135deg,#ffcc33,#ffb300); border:2px solid #ffffff; padding:8px 12px; border-radius:10px; color:#222; font-size:0.8rem; font-weight:800; display:inline-flex; align-items:center; gap:6px; box-shadow:0 6px 22px rgba(0,0,0,0.45); backdrop-filter: blur(4px) saturate(140%); }
+.card-share-overlay .icon-btn img.share-icon{ width:18px; height:18px; margin:0 }
+.card-share-overlay .icon-btn:hover{ filter:brightness(1.1); transform:translateY(-3px) }
+.info-card, .code-card{ position:relative; }
+
 /* Make modal visually use the same wallpaper with a dark overlay for readability */
 .modal {
   background-image: linear-gradient(rgba(16,16,16,0.86), rgba(16,16,16,0.86)), url('../images/find%20jobs%20background.jpg');

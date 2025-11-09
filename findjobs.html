@@ -297,7 +297,7 @@
       modal.classList.add('show'); modal.setAttribute('aria-hidden','false');
     }
 
-    // Share a post by copying a deep-link URL (?post=<id>) to the clipboard
+    // Share a post using the native Share Sheet when available, with clipboard fallback
     function sharePost(id){
       if(!id) return;
       const deepLink = window.location.origin + window.location.pathname + '?post=' + encodeURIComponent(id);
@@ -306,6 +306,31 @@
         if(window.showToast) window.showToast('success', title, body);
         else alert(title + '\n' + body + '\n' + deepLink);
       };
+      // Try Web Share API first (mobile-friendly)
+      if(navigator.share){
+        navigator.share({
+          title: document.title || 'Jobs & Announcements',
+          text: 'Check out this post on Coding with Tawfiq',
+          url: deepLink
+        })
+        .then(()=> notify('Shared', 'Post shared via your device.'))
+        .catch(()=>{
+          // If user cancels or share fails, fall back to clipboard
+          if(navigator.clipboard && navigator.clipboard.writeText){
+            navigator.clipboard.writeText(deepLink)
+              .then(()=> notify('Link copied', 'Share this URL to open the post directly.'))
+              .catch(()=>{
+                const ok = prompt('Copy post link:', deepLink);
+                if(ok !== null) notify('Post link ready', 'Copied (manual).');
+              });
+          }else{
+            const ok = prompt('Copy post link:', deepLink);
+            if(ok !== null) notify('Post link ready', 'Copied (manual).');
+          }
+        });
+        return;
+      }
+      // Clipboard fallback
       if(navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(deepLink)
           .then(()=> notify('Link copied', 'Share this URL to open the post directly.'))

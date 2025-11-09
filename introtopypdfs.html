@@ -310,7 +310,7 @@
       modal.classList.add('show'); modal.setAttribute('aria-hidden','false');
     }
 
-    // Share a post by copying a deep-link URL (?post=<id>) to the clipboard
+    // Share a post using the native Share Sheet when available, with clipboard fallback
     function sharePost(id){
       if(!id) return;
       const deepLink = window.location.origin + window.location.pathname + '?post=' + encodeURIComponent(id);
@@ -319,6 +319,31 @@
         if(window.showToast) window.showToast('success', title, body);
         else alert(title + '\n' + body + '\n' + deepLink);
       };
+      // Try Web Share API first (mobile-friendly)
+      if(navigator.share){
+        navigator.share({
+          title: document.title || 'Intro to Python PDFs',
+          text: 'Check out this post on Coding with Tawfiq',
+          url: deepLink
+        })
+        .then(()=> notify('Shared', 'Post shared via your device.'))
+        .catch(()=>{
+          // If user cancels or share fails, fall back to clipboard
+          if(navigator.clipboard && navigator.clipboard.writeText){
+            navigator.clipboard.writeText(deepLink)
+              .then(()=> notify('Link copied', 'Share this URL to open the post directly.'))
+              .catch(()=>{
+                const ok = prompt('Copy post link:', deepLink);
+                if(ok !== null) notify('Post link ready', 'Copied (manual).');
+              });
+          }else{
+            const ok = prompt('Copy post link:', deepLink);
+            if(ok !== null) notify('Post link ready', 'Copied (manual).');
+          }
+        });
+        return;
+      }
+      // Clipboard fallback
       if(navigator.clipboard && navigator.clipboard.writeText){
         navigator.clipboard.writeText(deepLink)
           .then(()=> notify('Link copied', 'Share this URL to open the post directly.'))
@@ -764,6 +789,80 @@
       }
 
       document.addEventListener('DOMContentLoaded', enhanceCards);
+    })();
+  </script>
+
+  <script>
+    // Add share buttons to static PDF/resource cards using same style/logo as Find Jobs
+    (function(){
+      function shareUrl(url, titleText){
+        const title = (titleText || document.title || 'Intro to Python PDFs');
+        const notify = (t,b,u)=>{ if(window.showToast) window.showToast('success', t, b); else alert(t+'\n'+b+'\n'+u); };
+        if(!url){ return; }
+        if(navigator.share){
+          navigator.share({ title, text: 'Check this out on Coding with Tawfiq', url })
+          .then(()=> notify('Shared', 'Link shared via your device.', url))
+          .catch(()=>{
+            if(navigator.clipboard && navigator.clipboard.writeText){
+              navigator.clipboard.writeText(url)
+                .then(()=> notify('Link copied', 'Share this URL directly.', url))
+                .catch(()=>{ const ok = prompt('Copy link:', url); if(ok!==null) notify('Link ready','Copied (manual).', url); });
+            }else{
+              const ok = prompt('Copy link:', url); if(ok!==null) notify('Link ready','Copied (manual).', url);
+            }
+          });
+          return;
+        }
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(url)
+            .then(()=> notify('Link copied', 'Share this URL directly.', url))
+            .catch(()=>{ const ok = prompt('Copy link:', url); if(ok!==null) notify('Link ready','Copied (manual).', url); });
+        } else {
+          const ok = prompt('Copy link:', url); if(ok!==null) notify('Link ready','Copied (manual).', url);
+        }
+      }
+
+      function ensureCardId(card, idx){
+        if(card.id) return card.id;
+        const gen = 'card-' + (idx+1);
+        card.id = gen;
+        return gen;
+      }
+
+      function addShareButtonsToResourceCards(){
+        // Target likely resource card classes; exclude dynamic posts (card-feed)
+        const cards = Array.from(document.querySelectorAll('.pdf-card, .resource-card, .card'))
+          .filter(el => !el.classList.contains('card-feed'));
+        if(!cards.length) return;
+        cards.forEach((card, idx) => {
+          // Avoid duplicate insertion
+          if(card.querySelector('.inline-share-actions')) return;
+          // Determine best link to share: prefer explicit anchor href, else page#card-id
+          const anchor = card.querySelector('a[href]');
+          let url = '';
+          if(anchor && anchor.getAttribute('href')){
+            const href = anchor.getAttribute('href');
+            if(/^https?:\/\//i.test(href)) url = href; else url = new URL(href, window.location.href).href;
+          } else {
+            const id = ensureCardId(card, idx);
+            url = window.location.origin + window.location.pathname + '#' + encodeURIComponent(id);
+          }
+          // Build actions row consistent with Find Jobs
+          const actions = document.createElement('div');
+          actions.className = 'card-actions inline-share-actions';
+          const left = document.createElement('div');
+          const right = document.createElement('div'); right.className = 'right';
+          const shareBtn = document.createElement('button'); shareBtn.className = 'icon-btn'; shareBtn.title = 'Share';
+          const img = document.createElement('img'); img.src = 'images/share logo.jpg'; img.alt = 'Share'; img.className = 'share-icon';
+          shareBtn.appendChild(img);
+          shareBtn.addEventListener('click', () => shareUrl(url, (anchor && anchor.textContent) || document.title));
+          right.appendChild(shareBtn);
+          actions.appendChild(left); actions.appendChild(right);
+          card.appendChild(actions);
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', addShareButtonsToResourceCards);
     })();
   </script>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coding with Tawfiq | Home</title>
+  <title>Coding with Tawfiq | Python Libraries</title>
   <link rel="stylesheet" href="../assets/home.css">
   <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,7 @@
 
   gtag('config', 'G-ETGGXC16CY');
 </script>
-  <link rel="stylesheet" href="assets/ads.css">
+  <!-- ads stylesheet removed to avoid 404 on this path; can be re-added from root if needed -->
 </head>
 <body>
 
@@ -49,26 +49,46 @@
 
 
   <!-- ====== HERO SECTION ====== -->
-  <section id="hero">
+  <section id="hero" class="site-hero">
     <div class="hero-content">
-      <h1><CODE>welcome to libraries</CODE> </h1>
-           <div class="hero-actions">
-        <button id="start-btn">Start Here</button>
+      <h1>Welcome to Python Libraries</h1>
+      <p class="lead" style="color:rgba(255,255,255,0.92)">Learn built-in and popular third‑party libraries, installing packages, and quick intros to Matplotlib, Pandas, and NumPy.</p>
+      <div class="hero-actions" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+        <a class="card-link" href="#libraries-intro">Overview</a>
+        <a class="card-link" href="#python-libraries">Standard & Popular</a>
+        <a class="card-link" href="#installing-python-packages">Installing Packages</a>
+        <a class="card-link" href="#data-visualization-matplotlib">Matplotlib</a>
+        <a class="card-link" href="#pandas">Pandas</a>
+        <a class="card-link" href="#numpy">NumPy</a>
       </div>
     </div>
   </section>
+
+  <style>
+    /* Page-scoped styling */
+    #libraries-intro, #python-libraries, #installing-python-packages, #data-visualization-matplotlib, #pandas, #numpy{ scroll-margin-top:90px }
+    .lib-card{ background: linear-gradient(145deg,#680202,#8b0b0b); border:1px solid rgba(255,255,255,0.12); color:#f6f6f6; }
+    .lib-card h2, .lib-card h3{ color:#fff }
+    .lib-card p{ color:#f0f0f0; line-height:1.6 }
+    .lib-card code{ display:inline-block; max-width:100%; overflow-x:auto }
+    .lib-card p code{ background: rgba(0,0,0,0.35); padding:2px 4px; border-radius:4px }
+    @media (max-width: 780px){
+      section#libraries-intro, section#python-libraries, section#installing-python-packages, section#data-visualization-matplotlib, section#pandas, section#numpy { padding:2.2rem 1rem !important }
+      .info-card.lib-card{ padding:1.4rem 1.3rem !important; border-radius:14px !important }
+      .info-card.lib-card h2{ font-size:1.35rem !important }
+      .info-card.lib-card p, .info-card.lib-card code{ font-size:0.95rem !important }
+    }
+    @media (max-width:520px){
+      .info-card.lib-card{ padding:1.1rem 1rem !important }
+      .info-card.lib-card h2{ font-size:1.22rem !important }
+      .info-card.lib-card p{ font-size:0.92rem !important }
+      .lib-card .card-top-image{ height:220px !important }
+    }
+  </style>
   
-  <section>
-  <div style="
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
-    max-width: 800px;
-    margin: 20px auto;
-    font-family: Arial, sans-serif;
-  ">
+  <section id="libraries-intro" style="display:flex;justify-content:center;padding: 4rem 2rem; background: transparent;">
+  <div class="info-card lib-card" style="max-width: 950px; width:100%; text-align:left; padding: 2rem 2.2rem; border-radius: 18px;">
+    <img class="card-top-image" src="../images/python image.jpg" alt="Python libraries overview" loading="lazy" style="height:300px; border-radius:12px; object-fit:cover; margin-bottom:1.2rem">
     <article>
       <p>📚 <strong>Python Libraries</strong></p>
 
@@ -111,19 +131,10 @@ print("Current time:", now.strftime("%H:%M:%S"))</code></p>
 
     </article>
   </div>
-</section>
+  </section>
 
-<section id="python-libraries">
-  <div style="
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
-    max-width: 800px;
-    margin: 20px auto;
-    font-family: Arial, sans-serif;
-  ">
+<section id="python-libraries" style="display:flex;justify-content:center;padding: 2rem 2rem; background: transparent;">
+  <div class="info-card lib-card" style="max-width: 950px; width:100%; text-align:left; padding: 2rem 2.2rem; border-radius: 18px;">
     <article>
       <p>📦 <strong>Python Standard Library & Popular Extra Libraries</strong></p>
 
@@ -147,19 +158,10 @@ print("Current time:", now.strftime("%H:%M:%S"))</code></p>
       <p>There are many more Python libraries available. Choosing the right library can make development faster and easier. Python libraries play a crucial role and are very helpful to developers. 💻</p>
     </article>
   </div>
-</section>
+  </section>
 
-<section id="installing-python-packages">
-  <div style="
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
-    max-width: 800px;
-    margin: 20px auto;
-    font-family: Arial, sans-serif;
-  ">
+<section id="installing-python-packages" style="display:flex;justify-content:center;padding: 2rem 2rem; background: transparent;">
+  <div class="info-card lib-card" style="max-width: 950px; width:100%; text-align:left; padding: 2rem 2.2rem; border-radius: 18px;">
     <article>
       <p>📦 <strong>Installing Python Packages – Simple Summary</strong></p>
 
@@ -204,19 +206,10 @@ print("Current time:", now.strftime("%H:%M:%S"))</code></p>
       </ul>
     </article>
   </div>
-</section>
+  </section>
 
-<section id="data-visualization-matplotlib">
-  <div style="
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
-    max-width: 800px;
-    margin: 20px auto;
-    font-family: Arial, sans-serif;
-  ">
+<section id="data-visualization-matplotlib" style="display:flex;justify-content:center;padding: 2rem 2rem; background: transparent;">
+  <div class="info-card lib-card" style="max-width: 950px; width:100%; text-align:left; padding: 2rem 2.2rem; border-radius: 18px;">
     <article>
       <p>📊 <strong>Data Visualization with Matplotlib</strong></p>
 
@@ -289,19 +282,10 @@ plt.show()
       </ul>
     </article>
   </div>
-</section>
+  </section>
 
-<section id="pandas">
-  <div style="
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
-    max-width: 800px;
-    margin: 20px auto;
-    font-family: Arial, sans-serif;
-  ">
+<section id="pandas" style="display:flex;justify-content:center;padding: 2rem 2rem; background: transparent;">
+  <div class="info-card lib-card" style="max-width: 950px; width:100%; text-align:left; padding: 2rem 2.2rem; border-radius: 18px;">
     <article>
       <p>🐼 <strong>What is Pandas?</strong></p>
       <p>Pandas is used for data manipulation and analysis. It allows you to:</p>
@@ -346,19 +330,10 @@ print(df.head())  # Show first 5 rows
       </ul>
     </article>
   </div>
-</section>
+  </section>
 
-<section id="numpy">
-  <div style="
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
-    max-width: 800px;
-    margin: 20px auto;
-    font-family: Arial, sans-serif;
-  ">
+<section id="numpy" style="display:flex;justify-content:center;padding: 2rem 2rem 4rem; background: transparent;">
+  <div class="info-card lib-card" style="max-width: 950px; width:100%; text-align:left; padding: 2rem 2.2rem; border-radius: 18px;">
     <article>
       <p>🔢 <strong>What is NumPy?</strong></p>
       <p>NumPy stands for Numerical Python. It’s used for:</p>
@@ -390,10 +365,61 @@ print("Square Roots:", np.sqrt(my_array))
       </ul>
     </article>
   </div>
-</section>
+  </section>
 
 
-   <!-- ====== FOOTER ====== -->
+  <!-- Share buttons for each info-card -->
+  <script>
+  (function(){
+    function sectionUrlFor(el){
+      let anchorId = el.closest('section')?.id || el.id;
+      if(!anchorId){ el.id = 'card-' + Math.random().toString(36).slice(2,8); anchorId = el.id; }
+      return window.location.origin + window.location.pathname + '#' + encodeURIComponent(anchorId);
+    }
+    function addShares(){
+      document.querySelectorAll('.info-card').forEach(card => {
+        if(card.querySelector('.inline-share-actions')) return;
+        const actions = document.createElement('div'); actions.className='card-actions inline-share-actions';
+        const left = document.createElement('div'); const right = document.createElement('div'); right.className='right';
+        const btn = document.createElement('button'); btn.className='icon-btn'; btn.title='Share';
+        const img = document.createElement('img'); img.src='../images/share logo.jpg'; img.alt='Share'; img.className='share-icon'; btn.appendChild(img);
+        btn.addEventListener('click', () => {
+          const url = sectionUrlFor(card);
+          const title = (card.querySelector('h2, h3, p strong')?.textContent) || document.title;
+          const shareData = { title, text: 'Check this topic on Coding with Tawfiq', url };
+          if(navigator.share){ navigator.share(shareData).catch(()=>fallbackCopy(url)); }
+          else fallbackCopy(url);
+        });
+        function fallbackCopy(url){
+          if(navigator.clipboard && navigator.clipboard.writeText){
+            navigator.clipboard.writeText(url).then(()=> alert('Link copied: '+url)).catch(()=>{ prompt('Copy section link:', url); });
+          } else { prompt('Copy section link:', url); }
+        }
+        right.appendChild(btn); actions.appendChild(left); actions.appendChild(right); card.appendChild(actions);
+      });
+    }
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', addShares); else addShares();
+  })();
+  </script>
+
+   <!-- ====== FOOTER (match index style) ====== -->
   <footer id="footer">
-    <p>© 2025 Coding with Tawfiq. All rights reserved.</p>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="/images/coding with tawfiq.jpg" alt="Logo">
+        <span class="footer-copy">© <span id="footerYear"></span> Coding with Tawfiq</span>
+      </div>
+      <div class="footer-links">
+        <a href="/index.html">Home</a>
+        <a href="/try-quiz.html">Practice</a>
+        <a href="/findjobs.html">Find Jobs</a>
+      </div>
+      <div class="footer-right">
+        <div class="footer-social">
+          <a href="#" aria-label="GitHub"><i class="bi bi-github"></i></a>
+          <a href="#" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+        </div>
+      </div>
+    </div>
   </footer>
+  <script>try{document.getElementById('footerYear').textContent = new Date().getFullYear();}catch(e){}</script>

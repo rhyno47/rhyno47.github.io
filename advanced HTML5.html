@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coding with Tawfiq | Introduction to HTML</title>
+  <link rel="stylesheet" href="assets/home.css" />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  </head>
+  <body>
+    
+
+<!-- site-native navbar (uses .new-navbar from assets/home.css) -->
+
+<nav class="new-navbar" role="navigation" style="position:sticky; top:0; z-index:1000;">
+  <div class="logo"><a href="index.html"><img src="images/coding with tawfiq.jpg" alt="Logo"></a></div>
+  <button class="hamburger" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="try-quiz.html">Practice</a></li>
+  <li><a href="findjobs.html">Find Jobs</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="search-btn" aria-label="Search"><img src="images/the search logo.jpg" alt="Search"></button>
+    <a class="card-link" href="/public/login.html">Sign In</a>
+  </div>
+</nav>
+
+<!-- Navbar helper (handles .new-navbar hamburger toggle) -->
+<script src="/assets/navbar.js"></script>
+
+
+    <!-- Removed top canvas demo block to relocate at end -->
+<!-- ====== HERO SECTION ====== -->
+  <section id="hero" class="site-hero" style="margin-top:0; padding-top:60px;">
+    <div class="hero-content">
+      <h1>Advanced HTML5 Topics</h1>
+      <p class="lead" style="color:rgba(255,255,255,0.92)">Dive deeper: content enhancement, robust forms, validation features, and resource references.</p>
+      <div class="hero-actions" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+        <a class="card-link" href="#enhancing-content">Enhancing Content</a>
+        <a class="card-link" href="#html5-forms-management">HTML5 Forms</a>
+        <a class="card-link" href="#form-attributes-validation">Validation</a>
+        <a class="card-link" href="#additional-resources">Resources</a>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    /* Ensure hero appears immediately after navbar without unexpected preceding elements */
+    body{margin:0;}
+    .new-navbar + #hero.site-hero{margin-top:0 !important;}
+    /* Fallback: if any stray text nodes or comments create space, force hero upward */
+    #hero.site-hero{scroll-margin-top:90px;}
+    /* Page-scoped styling for HTML Intro (match site theme) */
+  #enhancing-content, #html5-forms-management, #form-attributes-validation, #additional-resources { scroll-margin-top: 90px; }
+    .html-card{ background: linear-gradient(145deg,#680202,#8b0b0b); border:1px solid rgba(255,255,255,0.12); color:#f6f6f6; }
+    .html-card h2, .html-card h3{ color:#fff }
+    .html-card p{ color:#f0f0f0; line-height:1.6 }
+    .html-card code{ display:inline-block; max-width:100%; overflow-x:auto }
+    .html-card p code{ background: rgba(0,0,0,0.35); padding:2px 4px; border-radius:4px }
+    /* code-card visual tweaks to align with theme */
+    .code-card { background: #750707; }
+    .code-card h3 { color:#fff; }
+    .code-card p { color:#eee; }
+    /* Consistent run button styling (replace blue) */
+    .run-btn{ background-color:#680202; color:#fff; border:none; padding:10px 20px; border-radius:8px; font-weight:600; cursor:pointer }
+    .run-btn:hover{ background-color:#8b0b0b }
+    @media (max-width: 780px){
+  section#enhancing-content, section#html5-forms-management, section#form-attributes-validation, section#additional-resources{ padding:2.2rem 1rem !important }
+      .info-card.html-card{ padding:1.4rem 1.3rem !important; border-radius:14px !important }
+      .info-card.html-card h2{ font-size:1.35rem !important }
+      .info-card.html-card p, .info-card.html-card code{ font-size:0.95rem !important }
+    }
+    @media (max-width:520px){
+      .info-card.html-card{ padding:1.1rem 1rem !important }
+      .info-card.html-card h2{ font-size:1.22rem !important }
+      .info-card.html-card p{ font-size:0.92rem !important }
+    }
+  </style>
+
+  <!-- Global runCode handler (single definition) -->
+  <script>
+    function runCode(btn){
+      try{
+        const card = btn.closest('.code-card');
+        if(!card) return;
+        const iframe = card.querySelector('iframe');
+        const ta = card.querySelector('textarea');
+        if(iframe && ta){ iframe.srcdoc = ta.value; }
+      }catch(e){ console.error('runCode error', e); }
+    }
+  </script>
+
+    <!-- ====== Introduction to website development ====== -->
+    <section
+      id="enhancing-content"
+      style="
+        display: flex;
+        justify-content: center;
+        padding: 4rem 2rem;
+        background: transparent;
+        margin-top:0;
+      "
+    >
+      <div class="info-card html-card" style="max-width: 950px; width: 100%; border-radius: 18px; overflow: hidden; text-align: center; padding: 2rem 2.2rem;">
+        <!-- Image at top of the card -->
+        <div style="width: 100%; height: 300px; background-image: url('images/HTML\ 02.jpg'); background-size: cover; background-position: center; border-radius: 12px;"></div>
+
+        <!-- Content under image -->
+        <div style="margin-top: 2rem">
+          <h2 style="margin-bottom: 2rem; color: #f0eeee">Enhancing Content</h2>
+
+          <div style="color: #f1efef; text-align: left; max-width:860px; margin:0 auto; line-height:1.75">
+            <h3>🎯 Objectives</h3>
+            <p>By the end of this tutorial, you will:</p>
+            <ul>
+              <li>🖼️ Use advanced HTML5 elements to enrich web content.</li>
+              <li>🛠️ Build interactive and accessible forms with validation.</li>
+            </ul>
+
+            <h3 style="margin-top:1.8rem">📚 Content Overview</h3>
+            <h4>Lists</h4>
+            <p>HTML provides different types of lists to organize content. The three main types are:</p>
+            <ol>
+              <li><strong>Ordered Lists (<code>&lt;ol&gt;</code>)</strong> – use when the order of items matters. Each item is automatically numbered.</li>
+            </ol>
+            <p>Syntax:</p>
+<pre><code>&lt;ol&gt;
+  &lt;li&gt;First item&lt;/li&gt;
+  &lt;li&gt;Second item&lt;/li&gt;
+  &lt;li&gt;Third item&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+            <p>You can change the numbering style using the <code>type</code> attribute:</p>
+<pre><code>&lt;ol type="A"&gt;
+  &lt;li&gt;Item A&lt;/li&gt;
+  &lt;li&gt;Item B&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+
+            <ol start="2">
+              <li><strong>Unordered Lists (<code>&lt;ul&gt;</code>)</strong> – use when order doesn’t matter. Items use bullet points.</li>
+            </ol>
+            <p>Syntax:</p>
+<pre><code>&lt;ul&gt;
+  &lt;li&gt;Milk&lt;/li&gt;
+  &lt;li&gt;Eggs&lt;/li&gt;
+  &lt;li&gt;Bread&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+            <p>Customize bullet style via <code>type</code> (<code>disc</code>, <code>circle</code>, <code>square</code>):</p>
+<pre><code>&lt;ul type="square"&gt;
+  &lt;li&gt;Apples&lt;/li&gt;
+  &lt;li&gt;Bananas&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+            <ol start="3">
+              <li><strong>Definition Lists (<code>&lt;dl&gt;</code>)</strong> – pair terms with descriptions.</li>
+            </ol>
+            <p>Syntax:</p>
+<pre><code>&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;
+  &lt;dd&gt;HyperText Markup Language&lt;/dd&gt;
+  &lt;dt&gt;CSS&lt;/dt&gt;
+  &lt;dd&gt;Cascading Style Sheets&lt;/dd&gt;
+&lt;/dl&gt;
+</code></pre>
+
+            <h5>Nested Lists</h5>
+<pre><code>&lt;ul&gt;
+  &lt;li&gt;Fruits
+    &lt;ul&gt;
+      &lt;li&gt;Apple&lt;/li&gt;
+      &lt;li&gt;Banana&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Vegetables
+    &lt;ul&gt;
+      &lt;li&gt;Carrot&lt;/li&gt;
+      &lt;li&gt;Spinach&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+
+            <h4 style="margin-top:1.4rem">HTML Images</h4>
+            <p>Images are added using the <code>&lt;img&gt;</code> tag (it’s self-closing). Always include <code>alt</code> text.</p>
+            <p><strong>Basic Syntax</strong></p>
+<pre><code>&lt;img src="image.jpg" alt="Description of image"&gt;
+</code></pre>
+            <ul>
+              <li><code>src</code>: Image URL or path</li>
+              <li><code>alt</code>: Shown if the image can’t load; improves accessibility</li>
+            </ul>
+            <p><strong>Setting Image Width and Height</strong></p>
+<pre><code>&lt;img src="image.jpg" alt="A sample image" width="300" height="200"&gt;
+</code></pre>
+            <p><strong>Using Images as Links</strong></p>
+<pre><code>&lt;a href="https://example.com"&gt;
+  &lt;img src="image.jpg" alt="Click to visit example" width="200"&gt;
+&lt;/a&gt;
+</code></pre>
+            <p><strong>Adding a Favicon (in <code>&lt;head&gt;</code>)</strong></p>
+<pre><code>&lt;link rel="icon" type="image/png" href="favicon.png"&gt;
+</code></pre>
+
+            <h4 style="margin-top:1.4rem">HTML Tables</h4>
+            <p>Tables display data in rows and columns. Use <code>&lt;thead&gt;</code> and <code>&lt;tbody&gt;</code> for structure and accessibility.</p>
+            <p><strong>Basic Table Structure</strong></p>
+<pre><code>&lt;table border="1"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+      &lt;th&gt;Age&lt;/th&gt;
+      &lt;th&gt;Country&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;John&lt;/td&gt;
+      &lt;td&gt;25&lt;/td&gt;
+      &lt;td&gt;USA&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Jane&lt;/td&gt;
+      &lt;td&gt;30&lt;/td&gt;
+      &lt;td&gt;Canada&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+</code></pre>
+            <p><strong>Why Use <code>&lt;thead&gt;</code> and <code>&lt;tbody&gt;</code>?</strong></p>
+            <ul>
+              <li>Better readability</li>
+              <li>Improved styling control</li>
+              <li>Accessibility for screen readers</li>
+              <li>Easier scripting</li>
+            </ul>
+            <p><strong>Adding a Table Caption</strong></p>
+<pre><code>&lt;table border="1"&gt;
+  &lt;caption&gt;Employee Data&lt;/caption&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Name&lt;/th&gt;
+    &lt;th&gt;Position&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Sarah&lt;/td&gt;
+    &lt;td&gt;Manager&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+            <p><strong>Merging Cells</strong></p>
+<pre><code>&lt;!-- colspan (merge columns) --&gt;
+&lt;tr&gt;
+  &lt;td colspan="2"&gt;Merged Column&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;!-- rowspan (merge rows) --&gt;
+&lt;tr&gt;
+  &lt;td rowspan="2"&gt;Merged Row&lt;/td&gt;
+  &lt;td&gt;Data 1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td&gt;Data 2&lt;/td&gt;
+&lt;/tr&gt;
+</code></pre>
+
+            <h4 style="margin-top:1.4rem">Embedding Multimedia with <code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code>, and <code>&lt;canvas&gt;</code></h4>
+            <p>HTML5 brings multimedia to life—add audio, video, and draw graphics without plugins!</p>
+            <p><strong>Audio</strong></p>
+<pre><code>&lt;audio controls&gt;
+  &lt;source src="song.mp3" type="audio/mpeg"&gt;
+  Your browser does not support the audio element.
+&lt;/audio&gt;
+</code></pre>
+            <ul>
+              <li><code>controls</code> show playback UI</li>
+              <li><code>autoplay</code> starts automatically (use responsibly)</li>
+              <li><code>loop</code> repeats the audio</li>
+            </ul>
+            <p><strong>Video</strong></p>
+<pre><code>&lt;video controls width="640" height="360"&gt;
+  &lt;source src="video.mp4" type="video/mp4"&gt;
+  Your browser does not support the video tag.
+&lt;/video&gt;
+</code></pre>
+            <ul>
+              <li><code>width</code>/<code>height</code> set video size</li>
+              <li><code>poster</code> shows an image before playback</li>
+              <li><code>muted</code> starts video muted</li>
+            </ul>
+            <p><strong>Canvas</strong></p>
+<pre><code>&lt;canvas id="c" width="300" height="120"&gt;&lt;/canvas&gt;
+&lt;script&gt;
+  const ctx = document.getElementById('c').getContext('2d');
+  ctx.fillStyle = '#b80b0b';
+  ctx.fillRect(10,10,80,60);
+&lt;/script&gt;
+</code></pre>
+
+            <h3 style="margin-top:1.8rem">🌀 Vibe Coding Session + AI Spark</h3>
+            <p><em>Make content pop—with the help of some creative AI support.</em></p>
+            <div style="overflow-x:auto">
+              <table border="1" style="width:100%; border-collapse:collapse; background:#7a0a0a1a">
+                <thead>
+                  <tr>
+                    <th>Tool</th>
+                    <th>Use Case</th>
+                    <th>Sample Prompts</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>ChatGPT</td>
+                    <td>Generate lists, tables, alt text</td>
+                    <td>
+                      - "Generate a table showing 5 programming languages and their use cases."<br>
+                      - "Create a bulleted list of healthy snacks."<br>
+                      - "Give me descriptive alt text for an image of a person hiking."
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Claude</td>
+                    <td>Content enhancement, ethical writing</td>
+                    <td>
+                      - "Refine this HTML table to be more accessible and meaningful."<br>
+                      - "Generate copy for a simple pricing table."
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Gemini</td>
+                    <td>Content + SEO suggestions</td>
+                    <td>
+                      - "Best practices for accessible images?"<br>
+                      - "Give me 5 SEO keywords for a travel blog."
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>DALL·E / Midjourney</td>
+                    <td>Create visuals</td>
+                    <td>
+                      - "Create an illustration of a laptop on a wooden desk."<br>
+                      - "Design a set of productivity icons."
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Notion AI</td>
+                    <td>Write captions, lists</td>
+                    <td>
+                      - "Write 3 image captions for a portfolio gallery."<br>
+                      - "List reasons to use tables on websites."
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 style="margin-top:1.8rem">✅ Challenge</h3>
+            <p>Build a fun page showcasing:</p>
+            <ul>
+              <li>A pricing or comparison table</li>
+              <li>Two creative lists</li>
+              <li>Three images with helpful alt text</li>
+            </ul>
+            <p>Tip: Let AI help brainstorm, then you refine and build!</p>
+
+            <!-- 🌟 Try It Yourself: Lists + Images + Table -->
+            <div class="code-card" style="max-width: 100%; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); padding: 20px; margin: 20px 0;">
+              <h3>💻 <code>Try It: Lists + Images + Table</code></h3>
+              <p>Edit and run to preview lists, an image with alt text, and a simple table.</p>
+              <textarea id="code" style="width: 100%; height: 360px; border: 1px solid #9b141488; border-radius: 8px; padding: 10px; font-family: monospace;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lists, Images, Table</title>
+  <style>
+    body{font-family:Arial; background:#fff4f4; margin:0; padding:18px}
+    .box{background:#fff; padding:16px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1)}
+    img{max-width:140px; border-radius:8px}
+    table{border-collapse:collapse; width:100%; margin-top:10px}
+    th, td{border:1px solid #ccc; padding:8px; text-align:left}
+    th{background:#b80b0b; color:#fff}
+  </style>
+  </head>
+  <body>
+    <div class="box">
+      <h2>Shopping List</h2>
+      <ul type="square">
+        <li>Apples</li>
+        <li>Bananas</li>
+        <li>Bread</li>
+      </ul>
+
+      <h2>Team</h2>
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Role</th><th>Country</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>John</td><td>Developer</td><td>USA</td></tr>
+          <tr><td>Jane</td><td>Designer</td><td>Canada</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Logo</h2>
+      <a href="https://example.com">
+        <img src="https://via.placeholder.com/140x100" alt="Placeholder logo linking to example.com">
+      </a>
+    </div>
+  </body>
+</html>
+              </textarea>
+              <button onclick="runCode(this)" class="run-btn" style="margin-top:10px">▶ Run</button>
+              <iframe style="width: 100%; height: 340px; margin-top: 15px; border: 2px solid #000; border-radius: 8px; background: #fff;"></iframe>
+            </div>
+          </div>
+      </div>
+    </section>
+
+
+
+        <!-- ====== purpose of html5 in web development ====== -->
+    <section
+      id="html5-forms-management"
+      style="
+        display: flex;
+        justify-content: center;
+        padding: 4rem 2rem;
+        background: transparent;
+        margin-top:0;
+      "
+    >
+      <div class="info-card html-card" style="max-width: 950px; width: 100%; border-radius: 18px; overflow: hidden; text-align: center; padding: 2rem 2.2rem;">
+        <!-- Image at top of the card -->
+        <div
+          style="
+            width: 100%;
+            height: 300px;
+            background-image: url('images/HTML\ 5\ IMAGE.png');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+          "
+        ></div>
+
+        <!-- Content under image -->
+        <div style="margin-top: 2rem">
+          <h2 style="margin-bottom: 2rem; color: #f0eeee">Building and Managing HTML5 Forms</h2>
+
+          <div style="color: #f1efef; text-align: left; max-width:860px; margin:0 auto; line-height:1.75">
+            <p>Forms are essential for collecting user input. HTML5 offers powerful elements and attributes to simplify and enhance forms.</p>
+
+            <h3>✨ HTML5 Form Elements</h3>
+            <p>Here are common elements for building forms:</p>
+
+            <ol>
+              <li>
+                <p><code>&lt;input&gt;</code>: For single-line inputs (e.g., text, email).</p>
+<pre><code>&lt;input type="text" name="username" placeholder="Enter your name"&gt;
+</code></pre>
+              </li>
+              <li>
+                <p><code>&lt;textarea&gt;</code>: For multi-line text input.</p>
+<pre><code>&lt;textarea name="comments" rows="4" cols="50" placeholder="Write your comments here"&gt;&lt;/textarea&gt;
+</code></pre>
+              </li>
+              <li>
+                <p><code>&lt;button&gt;</code>: For actions like submit or reset.</p>
+<pre><code>&lt;button type="submit"&gt;Submit&lt;/button&gt;
+</code></pre>
+              </li>
+              <li>
+                <p><code>&lt;select&gt;</code> &amp; <code>&lt;option&gt;</code>: Dropdown menus.</p>
+<pre><code>&lt;select name="country"&gt;
+  &lt;option value="us"&gt;United States&lt;/option&gt;
+  &lt;option value="uk"&gt;United Kingdom&lt;/option&gt;
+&lt;/select&gt;
+</code></pre>
+              </li>
+              <li>
+                <p><code>&lt;label&gt;</code>: Links text to form controls for accessibility.</p>
+<pre><code>&lt;label for="email"&gt;Email:&lt;/label&gt;
+&lt;input type="email" id="email" name="email"&gt;
+</code></pre>
+              </li>
+            </ol>
+
+            <h3 style="margin-top:1.8rem">🌀 Vibe Coding Session + AI Assist</h3>
+            <p><em>Design smart forms using your logic and AI’s structure support.</em></p>
+            <div style="overflow-x:auto">
+              <table border="1" style="width:100%; border-collapse:collapse; background:#7a0a0a1a">
+                <thead>
+                  <tr>
+                    <th>Tool</th>
+                    <th>Use Case</th>
+                    <th>Sample Prompts</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>ChatGPT</td>
+                    <td>Generate form code, label help</td>
+                    <td>
+                      - "Create a contact form with name, email, and message fields."<br>
+                      - "Add accessibility features to this HTML form."
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Claude</td>
+                    <td>Improve semantics and user flow</td>
+                    <td>
+                      - "How would you rewrite this form to be clearer and more user-friendly?"<br>
+                      - "Explain the purpose of each input type in this form."
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Gemini</td>
+                    <td>SEO-friendly form structure</td>
+                    <td>
+                      - "What form elements affect SEO or page performance?"<br>
+                      - "Create a form for newsletter signup with email validation."
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Copilot</td>
+                    <td>Auto-complete input groups</td>
+                    <td>Tip: Start typing &lt;form&gt; or &lt;input type="email"&gt; — you’ll get complete groups.</td>
+                  </tr>
+                  <tr>
+                    <td>Figma AI</td>
+                    <td>Visualize form layouts</td>
+                    <td>
+                      - "Design a responsive login form layout with email + password."
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Notion AI</td>
+                    <td>Write form instructions or placeholder copy</td>
+                    <td>
+                      - "Write a placeholder message for a contact form textarea."<br>
+                      - "Suggest copy for a job application form button."
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 style="margin-top:1.8rem">✅ Challenge</h3>
+            <ul>
+              <li>Design a complete form (e.g., contact, feedback, signup).</li>
+              <li>Use at least one accessibility improvement (e.g., aria-label or a proper <code>&lt;label&gt;</code>).</li>
+              <li>Let AI help create realistic input options, labels, and placeholder content.</li>
+            </ul>
+
+            <!-- 🌟 Try It: Accessible Contact Form -->
+            <div class="code-card" style="max-width: 100%; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); padding: 20px; margin: 20px 0;">
+              <h3 style="color:#fff;">💻 <code>Try It: Accessible Contact Form</code></h3>
+              <p style="color:#eee;">Edit and run to preview a simple, accessible form with labels and validation.</p>
+              <textarea id="code" style="width: 100%; height: 360px; border: 1px solid #9b1414; border-radius: 8px; padding: 10px; font-family: monospace; background: #1a1a1a; color: #f8f8f2;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Accessible Contact Form</title>
+  <style>
+    body{font-family:Arial; background:#fff4f4; margin:0; padding:18px}
+    form{background:#fff; padding:16px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); max-width:420px}
+    label{display:block; margin-top:10px; font-weight:600}
+    input, textarea, select{width:100%; padding:10px; margin-top:6px; border:1px solid #ccc; border-radius:8px}
+    button{margin-top:14px; background:#680202; color:#fff; border:none; padding:10px 18px; border-radius:8px; cursor:pointer}
+    button:hover{background:#8b0b0b}
+    small{color:#666}
+  </style>
+  </head>
+  <body>
+    <h1>Contact Us</h1>
+    <form aria-label="Contact form">
+      <label for="name">Name</label>
+      <input id="name" name="name" required placeholder="Your full name" aria-required="true">
+
+      <label for="email">Email</label>
+      <input id="email" type="email" name="email" required placeholder="name@example.com" aria-required="true">
+
+      <label for="topic">Topic</label>
+      <select id="topic" name="topic">
+        <option>General</option>
+        <option>Support</option>
+        <option>Feedback</option>
+      </select>
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="4" placeholder="Write your comments here"></textarea>
+
+      <button type="submit">Submit</button>
+      <small id="hint">We usually respond within 24 hours.</small>
+    </form>
+  </body>
+</html>
+              </textarea>
+              <button onclick="runCode(this)" class="run-btn" style="margin-top:10px">▶ Run</button>
+              <iframe style="width: 100%; height: 360px; margin-top: 15px; border: 2px solid #000; border-radius: 8px; background: #fff;"></iframe>
+            </div>
+          </div>
+          </div>
+    </section>
+
+    <!-- ====== Introduction to HTML5====== -->
+    <section
+      id="form-attributes-validation"
+      aria-label="HTML5 section"
+      style="
+        display: flex;
+        justify-content: center;
+        padding: 4rem 2rem;
+        background: transparent;
+      "
+    >
+      <div class="info-card html-card" style="max-width: 950px; width: 100%; border-radius: 18px; overflow: hidden; text-align: center; padding: 2rem 2.2rem;">
+        <!-- Image at top of the card -->
+        <div style="width: 100%; height: 300px; background-image: url('images/HTML\ 01.jpg'); background-size: cover; background-position: center; border-radius: 12px;"></div>
+
+        <!-- Content under image -->
+        <div style="margin-top: 2rem">
+          <!-- anchor for fragment links -->
+          <span id="html5"></span>
+          <h2 style="margin-bottom: 2rem; color: #f0eeee">Form Attributes and HTML5 Validation</h2>
+
+          <div style="color: #f1efef; text-align: center">
+            <P>Objectives🎯</P>
+            <P>By the end of this tutorial, you’ll be able to:🎢</P>
+            <P>Understand the structure and purpose of HTML5📢</P>
+            <P> Build basic web pages using HTML5 elements.📢</P>
+            <P>Master semantic HTML for a well-organized and accessible web structure.📢</P>
+
+            <P>🎇Building the Foundation: HTML5 Basics 🎇</P>
+            <P>HTML5 is like the LEGO bricks of the web. Each tag is a brick, helping you construct 
+beautiful web pages!</P>
+            <P>    The Blueprint: Structure of an HTML Document Here's what every HTML document looks like:  </P>
+            <a href="images/html document image.PNG" target="_blank">
+              <img
+                src="images/html document image.PNG"
+                alt="HTML5 Structure"
+                style="width: 100%; max-width: 600px; border-radius: 10px"
+            >
+            </a>
+              <p>Let’s Break It Down:</p>
+              <p>`!DOCTYPE html`: Tells browsers you’re using HTML5   </p>
+              <p>`html lang="en"`: Starts the HTML zone don’t forget the `lang="en"` for accessibility!</p>
+              <p>`head`: Think of this as the control room where you load important tools like fonts, titles, and styles </p>
+              <p>`body`:The canvas for all your web page content! </p>
+
+              <p><b>🎇Adding Components to Your Page: Common Tags🎇</b></p>
+              <p>Here’s where the fun starts!You can use these tags to create content that pops:</p>
+
+                          <a href="images/fun starts.PNG" target="_blank">
+              <img
+                src="images/html document image.PNG"
+                alt="HTML5 Structure"
+                style="width: 100%; max-width: 600px; border-radius: 10px"
+            >
+            </a>
+
+              <p>Paragraphs Write amazing content with `p`</p>
+              <p></p>
+              <p></p>
+          </div>
+
+          <!-- Live Example: Basic Elements -->
+          <div class="code-card" style="max-width:100%; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.15); padding:20px; margin:25px 0;">
+            <h3>🔤 <code>Basic Elements Demo</code></h3>
+            <p>Play with headings, paragraphs, lists, and images.</p>
+            <textarea id="code" style="width:100%; height:260px; border:1px solid #9b141488; border-radius:8px; padding:10px; font-family:monospace;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Basic Elements</title>
+<style>
+ body{font-family:Arial; margin:0; padding:18px; background:#fff4f4}
+ h1{color:#b80b0b; margin-top:0}
+ ul{padding-left:20px}
+ img{max-width:120px; border-radius:8px}
+ .box{background:#fff; padding:14px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1)}
+</style>
+</head>
+<body>
+  <h1>HTML Basics</h1>
+  <div class="box">
+    <p>This is a paragraph. Change me!</p>
+    <ul>
+      <li>List Item One</li>
+      <li>List Item Two</li>
+      <li>List Item Three</li>
+    </ul>
+    <img src="https://via.placeholder.com/120" alt="Placeholder">
+  </div>
+</body>
+</html>
+            </textarea>
+            <button onclick="runCode(this)" class="run-btn" style="margin-top:10px">▶ Run</button>
+            <iframe style="width:100%; height:300px; margin-top:15px; border:2px solid #000; border-radius:8px; background:#fff;"></iframe>
+          </div>
+
+            <!-- Live Example: Semantic HTML5 Layout -->
+            <div class="code-card" style="max-width:100%; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.1); padding:20px; margin:20px 0;">
+              <h3>🧱 <code>Semantic Layout (header/nav/section/article/footer)</code></h3>
+              <p>Edit and run to preview a simple semantic HTML5 layout.</p>
+              <textarea id="code" style="width:100%; height:320px; border:1px solid #9b141488; border-radius:8px; padding:10px; font-family:monospace;">
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantic Layout</title>
+    <style>
+      body{margin:0; font-family:Arial, sans-serif}
+      header, nav, main, footer{padding:16px}
+      header{background:#b80b0b; color:#fff}
+      nav{background:#8a0a0a}
+      nav a{color:#fff; margin-right:10px; text-decoration:none}
+      main{display:grid; grid-template-columns: 2fr 1fr; gap:16px; padding:20px}
+      article, aside{background:#fff; border-radius:10px; padding:16px; box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+      body{background:#fff4f4}
+      footer{background:#b80b0b; color:#fff; text-align:center}
+      @media(max-width:700px){ main{grid-template-columns:1fr} }
+    </style>
+    </head>
+    <body>
+      <header>
+        <h1>Coding with Tawfiq</h1>
+        <p>HTML5 Semantic Structure</p>
+      </header>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#tutorials">Tutorials</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <main>
+        <article>
+          <h2>Article Area</h2>
+          <p>This is where your main content lives. Use headings and paragraphs for clarity.</p>
+        </article>
+        <aside>
+          <h3>Aside</h3>
+          <p>Useful links or related info can go here.</p>
+        </aside>
+      </main>
+      <footer>
+        <small>© 2025 Coding with Tawfiq</small>
+      </footer>
+    </body>
+    </html>
+              </textarea>
+              <button onclick="runCode(this)" class="run-btn" style="margin-top:10px">▶ Run</button>
+              <iframe style="width:100%; height:340px; margin-top:15px; border:2px solid #000; border-radius:8px; background:#fff;"></iframe>
+            </div>
+
+            <!-- Buttons -->
+    
+            <!-- Removed misplaced canvas demo (will be reinserted at end) -->
+
+     <!-- ====== Introduction to Accessibility and SEO Basics ====== -->
+    <section
+      id="additional-resources"
+      style="
+        display: flex;
+        justify-content: center;
+        padding: 4rem 2rem;
+        background: transparent;
+      "
+    >
+      <div class="info-card html-card" style="max-width: 950px; width: 100%; border-radius: 18px; overflow: hidden; text-align: center; padding: 2rem 2.2rem;">
+        <!-- Image at top of the card -->
+        <div
+          style="
+            width: 100%;
+            height: 300px;
+            background-image: url('images/web\ dev\ home\ logo.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+          "
+        ></div>
+
+        <!-- Content under image -->
+        <div style="margin-top: 2rem">
+          <h2 style="margin-bottom: 2rem; color: #f0eeee">Additional Resources</h2>
+
+          <div style="color: #f1efef; text-align: center">
+            <P>Objectives🎯</P>
+            <P>Understand the importance of accessibility and SEO in web development🎢</P>
+            <P> Learn techniques to make web pages accessible to everyone.📢</P>
+            <P>  Discover basic SEO strategies to improve visibility. 📢</P>
+
+            <P>🎇Content Overview 🎇</P>
+            <P>1. Understanding Accessibility in Web Development </P>
+            <P> 
+                Web accessibility ensures that websites can be used by everyone, including people with 
+disabilities. It’s not just ethical but also improves user experience and compliance with 
+standards like WCAG (Web Content Accessibility Guidelines). 
+            </P>
+            <p>Key Concepts of Accessibility </p>
+            <p>Perceivable: Content must be presented in ways that users can perceive (e.g., using alt text for images).</p>
+            <p>Operable: Users should navigate and interact with the website easily (e.g., keyboard navigation)</p>
+            <p>Understandable: Content should be clear and predictable. </p>
+            <p>Robust: Works across various devices and browsers.</p>
+            <p><B>HERE ARE TECHNIQUES TO IMPROVE ACCESSIBILITY</B></p>
+            <a href="images/PICHA LA TECNIKI.PNG" target="_blank">
+              <img
+                src="images/PICHA LA TECNIKI.PNG"
+                alt="HTML5 Structure"
+                style="width: 100%; max-width: 600px; border-radius: 10px"
+            >
+            </a>
+
+              <p>2. Basics of SEO (Search Engine Optimization) (1 Hour) </p>
+              <p>SEO makes your website discoverable by search engines like Google, increasing traffic and visibility. </p>
+              <p>Key Concepts of SEO </p>
+              <p>• On-page SEO: Optimizing content, titles, and metadata. </p>
+              <p>• Off-page SEO: Building backlinks from other websites. </p>
+              <p>• Technical SEO: Improving website speed, mobile-friendliness, and structure. </p>
+
+              <a href="images/SEO.PNG" target="_blank">
+              <img
+                src="images/SEO.PNG"
+                alt="HTML5 Structure"
+                style="width: 100%; max-width: 600px; border-radius: 10px"
+            >
+            </a>
+
+              <p><b>Here are Techniques to Improve SEO</b></p>
+
+                  <a href="images/SEO TECNIKI.PNG" target="_blank">
+              <img
+                src="images/SEO TECNIKI.PNG"
+                alt="HTML5 Structure"
+                style="width: 100%; max-width: 600px; border-radius: 10px"
+            >
+            </a>
+
+              <p>3. Combine Accessibility and SEO </p>
+              <p>Why Accessibility Helps SEO</p>
+              <p>• Search engines reward accessible practices, as they align with good user experience. </p>
+              <p>• Accessible websites often rank higher because they’re more user-friendly and compliant.</p>
+              <p>Summary </p>
+              <p>• Accessibility ensures everyone can use your site.</p>
+              <p>• SEO increases your site’s visibility.</p>
+              <p>• Both are essential for modern, user-friendly web development. </p>
+              <p>🎨Ready to level up your skills? Dive into practice and start building amazing,🎞🎪 inclusive, and optimized websites!   </p>
+              <p></p>
+          </div>
+
+          <!-- Added Summary + AI Smart Forms Content -->
+          <div style="margin-top:2.5rem; text-align:left">
+            <h3>🎉 Summary</h3>
+            <ul style="list-style:disc; padding-left:22px; margin-top:10px">
+              <li>Use multimedia elements (<code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;canvas&gt;</code>) to enhance engagement.</li>
+              <li>Build forms with modern HTML5 elements like <code>&lt;input&gt;</code> and <code>&lt;textarea&gt;</code>.</li>
+              <li>Use attributes like <code>required</code>, <code>pattern</code>, <code>minlength</code> for built‑in validation.</li>
+              <li>Ensure accessibility with <code>&lt;label&gt;</code>, grouped controls using <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code>.</li>
+            </ul>
+            <p style="margin-top:12px; font-weight:600">🚀 Practice makes perfect – start building today! 🖼️</p>
+
+            <h3 style="margin-top:2rem">🌀 AI-Powered Vibe Coding: Smart Forms Edition</h3>
+            <p><em>“Let’s build smart forms that guide users and validate cleanly—AI makes it smoother!”</em></p>
+            <div style="overflow-x:auto">
+              <table border="1" style="width:100%; border-collapse:collapse; background:#7a0a0a1a; font-size:0.95rem">
+                <thead>
+                  <tr style="background:#680202; color:#fff">
+                    <th style="padding:8px">Tool</th>
+                    <th style="padding:8px">Use Case</th>
+                    <th style="padding:8px">Sample Prompts / Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="padding:8px; font-weight:600">ChatGPT</td>
+                    <td style="padding:8px">Generate forms with validation</td>
+                    <td style="padding:8px">- "Create a registration form with required fields and HTML5 validation."<br>- "What’s a good pattern for validating a Kenyan phone number?"</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px; font-weight:600">Claude</td>
+                    <td style="padding:8px">Explain validation attributes & logic</td>
+                    <td style="padding:8px">- "What does the <code>novalidate</code> attribute do?"<br>- "Explain HTML5 input types and when to use them."</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px; font-weight:600">Gemini</td>
+                    <td style="padding:8px">Form UX + advanced validation</td>
+                    <td style="padding:8px">- "Generate a responsive login form with proper HTML5 validation."<br>- "Benefits of using <code>pattern</code> vs JavaScript validation?"</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px; font-weight:600">Copilot</td>
+                    <td style="padding:8px">Auto-suggest validation attributes</td>
+                    <td style="padding:8px">Type <code>&lt;input type="email"</code> and get suggestions for <code>required</code>, <code>placeholder</code>, <code>maxlength</code>, etc.</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px; font-weight:600">Perplexity AI</td>
+                    <td style="padding:8px">Research patterns & constraints</td>
+                    <td style="padding:8px">- "Best HTML5 pattern for password strength?"<br>- "Examples of birthdate input constraints."</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px; font-weight:600">Notion AI</td>
+                    <td style="padding:8px">Write tooltips & feedback copy</td>
+                    <td style="padding:8px">- "Helpful tooltip for a password field."<br>- "Message for invalid email format."</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3 style="margin-top:2rem">✅ Challenge</h3>
+            <ul style="list-style:disc; padding-left:22px">
+              <li>Build a smart form using <code>required</code>, <code>pattern</code>, and other validation attributes.</li>
+              <li>Use AI to suggest realistic and user‑friendly validation patterns.</li>
+              <li><strong>Bonus:</strong> Use AI to simulate UX messages (success, error, tooltip).</li>
+            </ul>
+          </div>
+
+          <!-- Live Example: Accessible Form -->
+          <div class="code-card" style="max-width:100%; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.15); padding:20px; margin:25px 0;">
+            <h3>♿ <code>Accessible Form</code></h3>
+            <p>Labels, required fields, and ARIA attributes in action.</p>
+            <textarea id="code" style="width:100%; height:300px; border:1px solid #9b141488; border-radius:8px; padding:10px; font-family:monospace;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Accessible Form</title>
+<style>
+ body{font-family:Arial; background:#fff4f4; margin:0; padding:18px}
+ form{background:#fff; padding:16px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1); max-width:400px}
+ label{display:block; margin-top:10px; font-weight:600}
+ input, select{width:100%; padding:8px; margin-top:4px; border:1px solid #ccc; border-radius:6px}
+ button{margin-top:14px; background:#680202; color:#fff; border:none; padding:10px 18px; border-radius:8px; cursor:pointer}
+ button:hover{background:#8b0b0b}
+</style>
+</head>
+<body>
+ <h1>Signup Form</h1>
+ <form aria-label="Signup form">
+   <label for="name">Name</label>
+   <input id="name" name="name" required placeholder="Your name" aria-required="true">
+   <label for="email">Email</label>
+   <input id="email" type="email" name="email" required placeholder="name@example.com" aria-required="true">
+   <label for="role">Role</label>
+   <select id="role" name="role" aria-label="Select role">
+     <option>Student</option>
+     <option>Developer</option>
+     <option>Designer</option>
+   </select>
+   <button type="submit">Submit</button>
+ </form>
+</body>
+</html>
+            </textarea>
+            <button onclick="runCode(this)" class="run-btn" style="margin-top:10px">▶ Run</button>
+            <iframe style="width:100%; height:340px; margin-top:15px; border:2px solid #000; border-radius:8px; background:#fff;"></iframe>
+          </div>
+          </section>
+
+          <!-- Buttons -->
+            <!-- Removed legacy download button; resources consolidated in hero and Additional Resources section -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== Canvas Demo (moved to end) ====== -->
+    <section id="canvas-demo" style="display:flex; justify-content:center; padding: 2rem 2rem; background: transparent;">
+      <div class="code-card" style="max-width:950px; width:100%; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,0.15); padding:20px;">
+        <h3>🎨 <code>Canvas Drawing</code></h3>
+        <p>Draw shapes on an HTML5 canvas using JavaScript. Modify colors or add shapes and rerun.</p>
+        <textarea id="code" style="width:100%; height:260px; border:1px solid #9b141488; border-radius:8px; padding:10px; font-family:monospace;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas Demo</title>
+  <style>
+    body{background:#fff4f4; font-family:Arial; margin:0; padding:18px}
+    .wrap{background:#fff; border-radius:10px; padding:16px; box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+    canvas{border:2px solid #000; border-radius:8px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <canvas id="c" width="320" height="200" aria-label="Demo canvas"></canvas>
+  </div>
+  <script>
+    const ctx = document.getElementById('c').getContext('2d');
+    ctx.clearRect(0,0,320,200);
+    // Rectangle
+    ctx.fillStyle = '#b80b0b';
+    ctx.fillRect(10, 10, 120, 80);
+    // Circle
+    ctx.beginPath();
+    ctx.arc(220, 60, 40, 0, Math.PI * 2);
+    ctx.fillStyle = '#680202';
+    ctx.fill();
+    // Text
+    ctx.fillStyle = '#000';
+    ctx.font = '16px Arial';
+    ctx.fillText('HTML5 Canvas!', 10, 120);
+  </script>
+</body>
+</html>
+        </textarea>
+        <button onclick="runCode(this)" class="run-btn" style="margin-top:10px">▶ Run</button>
+        <iframe style="width:100%; height:300px; margin-top:15px; border:2px solid #000; border-radius:8px; background:#fff;"></iframe>
+      </div>
+    </section>
+
+  <!-- Share buttons for each info-card -->
+  <script>
+  (function(){
+    function sectionUrlFor(el){
+      let anchorId = el.closest('section')?.id || el.id;
+      if(!anchorId){ el.id = 'card-' + Math.random().toString(36).slice(2,8); anchorId = el.id; }
+      return window.location.origin + window.location.pathname + '#' + encodeURIComponent(anchorId);
+    }
+    function buildShareButton(card){
+      const btn = document.createElement('button');
+      btn.className='icon-btn share-btn';
+      btn.type='button';
+      btn.setAttribute('aria-label','Share this card');
+      const img = document.createElement('img'); img.src='images/share logo.jpg'; img.alt=''; img.className='share-icon';
+      img.onerror = () => { img.style.display='none'; };
+      const lbl = document.createElement('span'); lbl.className='share-label'; lbl.textContent='Share';
+      btn.appendChild(img); btn.appendChild(lbl);
+      btn.addEventListener('click', () => {
+        const url = sectionUrlFor(card);
+        const title = (card.querySelector('h2, h3, p strong')?.textContent?.trim()) || document.title;
+        const shareData = { title, text: 'Check this topic on Coding with Tawfiq', url };
+        if(navigator.share){ navigator.share(shareData).catch(()=>fallbackCopy(url)); }
+        else fallbackCopy(url);
+      });
+      return btn;
+    }
+    function fallbackCopy(url){
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(()=> alert('Link copied: '+url)).catch(()=>{ prompt('Copy section link:', url); });
+      } else { prompt('Copy section link:', url); }
+    }
+    function addShares(){
+      document.querySelectorAll('.info-card, .code-card').forEach(card => {
+        // overlay button (top-right)
+        if(!card.querySelector('.card-share-overlay')){
+          const overlay = document.createElement('div'); overlay.className='card-share-overlay';
+          overlay.appendChild(buildShareButton(card));
+          card.appendChild(overlay);
+        }
+        // bottom action row
+        if(!card.querySelector('.inline-share-actions')){
+          const actions = document.createElement('div'); actions.className='inline-share-actions';
+          actions.appendChild(buildShareButton(card));
+          card.appendChild(actions);
+        }
+      });
+    }
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', addShares); else addShares();
+  })();
+  </script>
+
+   <!-- ====== FOOTER (match index style) ====== -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="/images/coding with tawfiq.jpg" alt="Logo">
+        <span class="footer-copy">© <span id="footerYear"></span> Coding with Tawfiq</span>
+      </div>
+      <div class="footer-links">
+        <a href="/index.html">Home</a>
+        <a href="/try-quiz.html">Practice</a>
+        <a href="/findjobs.html">Find Jobs</a>
+      </div>
+      <div class="footer-right">
+        <div class="footer-social">
+          <a href="#" aria-label="GitHub"><i class="bi bi-github"></i></a>
+          <a href="#" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script>try{document.getElementById('footerYear').textContent = new Date().getFullYear();}catch(e){}</script>
