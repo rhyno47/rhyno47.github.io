@@ -243,31 +243,32 @@
             try{ console.error('[create-post] Failed', { status: res.status, headers: Object.fromEntries(res.headers.entries()), raw }); }catch(_e){}
             const errMsg = (data && (data.message || (data.errors && data.errors[0] && data.errors[0].msg))) || (raw || 'Failed to create/update post');
             if(file){
-              alert('Image upload failed: ' + errMsg + '\nPosting again without image...');
+              if(window.showToast){ window.showToast('error','Image upload failed','Retrying without image…'); } else { alert('Image upload failed: ' + errMsg + '\nPosting again without image...'); }
               // retry without image if the failure might be image related (status 400/500)
               try{
                 const retry = await fetch(fullUrl, { method, headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }, body: JSON.stringify({ title: t, body: b, link: l }) });
                 const retryText = await retry.clone().text();
                 let retryJson = null; try{ retryJson = retryText ? JSON.parse(retryText) : null; }catch(_e){}
                 if(!retry.ok){
-                  alert((retryJson && (retryJson.message||retryJson.detail)) || 'Retry without image failed');
+                  const retryFailMsg = (retryJson && (retryJson.message||retryJson.detail)) || 'Retry without image failed';
+                  if(window.showToast){ window.showToast('error','Retry failed', retryFailMsg); } else { alert(retryFailMsg); }
                   return;
                 }
                 modal.classList.remove('show'); modal.setAttribute('aria-hidden','true');
                 document.getElementById('title').value = ''; document.getElementById('body').value = ''; document.getElementById('link').value = ''; document.getElementById('image').value = ''; editingPostId = null;
                 await fetchAndRender();
-                alert('Posted (image skipped).');
+                if(window.showToast){ window.showToast('success','Posted','Image skipped.'); } else { alert('Posted (image skipped).'); }
                 return;
               }catch(retryErr){ console.error('[create-post] retry error', retryErr); }
             }
-            alert(errMsg);
+            if(window.showToast){ window.showToast('error','Post failed', errMsg); } else { alert(errMsg); }
             return;
           }
           modal.classList.remove('show'); modal.setAttribute('aria-hidden','true');
           document.getElementById('title').value = ''; document.getElementById('body').value = ''; document.getElementById('link').value = ''; document.getElementById('image').value = ''; editingPostId = null;
           await fetchAndRender();
-          alert(editingPostId ? 'Updated' : 'Posted');
-        }catch(e){ console.error(e); alert('Error posting'); }
+          if(window.showToast){ window.showToast('success', editingPostId ? 'Updated' : 'Posted', editingPostId ? 'Post updated successfully.' : 'Post created successfully.'); } else { alert(editingPostId ? 'Updated' : 'Posted'); }
+  }catch(e){ console.error(e); if(window.showToast){ window.showToast('error','Error posting','Unexpected error.'); } else { alert('Error posting'); } }
         return;
       }
 
@@ -277,18 +278,47 @@
     const renderedLocal = renderPostNode(localPost);
   feed.insertBefore(renderedLocal.node, feed.children[1] || null);
     modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); document.getElementById('title').value = ''; document.getElementById('body').value = ''; document.getElementById('link').value = ''; document.getElementById('image').value = '';
-    alert('Posted locally (not saved to server).');
+  if(window.showToast){ window.showToast('info','Local only','Posted locally (not saved to server).'); } else { alert('Posted locally (not saved to server).'); }
     });
+
+    // Branded confirm helper
+    async function askConfirm(message = 'Are you sure?'){
+      return new Promise(resolve => {
+        let wrap = document.getElementById('confirmBackdrop');
+        if(!wrap){
+          wrap = document.createElement('div');
+          wrap.id = 'confirmBackdrop';
+          wrap.className = 'confirm-backdrop';
+          wrap.innerHTML = '<div class="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="confirmTitle"><h3 id="confirmTitle">Confirm action</h3><div class="confirm-message"></div><div class="actions"><button class="btn-cancel" type="button">Cancel</button><button class="btn-danger" type="button">Delete</button></div></div>';
+          document.body.appendChild(wrap);
+        }
+        wrap.querySelector('.confirm-message').textContent = message;
+        const onCancel = ()=>{ cleanup(); resolve(false); };
+        const onOk = ()=>{ cleanup(); resolve(true); };
+        function onKey(e){ if(e.key==='Escape'){ onCancel(); } }
+        function cleanup(){
+          document.removeEventListener('keydown', onKey);
+          wrap.classList.remove('show');
+          setTimeout(()=>{}, 180);
+        }
+        wrap.querySelector('.btn-cancel').onclick = onCancel;
+        wrap.querySelector('.btn-danger').onclick = onOk;
+        document.addEventListener('keydown', onKey);
+        wrap.classList.add('show');
+      });
+    }
 
     // Delete a post (owner only)
     async function deletePost(id){
-      if(!confirm('Delete this post?')) return;
+      const ok = await askConfirm('Delete this post?');
+      if(!ok) return;
       try{
   const res = await fetch(API_BASE + '/api/posts/' + id, { method:'DELETE', headers: { 'Authorization': 'Bearer ' + getToken() } });
   const data = await parseJsonSafe(res);
-  if(!res.ok){ alert((data && data.message) || 'Delete failed'); return; }
+  if(!res.ok){ const dmsg = (data && data.message) || 'Delete failed'; if(window.showToast){ window.showToast('error','Delete failed', dmsg); } else { alert(dmsg); } return; }
         await fetchAndRender();
-      }catch(e){ console.error(e); alert('Delete error'); }
+        if(window.showToast){ window.showToast('success','Post deleted','Your post was removed.'); } else { alert('Post deleted'); }
+  }catch(e){ console.error(e); if(window.showToast){ window.showToast('error','Delete error','Unexpected error.'); } else { alert('Delete error'); } }
     }
 
     // Edit a post: prefill modal and set editingPostId
@@ -418,7 +448,7 @@
         controls = document.createElement('div');
         controls.className = 'controls';
         const editBtn = document.createElement('button'); editBtn.className='icon-btn'; editBtn.title='Edit post'; const editImg = document.createElement('img'); editImg.src='images/edit post logo.jpg'; editImg.alt='Edit'; editBtn.appendChild(editImg); editBtn.addEventListener('click', ()=>document.dispatchEvent(new CustomEvent('editPost',{detail:p})));
-        const delBtn = document.createElement('button'); delBtn.className='icon-btn'; delBtn.title='Delete post'; const delImg = document.createElement('img'); delImg.src='images/delete post logo.jpg'; delImg.alt='Delete'; delBtn.appendChild(delImg); delBtn.addEventListener('click', ()=>document.dispatchEvent(new CustomEvent('deletePost',{detail:p._id||p.id||''})));
+    const delBtn = document.createElement('button'); delBtn.className='icon-btn delete-btn'; delBtn.title='Delete post'; const delImg = document.createElement('img'); delImg.src='images/delete post logo.jpg'; delImg.alt='Delete'; delBtn.appendChild(delImg); delBtn.addEventListener('click', ()=>document.dispatchEvent(new CustomEvent('deletePost',{detail:p._id||p.id||''})));
         controls.appendChild(editBtn); controls.appendChild(delBtn);
       }
       const actionRow = document.createElement('div'); actionRow.className = 'card-actions';

@@ -837,6 +837,25 @@ textarea{ min-height:120px }
 .card-actions .right { display:flex; gap:8px; align-items:center }
 .open-link-btn { padding:0.4rem 0.8rem; font-weight:700; font-size:0.95rem }
 
+/* Subtle danger accent for delete button to align with theme */
+.icon-btn.delete-btn{ border:1px solid rgba(104,2,2,0.24); background: rgba(104,2,2,0.08); }
+.icon-btn.delete-btn:hover{ background: rgba(104,2,2,0.12); transform: translateY(-2px); }
+.icon-btn.delete-btn:active{ transform: translateY(0) }
+
+/* Branded confirm dialog (used for delete confirmation) */
+.confirm-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,0.55); display:none; align-items:center; justify-content:center; z-index:4000; padding:20px }
+.confirm-backdrop.show{ display:flex }
+.confirm-dialog{ background:#0f0f10; color:#fff; width:95%; max-width:420px; border-radius:14px; padding:1.1rem 1.2rem; border:1px solid rgba(255,255,255,0.06); box-shadow:0 10px 40px rgba(0,0,0,0.6); transform:translateY(6px); opacity:0; animation:confirm-in .22s ease forwards }
+.confirm-dialog h3{ margin:0 0 .6rem; font-size:1.15rem; font-weight:800 }
+.confirm-dialog .confirm-message{ margin:0 0 .9rem; line-height:1.4; font-size:.95rem; color:rgba(255,255,255,0.85) }
+.confirm-dialog .actions{ display:flex; gap:.6rem; justify-content:flex-end }
+.confirm-dialog .actions button{ cursor:pointer; font-weight:700 }
+.confirm-dialog .btn-cancel{ background:transparent; color:#fff; padding:.55rem .9rem; border-radius:8px; border:1px solid rgba(255,255,255,0.12) }
+.confirm-dialog .btn-cancel:hover{ background:rgba(255,255,255,0.06) }
+.confirm-dialog .btn-danger{ background:#680202; color:#fff; padding:.55rem 1rem; border-radius:8px; border:1px solid rgba(0,0,0,0.2) }
+.confirm-dialog .btn-danger:hover{ filter:brightness(1.05); transform:translateY(-2px) }
+@keyframes confirm-in{ to{ transform:translateY(0); opacity:1 } }
+
 /* ===== Inline Share Actions (global across all cards) ===== */
 .inline-share-actions{ display:flex; justify-content:flex-end; align-items:center; gap:6px; margin-top:10px; }
 .inline-share-actions .icon-btn{ background: linear-gradient(135deg,#ffcc33,#ffb300); border:2px solid #ffffff; padding:8px 14px; border-radius:10px; color:#222; font-weight:800; font-size:0.85rem; line-height:1; box-shadow:0 6px 20px rgba(0,0,0,0.40); transition: transform .15s ease, filter .15s ease; }

@@ -774,6 +774,23 @@ textarea{ min-height:120px }
 /* icon buttons for edit/delete using local repo images */
 .icon-btn{ background: transparent; border: none; padding:8px; border-radius:8px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center }
 .icon-btn img{ width:28px; height:28px; object-fit:contain; display:block }
+.icon-btn.delete-btn{ border:1px solid rgba(104,2,2,0.24); background: rgba(104,2,2,0.08); }
+.icon-btn.delete-btn:hover{ background: rgba(104,2,2,0.12); transform: translateY(-2px); }
+.icon-btn.delete-btn:active{ transform: translateY(0) }
+
+/* Branded confirm dialog (used for delete confirmation) */
+.confirm-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,0.55); display:none; align-items:center; justify-content:center; z-index:4000; padding:20px }
+.confirm-backdrop.show{ display:flex }
+.confirm-dialog{ background:#0f0f10; color:#fff; width:95%; max-width:420px; border-radius:14px; padding:1.1rem 1.2rem; border:1px solid rgba(255,255,255,0.06); box-shadow:0 10px 40px rgba(0,0,0,0.6); transform:translateY(6px); opacity:0; animation:confirm-in .22s ease forwards }
+.confirm-dialog h3{ margin:0 0 .6rem; font-size:1.15rem; font-weight:800 }
+.confirm-dialog .confirm-message{ margin:0 0 .9rem; line-height:1.4; font-size:.95rem; color:rgba(255,255,255,0.85) }
+.confirm-dialog .actions{ display:flex; gap:.6rem; justify-content:flex-end }
+.confirm-dialog .actions button{ cursor:pointer; font-weight:700 }
+.confirm-dialog .btn-cancel{ background:transparent; color:#fff; padding:.55rem .9rem; border-radius:8px; border:1px solid rgba(255,255,255,0.12) }
+.confirm-dialog .btn-cancel:hover{ background:rgba(255,255,255,0.06) }
+.confirm-dialog .btn-danger{ background:#680202; color:#fff; padding:.55rem 1rem; border-radius:8px; border:1px solid rgba(0,0,0,0.2) }
+.confirm-dialog .btn-danger:hover{ filter:brightness(1.05); transform:translateY(-2px) }
+@keyframes confirm-in{ to{ transform:translateY(0); opacity:1 } }
 .controls { display:flex; gap:8px; align-items:center }
 /* card action row: left for meta or nothing, right for link & controls */
 .card-actions{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:0.6rem }
@@ -1117,6 +1134,44 @@ input[type="file"]::-webkit-file-upload-button {
 
 /* Make headings match the lesson-card style when used inside the python intro */
 #python-intro h2, #python-datatypes h2 { text-align: center; color: #ffffff; font-size: 2rem; margin-bottom: 12px; }
+
+/* === Readability improvements for Python intro cards on very small screens ===
+   The scoped styles above add generous padding (30px) and tight font scaling that
+   can feel cramped when the viewport is below ~600px. We reduce padding, slightly
+   increase paragraph line-height, and let headings scale down so content breathes.
+   These rules only affect narrow viewports and the Python intro pages. */
+@media (max-width: 640px) {
+  #python-intro .info-card,
+  #python-datatypes .info-card {
+    padding: 18px 18px; /* was 30px */
+    border-radius: 16px;
+    line-height: 1.68; /* improve multi-line legibility */
+    background-image: none; /* avoid busy striped wallpaper on tiny screens */
+  }
+  #python-intro .info-card p,
+  #python-datatypes .info-card p { font-size: 0.98rem; margin-bottom: 0.9rem; }
+  #python-intro .info-card h3,
+  #python-datatypes .info-card h3 { font-size: 1.35rem; margin-bottom: 0.55rem; }
+  #python-intro .info-card h4,
+  #python-datatypes .info-card h4 { font-size: 1.05rem; margin-top: 14px; }
+  #python-intro .code-card,
+  #python-datatypes .code-card { padding: 16px; margin: 16px 0; }
+  #python-intro .code-card h3,
+  #python-datatypes .code-card h3 { font-size: 1.05rem; }
+  #python-intro .code-card textarea,
+  #python-datatypes .code-card textarea { font-size: 0.9rem; line-height: 1.4; }
+  /* Avoid huge full-height top images forcing extra scroll on tiny screens */
+  #python-intro .card-top-image,
+  #python-datatypes .card-top-image { height: 200px; }
+}
+
+/* Ultra-narrow phones (≤380px): trim padding further and scale heading */
+@media (max-width: 380px) {
+  #python-intro .info-card,
+  #python-datatypes .info-card { padding: 14px 14px; }
+  #python-intro .info-card h3,
+  #python-datatypes .info-card h3 { font-size: 1.22rem; }
+}
 
 
 

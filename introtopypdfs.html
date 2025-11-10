@@ -313,6 +313,12 @@
   const data = await parseJsonSafe(res);
   if(!res.ok){ alert((data && data.message) || 'Delete failed'); return; }
         await fetchAndRender();
+        // Styled success feedback matching login toast style
+        if(window.showToast){
+          window.showToast('success','Post deleted','Your post was removed.');
+        }else{
+          alert('Post deleted');
+        }
       }catch(e){ console.error(e); alert('Delete error'); }
     }
 
@@ -413,7 +419,7 @@
 
             // delete icon button
             const delBtn = document.createElement('button');
-            delBtn.className = 'icon-btn';
+            delBtn.className = 'icon-btn delete-btn';
             delBtn.title = 'Delete post';
             const delImg = document.createElement('img');
             delImg.src = 'images/delete post logo.jpg';
@@ -527,6 +533,8 @@
         controls.className = 'controls';
         const editBtn = document.createElement('button'); editBtn.className='icon-btn'; editBtn.title='Edit post'; const editImg = document.createElement('img'); editImg.src='images/edit post logo.jpg'; editImg.alt='Edit'; editBtn.appendChild(editImg); editBtn.addEventListener('click', ()=>document.dispatchEvent(new CustomEvent('editPost',{detail:p})));
         const delBtn = document.createElement('button'); delBtn.className='icon-btn'; delBtn.title='Delete post'; const delImg = document.createElement('img'); delImg.src='images/delete post logo.jpg'; delImg.alt='Delete'; delBtn.appendChild(delImg); delBtn.addEventListener('click', ()=>document.dispatchEvent(new CustomEvent('deletePost',{detail:p._id||p.id||''})));
+  // Enhance delete button styling for consistency with success/login theme
+  delBtn.classList.add('delete-btn');
   const shareBtn = document.createElement('button'); shareBtn.className='icon-btn'; shareBtn.title='Share post'; const shareImg = document.createElement('img'); shareImg.src='images/share logo.jpg'; shareImg.alt='Share'; shareImg.className='share-icon'; shareBtn.appendChild(shareImg); shareBtn.addEventListener('click', ()=>sharePost(p._id||p.id||''));
         controls.appendChild(editBtn); controls.appendChild(delBtn); controls.appendChild(shareBtn);
       }
