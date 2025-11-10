@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy | Coding with Tawfiq</title>
+  <link rel="stylesheet" href="assets/home.css" />
+</head>
+<body>
+  <nav class="new-navbar" role="navigation"></nav>
+  <script src="/assets/navbar.js"></script>
+  <section id="hero" class="home-hero">
+    <div class="hero-content">
+      <h1>Privacy & Data Use</h1>
+      <p>Your learning data matters. This summary explains what is (and isn’t) collected when you use this site.</p>
+      <div class="hero-actions" style="flex-wrap:wrap;justify-content:center">
+        <a class="btn-primary" href="/index.html">Home</a>
+        <a class="btn-ghost" href="/about.html">About</a>
+      </div>
+    </div>
+  </section>
+  <main class="page" style="max-width:1000px;margin:2rem auto;padding:0 5%">
+    <article class="info-card" style="margin:0 auto;max-width:950px">
+      <h3>What We Collect</h3>
+      <ul>
+        <li><strong>Account basics:</strong> Name, email (for login + verification).</li>
+        <li><strong>Auth tokens:</strong> Stored in browser storage for session handling.</li>
+        <li><strong>Optional uploads:</strong> Images you attach (stored via Cloudinary if enabled).</li>
+      </ul>
+      <h3>What We Do NOT Collect</h3>
+      <ul>
+        <li>No payment details.</li>
+        <li>No biometric or sensitive personal data.</li>
+        <li>No hidden keystroke or surveillance tracking.</li>
+      </ul>
+      <h3>Cookies & Local Storage</h3>
+      <p>Minimal use: authentication token & basic user info. Remove anytime by signing out or clearing browser data.</p>
+      <h3>Data Retention</h3>
+      <p>Accounts and posts remain until you delete them or request deletion. Error logs rotate periodically.</p>
+      <h3>Security Practices</h3>
+      <ul>
+        <li>Hashed passwords.</li>
+        <li>CORS locked to known frontends.</li>
+        <li>Optional JWT rotation roadmap.</li>
+      </ul>
+      <h3>Your Rights</h3>
+      <ul>
+        <li>Request removal of your account: email <a href="mailto:tawfiqerassy4@gmail.com">tawfiqerassy4@gmail.com</a>.</li>
+        <li>Revoke access by clearing tokens (sign out).</li>
+      </ul>
+      <h3>Contact</h3>
+      <p>Email: <a href="mailto:tawfiqerassy4@gmail.com">tawfiqerassy4@gmail.com</a> | WhatsApp: <a href="https://wa.me/255761404678" target="_blank" rel="noopener">+255761404678</a> | GitHub: <a href="https://github.com/rhyno47" target="_blank" rel="noopener">rhyno47</a></p>
+      <h3>Updates</h3>
+      <p>Policy may evolve as new features launch. Last updated: <span id="policyDate"></span>.</p>
+    </article>
+  </main>
+  <script>document.getElementById('policyDate').textContent = new Date().toISOString().substring(0,10);</script>
+</body>
+</html>

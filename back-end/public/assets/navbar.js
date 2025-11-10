@@ -52,32 +52,47 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // If page lacks a footer#footer, inject a canonical footer at the end of body
-  if (!document.getElementById('footer')) {
-    const footer = document.createElement('footer');
-    footer.id = 'footer';
-    footer.innerHTML = `
+  // Ensure a canonical footer exists on every page and is synced with latest links.
+  (function ensureFooter(){
+    const canonicalHTML = `
       <div class="footer-inner">
         <div class="footer-brand">
           <a href="/index.html" aria-label="Coding with Tawfiq home"><img src="/images/coding with tawfiq.jpg" alt="Coding with Tawfiq logo"></a>
           <div class="footer-links">
             <a href="/about.html">About</a>
-            <a href="/contact.html">Contact</a>
             <a href="/privacy.html">Privacy</a>
+            <a href="mailto:tawfiqerassy4@gmail.com" title="Email">Email</a>
+            <a href="https://wa.me/255761404678" target="_blank" rel="noopener" title="WhatsApp">WhatsApp</a>
           </div>
         </div>
         <div class="footer-right">
           <div class="footer-copy">© <span id="footerYear"></span> Coding with Tawfiq. All rights reserved.</div>
           <div class="footer-social" aria-label="Social links">
-            <a href="#" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
-            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" aria-label="GitHub"><i class="bi bi-github"></i></a>
+            <a href="https://github.com/rhyno47" aria-label="GitHub" target="_blank" rel="noopener"><i class="bi bi-github"></i></a>
+            <a href="https://www.facebook.com/search/top?q=Erassy%20Tawfiq%20Jr" aria-label="Facebook" target="_blank" rel="noopener"><i class="bi bi-facebook"></i></a>
           </div>
         </div>
       </div>`;
-    document.body.appendChild(footer);
+
+    // Prefer an existing footer (any <footer>), normalize its id, and replace if it's a legacy/simple footer.
+    let footer = document.getElementById('footer') || document.querySelector('footer');
+    if (!footer){
+      footer = document.createElement('footer');
+      footer.id = 'footer';
+      footer.innerHTML = canonicalHTML;
+      document.body.appendChild(footer);
+    } else {
+      // Make sure it has the expected id
+      if (!footer.id) footer.id = 'footer';
+      // If it doesn't contain .footer-inner (legacy minimal footer), replace with canonical
+      if (!footer.querySelector('.footer-inner')) {
+        footer.innerHTML = canonicalHTML;
+      } else {
+        // Optional: future sync logic could diff/update specific links here
+      }
+    }
     const fy = document.getElementById('footerYear'); if(fy) fy.textContent = new Date().getFullYear();
-  }
+  })();
 
   // Now initialize interaction handlers (previous behavior)
   // Bootstrap-like toggler (keeps compatibility with pages that still use it)
