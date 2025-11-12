@@ -11,6 +11,9 @@
   const CLIENT_ID = 'ca-pub-1523965413574724';
   const AUTO_AD_SLOT = '2315208152'; // reuse an existing fluid/auto slot id
   const NATIVE_AD_SLOT = '1588668042'; // existing native/auto slot id from index
+  const ONE_AD_ONLY = true; // enforce a single ad per page view
+  const INFEED_SLOT = '4582278842';
+  const INFEED_LAYOUT_KEY = '-fg+5w+4i-d0+6y';
   function loadScriptIfMissing(){
     if(!document.querySelector('script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]')){
       const s = document.createElement('script');
@@ -28,6 +31,7 @@
       try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
         slot.setAttribute('data-init','1');
+        const wrap = slot.closest('.ad-slot'); if(wrap) wrap.setAttribute('data-init','1');
       } catch(e){ console.debug('Ad init error', e); }
     });
   }
@@ -64,7 +68,7 @@
         try{
           (window.adsbygoogle = window.adsbygoogle || []).push({});
           slot.setAttribute('data-init','1');
-          const wrap = slot.closest('.ad-mid'); if(wrap) wrap.setAttribute('data-init','1');
+          const wrap = slot.closest('.ad-slot, .ad-mid'); if(wrap) wrap.setAttribute('data-init','1');
         }catch(e){ /* swallow */ }
         obs.unobserve(slot);
       });
@@ -74,14 +78,14 @@
   function init(){
     loadScriptIfMissing();
     // Delay slot init slightly to allow script load if it was missing.
-  const onLoad = ()=>{ setTimeout(()=>{ ensureOneAutoAndNative(); pruneExtraAds(); initSlots(); lazyInit(); attachAuthAndPostListeners(); }, 150); };
+  const onLoad = ()=>{ setTimeout(()=>{ ensureOneAutoAndNative(); insertInFeedAdIfNoticePage(); pruneExtraAds(); initSlots(); lazyInit(); attachAuthAndPostListeners(); }, 150); };
     if(document.readyState === 'complete') onLoad(); else window.addEventListener('load', onLoad);
   }
   window.AdHelper = { init, initSlots, lazyInit, action: showActionAd };
   // Auto-init.
   init();
 
-  // Ensure exactly one auto ad and one native ad per page (if not already present)
+  // Ensure a single ad per page (auto by default). If ONE_AD_ONLY=false, also add native.
   function ensureOneAutoAndNative(){
     try{
       const hasAuto = !!document.querySelector('ins.adsbygoogle[data-auto-ad="1"]');
@@ -98,7 +102,7 @@
         ins.setAttribute('data-auto-ad','1');
         container.appendChild(wrapInSlot(ins));
       }
-      if(!hasNative){
+      if(!ONE_AD_ONLY && !hasNative){
         const ins2 = document.createElement('ins');
         ins2.className = 'adsbygoogle';
         ins2.style.display = 'block';
@@ -114,16 +118,27 @@
 
   // Remove any additional <ins.adsbygoogle> beyond the single auto + single native requirement.
   function pruneExtraAds(){
-    const all = Array.from(document.querySelectorAll('ins.adsbygoogle'));
-    const keep = new Set();
+    const all = Array.from(document.querySelectorAll('ins.adsbygoogle'))
+      .filter(el => !el.closest('#interaction-ad-box')); // don't touch floating action ad
+    const hasNotice = !!document.querySelector('.notice, .warning, .info-callout');
+    // Determine keep set
     const auto = document.querySelector('ins.adsbygoogle[data-auto-ad="1"]');
-    const native = document.querySelector('ins.adsbygoogle[data-native-ad="1"]');
-    if(auto) keep.add(auto);
-    if(native) keep.add(native);
+    const infeed = document.querySelector('ins.adsbygoogle[data-infeed-ad="1"]');
+    let keep = new Set();
+    if(hasNotice && infeed){
+      // On notice pages, keep in-feed; also keep one auto ad if present
+      if(auto) keep.add(auto);
+      keep.add(infeed);
+    } else {
+      // Default: keep only one auto ad
+      if(auto) keep.add(auto);
+      else if(all.length){ keep.add(all[0]); all[0].setAttribute('data-auto-ad','1'); }
+    }
     all.forEach(el=>{
       if(keep.has(el)) return;
-      // Remove legacy/manual ad slots to enforce consistency
-      el.parentElement && el.parentElement.removeChild(el);
+      const parent = el.parentElement;
+      el.remove();
+      if(parent && parent.classList && parent.classList.contains('ad-slot') && parent.children.length === 0){ parent.remove(); }
     });
   }
 
@@ -131,17 +146,50 @@
     // Prefer a known ad container; else, place below hero or at end of main content
     const page = document.querySelector('.page') || document.body;
     const hero = document.querySelector('#hero, .site-hero');
-    const slot = document.createElement('div');
-    slot.className = 'ad-slot ad-center ad-between';
-    if(hero && hero.parentElement){ hero.parentElement.insertBefore(slot, hero.nextSibling); return slot; }
-    page.appendChild(slot); return slot;
+    const anchor = document.createElement('div');
+    // neutral anchor to avoid double .ad-slot nesting; mark hero placement for CSS sizing
+    anchor.className = 'ad-anchor ad-center ad-between ad-hero';
+    if(hero && hero.parentElement){ hero.parentElement.insertBefore(anchor, hero.nextSibling); return anchor; }
+    page.appendChild(anchor); return anchor;
   }
 
   function wrapInSlot(ins){
     const wrap = document.createElement('div');
     wrap.className = 'ad-slot ad-center ad-between';
+    // propagate identifying data attributes to wrapper for CSS selectors
+    if(ins.hasAttribute('data-native-ad')) wrap.setAttribute('data-native-ad','1');
+    if(ins.hasAttribute('data-auto-ad')) wrap.setAttribute('data-auto-ad','1');
+    if(ins.hasAttribute('data-infeed-ad')) wrap.setAttribute('data-infeed-ad','1');
     wrap.appendChild(ins);
     return wrap;
+  }
+
+  // Insert a compact in-feed (fluid) ad on pages that contain notice-like content.
+  function insertInFeedAdIfNoticePage(){
+    try{
+      const hasNotice = document.querySelector('.notice, .warning, .info-callout');
+      if(!hasNotice) return;
+      if(document.querySelector('ins.adsbygoogle[data-infeed-ad="1"]')) return; // already present
+      // choose anchor: after the first notice element
+      const firstNotice = document.querySelector('.notice, .warning, .info-callout');
+      if(!firstNotice || !firstNotice.parentElement) return;
+      const anchor = document.createElement('div');
+      anchor.className = 'ad-slot ad-center ad-between ad-infeed';
+      // Build in-feed ad (lazy)
+      const ins = document.createElement('ins');
+      ins.className = 'adsbygoogle';
+      ins.style.display = 'block';
+      ins.setAttribute('data-ad-client', CLIENT_ID);
+      ins.setAttribute('data-ad-slot', INFEED_SLOT);
+      ins.setAttribute('data-ad-format', 'fluid');
+      ins.setAttribute('data-ad-layout-key', INFEED_LAYOUT_KEY);
+      ins.setAttribute('data-infeed-ad','1');
+      ins.setAttribute('data-lazy','1');
+      anchor.appendChild(ins);
+      // insert after the notice block
+      if(firstNotice.nextSibling){ firstNotice.parentElement.insertBefore(anchor, firstNotice.nextSibling); }
+      else { firstNotice.parentElement.appendChild(anchor); }
+    }catch(_e){}
   }
 
   // Interaction-triggered ad logic (login, logout, post create/delete/share)

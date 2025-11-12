@@ -6,8 +6,39 @@
 .non-intrusive-ad .ad-content{ display:block; padding:8px; border-radius:10px; background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06); }
 
 /* Native ad wrapper (auto-inserted) */
-.ad-slot[data-native-ad], .ad-slot.native-ad{ padding:8px; border-radius:12px; background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.05); box-shadow:0 6px 16px rgba(0,0,0,0.28); max-width:1100px; margin:24px auto; }
-@media (max-width:700px){ .ad-slot[data-native-ad], .ad-slot.native-ad{ margin:18px auto; } }
+.ad-slot[data-native-ad][data-init], .ad-slot.native-ad[data-init]{ padding:8px; border-radius:12px; background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.05); box-shadow:0 6px 16px rgba(0,0,0,0.28); max-width:1100px; margin:24px auto; }
+@media (max-width:700px){ .ad-slot[data-native-ad][data-init], .ad-slot.native-ad[data-init]{ margin:18px auto; } }
+
+/* Hero-ad specific: keep small footprint */
+.ad-anchor.ad-hero .ad-slot[data-auto-ad],
+.ad-anchor.ad-hero .ad-slot[data-native-ad]{ max-width:680px; }
+@media (max-width:800px){
+  .ad-anchor.ad-hero .ad-slot{ max-width:520px; }
+}
+@media (max-width:600px){
+  .ad-anchor.ad-hero .ad-slot{ max-width:360px; padding:6px; }
+  .ad-anchor.ad-hero ins.adsbygoogle{ min-height:90px !important; }
+}
+
+/* Global small-device boxing: shrink any ad-slot width and add subtle frame */
+@media (max-width:600px){
+  .ad-slot{ max-width:360px; margin-left:auto; margin-right:auto; }
+  .ad-slot:not([data-native-ad])[data-init]{ background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); border-radius:10px; padding:6px; }
+}
+
+/* Ensure internal ins never overflows parent width */
+.ad-slot ins.adsbygoogle{ width:100% !important; height:auto; }
+
+/* In-feed placement: compact within content */
+.ad-infeed{ max-width: 720px; }
+@media (max-width: 800px){ .ad-infeed{ max-width: 520px; } }
+@media (max-width: 600px){ .ad-infeed{ max-width: 360px; } }
+.ad-slot[data-infeed-ad]{ padding:6px; border-radius:10px; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); }
+.ad-slot[data-infeed-ad]:not([data-init]){ background: transparent; border-color: transparent; }
+
+/* Floating interaction ad box (from JS) override for small devices */
+#interaction-ad-box{ max-width:340px; }
+@media (max-width:600px){ #interaction-ad-box{ right:8px !important; left:8px; width:auto; max-width:none; } }
 
 /* In-content ad spacing */
 .ad-between{ margin: 24px 0; }
