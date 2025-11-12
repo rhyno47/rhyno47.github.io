@@ -5,6 +5,18 @@ const connectDB = require('./config/db');
 const path = require('path');
 
 const app = express();
+// Optional: log egress IP at startup so you can allowlist it in MongoDB Atlas without hitting /whoami
+(async () => {
+	try{
+		const enabled = /^true$/i.test(process.env.LOG_EGRESS_IP || '');
+		if(!enabled) return;
+		const fetch = require('node-fetch');
+		const r = await fetch('https://ifconfig.co/ip', { timeout: 8000 }).catch(e => { throw e; });
+		if(!r.ok){ console.warn('[egress-ip] upstream status', r.status); return; }
+		const ip = (await r.text()).trim();
+		if(ip) console.log('[egress-ip]', ip);
+	}catch(e){ console.warn('[egress-ip] failed', e && e.message ? e.message : String(e)); }
+})();
 // Robust CORS handling with sane defaults and origin normalization
 // - If CORS_ORIGIN is unset: allow known frontend (FRONTEND_URL or GitHub Pages) and dev origins
 // - If CORS_ORIGIN is set: allow any of the comma-separated origins (trailing slashes tolerated)

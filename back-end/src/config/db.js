@@ -11,8 +11,13 @@ module.exports = async function connectDB() {
   const primary = process.env.MONGODB_URI;
   const fallback = process.env.MONGODB_URI_FALLBACK;
 
+  const allowStartWithoutDb = /^true$/i.test(process.env.ALLOW_START_WITHOUT_DB || '');
   if (!primary && !fallback) {
     console.error('MONGODB_URI not set in .env and no MONGODB_URI_FALLBACK provided');
+    if (allowStartWithoutDb) {
+      console.warn('[DB] ALLOW_START_WITHOUT_DB is true — continuing without database connection');
+      return; // allow app to start so /whoami or health endpoints work
+    }
     process.exit(1);
   }
 
@@ -46,6 +51,10 @@ module.exports = async function connectDB() {
     if (ok) return;
     if (!fallback) {
       console.error('\nPrimary connection failed and no fallback configured. See README troubleshooting.');
+      if (allowStartWithoutDb) {
+        console.warn('[DB] ALLOW_START_WITHOUT_DB is true — continuing without database connection');
+        return;
+      }
       process.exit(1);
     }
     console.warn('\nPrimary failed — attempting fallback connection...');
@@ -55,6 +64,10 @@ module.exports = async function connectDB() {
     const ok2 = await tryConnect(fallback, 'fallback');
     if (ok2) return;
     console.error('\nBoth primary and fallback MongoDB connections failed. See README and diagnostics.');
+    if (allowStartWithoutDb) {
+      console.warn('[DB] ALLOW_START_WITHOUT_DB is true — continuing without database connection');
+      return;
+    }
     process.exit(1);
   }
 };
