@@ -192,6 +192,14 @@ app.use('/api/posts', require('./routes/posts'));
 // AI chat proxy
 app.use('/api/ai', require('./routes/ai'));
 
+// Health endpoint to quickly verify DB connectivity and service status
+app.get('/health', (req, res) => {
+	const mongoose = require('mongoose');
+	const state = mongoose.connection && mongoose.connection.readyState;
+	const states = { 0: 'disconnected', 1: 'connected', 2: 'connecting', 3: 'disconnecting' };
+	res.json({ ok: true, db: states[state] || String(state), now: new Date().toISOString() });
+});
+
 // Diagnostic: ephemeral egress IP checker (temporary; remove in production)
 // Returns the server's current outbound IP as seen by ifconfig.co.
 // Helps with external service allowlisting.
