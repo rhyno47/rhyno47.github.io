@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Verify your email</title>
+  <link rel="stylesheet" href="/assets/home.css" />
+  <link rel="stylesheet" href="/assets/ads.css" />
+  <script src="/assets/env.js"></script>
+  <style>
+    body{ background:#0b0b0b; color:#fff; }
+    .verify-wrap{ max-width:680px; margin:40px auto; padding:18px; }
+    .verify-card{ background: linear-gradient(145deg,#680202,#8b0b0b); border:1px solid rgba(255,255,255,.15); border-radius:16px; padding:22px; box-shadow:0 10px 30px rgba(0,0,0,.35); }
+    .verify-title{ margin:0 0 10px; font-size:1.4rem; font-weight:800 }
+    .verify-status{ margin:8px 0 0; font-size:1rem; }
+    .verify-actions{ margin-top:14px; display:flex; gap:10px; flex-wrap:wrap }
+    .btn{ padding:10px 16px; border-radius:10px; border:0; font-weight:800; cursor:pointer }
+    .btn-primary{ background:#fff; color:#680202 }
+    .btn-ghost{ background:transparent; color:#fff; border:2px solid rgba(255,255,255,.6) }
+    .muted{ opacity:.9 }
+  </style>
+</head>
+<body>
+  <section id="hero" class="home-hero" style="min-height:34vh">
+    <div class="hero-content">
+      <h1>Email verification</h1>
+      <p class="muted">Were confirming your email to secure your account.</p>
+    </div>
+  </section>
+
+  <main class="verify-wrap">
+    <div class="verify-card" id="card">
+      <div class="verify-title">Verifying</div>
+      <div class="verify-status" id="status">Please wait while we confirm your email</div>
+      <div class="verify-actions" id="actions" style="display:none">
+        <a class="btn btn-primary" href="/public/login.html">Continue to sign in</a>
+        <a class="btn btn-ghost" href="/">Go home</a>
+      </div>
+    </div>
+
+    <div class="ad-slot ad-center ad-between ad-hero"></div>
+  </main>
+
+  <script>
+  (function(){
+    const elStatus = document.getElementById('status');
+    const elTitle = document.querySelector('.verify-title');
+    const elActions = document.getElementById('actions');
+    function setState(title, html, done){
+      if(title) elTitle.textContent = title;
+      if(html) elStatus.innerHTML = html;
+      if(done) elActions.style.display = '';
+    }
+    const params = new URLSearchParams(location.search);
+    const token = params.get('token');
+    if(!token){
+      setState('Missing token', 'This verification link is incomplete. Please use the link from your email.', true);
+      return;
+    }
+    const base = (window.API_BASE || '').replace(/\/$/, '');
+    const url = (base ? base : '') + '/api/auth/verify?token=' + encodeURIComponent(token);
+    setState('Verifying…', 'Contacting the server', false);
+    fetch(url, { credentials: 'include' })
+      .then(r => r.json().catch(()=>({})).then(j=>({ ok:r.ok, status:r.status, body:j })))
+      .then(({ok, status, body})=>{
+        if(ok){
+          if(body && body.already){
+            setState('Already verified', 'Your email is already confirmed. You can sign in now.', true);
+          }else{
+            setState('Verified!', 'Your email has been confirmed. You can sign in now.', true);
+          }
+        }else{
+          const msg = (body && (body.message||body.error)) || 'Invalid or expired link.';
+          setState('Verification failed', msg + ' You can request a new verification email from your account.', true);
+        }
+      })
+      .catch(()=>{
+        setState('Network error', 'We could not reach the server. Please try again later.', true);
+      });
+  })();
+  </script>
+
+  <script defer src="/assets/ads.js"></script>
+</body>
+</html>

@@ -73,25 +73,165 @@
   <section id="hero">
   <div class="hero-content">
     <h1><b>Data Manipulation & Transactions</b></h1>
+    <p style="margin-top:6px;font-weight:600;color:rgba(255,255,255,0.9);max-width:860px">Navigate key topics: DML basics, INSERT, UPDATE, DELETE, transaction ACID guarantees, plus a practice challenge.</p>
+    <div class="hero-actions" style="flex-wrap:wrap;justify-content:center;max-width:900px">
+      <a class="btn-primary" href="#dml-intro-title" aria-label="Jump to DML introduction">DML Intro</a>
+      <a class="btn-ghost" href="#dml-insert" aria-label="Jump to INSERT statement">INSERT</a>
+      <a class="btn-ghost" href="#dml-update" aria-label="Jump to UPDATE statement">UPDATE</a>
+      <a class="btn-ghost" href="#dml-delete" aria-label="Jump to DELETE statement">DELETE</a>
+      <a class="btn-ghost" href="#acid" aria-label="Jump to ACID properties">ACID</a>
+      <a class="btn-ghost" href="#challenge" aria-label="Jump to challenge section">Challenge</a>
+    </div>
+    <div style="margin-top:10px;color:rgba(255,255,255,0.85);font-weight:700;font-size:0.9rem">Tap a topic to jump to its card.</div>
   </div>
   
 </section>
   <main style="max-width:900px;margin:2rem auto; padding:1rem;">
-    <h2>Overview</h2>
-    <p>Placeholder for data manipulation and transaction content.</p>
-    <p><a href="../databasehome.html" style="color: aliceblue;"><strong>← Back to Database Home</strong></a></p>
+    <!-- Notice / callout to trigger in-feed and enable 3-ads behavior on notice pages -->
+    <article class="info-card notice" aria-labelledby="dml-intro-title">
+      <h3 id="dml-intro-title"><b>Data Manipulation Language (DML)</b></h3>
+      <p class="muted">In SQL, Data Manipulation Language (DML) is used to manage and manipulate data stored in the database. DML statements let you insert new data, update existing rows, and delete unwanted records — the core operations your app uses every day.</p>
+    </article>
 
+    <!-- INSERT statement -->
+    <article id="dml-insert" class="info-card" aria-labelledby="insert-title" style="margin-top:1rem;">
+      <h3 id="insert-title"><b>The INSERT Statement</b></h3>
+      <p>The <code>INSERT</code> statement allows you to add one or more rows into a table.</p>
+      <h4>Syntax</h4>
+      <pre class="solution-pre" style="white-space: pre-wrap;">INSERT INTO table_name (column1, column2, ...)
+VALUES (value1, value2, ...);</pre>
+      <p>Guidelines:</p>
+      <ul class="card-text">
+        <li>List columns in the exact order you provide values.</li>
+        <li>Ensure the number of columns matches the number of values.</li>
+      </ul>
+
+      <h4>Example</h4>
+      <pre class="solution-pre" style="white-space: pre-wrap;">-- Insert a new product
+INSERT INTO Products (id, name, price)
+VALUES (101, 'USB-C Cable', 6.99);
+
+-- Insert multiple rows at once (supported by many engines)
+INSERT INTO Products (id, name, price) VALUES
+  (102, 'Notebook', 5.50),
+  (103, 'Pencil', 1.25);
+</pre>
+    </article>
+
+    <!-- UPDATE statement -->
+    <article id="dml-update" class="info-card" aria-labelledby="update-title" style="margin-top:1rem;">
+      <h3 id="update-title"><b>The UPDATE Statement</b></h3>
+      <p><code>UPDATE</code> modifies one or more columns of matching rows. Be precise with <code>WHERE</code>.</p>
+      <h4>Syntax</h4>
+      <pre class="solution-pre" style="white-space: pre-wrap;">UPDATE table_name
+SET
+  column_name1 = expr1,
+  column_name2 = expr2
+WHERE condition;   -- optional but highly recommended!</pre>
+      <ul class="card-text">
+        <li><b>Table:</b> specify the table to change.</li>
+        <li><b>SET:</b> provide new values (literals, expressions, or subqueries).</li>
+        <li><b>WHERE:</b> filters which rows to update. Omitting it updates every row.</li>
+      </ul>
+      <h4>Examples</h4>
+      <pre class="solution-pre" style="white-space: pre-wrap;">-- Increase price by 10% for a specific product
+UPDATE Products
+SET price = price * 1.10
+WHERE id = 101;
+
+-- Mark old orders as archived
+UPDATE Orders
+SET status = 'archived'
+WHERE created_at < '2024-01-01';</pre>
+      <p class="muted"><b>Important:</b> Always double-check your <code>WHERE</code> to avoid unintended bulk updates.</p>
+    </article>
+
+    <!-- DELETE statement -->
+    <article id="dml-delete" class="info-card" aria-labelledby="delete-title" style="margin-top:1rem;">
+      <h3 id="delete-title"><b>The DELETE Statement</b></h3>
+      <p>Use <code>DELETE</code> to remove rows that match a condition.</p>
+      <h4>Syntax</h4>
+      <pre class="solution-pre" style="white-space: pre-wrap;">DELETE FROM table_name
+WHERE condition;   -- omit WHERE to delete all rows (danger!)</pre>
+      <h4>Example</h4>
+      <pre class="solution-pre" style="white-space: pre-wrap;">-- Delete discontinued products below a price threshold
+DELETE FROM Products
+WHERE discontinued = 1 AND price < 2.00;</pre>
+    </article>
+
+    <!-- ACID Properties of Transactions -->
+    <article id="acid" class="info-card" aria-labelledby="acid-title" style="margin-top:1rem;">
+      <h3 id="acid-title"><b>ACID Properties of Transactions</b></h3>
+      <p class="muted">Transactions follow four key properties to ensure accuracy and reliability. Think of a mobile money transfer — these guarantees keep balances correct.</p>
+
+      <h4>A — Atomicity (“All or Nothing”)</h4>
+      <p>All steps succeed as a unit or none are saved.</p>
+      <pre class="solution-pre" style="white-space: pre-wrap;">-- Transfer 1000 Ksh from Alex to Bella (conceptual)
+-- 1) Deduct 1000 from Alex
+-- 2) Add   1000 to Bella
+-- If either fails, roll back both so no partial transfer occurs.</pre>
+
+      <h4>C — Consistency (“Keep It Accurate”)</h4>
+      <p>Transactions respect rules/constraints (e.g., non‑negative balances).</p>
+      <pre class="solution-pre" style="white-space: pre-wrap;">-- If Alex has only 500 Ksh, sending 1000 violates a constraint
+-- The DB should reject the transaction to preserve valid state.</pre>
+
+      <h4>I — Isolation (“No Interference”)</h4>
+      <p>Concurrent transactions behave as if run one by one.</p>
+      <pre class="solution-pre" style="white-space: pre-wrap;">-- Alex→Bella and Charles→David transfers occur simultaneously
+-- Isolation prevents them from affecting each other’s results.</pre>
+
+      <h4>D — Durability (“It’s Permanent!”)</h4>
+      <p>Once committed, changes survive crashes or restarts.</p>
+      <pre class="solution-pre" style="white-space: pre-wrap;">-- After a successful transfer, balances remain updated
+-- even if the system goes down and recovers later.</pre>
+    </article>
+
+    <!-- Practice challenge -->
+    <article id="challenge" class="info-card" aria-labelledby="challenge-title" style="margin-top:1rem;">
+      <h3 id="challenge-title"><b>Challenge: SQL Table Creation and Insertion</b></h3>
+      <p>Create a table named <code>student</code> with the following columns, then insert at least three records.</p>
+      <ul class="card-text">
+        <li><b>name</b> — String, maximum length 100</li>
+        <li><b>age</b> — Integer</li>
+        <li><b>gender</b> — String, maximum length 10</li>
+      </ul>
+      <h4>Starter</h4>
+      <pre class="solution-pre" style="white-space: pre-wrap;">-- 1) Create the table
+CREATE TABLE student (
+  name   VARCHAR(100) NOT NULL,
+  age    INT,
+  gender VARCHAR(10)
+);
+
+-- 2) Insert at least three records
+INSERT INTO student (name, age, gender) VALUES
+  ('Aisha', 19, 'Female'),
+  ('Brian', 22, 'Male'),
+  ('Chloe', 21, 'Female');
+
+-- 3) Verify results
+SELECT * FROM student;
+</pre>
+      <p class="muted">Stretch: Add an <code>id</code> primary key (e.g., <code>AUTO_INCREMENT</code>), and try updating/deleting specific students.</p>
+    </article>
+
+    <!-- Resources / Back link -->
+    <article class="info-card" aria-labelledby="resources-title" style="margin-top:1rem;">
+      <h3 id="resources-title"><b>More Resources</b></h3>
+      <ul class="card-text">
+        <li><a href="https://www.w3schools.com/sql/sql_insert.asp" target="_blank" rel="noopener">INSERT</a></li>
+        <li><a href="https://www.w3schools.com/sql/sql_update.asp" target="_blank" rel="noopener">UPDATE</a></li>
+        <li><a href="https://www.w3schools.com/sql/sql_delete.asp" target="_blank" rel="noopener">DELETE</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/ACID" target="_blank" rel="noopener">ACID</a></li>
+      </ul>
+      <p style="margin-top:0.5rem;"><a href="../databasehome.html">← Back to Database Home</a></p>
+    </article>
   </main>
   
 <!-- Non-intrusive display ad -->
 <div class="ad-slot ad-center ad-between">
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-1523965413574724"
-       data-ad-slot="2315208152"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-</div>
+  </div>
 
 <footer id="footer"><p>© 2025 Coding with Tawfiq. All rights reserved.</p>
   </footer>

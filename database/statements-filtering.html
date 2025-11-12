@@ -11,7 +11,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ETGGXC16CY"></script>
   <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-ETGGXC16CY');</script>
 </head>
-<body>
+<body data-ads-max="3">
 
   <!-- NEW NAVBAR -->
 <!-- Bootstrap CSS -->
@@ -71,18 +71,295 @@
 <script src="/assets/navbar.js"></script>
 
 
-  <section id="hero"><div class="hero-content"><h1><b>Mastering Statements & Filtering</b></h1></div></section>
-  <main style="max-width:900px;margin:2rem auto; padding:1rem;"><h2>Overview</h2><p>Placeholder for statements and filtering content.</p><p><a href="../databasehome.html">← Back to Database Home</a></p></main>
+  <section id="hero">
+    <div class="hero-content">
+      <h1><b>Mastering Statements & Filtering</b></h1>
+      <p style="margin-top:6px;font-weight:600;color:rgba(255,255,255,0.92);max-width:860px">
+        Learn how to retrieve and filter data with SELECT and WHERE, then combine techniques for precise results.
+      </p>
+      <div class="hero-actions" style="flex-wrap:wrap;justify-content:center;max-width:900px">
+        <a class="btn-primary" href="#select-statement">SELECT Basics</a>
+        <a class="btn-ghost" href="#where-clause">WHERE Filters</a>
+        <a class="btn-ghost" href="#order-by">ORDER BY</a>
+        <a class="btn-ghost" href="#wildcards">Wildcards</a>
+        <a class="btn-ghost" href="#logical-ops">Advanced Combining</a>
+      </div>
+      <div style="margin-top:10px;color:rgba(255,255,255,0.85);font-weight:700;font-size:0.9rem">Tap a topic to jump to its card.</div>
+    </div>
+  </section>
+
+  <main style="max-width:900px;margin:2rem auto; padding:1rem;">
+    <!-- SELECT basics -->
+    <article id="select-statement" class="info-card" aria-labelledby="select-title">
+      <h3 id="select-title"><b>Mastering the SELECT Statement: Your Key to Data Retrieval</b></h3>
+      <p class="muted">Welcome back, data enthusiasts! In this lesson, we explore the powerful <code>SELECT</code> statement — your gateway to extracting valuable insights from your database.</p>
+
+      <h4>Understanding the SELECT Statement</h4>
+      <p>The <code>SELECT</code> statement is your primary tool for retrieving data. Its basic structure is:</p>
+      <pre class="solution-pre" style="white-space: pre-wrap;">SELECT column1, column2, ...
+FROM table_name;
+
+-- Parts
+-- SELECT   : Start a query to retrieve data
+-- column(s): Choose which columns to return (use * to select all)
+-- FROM     : Which table to read from
+-- ;        : End of statement</pre>
+
+      <h4>Retrieving All Records</h4>
+      <p>Get a complete overview of your table:</p>
+      <pre class="solution-pre" style="white-space: pre-wrap;">SELECT *
+FROM data_table;</pre>
+
+      <h4>Retrieving Specific Details</h4>
+      <p>Focus on just the fields you need (e.g., transaction <code>amount</code> and <code>category</code>):</p>
+      <pre class="solution-pre" style="white-space: pre-wrap;">SELECT amount, category
+FROM data_table;</pre>
+
+      <h4>Helpful Extras</h4>
+      <ul class="card-text">
+        <li><b>Distinct values</b> — remove duplicates: <code>SELECT DISTINCT category FROM data_table;</code></li>
+        <li><b>Sorting</b> — most expensive first: <code>SELECT * FROM products ORDER BY price DESC;</code></li>
+        <li><b>Limiting</b> — top results only: <code>SELECT * FROM products ORDER BY price DESC LIMIT 5;</code></li>
+        <li><b>Aliases</b> — rename a column in results: <code>SELECT amount AS total_amount FROM data_table;</code></li>
+      </ul>
+    </article>
+
+    <!-- WHERE clause / filtering -->
+    <article id="where-clause" class="info-card" aria-labelledby="where-title" style="margin-top:1rem;">
+      <h3 id="where-title"><b>Mastering the WHERE Clause: Filtering Data with Precision</b></h3>
+      <p class="muted">The <code>WHERE</code> clause filters your results so only matching rows are returned.</p>
+
+      <h4>Syntax</h4>
+      <pre class="solution-pre" style="white-space: pre-wrap;">SELECT column1, column2
+FROM table_name
+WHERE condition;  -- only rows that satisfy the condition are returned</pre>
+
+      <h4>Comparison Operators</h4>
+      <p>Filter based on numeric, text, or date comparisons:</p>
+      <pre class="solution-pre" style="white-space: pre-wrap;">-- Amount greater than 100
+SELECT * FROM transactions
+WHERE amount > 100;
+
+-- Events in a date range (inclusive)
+SELECT * FROM events
+WHERE event_date BETWEEN '2023-01-01' AND '2023-12-31';
+
+-- Exact match for a category
+SELECT * FROM products
+WHERE category = 'electronics';</pre>
+
+      <h4>Pattern Matching and Sets</h4>
+      <pre class="solution-pre" style="white-space: pre-wrap;">-- Names containing "pro" (case sensitivity depends on collation)
+SELECT * FROM products
+WHERE name LIKE '%pro%';
+
+-- Belongs to one of several categories
+SELECT * FROM products
+WHERE category IN ('electronics','home');
+
+-- Missing values
+SELECT * FROM customers
+WHERE email IS NULL;  -- vs. IS NOT NULL</pre>
+
+      <p class="muted"><b>Tip:</b> Strings should be quoted with single quotes. Use proper date formats for your database engine.</p>
+    </article>
+
+    <!-- ORDER BY clause -->
+    <article id="order-by" class="info-card" aria-labelledby="order-by-title" style="margin-top:1rem;">
+      <h3 id="order-by-title"><b>Organizing Data with the ORDER BY Clause</b></h3>
+      <p class="muted">The <code>ORDER BY</code> clause sorts rows returned by a <code>SELECT</code>. Place it after <code>WHERE</code> (if present) to control result order.</p>
+
+      <h4>Syntax</h4>
+      <pre class="solution-pre" style="white-space: pre-wrap;">SELECT column1, column2
+FROM table_name
+WHERE condition
+ORDER BY column_name ASC | DESC;  -- ASC = ascending (A→Z, 0→9), DESC = descending (Z→A, 9→0)</pre>
+
+      <h4>Sorting by a Single Column</h4>
+      <p>Most-recent-first using a date/timestamp column:</p>
+      <pre class="solution-pre" style="white-space: pre-wrap;">SELECT *
+FROM records
+ORDER BY date DESC;  -- newest at the top</pre>
+
+      <h4>Sorting by Multiple Columns</h4>
+      <p>Sort alphabetically by category, then newest-first within each category:</p>
+      <pre class="solution-pre" style="white-space: pre-wrap;">SELECT *
+FROM records
+ORDER BY category ASC, date DESC;</pre>
+
+      <p class="muted">Ordering results makes trends clearer and lists more usable. Combine with filters and limits for dashboards.</p>
+
+      <h4>More Resources</h4>
+      <ul class="card-text">
+        <li><a href="https://www.w3schools.com/sql/sql_orderby.asp" target="_blank" rel="noopener">ORDER BY clause (W3Schools)</a></li>
+      </ul>
+    </article>
+
+    <!-- Wildcards and comparison operators -->
+    <article id="wildcards" class="info-card" aria-labelledby="wildcard-title" style="margin-top:1rem;">
+      <h3 id="wildcard-title"><b>Advanced Data Retrieval: Wildcards and Comparison Operators</b></h3>
+      <p class="muted">Use pattern matching and comparisons to search flexibly and target precisely.</p>
+
+      <h4>Wildcards (%) for Flexible Searching</h4>
+      <p>Find records whose text contains a keyword anywhere:</p>
+      <pre class="solution-pre" style="white-space: pre-wrap;">SELECT *
+FROM records
+WHERE description LIKE '%keyword%';  -- any characters before/after "keyword"</pre>
+
+      <h4>Comparison Operators for Targeted Filtering</h4>
+      <pre class="solution-pre" style="white-space: pre-wrap;">-- Amount exceeds 100
+SELECT * FROM transactions
+WHERE amount > 100;  -- also =, <, <=, >=
+
+-- Filtering by date range (inclusive)
+SELECT * FROM events
+WHERE event_date BETWEEN '2023-01-01' AND '2023-12-31';</pre>
+
+      <h4>Combining Techniques for Powerful Queries</h4>
+      <pre class="solution-pre" style="white-space: pre-wrap;">SELECT *
+FROM products
+WHERE name LIKE '%pro%'
+  AND price >= 50;  -- find products with "pro" that cost 50 or more</pre>
+
+      <h4>More Resources</h4>
+      <ul class="card-text">
+        <li><a href="https://www.w3schools.com/sql/sql_wildcards.asp" target="_blank" rel="noopener">SQL Wildcards</a></li>
+      </ul>
+    </article>
+
+    <!-- Logical operators and combining techniques -->
+    <article id="logical-ops" class="info-card" aria-labelledby="logical-title" style="margin-top:1rem;">
+      <h3 id="logical-title"><b>Logical Operators and Combining Techniques</b></h3>
+      <p class="muted">Combine conditions for granular control. Parentheses help make intent unambiguous.</p>
+
+      <h4>AND, OR, NOT</h4>
+      <pre class="solution-pre" style="white-space: pre-wrap;">-- Adults in the US
+SELECT * FROM users
+WHERE age > 18 AND country = 'US';
+
+-- Products with "pro" in the name AND price >= 50, OR category is electronics
+SELECT * FROM products
+WHERE (name LIKE '%pro%' AND price >= 50)
+   OR category = 'electronics';
+
+-- Exclude discontinued items
+SELECT * FROM products
+WHERE NOT discontinued;</pre>
+
+      <h4>Putting It All Together</h4>
+      <pre class="solution-pre" style="white-space: pre-wrap;">-- Example: expensive recent orders by VIP customers
+SELECT o.id, o.total_amount, o.created_at, c.name AS customer
+FROM orders AS o
+JOIN customers AS c ON c.id = o.customer_id
+WHERE o.created_at >= '2024-01-01'
+  AND o.total_amount >= 250
+  AND (c.segment = 'VIP' OR c.country IN ('US','UK'))
+ORDER BY o.created_at DESC
+LIMIT 20;</pre>
+    </article>
+
+    <!-- Resources and navigation -->
+    <article class="info-card" aria-labelledby="resources-title" style="margin-top:1rem;">
+      <h3 id="resources-title"><b>More Resources</b></h3>
+      <ul class="card-text">
+        <li><a href="https://www.w3schools.com/sql/sql_select.asp" target="_blank" rel="noopener">SELECT statement (W3Schools)</a></li>
+        <li><a href="https://www.w3schools.com/sql/sql_where.asp" target="_blank" rel="noopener">WHERE clause (W3Schools)</a></li>
+        <li><a href="https://sqlbolt.com/lesson/select_queries_introduction" target="_blank" rel="noopener">SQLBolt — Select queries</a></li>
+      </ul>
+      <p style="margin-top:0.5rem;"><a href="../databasehome.html">← Back to Database Home</a></p>
+    </article>
+    <!-- Movie database practice challenge -->
+    <article id="movie-challenge" class="info-card" aria-labelledby="movie-title" style="margin-top:1rem;">
+      <h3 id="movie-title"><b>Movie Database Challenge 🎥</b></h3>
+      <p class="muted">Build and query a simple database about movies and actors. This reinforces table design, data types, and SELECT + WHERE + ORDER BY skills.</p>
+
+      <h4>1. Goal</h4>
+      <p>Create two base tables (<code>Actors</code> and <code>Movies</code>) then run exploratory queries. Optionally add a linking table for casting.</p>
+
+      <h4>2. Table Structures</h4>
+      <pre class="solution-pre" style="white-space: pre-wrap;">-- Actors Table 🌟
+-- id: unique ID
+-- name: actor's name
+-- age: actor's age
+CREATE TABLE Actors (
+  id INT PRIMARY KEY,
+  name VARCHAR(120) NOT NULL,
+  age INT
+);
+
+-- Movies Table 🎥
+-- id: unique ID
+-- title: movie name
+-- year: release year
+CREATE TABLE Movies (
+  id INT PRIMARY KEY,
+  title VARCHAR(160) NOT NULL,
+  year INT NOT NULL
+);
+
+-- Optional many‑to‑many casting table
+CREATE TABLE MovieCast (
+  movie_id INT,
+  actor_id INT,
+  role VARCHAR(160),
+  PRIMARY KEY (movie_id, actor_id),
+  FOREIGN KEY (movie_id) REFERENCES Movies(id),
+  FOREIGN KEY (actor_id) REFERENCES Actors(id)
+);</pre>
+
+      <h4>3. Sample Data</h4>
+      <pre class="solution-pre" style="white-space: pre-wrap;">INSERT INTO Actors (id, name, age) VALUES
+  (1,'Emma Stone',35),
+  (2,'Denzel Washington',69),
+  (3,'Zendaya',28);
+
+INSERT INTO Movies (id, title, year) VALUES
+  (1,'La La Land',2016),
+  (2,'The Equalizer',2014),
+  (3,'Spider-Man: No Way Home',2021);
+
+INSERT INTO MovieCast (movie_id, actor_id, role) VALUES
+  (1,1,'Mia'),
+  (2,2,'Robert McCall'),
+  (3,3,'MJ');</pre>
+
+      <h4>4. Practice Queries</h4>
+      <ul class="card-text">
+        <li><b>All movies:</b> <code>SELECT * FROM Movies;</code></li>
+        <li><b>Actors older than 40:</b> <code>SELECT name, age FROM Actors WHERE age > 40;</code></li>
+        <li><b>Recent releases (>= 2016):</b> <code>SELECT title, year FROM Movies WHERE year >= 2016 ORDER BY year DESC;</code></li>
+        <li><b>Join cast to movies:</b>
+          <pre style="white-space:pre-wrap; margin-top:6px;" class="solution-pre">SELECT m.title, a.name, c.role
+FROM MovieCast c
+JOIN Movies m ON m.id = c.movie_id
+JOIN Actors a ON a.id = c.actor_id
+ORDER BY m.year DESC;</pre>
+        </li>
+      </ul>
+
+      <h4>5. Stretch Challenges 🧠</h4>
+      <ul class="card-text">
+        <li>Add a <code>genre</code> column to <code>Movies</code> and query only action movies.</li>
+        <li>List actors appearing in movies released after 2018.</li>
+        <li>Count movies per actor (requires <code>GROUP BY</code>).</li>
+        <li>Find actors with no casting entries yet (LEFT JOIN + <code>WHERE c.actor_id IS NULL</code>).</li>
+      </ul>
+
+      <h4>6. Tips</h4>
+      <ul class="card-text">
+        <li>Use meaningful primary keys (consider AUTO_INCREMENT in MySQL).</li>
+        <li>Keep text columns sized reasonably (e.g., <code>VARCHAR(160)</code> for titles).</li>
+        <li>Normalize: separate actors and movies; use a junction table for many‑to‑many relationships.</li>
+        <li>Start with simple selects, then layer WHERE, ORDER BY, and JOIN progressively.</li>
+      </ul>
+
+      <p class="muted">You now have a mini data playground. Expand it with ratings, genres, or awards and practice more complex queries!</p>
+    </article>
+  </main>
   
 <!-- Non-intrusive display ad -->
 <div class="ad-slot ad-center ad-between">
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-1523965413574724"
-       data-ad-slot="2315208152"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-</div>
+  </div>
 
 <footer id="footer"><p>© 2025 Coding with Tawfiq. All rights reserved.</p></footer>
   <script src="../assets/nav.js"></script>

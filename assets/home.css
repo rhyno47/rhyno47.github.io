@@ -321,6 +321,27 @@ body.nav-fixed { padding-top: var(--nav-h, 64px); }
 .hero-actions .btn-primary{ padding:0.8rem 1.2rem; border-radius:10px; font-weight:800 }
 .hero-actions .btn-ghost{ padding:0.7rem 1rem; border-radius:10px; background:transparent; border:1px solid rgba(255,255,255,0.12); color:#fff }
 
+/* Quick topic navigation in hero */
+.hero-topic-nav{ margin-top:12px; display:flex; flex-wrap:wrap; gap:8px; justify-content:center }
+.hero-topic-nav .topic-btn{
+  display:inline-block;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: .2px;
+}
+.hero-topic-nav .topic-btn:hover{ background: rgba(255,255,255,0.12); transform: translateY(-1px); }
+.hero-topic-nav .topic-btn:focus{ outline:3px solid rgba(255,255,255,0.18); outline-offset:2px }
+
+@media (max-width:700px){
+  .hero-topic-nav{ gap:6px }
+  .hero-topic-nav .topic-btn{ padding:7px 10px; font-size:0.95rem }
+}
+
 @media (max-width:700px){
   /* Constrain hero to full viewport height minus navbar, enable internal scroll if content taller */
   #hero, .site-hero{

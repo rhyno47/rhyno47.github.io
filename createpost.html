@@ -80,6 +80,9 @@ document.getElementById('jobForm').addEventListener('submit', async function(e){
   }
 
   try {
+    // Show a persistent ad while the post is being created
+    if(window.AdHelper && AdHelper.actionBegin){ AdHelper.actionBegin('post:create'); }
+
     const base = (window.API_BASE || '').replace(/\/$/, '');
     const url = base ? (base + '/api/jobs') : '/api/jobs';
     const res = await fetch(url, {
@@ -91,12 +94,15 @@ document.getElementById('jobForm').addEventListener('submit', async function(e){
     try { json = await res.json(); } catch(_){}
     if (!res.ok) {
       showMessage('danger', json.message || (json.errors && json.errors[0]?.msg) || 'Failed to create post');
+      if(window.AdHelper && AdHelper.actionEnd){ AdHelper.actionEnd(); }
       return;
     }
     showMessage('success', 'Job posted successfully. Redirecting…');
+    if(window.AdHelper && AdHelper.actionEnd){ AdHelper.actionEnd(); }
     setTimeout(()=> window.location.href = '/findjobs.html', 1200);
   } catch (err) {
     showMessage('danger', 'Network error. Please try again.');
+    if(window.AdHelper && AdHelper.actionEnd){ AdHelper.actionEnd(); }
   }
 });
 </script>
@@ -110,13 +116,7 @@ document.getElementById('jobForm').addEventListener('submit', async function(e){
 
 <!-- Non-intrusive display ad -->
 <div class="ad-slot ad-center ad-between">
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-1523965413574724"
-       data-ad-slot="2315208152"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-</div>
+  </div>
 
   <script defer src="/assets/ads.js"></script>
 </body>

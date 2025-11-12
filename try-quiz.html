@@ -53,6 +53,14 @@
   </div>
   </main>
   <script>
+    // quiz ad insertion frequency (after every 3 by default; can set data-quiz-ad-frequency="2")
+    const QUIZ_AD_FREQ = (function(){
+      const body = document.body;
+      const v = parseInt(body.getAttribute('data-quiz-ad-frequency')||'3',10);
+      return Number.isFinite(v) && v>0 ? v : 3;
+    })();
+  </script>
+  <script>
     // Quiz questions array (with example solutions)
   const questions = [
       {
@@ -169,6 +177,25 @@
           </div>
         `;
         quizDiv.appendChild(qDiv);
+        // Insert an in-feed ad card after every QUIZ_AD_FREQ quizzes
+        if((i+1) % QUIZ_AD_FREQ === 0){
+          const adWrap = document.createElement('div');
+          adWrap.className = 'quiz-card ad-quiz-card';
+          const slot = document.createElement('div');
+          slot.className = 'ad-slot ad-center ad-between ad-inquiz';
+          const ins = document.createElement('ins');
+          ins.className = 'adsbygoogle';
+          ins.style.display = 'block';
+          ins.setAttribute('data-ad-client','ca-pub-1523965413574724');
+          ins.setAttribute('data-ad-slot','4582278842');
+          ins.setAttribute('data-ad-format','fluid');
+          ins.setAttribute('data-ad-layout-key','-fg+5w+4i-d0+6y');
+          ins.setAttribute('data-infeed-ad','1');
+          ins.setAttribute('data-lazy','1');
+          slot.appendChild(ins);
+          adWrap.appendChild(slot);
+          quizDiv.appendChild(adWrap);
+        }
       });
     }
 
@@ -253,19 +280,30 @@
     // submit and demo controls removed — quiz cards operate independently
 
     createQuiz();
+    // Ensure base auto ad exists (central script also handles this; leaving minimal fallback)
+    window.addEventListener('load', ()=>{
+      if(!document.querySelector('ins.adsbygoogle[data-auto-ad="1"]')){
+        const heroAnchor = document.querySelector('#hero') || document.body;
+        const container = document.createElement('div');
+        container.className='ad-slot ad-center ad-between ad-hero';
+        const ins = document.createElement('ins');
+        ins.className='adsbygoogle'; ins.style.display='block';
+        ins.setAttribute('data-ad-client','ca-pub-1523965413574724');
+        ins.setAttribute('data-ad-slot','2315208152');
+        ins.setAttribute('data-ad-format','auto');
+        ins.setAttribute('data-full-width-responsive','true');
+        ins.setAttribute('data-auto-ad','1');
+        container.appendChild(ins);
+        heroAnchor.parentElement.insertBefore(container, heroAnchor.nextSibling);
+      }
+    });
   </script>
 
     <!-- AI widget is injected globally by /assets/navbar.js -->
 
 <!-- Non-intrusive display ad -->
 <div class="ad-slot ad-center ad-between">
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-1523965413574724"
-       data-ad-slot="2315208152"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-</div>
+  </div>
 
   <script defer src="/assets/ads.js"></script>
 </body>

@@ -21,7 +21,9 @@
     "node-fetch": "^2.6.7",
     "express-validator": "^6.15.0",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.0.5"
+    "mongoose": "^7.0.5",
+    "@sendgrid/mail": "^8.1.0",
+    "punycode": "^2.3.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"

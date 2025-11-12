@@ -108,103 +108,266 @@
   <section id="hero">
     <div class="hero-content">
       <h1><b>Introduction to Database Design</b></h1>
+      <p style="margin-top:6px;font-weight:600;color:rgba(255,255,255,0.9);max-width:860px">Select a topic below to jump directly into foundations, SQL, installation, or data models.</p>
+      <div class="hero-actions" style="flex-wrap:wrap;justify-content:center;max-width:900px">
+        <a class="btn-primary" href="#mysql-install-title">Install MySQL</a>
+        <a class="btn-ghost" href="#sql-card-title">Learn SQL</a>
+        <a class="btn-ghost" href="#data-models-title">Data Models</a>
+        <a class="btn-ghost" href="#db-card-title">Data Basics</a>
+      </div>
+      <div style="margin-top:10px;color:rgba(255,255,255,0.85);font-weight:700;font-size:0.9rem">Scroll or tap a topic to jump to its card.</div>
     </div>
   </section>
 
   <main style="max-width:900px;margin:2rem auto; padding:1rem;">
-  <h2 style="color:#ffffff; text-align:center;">Overview on Databases</h2>
+  <h2 style="color:#ffffff; text-align:center;">Data: The Building Blocks of Modern Apps</h2>
     <article class="info-card" aria-labelledby="db-card-title">
-      <h3 id="db-card-title"><B>BASIC DATABASE CONCEPT:Where the Magic Happens🚨🚧</B></h3>
-      <p class="muted">A Database is a collection of related data organized in a way that can be easily accessed, managed, and updated. Databases are like the super-organized fridges of the digital world — fresh and easy to access!</p>
+      <h3 id="db-card-title"><b>Welcome to the world of Data</b></h3>
+      <p class="muted">In this lesson, we'll explore the information that powers your favorite apps and sites — what data is, how it's shaped, and how databases keep it all organized.</p>
 
-      <h4>Tables</h4>
-      <p>They keep all the data. A table is a collection of data elements organized into rows and columns. Think of these as the different compartments in your fridge. Each one has a specific purpose, like storing user info or transaction records.</p>
+      <h4>Key Topics</h4>
+      <ul class="card-text">
+        <li><b>Understanding Data</b>: What is data?</li>
+        <li><b>Types of Data</b>: Structured, semi‑structured, and unstructured data</li>
+        <li><b>Data in Databases</b>: How data is organized and stored in databases</li>
+      </ul>
 
-      <h4>Row</h4>
-      <p>A single entry in a table is called a tuple or row. Imagine a table at a restaurant. Each row is like a plate of food holding all information about one specific dish (name, price, ingredients).</p>
+      <h4>Understanding Data: What's the Big Deal?</h4>
+      <p>Data is the <b>secret sauce</b> of modern applications — the raw facts your app collects and processes. When data is organized and interpreted, it becomes <b>information</b> you can act on.</p>
+      <ul class="card-text">
+        <li><b>Data</b>: A website collects the ages of all visitors.</li>
+        <li><b>Information</b>: After analysis, the site learns most visitors are <b>15–20</b> years old — a powerful insight about its audience.</li>
+      </ul>
 
-      <h4>Columns</h4>
-      <p>Each column is a category of information about all the rows (e.g., name, price, email).</p>
+      <h4>Types of Data: A Colorful Variety</h4>
+      <p class="muted">Different problems call for different data shapes. Here are the three common types:</p>
+      <ul class="card-text">
+        <li>
+          <b>Structured Data</b> — the neat freak. Highly organized in rows and columns.
+          <div class="card-text" style="margin-top:6px">Example: A users table with columns like <code>id</code>, <code>name</code>, <code>email</code>.</div>
+        </li>
+        <li>
+          <b>Semi‑structured Data</b> — flexible but still labeled.
+          <div class="card-text" style="margin-top:6px">Example: JSON like <code>{"name":"Aisha","skills":["SQL","Python"]}</code>.</div>
+        </li>
+        <li>
+          <b>Unstructured Data</b> — the free spirit. No fixed schema but full of value.
+          <div class="card-text" style="margin-top:6px">Example: Photos, videos, social media posts, voice notes.</div>
+        </li>
+      </ul>
 
-      <h4>Data Types</h4>
-      <p>Just as you wouldn't store ice cream in the vegetable drawer, data types ensure the right information goes in the right place (numbers for counting, text for names).</p>
+      <h4>Basic Databases Concept: Where the Magic Happens</h4>
+      <p>A <b>database</b> is a collection of related data organized so it can be easily <i>accessed</i>, <i>managed</i>, and <i>updated</i>. Think of it as a super‑organized fridge — everything has a spot, and you can find items fast.</p>
 
-      <h4>Keys</h4>
-      <p><strong>Primary Keys:</strong> Unique identifiers for each row. Think of it as a VIP pass ensuring each entry is unique.<br>
-      <strong>Foreign Keys:</strong> Links between tables that connect related data, like a bridge connecting two islands.</p>
+      <h5>Core Building Blocks</h5>
+      <ul class="card-text">
+        <li><b>Tables</b> — like compartments in your fridge (users, orders, products).</li>
+        <li><b>Rows (records)</b> — one specific item with all its details.</li>
+        <li><b>Columns (fields)</b> — categories that describe every row (name, price, quantity).</li>
+        <li><b>Data Types</b> — numbers for counting, text for names, dates for schedules.</li>
+        <li><b>Primary Keys</b> — unique ID for each row (a VIP pass).</li>
+        <li><b>Foreign Keys</b> — links connecting related tables.</li>
+      </ul>
 
-      <p class="muted">Now you're ready to dive into the world of data with confidence and style! Understanding data is the key to unlocking the potential of modern applications. So go forth and conquer the data universe!</p>
+      <h5>Quick Example</h5>
+      <pre class="solution-pre" style="white-space: pre-wrap;">Users(id, name, email)
+Orders(id, user_id, total_amount)
+
+• Primary Key: Users.id, Orders.id
+• Foreign Key: Orders.user_id → Users.id</pre>
+
+      <p class="muted">You're ready to dive into the world of data with confidence. Understanding data is the key to unlocking modern apps. Go forth and explore!</p>
+
+      <div class="toc" style="margin-top: 10px;">
+        <ul>
+          <li><a href="../databasehome.html">Database Basics</a></li>
+        </ul>
+      </div>
 
       <p style="margin-top:0.5rem; color: #ffffff;"><a href="../databasehome.html">← Back to Database Home</a></p>
     </article>
 
-<!-- ====== Introduction to SQL: The Universal Database Language  ====== -->
-<section id="sql-intro" style="
-    display: flex;
-    justify-content: center;
-    padding: 4rem 2rem;
-    background-image: url('../images/water fall.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: scroll;">
+    <!-- Data Models card -->
+    <article class="info-card" aria-labelledby="data-models-title" style="margin-top:1rem;">
+      <h3 id="data-models-title"><b>Types of Data Models: Meet the Data Family</b></h3>
+      <p class="muted">Data models describe how we organize and connect data in a system.</p>
 
-  <div style="max-width:900px; width:100%;">
-    <div style="width:100%; height:300px; background-image:url('../images/database\ home\ logo.jpg'); background-size:cover; background-position:center; border-radius:10px;"></div>
-
-    <article class="info-card" style="margin-top:1rem;" aria-labelledby="py-intro-title">
-      <h3 id="py-intro-title"><b>� Welcome to SQL: The Universal Database Language 🐍</b></h3>
-
-      <p class="muted">⚡SQL is like the Cool Translator Application:Between Your App and the Database. It Helps Your application To 👇😎:</p>
-
-
-      <p>Retrieve Specific Data: "Find me all the cat videos!"✨</p>
-      <p>Organize Data for Display: "Show the most popular ice cream flavours!"🍦🍧🍨</p>
-      <p>Update Data as Needed: "Change my username to 'CodeNinja'!"🐱‍👤</p>
-      <p>And there you have it! You're now ready to rock the database world!Remember,databases are the unsung heroes keeping our favorite websites and apps running smoothly.🦥 So next time you're scrolling through your feed, give a little nod to the hardworking databases behind the scenes!</p>
-
-      <h4><b>Building Your First Data Table: Let's Get Hands-On!🧠</b></h4>
-      <p>Welcome, data architects!Now that you've mastered the basics, it's time to roll up your sleeves and create your very first table. Get ready to turn your project ideas into a data reality!</p>
-
-      <h5>Lesson Objectives: Your Data Adventure Checklist ✅</h5>
-      <ol>
-        <li>Conceptualize and Design a Data Table 📘</li>
-        <li>Identify Crucial Data Points 🔁</li>
-        <li>Assign Appropriate Data Types  🤝</li>
+      <ol class="card-text">
+        <li>
+          <b>Hierarchical Model</b> — tree‑like structure with one parent per child.<br/>
+          <i>Use case:</i> organizational charts, file directories.
+        </li>
+        <li>
+          <b>Network Model</b> — more flexible than hierarchical; each item can have multiple connections.<br/>
+          <i>Use case:</i> telecommunications and complex networks.
+        </li>
+        <li>
+          <b>Relational Model</b> — stores data in tables that can be linked by relationships.<br/>
+          <i>Use case:</i> most business applications (e.g., customer management systems).
+        </li>
+        <li>
+          <b>Object‑Oriented Model</b> — stores data as objects, useful for complex structures.<br/>
+          <i>Use case:</i> video games and simulations.
+        </li>
       </ol>
 
-       <a href="images/html document image.PNG" target="_blank">
-              <img
-                src="../images/octopus database.png"
-                alt="HTML5 Structure"
-                style="width: 100%; max-width: 600px; border-radius: 10px"
-            >
-            </a>
+      <h4>Databases: The Digital Filing Cabinets of the Web</h4>
+      <p>Now that we've covered data, let's see how websites keep it organized and accessible — like magic, but with more zeros and ones!</p>
 
-      <h5>Designing Your Data Table: Let's Build!🛠️</h5>
-      <p>
-       Imagine you're creating a magical filing cabinet for your project. Each drawer is a table, each folder a row, and each sheet of paper a piece of data. Let's make it happen!</p>
-      <ol>
-        <li><h3>1. Conceptualize Your Needs⬇️</h3></li>
+      <h5>Key Topics: Your Database Adventure Map</h5>
+      <ul class="card-text">
+        <li>Grasp the core principles of databases</li>
+        <li>Explore the role of rows and data types</li>
+        <li>Comprehend relationships between tables</li>
+        <li>Discover the role of Database Management Systems (DBMS)</li>
+        <li>Introduce SQL's role in database interaction</li>
+      </ul>
 
-
-        <li><h4>Put on your thinking cap and ask yourself:</h4></li>
-        <p>What information do I want to track?</p>
-        <p>What details will be useful in the future?</p>
-        <p>Any cool features I might want to add later?</p>
-
-        <li>2. Identify Essential Data Points</li>
-        <li>Time to pick your data superheroes! Here are some common contenders:💻</li>
-        <li>Amount/Value: The numerical star of the show 🧩</li>
-      </ol>
-      <p>Note: many Unix-based systems (macOS, Linux) come with Python preinstalled, but it's often a good idea to install the latest Python 3 version.</p>
-
-      <p class="muted">Now you're ready to start — open your editor, create a new file, write <code>print("Hello, Python!")</code>, and run it. 🚀</p>
-
-      <p style="margin-top:0.5rem;"><a href="../DOCUMENTS PDF/PYTHON COMPLETE NOTES WITH TAWFIQ/THE INTRO 1/INTRODUCTION TO THE PYTHON DEVELOPMENT WORLD.pdf" download class="card-link">Download Notes</a></p>
+      <h5>More Resources</h5>
+      <ul class="card-text">
+        <li><a href="https://en.wikipedia.org/wiki/Database_model" target="_blank" rel="noopener">Data Models</a></li>
+      </ul>
     </article>
-  </div>
-</section>
+
+    <!-- MySQL + Workbench setup (Windows) -->
+    <article class="info-card" aria-labelledby="mysql-install-title" style="margin-top:1rem;">
+      <h3 id="mysql-install-title"><b>Install MySQL and Workbench (Windows)</b></h3>
+      <p class="muted">Before writing SQL, set up MySQL Server and MySQL Workbench on your Windows PC.</p>
+
+      <h4>Step 1: Download MySQL Installer</h4>
+      <ul class="card-text">
+        <li>Open: <a href="https://dev.mysql.com/downloads/installer/" target="_blank" rel="noopener">dev.mysql.com/downloads/installer</a></li>
+        <li>Ensure <b>Microsoft Windows</b> is selected, then download the <b>MySQL Installer MSI</b> (both the small ~2–3 MB web installer and the full ~300+ MB installer work).</li>
+        <li>On the login page, click <b>“No thanks, just start my download.”</b></li>
+      </ul>
+
+      <h4>Step 2: Install and Configure MySQL</h4>
+      <ul class="card-text">
+        <li>Run the installer. Choose <b>Developer Default</b> (recommended) or <b>Custom</b> to pick only <b>MySQL Server</b> and <b>MySQL Workbench</b>.</li>
+        <li>Click <b>Execute</b> when prompted to download and install selected products.</li>
+        <li>When configuring the server, set a strong <b>root</b> password and remember it. You may be asked to create a Windows service (default is fine).</li>
+        <li>Finish the wizard. At the end, check <b>Launch MySQL Workbench</b> and click <b>Finish</b>.</li>
+      </ul>
+
+      <h4>Step 3: Using MySQL Workbench</h4>
+      <ul class="card-text">
+        <li>In <b>MySQL Workbench</b>, under <b>MySQL Connections</b>, double‑click <b>Local instance MySQL80</b> (or the instance you created).</li>
+        <li>Enter the root password to connect.</li>
+        <li><b>Navigator</b> (left side) shows tools and the <b>Schemas</b> tree — a handy list of your databases.</li>
+      </ul>
+
+      <h5>Quick Health Check</h5>
+      <pre class="solution-pre" style="white-space: pre-wrap;">-- Check server version
+SELECT VERSION();
+
+-- Create and view a test database
+CREATE DATABASE IF NOT EXISTS SetupCheck;
+SHOW DATABASES;
+</pre>
+
+      <p class="muted">If you can run these without errors, your setup is good to go. Next up: writing SQL!</p>
+    </article>
+
+    <!-- SQL learning card -->
+    <article class="info-card" aria-labelledby="sql-card-title" style="margin-top:1rem;">
+      <h3 id="sql-card-title"><b>SQL: The Universal Database Language</b></h3>
+      <p class="muted">SQL is like a cool translator between your app and the database. It helps your application:</p>
+
+      <ul class="card-text">
+        <li><b>Retrieve specific data</b>: "Find me all the cat videos!"</li>
+        <li><b>Organize data for display</b>: "Show the most popular ice cream flavours!"</li>
+        <li><b>Update data as needed</b>: "Change my username to <code>CodeNinja</code>!" 🥷</li>
+      </ul>
+
+      <p>And there you have it! You're on your way to rocking the database world. Remember: databases are the unsung heroes keeping our favorite websites and apps running smoothly. Next time you're scrolling through your feed, give a nod to the hardworking databases behind the scenes.</p>
+
+      <h4>Building Your First Data Table: Let's Get Hands-On!</h4>
+      <p>Welcome, data architects! Now that you've learned the basics, let's roll up our sleeves and build the foundation for your project.</p>
+
+      <h5>Lesson Objectives: Your Data Adventure Checklist</h5>
+      <ul class="card-text">
+        <li>Conceptualize and design a data table</li>
+        <li>Identify crucial data points</li>
+        <li>Assign appropriate data types</li>
+      </ul>
+
+      <h5>Designing Your Data Table: Let's Build!</h5>
+      <p>Imagine a magical filing cabinet for your project. Each drawer is a <b>table</b>, each folder a <b>row</b>, and each sheet of paper a <b>field value</b>.</p>
+
+      <ol class="card-text">
+        <li>
+          <b>Conceptualize your needs</b>
+          <div class="card-text" style="margin-top:6px">
+            What information do I want to track? What details will be useful later? Any features I might add in the future?
+          </div>
+        </li>
+        <li>
+          <b>Identify essential data points</b>
+          <div class="card-text" style="margin-top:6px">
+            Amount/Value, Date/Time, Category, Description
+          </div>
+        </li>
+        <li>
+          <b>Assign appropriate data types</b>
+          <div class="card-text" style="margin-top:6px">
+            Amount → number (INT/DECIMAL), Date/Time → DATE/TIMESTAMP, Category → TEXT/VARCHAR, Description → TEXT (with sensible limit)
+          </div>
+        </li>
+      </ol>
+
+      <h4>Creating Your First Database (SQL)</h4>
+      <p>Open your SQL editor (e.g., MySQL, PostgreSQL, SQL Server) and run these commands:</p>
+      <pre class="solution-pre" style="white-space: pre-wrap;">-- Create a database
+CREATE DATABASE SampleDB;
+
+-- Switch to it (MySQL)
+USE SampleDB;
+
+-- Create a simple table
+CREATE TABLE Products (
+  id INT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  price DECIMAL(10,2) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Insert a couple of rows
+INSERT INTO Products (id, name, price) VALUES
+  (1, 'Notebook', 5.50),
+  (2, 'Pencil', 1.25);
+
+-- Query data
+SELECT * FROM Products ORDER BY price DESC;
+</pre>
+
+      <h4>Challenges 🧪</h4>
+      <ol class="card-text">
+        <li>
+          <b>Creating a Sales Database 🛒</b>
+          <pre class="solution-pre" style="white-space: pre-wrap;">-- Create SalesDB
+CREATE DATABASE SalesDB;
+</pre>
+          Tip: After creating it, switch to it (e.g., <code>USE SalesDB;</code>) and try creating a <code>Sales</code> table with columns like <code>id</code>, <code>amount</code> (DECIMAL), <code>category</code> (VARCHAR), and <code>sold_at</code> (TIMESTAMP).
+        </li>
+        <li>
+          <b>Creating and Dropping a School Database 🏫</b>
+          <pre class="solution-pre" style="white-space: pre-wrap;">-- Create SchoolDB
+CREATE DATABASE SchoolDB;
+
+-- If it was just a test, drop it
+DROP DATABASE SchoolDB;
+</pre>
+          Tip: In a real project, you'd add tables (e.g., <code>Students</code>, <code>Courses</code>) before dropping a test database.
+        </li>
+      </ol>
+
+      <h5>More Resources</h5>
+      <ul class="card-text">
+        <li><a href="https://www.w3schools.com/sql/sql_intro.asp" target="_blank" rel="noopener">What is SQL (intro)</a></li>
+      </ul>
+
+      <p style="margin-top:0.5rem; color: #ffffff;"><a href="../databasehome.html">← Back to Database Home</a></p>
+    </article>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -224,13 +387,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
 <!-- Non-intrusive display ad -->
 <div class="ad-slot ad-center ad-between">
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-1523965413574724"
-       data-ad-slot="2315208152"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-</div>
+  </div>
 
 <footer id="footer">
     <p>© 2025 Coding with Tawfiq. All rights reserved.</p>

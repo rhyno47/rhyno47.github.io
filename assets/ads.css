@@ -36,6 +36,9 @@
 .ad-slot[data-infeed-ad]{ padding:6px; border-radius:10px; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); }
 .ad-slot[data-infeed-ad]:not([data-init]){ background: transparent; border-color: transparent; }
 
+/* Jobs feed ad cards should inherit existing .card-feed sizing; no special overrides on mobile */
+/* (Reverted custom ad-feed-card sizing to restore original small-device appearance.) */
+
 /* Floating interaction ad box (from JS) override for small devices */
 #interaction-ad-box{ max-width:340px; }
 @media (max-width:600px){ #interaction-ad-box{ right:8px !important; left:8px; width:auto; max-width:none; } }
