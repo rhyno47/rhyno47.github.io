@@ -10,12 +10,12 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const CLIENT = 'ca-pub-1523965413574724';
-const DISPLAY_SLOT = '2315208152';
+const DISPLAY_SLOT = '2315208152'; // kept for reference; not directly injected anymore
 
 const AUTO_ADS_SCRIPT = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${CLIENT}"\n     crossorigin="anonymous"></script>`;
 const ADS_CSS_LINK = `<link rel="stylesheet" href="/assets/ads.css">`;
 const ADS_JS_SCRIPT = `<script defer src="/assets/ads.js"></script>`;
-const DISPLAY_AD_BLOCK = `\n<!-- Non-intrusive display ad -->\n<div class="ad-slot ad-center ad-between">\n  <ins class="adsbygoogle"\n       style="display:block"\n       data-ad-client="${CLIENT}"\n       data-ad-slot="${DISPLAY_SLOT}"\n       data-ad-format="auto"\n       data-full-width-responsive="true"></ins>\n</div>\n`;
+// We no longer insert static ad <ins> blocks here; runtime script (assets/ads.js) injects one auto + one native.
 
 function walk(dir){
   const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -46,15 +46,8 @@ function ensureHead(html){
 }
 
 function ensureBodyTail(html){
-  // Add display ad if none exists
-  if(!/class\s*=\s*"[^"]*adsbygoogle/.test(html)){
-    // Insert before footer if present, else before </body>
-    if(/<footer[\s\S]*?<\/footer>/i.test(html)){
-      html = html.replace(/<footer/i, `${DISPLAY_AD_BLOCK}\n<footer`);
-    } else {
-      html = html.replace(/<\/body>/i, `${DISPLAY_AD_BLOCK}\n</body>`);
-    }
-  }
+  // Remove any existing manual <ins class="adsbygoogle"> to avoid duplicates; the runtime will add standardized ones
+  html = html.replace(/<ins\s+class=["']adsbygoogle["'][\s\S]*?<\/ins>\s*/gi, '');
   // Add ads.js loader if missing
   if(!/\/assets\/ads\.js/.test(html)){
     html = html.replace(/<\/body>/i, `  ${ADS_JS_SCRIPT}\n</body>`);

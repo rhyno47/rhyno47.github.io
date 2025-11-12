@@ -83,11 +83,17 @@ html {
   padding: 1rem 5%;
   background-color: #680202;
   color: white;
-  position: sticky;
+  position: fixed; /* pin navbar globally */
   top: 0;
-  z-index: 100;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 2000; /* ensure it stays above hero/panels */
   font-family: "Poppins", sans-serif;
 }
+
+/* offset body so content isn't hidden under fixed navbar */
+body.nav-fixed { padding-top: var(--nav-h, 64px); }
 
 .new-navbar .logo {
   font-size: 1.5rem;
@@ -179,7 +185,7 @@ html {
 @media (max-width: 800px) {
   .new-navbar .nav-links {
     position: absolute;
-    top: 60px;
+    top: calc(var(--nav-h, 60px));
     left: 0;
     right: 0;
     background-color: rgba(104,2,2,0.98);
@@ -214,6 +220,7 @@ html {
   text-align: center;
   padding: 2rem 1rem;
   color: #fff;
+  position: relative; /* enable overlay fade and stacking */
   /* combine a strong dark overlay for legibility with the wallpaper image
     Use image-set so high-DPI (2x) variants are used on capable devices to avoid upscaling. */
   background-image: linear-gradient(rgba(3,3,3,0.55), rgba(3,3,3,0.55)), -webkit-image-set(var(--hero-img-1) 1x, var(--hero-img-1-2x) 2x);
@@ -226,11 +233,7 @@ html {
   image-rendering: auto; /* prefer quality over pixelated scaling */
 }
 
-/* Prevent internal scrollbars on the hero and center the hero content
-   Ensure the hero content is centered both vertically and horizontally and
-   hide accidental scroll UI that appeared on some pages. Keep overflow visible
-   for child elements that intentionally overflow (e.g., dropdowns) but hide
-   scrollbars caused by minor layout shifts. */
+/* Default desktop: hide stray scrollbars */
 #hero, .site-hero { overflow: hidden; }
 .hero-content { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; padding: 0 1rem; }
 
@@ -307,8 +310,16 @@ html {
 .hero-actions .btn-ghost{ padding:0.7rem 1rem; border-radius:10px; background:transparent; border:1px solid rgba(255,255,255,0.12); color:#fff }
 
 @media (max-width:700px){
-  #hero{ min-height: 360px; background-attachment: scroll; padding:1.2rem }
-  .hero-content h1{ font-size:1.6rem }
+  #hero, .site-hero{
+    min-height: calc(100vh - var(--nav-h, 60px));
+    max-height: calc(100vh - var(--nav-h, 60px));
+    background-attachment: scroll;
+    padding: 1.1rem 0.9rem 1.2rem;
+    overflow: auto; /* allow scrolling hero content */
+    -webkit-overflow-scrolling: touch;
+  }
+  .hero-content h1{ font-size:1.55rem }
+  .hero-content p{ font-size:0.92rem; line-height:1.35; }
 }
 
 /* ====== COURSES SECTION ====== */
@@ -698,15 +709,17 @@ body { --feed-offset: 80px; }
 .card-feed { background: rgba(0,0,0,0.45); padding:1rem; border-radius:10px; color:#f6f6f6; border:1px solid rgba(255,255,255,0.04); width:100%; max-width:820px; }
 .card-feed h3{ margin-bottom:0.3rem }
 .card-meta{ color: rgba(255,255,255,0.75); font-size:0.9rem }
-.card-feed img{ width:100%; max-height:240px; object-fit:cover; border-radius:8px; margin-top:0.6rem }
+/* Primary post image sizing (limit height to prevent vertical overflow) */
+.card-feed img{ width:100%; height:auto; max-height:180px; object-fit:cover; border-radius:8px; margin-top:0.6rem }
 
 /* Thumbnail styling for post images (smaller preview to avoid "zoomed" images) */
+/* Unified thumbnail preview (desktop/tablet) */
 .card-feed .post-thumb{
   width:100%;
-  max-height:160px; /* smaller preview height */
-  object-fit:cover;
+  max-height:140px;
+  object-fit:cover; /* fill on wider screens */
   border-radius:8px;
-  margin-top:0.6rem;
+  margin-top:0.4rem;
   cursor:pointer;
 }
 
@@ -727,12 +740,25 @@ body { --feed-offset: 80px; }
 .img-lightbox-close{ position:absolute; top:-10px; right:-10px; background:#fff; color:#000; border-radius:50%; width:36px; height:36px; border:none; cursor:pointer; font-size:20px; line-height:1 }
 
 @media (max-width:600px){
-  .card-feed .post-thumb{ max-height:120px }
+  .card-feed .post-thumb{ max-height:100px }
   .img-lightbox-inner{ width:100%; }
+  /* Avoid left cropping: display full image inside frame */
+  .card-feed .post-thumb{ object-fit:contain; background:#000; object-position:center center; }
+  .card-feed .post-image{ padding:3px; }
+  /* Compact centered card layout on small devices */
+  .feed{ padding-left:10px; padding-right:10px; padding-bottom:90px; }
+  .card-feed{ width:calc(100% - 24px); max-width:380px; margin-left:auto; margin-right:auto; padding:0.75rem 0.85rem; }
+  .card-actions{ flex-wrap:wrap; gap:8px; }
+  .card-actions .right{ flex-wrap:wrap; justify-content:flex-end; gap:6px; }
+  .open-link-btn{ font-size:0.9rem; padding:0.38rem 0.7rem; }
+  .icon-btn img{ width:22px; height:22px; }
 }
 
 /* Indicator badge on thumbnails to show they are clickable */
-.post-image{ position:relative; display:block }
+.post-image{ position:relative; display:block; background:#fff; padding:6px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.28) }
+/* Ensure framed look applies in backend too */
+.card-feed .post-image{ background:#fff; padding:6px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.28) }
+.post-image img{ display:block; width:100%; height:auto; border-radius:8px }
 .post-image::after{
   content: "Click for full view";
   position:absolute;
@@ -971,6 +997,15 @@ input[type="file"]::-webkit-file-upload-button {
 /* background duplication & subtle zoom effect for quiz pages only */
 .quiz-bg { background-color: #0b0b0b; background-image: url('/images/dragon%20image.jpg'); background-repeat: no-repeat; background-position: center top; background-size: cover; min-height:100vh; }
 
+/* Compact quiz cards on small devices (backend copy) */
+@media (max-width:600px){
+  body.quiz-bg .quiz-panel{ width:100%; max-width:480px; margin:16px auto; padding:14px; }
+  .quiz-grid{ display:flex; flex-direction:column; gap:14px; align-items:center; }
+  .quiz-card{ width:calc(100% - 24px); max-width:380px; margin-left:auto; margin-right:auto; padding:14px; }
+  .quiz-card-header{ gap:10px; }
+  .quiz-actions{ flex-wrap:wrap; gap:8px; }
+}
+
 /* remove duplicated pseudo-layer to avoid visual clipping; if a subtle overlay is desired we can re-introduce it with lower opacity */
 
 /* inspiring message color (matches site accent) */
@@ -1134,6 +1169,7 @@ input[type="file"]::-webkit-file-upload-button {
 
 /* Make headings match the lesson-card style when used inside the python intro */
 #python-intro h2, #python-datatypes h2 { text-align: center; color: #ffffff; font-size: 2rem; margin-bottom: 12px; }
+/* (Reverted) Intro to Python PDFs simplified theme removed (backend) */
 
 /* === Readability improvements for Python intro cards on very small screens ===
    The scoped styles above add generous padding (30px) and tight font scaling that

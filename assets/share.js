@@ -87,6 +87,7 @@
     function afterCopy(status){
       if(labelEl){ labelEl.textContent = status; setTimeout(()=>{ labelEl.textContent='Share'; }, 1400); }
       showLinkInline(card, url);
+      try{ document.dispatchEvent(new Event('post:share')); }catch(_e){}
     }
 
     if(navigator.share){

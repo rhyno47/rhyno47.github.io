@@ -39,7 +39,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initial render and keep nav in sync with storage changes
   renderNav();
-  window.addEventListener('storage', (e)=>{ if (e.key === 'token' || e.key === 'user') renderNav(); });
+
+  // Measure navbar height and expose it as --nav-h; add body offset class
+  function setNavOffset(){
+    try{
+      const nav = document.querySelector('.new-navbar');
+      if (!nav) return;
+      const h = nav.offsetHeight || 64;
+      document.documentElement.style.setProperty('--nav-h', h + 'px');
+      document.body.classList.add('nav-fixed');
+    }catch(e){}
+  }
+  setNavOffset();
+  window.addEventListener('resize', ()=> setTimeout(setNavOffset, 50));
+  // Recompute after nav content changes (e.g., login state)
+  window.addEventListener('storage', (e)=>{ if (e.key === 'token' || e.key === 'user') { renderNav(); setTimeout(setNavOffset, 0); } });
+  // Ensure offset also updates on initial DOM changes
 
   // Global sign out handler (delegated) — clears auth and rerenders nav
   document.body.addEventListener('click', (e)=>{

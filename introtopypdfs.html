@@ -1,824 +1,292 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-  <link rel="stylesheet" href="/assets/ads.css">
+<head>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1523965413574724"
      crossorigin="anonymous"></script>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Coding with Tawfiq | Intro to Python PDFs</title>
-    <link rel="stylesheet" href="assets/home.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-  <!-- Front-end runtime configuration (defines window.API_BASE) -->
-  <script src="assets/env.js"></script>
-  <style>
-    /* Lightweight, page-local styles */
-    .info-notice {
-      background: #111; border: 1px solid #333; border-radius: 10px;
-      padding: 12px 14px; margin: 12px 0; color: #ddd;
-    }
-    .info-notice strong { color: #fff; }
-    .example-preview { background:#0f0f0f; border:1px solid #2a2a2a; border-radius:10px; margin-top:10px; }
-    .example-preview > summary {
-      cursor:pointer; padding:10px 12px; list-style:none; outline:none;
-      font-weight:600; color:#e6e6e6;
-    }
-    .example-preview[open] > summary { border-bottom:1px solid #2a2a2a; }
-    .example-body { padding:10px 12px; color:#ddd; }
-    .example-block { margin-top:10px; }
-    .example-title { font-weight:600; color:#fff; margin-bottom:6px; }
-    .code, .out {
-      background:#161616; border:1px solid #2a2a2a; border-radius:8px;
-      padding:8px; overflow:auto; white-space:pre; font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:0.92rem;
-    }
-    .out { background:#121212; color:#c8ffd6; }
-    .muted { color:#9aa0a6; font-size:0.92rem; }
-  </style>
-  </head>
-  <body>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Coding with Tawfiq | Python Intro</title>
+	<link rel="stylesheet" href="../assets/home.css">
+	<link rel="stylesheet" href="../assets/ads.css">
+	<link rel="preload" as="image" href="../images/hero section image 2.jpg">
+	<link rel="preload" as="image" href="../images/hero section image 2@2x.jpg" media="(min-width:1600px)">
+</head>
+<body>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+<nav class="new-navbar" role="navigation">
+	<div class="logo"><a href="../index.html"><img src="../images/coding with tawfiq.jpg" alt="Logo"></a></div>
+	<button class="hamburger" aria-label="Toggle menu">
+		<span></span><span></span><span></span>
+	</button>
+	<ul class="nav-links">
+		<li><a href="../index.html">Home</a></li>
+		<li><a href="../try-quiz.html">Practice</a></li>
+		<li><a href="../findjobs.html">Find Jobs</a></li>
+	</ul>
+	<div class="nav-actions">
+		<button class="search-btn" aria-label="Search"><img src="../images/the search logo.jpg" alt="Search"></button>
+		<a class="card-link" href="/public/login.html">Sign In</a>
+	</div>
+</nav>
+<script src="/assets/navbar.js"></script>
+<section id="hero" class="home-hero python-hero">
+	<div class="hero-content">
+		<h1>Python Introduction</h1>
+		<p>Select a topic below to begin exploring Python basics with interactive examples.</p>
+		<div class="hero-actions toc-hero-actions" style="flex-wrap:wrap; justify-content:center; max-width:900px;">
+			<a class="btn-primary" href="#py-getting-started">Getting Started</a>
+			<a class="btn-ghost" href="#py-datatypes">Data Types</a>
+			<a class="btn-ghost" href="#py-variables">Variables</a>
+			<a class="btn-ghost" href="#py-control-flow">Control Flow</a>
+		</div>
+		<div style="margin-top:10px;color:rgba(255,255,255,0.88);font-weight:700;font-size:0.9rem">Scroll or tap a topic to jump to its card.</div>
+	</div>
+</section>
+<section id="python-intro" class="page">
+	<h2>Introduction to Python</h2>
+	<article id="py-getting-started" class="info-card" data-share-icon-only="1">
+		<img class="card-top-image" src="../images/python%20home...jpg" alt="Python Getting Started">
+		<h3>Getting Started</h3>
+		<h4>Welcome to the Python Development</h4>
+		<p class="card-text">Python is not just a language, it’s a superpower. In this course, you’ll go from writing your first line of code to building cool projects that’ll make you say, “Wow, I did that! 😎”</p>
+		<p class="card-text">Whether you’re totally new to coding or just looking to sharpen your Python skills, get ready for an epic journey filled with coding magic, challenges, and lots of fun moments.</p>
+		<h4>Python Language Quick Overview</h4>
+		<p class="card-text">Python is a high-level, interpreted programming language used for many different purposes, from web development to scientific computing to machine learning.</p>
+		<p class="card-text">Why Python is a great choice:</p>
+		<ul>
+			<li><strong>Easy to learn</strong>: Simple, readable syntax makes it friendly for beginners.</li>
+			<li><strong>Versatile</strong>: Great for web apps, data analysis, AI/ML, automation, and more.</li>
+			<li><strong>Large community</strong>: Tons of learning resources, tutorials, and Q&A support.</li>
+			<li><strong>Rich libraries</strong>: NumPy, pandas, Matplotlib and many more to do more with less code.</li>
+			<li><strong>Cross‑platform</strong>: Runs on Windows, macOS, and Linux with the same code.</li>
+		</ul>
+		<h4>Install Python 3 and VS Code on Windows</h4>
+		<p class="card-text"><strong>Install Python</strong></p>
+		<ol>
+			<li>Download the latest Python from <a href="https://www.python.org/downloads/" target="_blank" rel="noopener">python.org</a>.</li>
+			<li>Run the installer and follow the steps.</li>
+			<li><strong>Important</strong>: Check “Add Python to environment variables” during installation so you can run Python from anywhere.</li>
+			<li>(Optional) Choose a custom installation path if you prefer.</li>
+		</ol>
+		<p class="muted">Note: Many Unix-based systems (Linux, macOS) come with Python preinstalled.</p>
+		<p class="muted">Tip: You can also run Python right in the browser below using the live editors — no install needed.</p>
+		<div class="code-card py-example" data-name="getting-started-1">
+			<h3>Try it: Check Python basics</h3>
+			<textarea class="py-code" rows="8">import sys
+print("Python runtime (simulated with Pyodide)")
+print("Version:", sys.version)
+print("3 + 4 =", 3 + 4)</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+				<button class="run-btn">Run</button>
+				<button class="clear-btn">Clear Output</button>
+			</div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+	</article>
+	<article id="py-datatypes" class="info-card" data-share-icon-only="1">
+		<img class="card-top-image" src="../images/project%201.jpg" alt="Understanding Python Datatypes">
+		<h3>Understanding Python Datatypes</h3>
+		<p class="card-text">In programming, <strong>data types</strong> describe the kind of data a variable can hold. Example:</p>
+		<pre><code>num = 24  # 24 is an int so num is of class int</code></pre>
+		<p class="card-text">Since everything is an object in Python, data types are actually <em>classes</em>, and variables are <em>instances</em> of these classes.</p>
+		<h4>Python Core Data Type Categories</h4>
+		<div style="overflow-x:auto;">
+			<table style="width:100%; border-collapse:collapse; font-size:0.92rem;">
+				<thead><tr style="background:rgba(255,255,255,0.08);"><th style="padding:6px; text-align:left;">Category</th><th style="padding:6px; text-align:left;">Classes</th><th style="padding:6px; text-align:left;">Description</th></tr></thead>
+				<tbody>
+					<tr><td style="padding:6px;">Numeric</td><td style="padding:6px;">int, float, complex</td><td style="padding:6px;">Holds numeric values</td></tr>
+					<tr><td style="padding:6px;">String</td><td style="padding:6px;">str</td><td style="padding:6px;">Sequence of characters</td></tr>
+					<tr><td style="padding:6px;">Sequence</td><td style="padding:6px;">list, tuple, range</td><td style="padding:6px;">Ordered collection of items</td></tr>
+					<tr><td style="padding:6px;">Mapping</td><td style="padding:6px;">dict</td><td style="padding:6px;">Key–value pairs</td></tr>
+					<tr><td style="padding:6px;">Boolean</td><td style="padding:6px;">bool</td><td style="padding:6px;">True or False</td></tr>
+					<tr><td style="padding:6px;">Set</td><td style="padding:6px;">set</td><td style="padding:6px;">Unique unordered items</td></tr>
+				</tbody>
+			</table>
+		</div>
 
-  <!-- Place this near the top of your main content area -->
-  <section class="info-notice" id="previewNotice" role="note" aria-label="Preview notice">
-    <strong>Notice:</strong> The quick previews below are short examples to help you grasp each topic fast.
-    For full lessons, tips, and exercises, open the PDF on each card.
-  </section>
+					<!-- Variables Info Card -->
+					<article id="py-variables" class="info-card" data-share-icon-only="1">
+						<img class="card-top-image" src="../images/soft%20eng%20home%20logo.jpg" alt="Variables in Python">
+						<h3>Variables in Python</h3>
 
-  <!-- Example: add data-topic to any card for accurate matching (optional) -->
-  <!--
-  <div class="pdf-card" data-topic="loops">
-    ...existing card markup...
-    <a href="..." class="card-link">Open PDF</a>
-  </div>
-  -->
+						<p class="card-text">In programming, a <strong>variable</strong> is a container (storage area) used to hold data.</p>
+						<pre><code>number = 10</code></pre>
 
-  <main class="page">
-    <div class="hero">
-      <div class="hero-content">
-        <h1>Intro to Python PDFs</h1>
-        <p class="lead">Access your Python learning materials here. Each card contains a PDF with in-depth content, examples, and exercises.</p>
-      </div>
-    </div>
+						<h4>Assigning values to variables</h4>
+						<p class="card-text">Use the assignment operator <code>=</code> to assign a value to a variable.</p>
+						<pre><code>site_name = "Power Learn Project"</code></pre>
+		<h4>Numeric Types</h4>
+		<p class="card-text">Python numbers: <code>int</code> (arbitrary length), <code>float</code> (double precision ~15 decimal places), and <code>complex</code> (rarely used early on).</p>
+		<div class="code-card py-example" data-name="dt-numeric">
 
-    <!-- Mid-content lazy fluid ad (appears when scrolled into view) -->
-    <div class="ad-slot ad-mid" aria-hidden="true">
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-1523965413574724"
-           data-ad-slot="4582278842"
-           data-ad-format="fluid"
-           data-ad-layout-key="-fg+5w+4i-d0+6y"
-           data-full-width-responsive="true"
-           data-lazy="1"></ins>
-    </div>
+						<p class="muted"><strong>Note:</strong> Python is a <em>type‑inferred</em> language. You don’t have to explicitly declare the type; Python infers that <code>"Power Learn Project"</code> is a <code>str</code>, so <code>site_name</code> is a string.</p>
 
-    <div class="layout">
-      <!-- Feed -->
-      <section class="feed" id="feed">
-        <!-- welcome card removed (not needed) -->
+						<h4>Changing the value of a variable</h4>
+						<pre><code>site_name = "Power Learn Project"</code></pre>
+			<h3>Try it: Numeric and type()</h3>
+			<textarea class="py-code" rows="10">num1 = 55      # int
+num2 = 5.3     # float
+num3 = 2 + 3j  # complex
+print(num1, type(num1))
+print(num2, type(num2))
+print(num3, type(num3))
+print("num1 + num2 =", num1 + num2)</textarea>
 
-        <!-- inline create card removed — creation is handled from the hero Create button or the modal -->
+						<h4>Assigning multiple values</h4>
+						<pre><code>a, b, c = 5, 7, "Hello world"</code></pre>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap"><button class="run-btn">Run</button><button class="clear-btn">Clear Output</button></div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
 
-        <!-- dynamic posts inserted here -->
-      </section>
+						<h4>Rules for naming Python variables</h4>
+						<ul>
+							<li>Use letters (a–z, A–Z), digits (0–9), and underscore <code>_</code>. Don’t start with a digit.</li>
+							<li>Python is case‑sensitive: <code>num</code> and <code>Num</code> are different.</li>
+							<li>Avoid using Python keywords like <code>if</code>, <code>True</code>, <code>class</code>, etc.</li>
+							<li>Common styles: <code>snake_case</code>, <code>MACRO_CASE</code>, <code>camelCase</code>, <code>CapsWords</code>.</li>
+						</ul>
+						<pre><code>num = 55</code></pre>
+		<h4>List (Mutable Ordered Sequence)</h4>
+		<p class="card-text">Lists hold ordered items and can mix types. Defined with <code>[ ]</code>.</p>
+		<div class="code-card py-example" data-name="dt-list">
 
-      <!-- Right drawer removed — announcements shown in feed -->
-    </div>
-  </main>
+						<div class="code-card py-example" data-name="vars-demo">
+							<h3>Try it: Variables quick demo</h3>
+							<textarea class="py-code" rows="14"># Variable basics
+			number = 10
+			print("number:", number, type(number))
 
-  <!-- Floating admin post button removed. Posting is available to signed-in users via the inline create card. -->
+			site_name = "Power Learn Project"
+			print(site_name)
 
-  <!-- Modal create post -->
-  <div id="modalBackdrop" class="modal-backdrop" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true">
-    <h3>Create announcement</h3>
-      <div style="height:8px"></div>
+			# Change value
+			site_name = "I love coding"
+			print(site_name)
 
-      <div class="form-row">
-        <div class="col"><input id="title" placeholder="Job title or announcement title"/></div>
-        <div class="col"><input id="link" placeholder="Optional: link (https://)"/></div>
-      </div>
-      <div style="height:8px"></div>
-      <input id="image" type="file" accept="image/*" />
-      <div style="height:8px"></div>
-      <textarea id="body" placeholder="Details, responsibilities, location, salary..."></textarea>
+			# Multiple assignment
+			a, b, c = 5, 7, "Hello world"
+			print(a, b, c)
 
-      <div class="actions">
-        <button id="submitPost" class="btn-primary-strong">Post</button>
-        <button id="closeModal" class="btn-ghost">Cancel</button>
-      </div>
-      <div id="modalPreview" style="margin-top:0.8rem; display:none">
-        <h4 style="margin:0;color:#fff">Preview</h4>
-        <div id="modalPreviewCard" class="card-feed" style="margin-top:0.6rem"></div>
-      </div>
-    </div>
-  </div>
+			# Case sensitivity
+			num = 55
+			Num = 510
+			print(num, Num)
+							</textarea>
+							<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap">
+								<button class="run-btn">Run</button>
+								<button class="clear-btn">Clear Output</button>
+							</div>
+							<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+						</div>
 
-  <script>
-  // Uses the existing /api/auth and /api/posts endpoints.
-    // Stores token and user in sessionStorage under 'token' and 'user'.
-  const modal = document.getElementById('modalBackdrop');
-    const submitBtn = document.getElementById('submitPost');
-    const closeModal = document.getElementById('closeModal');
-  const imageInput = document.getElementById('image');
-    const feed = document.getElementById('feed');
-    const previewCard = document.getElementById('modalPreviewCard');
+						<h4>More Resources</h4>
+						<ul>
+							<li><a href="https://realpython.com/python-variables/" target="_blank" rel="noopener">Real Python — Variables</a></li>
+							<li><a href="https://www.simplilearn.com/tutorials/python-tutorial/python-variables" target="_blank" rel="noopener">Simplilearn — Python Variables</a></li>
+							<li><a href="https://www.guru99.com/variables-in-python.html" target="_blank" rel="noopener">Guru99 — Variables in Python</a></li>
+							<li><a href="https://www.tutorialspoint.com/python/python_variables.htm" target="_blank" rel="noopener">TutorialsPoint — Python Variables</a></li>
+						</ul>
+					</article>
 
-  // API base: dynamic from env.js (window.API_BASE). Fallback to localhost if not set.
-  const API_BASE = (window.API_BASE || 'http://localhost:5000');
+					<!-- Additional cards (control flow, projects) omitted to keep layout focused -->
+			<h3>Try it: List basics</h3>
+			<textarea class="py-code" rows="12">languages = ["Python", "Dart", "Web", 23]
+print(languages)
+print("Second item:", languages[1])
+languages.append("NewItem")
+print("After append:", languages)
+print("Slice first two:", languages[:2])</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap"><button class="run-btn">Run</button><button class="clear-btn">Clear Output</button></div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+		<h4>Tuple (Immutable Ordered Sequence)</h4>
+		<p class="card-text">Tuples use <code>( )</code> and once created cannot be modified.</p>
+		<div class="code-card py-example" data-name="dt-tuple">
+			<h3>Try it: Tuple basics</h3>
+			<textarea class="py-code" rows="10">products = ("XBox", 499.99, "Habibi", 23)
+print(products)
+print("Third item:", products[2])
+# Immutability demo
+try:
+    products[0] = "PlayStation"
+except TypeError as e:
+    print("Cannot modify tuple:", e)</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap"><button class="run-btn">Run</button><button class="clear-btn">Clear Output</button></div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+		<h4>String</h4>
+		<p class="card-text">Strings are sequences of characters in quotes. They support indexing and slicing.</p>
+		<div class="code-card py-example" data-name="dt-string">
+			<h3>Try it: String basics</h3>
+			<textarea class="py-code" rows="11">site_name = "Power Learn Project"
+print(site_name)
+print("First 5 chars:", site_name[:5])
+print("Upper:", site_name.upper())
+print("Contains 'Learn'?:", "Learn" in site_name)</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap"><button class="run-btn">Run</button><button class="clear-btn">Clear Output</button></div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+		<h4>Set (Unique Unordered Collection)</h4>
+		<p class="card-text">Sets use <code>{ }</code> and automatically remove duplicates. They don’t support indexing.</p>
+		<div class="code-card py-example" data-name="dt-set">
+			<h3>Try it: Set basics</h3>
+			<textarea class="py-code" rows="12">student_ids = {112, 114, 117, 113, 114}
+print(student_ids)
+print("Length:", len(student_ids))
+other = {117, 200}
+print("Intersection:", student_ids & other)
+print("Union:", student_ids | other)</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap"><button class="run-btn">Run</button><button class="clear-btn">Clear Output</button></div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+		<h4>Dictionary (Ordered Key–Value Store)</h4>
+		<p class="card-text">Dictionaries map keys to values. Keys must be unique.</p>
+		<div class="code-card py-example" data-name="dt-dict">
+			<h3>Try it: Dictionary basics</h3>
+			<textarea class="py-code" rows="13">capital_city = {"Kenya": "Nairobi", "Nigeria": "Lagos"}
+print(capital_city)
+print("Keys:", list(capital_city.keys()))
+capital_city["Tanzania"] = "Dodoma"
+print("Updated:", capital_city)
+for country, city in capital_city.items():
+    print(country, "=>", city)</textarea>
+			<div class="code-actions" style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap"><button class="run-btn">Run</button><button class="clear-btn">Clear Output</button></div>
+			<pre class="terminal" aria-live="polite" aria-label="Program Output"></pre>
+		</div>
+		<h4>More Resources</h4>
+		<ul>
+			<li><a href="https://www.geeksforgeeks.org/python-data-types/" target="_blank" rel="noopener">GeeksforGeeks: Python Data Types</a></li>
+			<li><a href="https://realpython.com/python-data-types/" target="_blank" rel="noopener">Real Python: Data Types</a></li>
+			<li><a href="https://www.digitalocean.com/community/tutorials/python-data-types" target="_blank" rel="noopener">DigitalOcean: Python Data Types</a></li>
+			<li><a href="https://jakevdp.github.io/PythonDataScienceHandbook/02.01-understanding-data" target="_blank" rel="noopener">Python Data Science Handbook (Chapter excerpt)</a></li>
+		</ul>
+	</article>
+	<!-- Additional cards (variables, control flow, projects) omitted to keep layout focused -->
+</section>
+<style>
+	#python-intro .terminal{background:#0b0b0b;color:#e6eef6;border-radius:8px;padding:12px;margin-top:10px;border:1px solid rgba(255,255,255,0.06);max-height:220px;overflow:auto;font-family:ui-monospace,Menlo,Monaco,"Roboto Mono",monospace}
+	#python-intro .py-code{width:100%;padding:10px;resize:vertical;min-height:110px}
+	@media (max-width:700px){#python-intro .py-code{min-height:120px}}
+	#python-intro .code-card{overflow:visible}
+	#python-intro .card-top-image{max-height:220px}
+	@media (max-width:700px){#python-intro .card-top-image{max-height:160px}}
+  /* Icon-only share for marked info-cards */
+  .info-card[data-share-icon-only="1"] .inline-share-actions .share-label{ display:none !important; }
+  .info-card[data-share-icon-only="1"] .inline-share-actions .share-icon{ width:22px; height:22px; }
+	/* Mobile compact box ONLY for the second info card (py-datatypes) */
+	@media (max-width:600px){
+		#python-intro .info-card:nth-of-type(2){
+			width: calc(100% - 24px);
+			max-width: 380px;
+			margin-left: auto;
+			margin-right: auto;
+			padding: 0.85rem 0.95rem;
+		}
+	}
+</style>
+<script defer src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+<script>(function(){let pyodideReady;async function ensurePyodide(){if(!pyodideReady){if(typeof loadPyodide!=='function'){await new Promise(r=>setTimeout(r,300))}if(typeof loadPyodide!=='function'){throw new Error('Python runtime failed to load. Check your connection.')}pyodideReady=loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.24.1/full/'})}return pyodideReady}function append(o,t,c){if(!o)return;const s=document.createElement('span');if(c)s.className=c;s.textContent=String(t);o.appendChild(s);o.appendChild(document.createTextNode('\n'));o.scrollTop=o.scrollHeight}function setupExample(e){const r=e.querySelector('.run-btn'),cl=e.querySelector('.clear-btn'),code=e.querySelector('.py-code'),term=e.querySelector('.terminal');if(!r||!code||!term)return;cl&&cl.addEventListener('click',()=>{term.textContent=''});r.addEventListener('click',async()=>{r.disabled=true;r.textContent='Running…';try{const p=await ensurePyodide();p.setStdout({batched:s=>append(term,s)});p.setStderr({batched:s=>append(term,s,'stderr')});await p.runPythonAsync(code.value)}catch(err){append(term,(err&&err.message)?err.message:String(err),'stderr')}finally{r.disabled=false;r.textContent='Run'}})}function initAll(){document.querySelectorAll('.py-example').forEach(setupExample)}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initAll);else initAll()})();</script>
 
-  // Helper to safely join base and path ensuring a single slash
-  function joinUrl(base, path){
-    const b = String(base||'').replace(/\/$/, '');
-    const p = String(path||'').replace(/^\//, '');
-    return b + '/' + p;
-  }
-  // Resolve media/image URLs that may be relative from the API
-  function resolveMediaUrl(u){
-    if(!u) return '';
-    if(/^https?:\/\//i.test(u)) return u;
-    return joinUrl(API_BASE, u);
-  }
-
-    // Safe JSON parser: some error responses or empty responses may not be valid JSON
-    async function parseJsonSafe(res){
-      try{
-        const text = await res.text();
-        return text ? JSON.parse(text) : null;
-      }catch(e){
-        return null;
-      }
-    }
-
-  // Read token/user from sessionStorage or fallback to localStorage (login page stores in localStorage)
-  function getToken(){ return sessionStorage.getItem('token') || localStorage.getItem('token'); }
-  function getUser(){
-    try{
-      const s = sessionStorage.getItem('user');
-      const l = localStorage.getItem('user');
-      const raw = s || l || null;
-      return raw ? JSON.parse(raw) : null;
-    }catch(e){ return null; }
-  }
-
-  // Show inline create only for signed-in users; dashboard list is visible to all users
-  function refreshUI(){
-    const u = getUser();
-    const hb = document.getElementById('heroCreateBtn');
-    if(u){ 
-      if(typeof createCard !== 'undefined' && createCard) createCard.style.display = 'block'; 
-      if(hb) hb.style.display = 'inline-block';
-    } else { 
-      if(typeof createCard !== 'undefined' && createCard) createCard.style.display = 'none'; 
-      if(hb) hb.style.display = 'none';
-    }
-  // no dashboard to toggle; posts are shown inline in the feed
-  }
-
-    // Authentication is handled by the site's sign-in page. No admin login controls here.
-
-    // Dashboard removed — no toggle behavior
-
-    // Modal open/close (hook hero create button and safe fallback)
-    function openCreateModal(){
-      modal.classList.add('show');
-      modal.setAttribute('aria-hidden','false');
-      const t = document.getElementById('title'); if(t) t.focus();
-      const mp = document.getElementById('modalPreview'); if(mp) mp.style.display = 'none';
-      if(previewCard) previewCard.innerHTML = '';
-    }
-    const heroCreateBtnEl = document.getElementById('heroCreateBtn');
-    if(heroCreateBtnEl) heroCreateBtnEl.addEventListener('click', openCreateModal);
-    closeModal.addEventListener('click', ()=>{
-      modal.classList.remove('show');
-      modal.setAttribute('aria-hidden','true');
-    });
-
-    // Simple esc key to close
-    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') { modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); } });
-
-    function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-    function escapeAttr(s){ return String(s).replace(/"/g,'%22').replace(/'/g,'%27'); }
-
-    function updateModalPreview(){
-      const tRaw = document.getElementById('title').value || '';
-      const bRaw = document.getElementById('body').value || '';
-      const lRaw = document.getElementById('link').value || '';
-      const t = escapeHtml(tRaw.trim() || 'Untitled');
-      const b = escapeHtml(bRaw);
-      const l = lRaw.trim();
-      previewCard.innerHTML = `<h3>${t}</h3><div class="card-meta">Posted: preview</div><p style="margin-top:0.6rem">${b}</p>${l? `<p><a href="${escapeAttr(l)}" target="_blank" style="color:#ffdede">Open link</a></p>`: ''}`;
-      document.getElementById('modalPreview').style.display = (tRaw || bRaw || l) ? 'block' : 'none';
-    }
-    ['title','body','link'].forEach(id => { const el = document.getElementById(id); if(el) el.addEventListener('input', updateModalPreview); });
-
-  imageInput.addEventListener('change', (e)=>{
-      const f = e.target.files && e.target.files[0];
-      if(!f) return;
-  // Client-side validations to avoid server 400/500
-  const max = 5 * 1024 * 1024; // 5MB
-  const okTypes = ['image/jpeg','image/png','image/webp','image/gif'];
-  if(f.size > max){ alert('Image too large (max 5MB)'); imageInput.value=''; return; }
-  if(okTypes.indexOf(f.type) === -1){ alert('Unsupported image format. Use JPG, PNG, WEBP or GIF.'); imageInput.value=''; return; }
-      const url = URL.createObjectURL(f);
-      updateModalPreview();
-      const img = document.createElement('img');
-      // avoid blocking other resources — preview image can be lazy
-      img.loading = 'lazy';
-      img.src = url;
-      img.style.width = '100%'; img.style.maxHeight = '220px'; img.style.objectFit = 'cover'; img.style.borderRadius = '8px'; img.style.marginTop = '0.6rem';
-      previewCard.appendChild(img);
-      img.addEventListener('load', ()=> URL.revokeObjectURL(url));
-    });
-
-    // Inline create UI removed; posting is available via the hero Create button and modal.
-
-    // Create post (tries server if logged in; otherwise falls back to local)
-    // Any authenticated user may create a post; owner is set server-side.
-    let editingPostId = null; // null for create, id for edit
-  submitBtn.addEventListener('click', async ()=>{
-      const t = document.getElementById('title').value.trim();
-      const b = document.getElementById('body').value.trim();
-      const l = document.getElementById('link').value.trim();
-      if(!t){ alert('Title required'); return; }
-    // Backend requires both title and body; provide a clearer client-side validation
-    if(!b){ alert('Body/details required'); return; }
-
-      if(getToken()){
-        // send to server (create or edit)
-        try{
-          const method = editingPostId ? 'PUT' : 'POST';
-          const url = editingPostId ? ('/api/posts/' + editingPostId) : '/api/posts';
-          // If an image was selected, send multipart/form-data
-          const file = imageInput.files && imageInput.files[0];
-          let res;
-          const fullUrl = url.startsWith('/') ? joinUrl(API_BASE, url) : url;
-          const token = getToken();
-          // Debug: log outgoing request summary (omit sensitive token value)
-          try{ console.log('[create-post] Sending', { method, url: fullUrl, withImage: !!file, hasToken: !!token, payload: file ? ['title','body','link','image'] : { title: t, body: (b||'').slice(0,140), link: l } }); }catch(_e){}
-          if(file){
-            const fd = new FormData(); fd.append('title', t); fd.append('body', b); fd.append('link', l); fd.append('image', file);
-            res = await fetch(fullUrl, { method, headers: { 'Authorization': 'Bearer ' + token }, body: fd });
-          }else{
-            res = await fetch(fullUrl, { method, headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }, body: JSON.stringify({ title: t, body: b, link: l }) });
-          }
-          // Robust response handling: read raw text and attempt JSON parse for clearer error logs
-          const raw = await res.clone().text();
-          let data = null; try{ data = raw ? JSON.parse(raw) : null; }catch(_e){ data = null; }
-          if(!res.ok){
-            try{ console.error('[create-post] Failed', { status: res.status, headers: Object.fromEntries(res.headers.entries()), raw }); }catch(_e){}
-            const errMsg = (data && (data.message || (data.errors && data.errors[0] && data.errors[0].msg))) || (raw || 'Failed to create/update post');
-            if(file){
-              alert('Image upload failed: ' + errMsg + '\nPosting again without image...');
-              // retry without image if the failure might be image related (status 400/500)
-              try{
-                const retry = await fetch(fullUrl, { method, headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }, body: JSON.stringify({ title: t, body: b, link: l }) });
-                const retryText = await retry.clone().text();
-                let retryJson = null; try{ retryJson = retryText ? JSON.parse(retryText) : null; }catch(_e){}
-                if(!retry.ok){
-                  alert((retryJson && (retryJson.message||retryJson.detail)) || 'Retry without image failed');
-                  return;
-                }
-                modal.classList.remove('show'); modal.setAttribute('aria-hidden','true');
-                document.getElementById('title').value = ''; document.getElementById('body').value = ''; document.getElementById('link').value = ''; document.getElementById('image').value = ''; editingPostId = null;
-                await fetchAndRender();
-                alert('Posted (image skipped).');
-                return;
-              }catch(retryErr){ console.error('[create-post] retry error', retryErr); }
-            }
-            alert(errMsg);
-            return;
-          }
-          modal.classList.remove('show'); modal.setAttribute('aria-hidden','true');
-          document.getElementById('title').value = ''; document.getElementById('body').value = ''; document.getElementById('link').value = ''; document.getElementById('image').value = ''; editingPostId = null;
-          await fetchAndRender();
-          alert(editingPostId ? 'Updated' : 'Posted');
-        }catch(e){ console.error(e); alert('Error posting'); }
-        return;
-      }
-
-    // fallback: local-only behavior — use centralized renderer so controls match server-rendered posts
-    const uLocal = getUser();
-    const localPost = { title: t, body: b, link: l, createdAt: new Date().toISOString(), author: uLocal ? uLocal.id : null };
-    const renderedLocal = renderPostNode(localPost);
-  feed.insertBefore(renderedLocal.node, feed.children[1] || null);
-    modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); document.getElementById('title').value = ''; document.getElementById('body').value = ''; document.getElementById('link').value = ''; document.getElementById('image').value = '';
-    alert('Posted locally (not saved to server).');
-    });
-
-    // Delete a post (owner only)
-    async function deletePost(id){
-      if(!confirm('Delete this post?')) return;
-      try{
-  const res = await fetch(API_BASE + '/api/posts/' + id, { method:'DELETE', headers: { 'Authorization': 'Bearer ' + getToken() } });
-  const data = await parseJsonSafe(res);
-  if(!res.ok){ alert((data && data.message) || 'Delete failed'); return; }
-        await fetchAndRender();
-        // Styled success feedback matching login toast style
-        if(window.showToast){
-          window.showToast('success','Post deleted','Your post was removed.');
-        }else{
-          alert('Post deleted');
-        }
-      }catch(e){ console.error(e); alert('Delete error'); }
-    }
-
-    // Edit a post: prefill modal and set editingPostId
-    function editPost(id, title, body, link){
-      editingPostId = id;
-      document.getElementById('title').value = title || '';
-      document.getElementById('body').value = body || '';
-      document.getElementById('link').value = link || '';
-      modal.classList.add('show'); modal.setAttribute('aria-hidden','false');
-    }
-
-    // Share a post using the native Share Sheet when available, with clipboard fallback
-    function sharePost(id){
-      if(!id) return;
-      const deepLink = window.location.origin + window.location.pathname + '?post=' + encodeURIComponent(id);
-      const notify = (title, body) => {
-        // Use 'success' variant so the toast matches site accent (#680202) instead of blue info style
-        if(window.showToast) window.showToast('success', title, body);
-        else alert(title + '\n' + body + '\n' + deepLink);
-      };
-      // Try Web Share API first (mobile-friendly)
-      if(navigator.share){
-        navigator.share({
-          title: document.title || 'Intro to Python PDFs',
-          text: 'Check out this post on Coding with Tawfiq',
-          url: deepLink
-        })
-        .then(()=> notify('Shared', 'Post shared via your device.'))
-        .catch(()=>{
-          // If user cancels or share fails, fall back to clipboard
-          if(navigator.clipboard && navigator.clipboard.writeText){
-            navigator.clipboard.writeText(deepLink)
-              .then(()=> notify('Link copied', 'Share this URL to open the post directly.'))
-              .catch(()=>{
-                const ok = prompt('Copy post link:', deepLink);
-                if(ok !== null) notify('Post link ready', 'Copied (manual).');
-              });
-          }else{
-            const ok = prompt('Copy post link:', deepLink);
-            if(ok !== null) notify('Post link ready', 'Copied (manual).');
-          }
-        });
-        return;
-      }
-      // Clipboard fallback
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(deepLink)
-          .then(()=> notify('Link copied', 'Share this URL to open the post directly.'))
-          .catch(()=>{
-            const ok = prompt('Copy post link:', deepLink);
-            if(ok !== null) notify('Post link ready', 'Copied (manual).');
-          });
-      }else{
-        const ok = prompt('Copy post link:', deepLink);
-        if(ok !== null) notify('Post link ready', 'Copied (manual).');
-      }
-    }
-
-    // Fetch posts from server and render
-    async function fetchAndRender(){
-      try{
-  const res = await fetch(API_BASE + '/api/posts');
-  if(!res.ok){ const err = await parseJsonSafe(res); console.error('Posts fetch error', res.status, err); feed.innerHTML = '<div class="no-posts">Unable to load posts from server.</div>'; return; }
-  const posts = await parseJsonSafe(res) || [];
-        // clear feed (keep first welcome card)
-        while(feed.children.length > 1) feed.removeChild(feed.lastChild);
-  // clear any previous dynamic posts in feed (keep welcome card)
-        if(!Array.isArray(posts) || posts.length === 0){
-          // show a friendly message in the feed when there are no posts
-          const placeholder = document.createElement('div');
-          placeholder.className = 'no-posts';
-          placeholder.textContent = 'No announcements yet.';
-          feed.appendChild(placeholder);
-          return;
-        }
-        posts.forEach(p => {
-          const node = document.createElement('div'); node.className = 'card-feed';
-          // render edit/delete buttons if this user is the owner
-          const u = getUser();
-          const isOwner = u && p.author && (String(p.author) === String(u.id));
-          // Only owners may edit/delete posts from the UI (no admin dashboard controls)
-          const canManage = isOwner;
-          // build controls as real DOM nodes (avoid inlining JSON into HTML attributes)
-          let controls = null;
-          if(canManage){
-            controls = document.createElement('div');
-            controls.className = 'controls';
-            // edit icon button
-            const editBtn = document.createElement('button');
-            editBtn.className = 'icon-btn';
-            editBtn.title = 'Edit post';
-            const editImg = document.createElement('img');
-            editImg.src = 'images/edit post logo.jpg';
-            editImg.alt = 'Edit';
-            editBtn.appendChild(editImg);
-            editBtn.addEventListener('click', () => document.dispatchEvent(new CustomEvent('editPost', { detail: p })));
-
-            // delete icon button
-            const delBtn = document.createElement('button');
-            delBtn.className = 'icon-btn delete-btn';
-            delBtn.title = 'Delete post';
-            const delImg = document.createElement('img');
-            delImg.src = 'images/delete post logo.jpg';
-            delImg.alt = 'Delete';
-            delBtn.appendChild(delImg);
-            delBtn.addEventListener('click', () => document.dispatchEvent(new CustomEvent('deletePost', { detail: p._id || p.id || '' })));
-
-            controls.appendChild(editBtn);
-            controls.appendChild(delBtn);
-          }
-          // include image if present (prefix with API_BASE when needed)
-          let imgHtml = '';
-          if(p.imageUrl){
-            const src = resolveMediaUrl(p.imageUrl);
-            imgHtml = `<a class="post-image" href="${escapeAttr(src)}" title="Click to view full image" aria-label="Open full image in lightbox"><img class="post-thumb" loading="lazy" src="${escapeAttr(src)}" alt="post image"></a>`;
-          }
-          node.innerHTML = `<h3>${escapeHtml(p.title)}</h3><div class="card-meta">Posted: ${new Date(p.createdAt).toLocaleString()}</div><p style="margin-top:0.6rem">${escapeHtml(p.body)}</p>${imgHtml}`;
-          // Attach an image error fallback so broken URLs are visible and clickable
-          const thumb = node.querySelector('img.post-thumb');
-          if(thumb){
-            thumb.addEventListener('error', ()=>{
-              const fallback = document.createElement('div');
-              fallback.className = 'no-posts';
-              fallback.textContent = 'Image failed to load';
-              thumb.replaceWith(fallback);
-            });
-          }
-          // build action row: place Open link and controls on the right
-          const actionRow = document.createElement('div'); actionRow.className = 'card-actions';
-          const left = document.createElement('div'); // reserved for future use (meta)
-          const right = document.createElement('div'); right.className = 'right';
-          if(p.link){
-            const openA = document.createElement('a');
-            openA.className = 'card-link open-link-btn';
-            openA.href = p.link;
-            openA.target = '_blank';
-            openA.textContent = 'Open link';
-            right.appendChild(openA);
-          }
-          // Share button (visible to everyone); if owner, place alongside edit/delete
-          const shareBtn = document.createElement('button');
-          shareBtn.className = 'icon-btn';
-          shareBtn.title = 'Share post';
-          const shareImg = document.createElement('img');
-          shareImg.src = 'images/share logo.jpg';
-          shareImg.alt = 'Share';
-          shareImg.className = 'share-icon';
-          shareBtn.appendChild(shareImg);
-          shareBtn.addEventListener('click', () => sharePost(p._id || p.id || ''));
-          if(controls) right.appendChild(controls);
-          if(controls) controls.appendChild(shareBtn); else right.appendChild(shareBtn);
-          actionRow.appendChild(left);
-          actionRow.appendChild(right);
-          node.appendChild(actionRow);
-          feed.appendChild(node);
-        });
-  }catch(e){ console.error(e); feed.innerHTML = '<div class="no-posts">Unable to load posts (network)</div>'; }
-    }
-
-    // wire up custom events dispatched from dynamic buttons
-    document.addEventListener('deletePost', e => deletePost(e.detail));
-    document.addEventListener('editPost', e => {
-      const p = e.detail; editPost(p._id || p.id, p.title, p.body, p.link);
-    });
-
-    // initial
-    // Deep-link: if URL has ?post=<id>, show that single post view
-    function getQueryParam(name){
-      const m = new RegExp('[?&]'+name+'=([^&]*)').exec(window.location.search);
-      return m ? decodeURIComponent(m[1]) : null;
-    }
-    async function fetchSingleAndRender(id){
-      try{
-        const res = await fetch(joinUrl(API_BASE, '/api/posts/' + encodeURIComponent(id)));
-        if(!res.ok){
-          const err = await parseJsonSafe(res);
-          console.error('Single post fetch error', res.status, err);
-          feed.innerHTML = '<div class="no-posts">Post not found.</div>';
-          return;
-        }
-        const post = await parseJsonSafe(res);
-        while(feed.firstChild) feed.removeChild(feed.firstChild);
-        const header = document.createElement('div'); header.className = 'card-feed'; header.innerHTML = '<h3>Viewing single post</h3><div class="small-muted">Share this page URL to link directly to this post.</div>';
-        feed.appendChild(header);
-        const rendered = renderPostNode(post);
-        feed.appendChild(rendered.node);
-        const back = document.createElement('div'); back.className = 'card-feed'; back.style.textAlign = 'center'; back.innerHTML = '<a class="card-link" href="'+window.location.pathname+'">View all posts</a>';
-        feed.appendChild(back);
-      }catch(e){ console.error(e); feed.innerHTML = '<div class="no-posts">Unable to load post.</div>'; }
-    }
-    refreshUI();
-    const deepId = getQueryParam('post');
-    if(deepId) fetchSingleAndRender(deepId); else fetchAndRender();
-    // dashboard and admin badge have been removed
-  </script>
-  <script>
-    // helper to render a single post node (keeps controls consistent)
-    function renderPostNode(p){
-      const node = document.createElement('div'); node.className = 'card-feed';
-  const imgHtml = p.imageUrl ? (function(){ const s = resolveMediaUrl(p.imageUrl); return `<a class="post-image" href="${escapeAttr(s)}" title="Click to view full image" aria-label="Open full image in lightbox"><img class="post-thumb" loading="lazy" src="${escapeAttr(s)}" alt="post image"></a>` })() : '';
-      node.innerHTML = `<h3>${escapeHtml(p.title)}</h3><div class="card-meta">Posted: ${new Date(p.createdAt).toLocaleString()}</div><p style="margin-top:0.6rem">${escapeHtml(p.body)}</p>${imgHtml}`;
-      // ownership
-  const u = getUser();
-  // normalize author id: server may return author as string or object
-  const authorId = p.author ? (typeof p.author === 'string' ? p.author : (p.author._id || p.author.id || p.author)) : null;
-  const isOwner = u && authorId && (String(authorId) === String(u.id));
-      const canManage = !!isOwner;
-      let controls = null;
-      if(canManage){
-        controls = document.createElement('div');
-        controls.className = 'controls';
-        const editBtn = document.createElement('button'); editBtn.className='icon-btn'; editBtn.title='Edit post'; const editImg = document.createElement('img'); editImg.src='images/edit post logo.jpg'; editImg.alt='Edit'; editBtn.appendChild(editImg); editBtn.addEventListener('click', ()=>document.dispatchEvent(new CustomEvent('editPost',{detail:p})));
-        const delBtn = document.createElement('button'); delBtn.className='icon-btn'; delBtn.title='Delete post'; const delImg = document.createElement('img'); delImg.src='images/delete post logo.jpg'; delImg.alt='Delete'; delBtn.appendChild(delImg); delBtn.addEventListener('click', ()=>document.dispatchEvent(new CustomEvent('deletePost',{detail:p._id||p.id||''})));
-  // Enhance delete button styling for consistency with success/login theme
-  delBtn.classList.add('delete-btn');
-  const shareBtn = document.createElement('button'); shareBtn.className='icon-btn'; shareBtn.title='Share post'; const shareImg = document.createElement('img'); shareImg.src='images/share logo.jpg'; shareImg.alt='Share'; shareImg.className='share-icon'; shareBtn.appendChild(shareImg); shareBtn.addEventListener('click', ()=>sharePost(p._id||p.id||''));
-        controls.appendChild(editBtn); controls.appendChild(delBtn); controls.appendChild(shareBtn);
-      }
-      const actionRow = document.createElement('div'); actionRow.className = 'card-actions';
-      const left = document.createElement('div');
-      const right = document.createElement('div'); right.className='right';
-      if(p.link){ const openA = document.createElement('a'); openA.className='card-link open-link-btn'; openA.href = p.link; openA.target='_blank'; openA.textContent='Open link'; right.appendChild(openA); }
-      // If not owner, still show a share button in the right actions
-  if(!controls){ const shareBtnOnly = document.createElement('button'); shareBtnOnly.className='icon-btn'; shareBtnOnly.title='Share post'; const shareImgOnly = document.createElement('img'); shareImgOnly.src='images/share logo.jpg'; shareImgOnly.alt='Share'; shareImgOnly.className='share-icon'; shareBtnOnly.appendChild(shareImgOnly); shareBtnOnly.addEventListener('click', ()=>sharePost(p._id||p.id||'')); right.appendChild(shareBtnOnly); }
-      if(controls) right.appendChild(controls);
-      actionRow.appendChild(left); actionRow.appendChild(right);
-      node.appendChild(actionRow);
-      const summary = document.createElement('div'); summary.className='no-posts'; summary.innerHTML = `<strong>${escapeHtml(p.title)}</strong><div class="small-muted">${new Date(p.createdAt).toLocaleString()}</div>`;
-      return { node, summary };
-    }
-
-    // Replace previous inline rendering with the helper
-    const originalFetchAndRender = fetchAndRender;
-    fetchAndRender = async function(){
-      try{
-        const res = await fetch(API_BASE + '/api/posts');
-        if(!res.ok){ const err = await parseJsonSafe(res); console.error('Posts fetch error', res.status, err); feed.innerHTML = '<div class="no-posts">Unable to load posts from server.</div>'; return; }
-        const posts = await parseJsonSafe(res) || [];
-        while(feed.children.length > 1) feed.removeChild(feed.lastChild);
-        if(!Array.isArray(posts) || posts.length === 0){ const placeholder = document.createElement('div'); placeholder.className='no-posts'; placeholder.textContent='No announcements yet.'; feed.appendChild(placeholder); return; }
-        posts.forEach(p => {
-          // normalize createdAt
-          if(!p.createdAt) p.createdAt = new Date().toISOString();
-            const rendered = renderPostNode(p);
-            feed.appendChild(rendered.node);
-            // Attach error handler for newly inserted thumbnail
-            const thumb = rendered.node.querySelector('img.post-thumb');
-            if(thumb){ thumb.addEventListener('error', ()=>{ const fb=document.createElement('div'); fb.className='no-posts'; fb.textContent='Image failed to load'; thumb.replaceWith(fb); }); }
-        });
-      }catch(e){ console.error(e); feed.innerHTML = '<div class="no-posts">Unable to load posts (network)</div>'; }
-    }
-
-    // All local fallback insertion is handled inside the modal submit handler above and uses renderPostNode.
-  </script>
-  <script>
-    // Topic library: explanations + example code/output per topic
-    (function(){
-      const topics = {
-        variables: {
-          title: 'Variables and Types',
-          explanation: 'Understand names, assignment, and common built-in types.',
-          examples: [
-            {
-              title: 'Basic assignments and types',
-              code: [
-                "x = 7",
-                "y = 3.5",
-                "name = 'Tawfiq'",
-                "print(type(x), type(y), name.upper())"
-              ].join('\n'),
-              output: "<class 'int'> <class 'float'> TAWFIQ"
-            }
-          ]
-        },
-        loops: {
-          title: 'Loops',
-          explanation: 'Use for and while loops to repeat work and traverse iterables.',
-          examples: [
-            {
-              title: 'Counting with range',
-              code: [
-                "for i in range(3):",
-                "    print(i)"
-              ].join('\n'),
-              output: "0\n1\n2"
-            },
-            {
-              title: 'Summation',
-              code: "total = sum([1, 2, 3])\nprint(total)",
-              output: "6"
-            }
-          ]
-        },
-        functions: {
-          title: 'Functions',
-          explanation: 'Encapsulate behavior and reuse it with parameters and defaults.',
-          examples: [
-            {
-              title: 'Greeting',
-              code: [
-                "def greet(name='world'):",
-                "    return f'Hello, {name}!'",
-                "",
-                "print(greet('Tawfiq'))"
-              ].join('\n'),
-              output: "Hello, Tawfiq!"
-            }
-          ]
-        },
-        lists: {
-          title: 'Lists',
-          explanation: 'Ordered, mutable sequences with many useful methods.',
-          examples: [
-            {
-              title: 'Sorting and slicing',
-              code: [
-                "nums = [3, 1, 2]",
-                "nums.sort()",
-                "nums.append(4)",
-                "print(nums[:3])"
-              ].join('\n'),
-              output: "[1, 2, 3]"
-            }
-          ]
-        },
-        dicts: {
-          title: 'Dictionaries',
-          explanation: 'Key-value store for fast lookups.',
-          examples: [
-            {
-              title: 'Access and update',
-              code: [
-                "user = {'name': 'Tawfiq', 'role': 'dev'}",
-                "print(user.get('role', 'n/a'))",
-                "user['active'] = True",
-                "print(len(user))"
-              ].join('\n'),
-              output: "dev\n3"
-            }
-          ]
-        },
-        strings: {
-          title: 'Strings',
-          explanation: 'Unicode text with powerful methods.',
-          examples: [
-            {
-              title: 'Replace and join',
-              code: [
-                "s = 'Python 3'",
-                "print(s.replace('3', '🐍'))",
-                "print('-'.join(['a', 'b', 'c']))"
-              ].join('\n'),
-              output: "Python 🐍\na-b-c"
-            }
-          ]
-        },
-        files: {
-          title: 'Files',
-          explanation: 'Read and write files with context managers.',
-          examples: [
-            {
-              title: 'Write then read',
-              code: [
-                "with open('readme.txt', 'w') as f:",
-                "    f.write('Hi')",
-                "print(open('readme.txt').read())"
-              ].join('\n'),
-              output: "Hi"
-            }
-          ]
-        },
-        classes: {
-          title: 'Classes',
-          explanation: 'Bundle data and behavior into reusable types.',
-          examples: [
-            {
-              title: 'Basic class',
-              code: [
-                "class Person:",
-                "    def __init__(self, name):",
-                "        self.name = name",
-                "    def say(self):",
-                "        return f'Hi {self.name}'",
-                "",
-                "p = Person('Tawfiq')",
-                "print(p.say())"
-              ].join('\n'),
-              output: "Hi Tawfiq"
-            }
-          ]
-        },
-        exceptions: {
-          title: 'Exceptions',
-          explanation: 'Handle errors gracefully with try/except.',
-          examples: [
-            {
-              title: 'Catching ZeroDivisionError',
-              code: [
-                "try:",
-                "    1/0",
-                "except ZeroDivisionError as e:",
-                "    print('Error:', e)"
-              ].join('\n'),
-              output: "Error: division by zero"
-            }
-          ]
-        },
-        modules: {
-          title: 'Modules',
-          explanation: 'Import standard library and third-party packages.',
-          examples: [
-            {
-              title: 'Using math',
-              code: [
-                "import math",
-                "print(round(math.pi, 2))"
-              ].join('\n'),
-              output: "3.14"
-            }
-          ]
-        }
-      };
-
-      // Try to infer topic from text content if data-topic is not present
-      function inferTopicFromText(text) {
-        const t = text.toLowerCase();
-        if (t.includes('variable')) return 'variables';
-        if (t.includes('loop') || t.includes('iterate')) return 'loops';
-        if (t.includes('function') || t.includes('def ')) return 'functions';
-        if (t.includes('list')) return 'lists';
-        if (t.includes('dict') || t.includes('dictionary') || t.includes('mapping')) return 'dicts';
-        if (t.includes('string') || t.includes('text')) return 'strings';
-        if (t.includes('file') || t.includes('io') || t.includes('read/write')) return 'files';
-        if (t.includes('class') || t.includes('object') || t.includes('oop')) return 'classes';
-        if (t.includes('exception') || t.includes('error') || t.includes('try')) return 'exceptions';
-        if (t.includes('module') || t.includes('import') || t.includes('package')) return 'modules';
-        return null;
-      }
-
-      function esc(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-
-      function buildPreview(topicKey){
-        const topic = topics[topicKey];
-        if(!topic) return null;
-
-        const details = document.createElement('details');
-        details.className = 'example-preview';
-        details.innerHTML = '<summary>Quick preview: ' + esc(topic.title) + '</summary>';
-
-        const body = document.createElement('div');
-        body.className = 'example-body';
-        const p = document.createElement('p');
-        p.className = 'muted';
-        p.textContent = topic.explanation;
-        body.appendChild(p);
-
-        topic.examples.forEach(ex => {
-          const wrap = document.createElement('div'); wrap.className = 'example-block';
-          const h = document.createElement('div'); h.className = 'example-title'; h.textContent = ex.title;
-          const code = document.createElement('pre'); code.className = 'code'; code.textContent = ex.code;
-          const out = document.createElement('pre'); out.className = 'out'; out.textContent = ex.output;
-          wrap.appendChild(h); wrap.appendChild(code);
-          const outLabel = document.createElement('div'); outLabel.className = 'muted'; outLabel.textContent = 'Output';
-          wrap.appendChild(outLabel); wrap.appendChild(out);
-          body.appendChild(wrap);
-        });
-
-        const tip = document.createElement('div');
-        tip.className = 'muted';
-        tip.style.marginTop = '8px';
-        tip.textContent = 'Tip: Open the PDF on this card for full notes, diagrams, and practice problems.';
-        body.appendChild(tip);
-
-        details.appendChild(body);
-        return details;
-      }
-
-      function enhanceCards(){
-        // Common card class guesses; add more selectors if your page uses different class names
-        const cards = document.querySelectorAll('.pdf-card, .card, .resource-card');
-        cards.forEach(card => {
-          if(card.querySelector('.example-preview')) return; // already enhanced
-          const explicit = card.getAttribute('data-topic');
-          const inferred = explicit || inferTopicFromText(card.innerText || card.textContent || '');
-          if(!inferred) return;
-          const preview = buildPreview(inferred);
-          if(!preview) return;
-          card.appendChild(preview);
-        });
-      }
-
-      document.addEventListener('DOMContentLoaded', enhanceCards);
-    })();
-  </script>
-
-  <script defer src="/assets/share.js"></script>
-
-  <!-- ...existing code... -->
-  
 <!-- Non-intrusive display ad -->
 <div class="ad-slot ad-center ad-between">
   <ins class="adsbygoogle"
