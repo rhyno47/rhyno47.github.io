@@ -11,10 +11,25 @@ const app = express();
 		const enabled = /^true$/i.test(process.env.LOG_EGRESS_IP || '');
 		if(!enabled) return;
 		const fetch = require('node-fetch');
-		const r = await fetch('https://ifconfig.co/ip', { timeout: 8000 }).catch(e => { throw e; });
-		if(!r.ok){ console.warn('[egress-ip] upstream status', r.status); return; }
-		const ip = (await r.text()).trim();
+		async function getIp() {
+			const providers = [
+				{ url: 'https://ifconfig.co/ip', type: 'text' },
+				{ url: 'https://api.ipify.org', type: 'text' },
+				{ url: 'https://ipinfo.io/ip', type: 'text' },
+			];
+			for (const p of providers) {
+				try{
+					const r = await fetch(p.url, { timeout: 8000 });
+					if(!r.ok) { console.warn('[egress-ip] upstream status', p.url, r.status); continue; }
+					const v = (p.type === 'text' ? (await r.text()) : (await r.json()).ip).trim();
+					if(v) return v;
+				}catch(e){ console.warn('[egress-ip] provider failed', p.url, e.message || String(e)); }
+			}
+			return '';
+		}
+		const ip = await getIp();
 		if(ip) console.log('[egress-ip]', ip);
+		else console.warn('[egress-ip] could not determine outbound IP');
 	}catch(e){ console.warn('[egress-ip] failed', e && e.message ? e.message : String(e)); }
 })();
 // Robust CORS handling with sane defaults and origin normalization
@@ -183,11 +198,27 @@ app.use('/api/ai', require('./routes/ai'));
 app.get('/whoami', async (req, res) => {
 	try {
 		const fetch = require('node-fetch');
-		const r = await fetch('https://ifconfig.co/json', { timeout: 8000 }).catch(e => { throw e; });
-		if(!r.ok) throw new Error('Upstream status ' + r.status);
-		const json = await r.json();
-		console.log('[whoami] outbound ip:', json.ip);
-		res.json({ ip: json.ip, raw: json });
+		async function tryProviders(){
+			const providers = [
+				{ url: 'https://ifconfig.co/json', kind: 'json' },
+				{ url: 'https://api64.ipify.org?format=json', kind: 'json' },
+				{ url: 'https://ipinfo.io/json', kind: 'json' },
+			];
+			for(const p of providers){
+				try{
+					const r = await fetch(p.url, { timeout: 8000 });
+					if(!r.ok) { console.warn('[whoami] upstream status', p.url, r.status); continue; }
+					const data = await r.json();
+					const ip = data && (data.ip || data.address || data.query || data.ip_addr);
+					if(ip) return { ip, raw: data, provider: p.url };
+				}catch(e){ console.warn('[whoami] provider failed', p.url, e.message || String(e)); }
+			}
+			return null;
+		}
+		const result = await tryProviders();
+		if(!result) throw new Error('All providers failed');
+		console.log('[whoami] outbound ip:', result.ip, 'via', result.provider);
+		res.json(result);
 	} catch (e) {
 		console.error('[whoami] error', e.message || e);
 		res.status(500).json({ error: 'whoami failed', message: e.message || String(e) });

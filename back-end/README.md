@@ -82,6 +82,18 @@ Atlas blocks connections by default. Ensure your Render service can reach the cl
 3. Redeploy the Render service after changes to env vars.
 4. Check logs for `MongoDB connected`.
 
+#### Quick unblock: discover Render egress IP and start without DB
+If deploys fail immediately with a MongooseServerSelectionError and you need to discover the service’s outbound IP to allowlist it in Atlas, use these env flags temporarily:
+
+- `ALLOW_START_WITHOUT_DB=true` — lets the server boot without exiting on DB errors.
+- `LOG_EGRESS_IP=true` — logs a line like `[egress-ip] 203.0.113.42` at startup.
+
+Steps:
+1) In Render → Environment, set the two flags above and redeploy.
+2) Watch logs for `[egress-ip] ...` and add that IP as a /32 in Atlas → Network Access.
+3) Redeploy with `ALLOW_START_WITHOUT_DB=false` (or remove it) once Atlas shows the IP as Active. The server should now print `MongoDB connected (primary)`.
+4) You can also hit `GET /whoami` on your service while ALLOW_START_WITHOUT_DB is true to return the current outbound IP as JSON.
+
 ## Endpoints
 - `POST /api/auth/register` — register user (body: { name, email, password })
 - `POST /api/auth/login` — login (body: { email, password })
