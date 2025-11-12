@@ -291,6 +291,7 @@
   // Interaction-triggered ad logic (login, logout, post create/delete/share)
   const ACTION_SLOT = AUTO_AD_SLOT; // reuse auto slot id for quick display
   const actionCooldownMs = 60_000; // 1 minute cooldown per action type
+  const ACTION_DURATION_MS = 30_000; // popup visibility duration (increased from 15s to 30s)
   const lastActionShown = {};
 
   function showActionAd(action){
@@ -316,7 +317,7 @@
     box.appendChild(ins);
     try{ (window.adsbygoogle = window.adsbygoogle || []).push({}); ins.setAttribute('data-init','1'); }catch(e){}
     // Auto-hide after some time
-    setTimeout(()=>{ if(box && box.parentElement) box.parentElement.removeChild(box); }, 15000);
+    setTimeout(()=>{ if(box && box.parentElement) box.parentElement.removeChild(box); }, ACTION_DURATION_MS);
   }
 
   function attachAuthAndPostListeners(){

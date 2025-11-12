@@ -135,6 +135,19 @@ app.use(function corsErrorHandler(err, req, res, next){
 
 // Static assets (optional landing page)
 const staticDir = path.join(__dirname, '..', 'public');
+// Serve /assets with conservative caching so CSS/JS updates propagate quickly
+app.use('/assets', express.static(path.join(staticDir, 'assets'), {
+	etag: true,
+	lastModified: true,
+	setHeaders(res, filePath){
+		if(/\.(?:js|css)$/i.test(filePath)){
+			res.setHeader('Cache-Control', 'no-store'); // always fetch latest ads.js/ads.css
+		}else{
+			res.setHeader('Cache-Control', 'public, max-age=600');
+		}
+	}
+}));
+// Fallback: serve everything else from /public with default headers
 app.use(express.static(staticDir));
 
 // Debug diagnostics endpoint (only enabled when DEBUG_DIAG=true)
@@ -238,7 +251,7 @@ app.get('/', (req, res) => {
 	// If INTERNAL_FRONTEND=true serve the synced static site directly.
 	// Otherwise, if FRONTEND_URL is set, redirect to that canonical front-end.
 	// Fallback: serve local index.html (API landing or synced site) else JSON health.
-	const internal = /^true$/i.test(process.env.INTERNAL_FRONTEND || '');
+	const internal = /^true$/i.test(process.env.INTERNAL_FRONTEND || 'true'); // default to true so Render shows full site
 	if(!internal){
 		const to = process.env.FRONTEND_URL || 'https://rhyno47.github.io';
 		if (to) return res.redirect(302, to);
