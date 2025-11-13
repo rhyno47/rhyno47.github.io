@@ -1,10 +1,14 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const connectDB = require('./config/db');
 const path = require('path');
 
 const app = express();
+// Trust proxy for correct client IPs behind providers like Render/NGINX
+app.set('trust proxy', 1);
 // Optional: log egress IP at startup so you can allowlist it in MongoDB Atlas without hitting /whoami
 (async () => {
 	try{
@@ -117,6 +121,25 @@ app.use((req, res, next) => {
 });
 app.use(express.json());
 
+// Security headers and basic rate limiting
+app.use(helmet({
+	// Allow images under /uploads to be embedded across origins
+	crossOriginResourcePolicy: { policy: 'cross-origin' }
+}));
+
+const generalLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 600, standardHeaders: true, legacyHeaders: false });
+app.use(generalLimiter);
+
+// Warn if JWT secret is weak; opt-in hard enforcement via REQUIRE_STRONG_SECRET
+try{
+	const requireStrong = /^true$/i.test(process.env.REQUIRE_STRONG_SECRET || '');
+	const weak = !process.env.JWT_SECRET || process.env.JWT_SECRET === 'changeme';
+	if(weak){
+		const msg = '[security] Weak or missing JWT_SECRET. Set a long random JWT_SECRET in production.';
+		if(requireStrong){ console.error(msg); } else { console.warn(msg); }
+	}
+}catch(_e){ }
+
 // Explicit error handler for CORS rejections so browser gets a 403 with CORS headers
 app.use(function corsErrorHandler(err, req, res, next){
 	if(err && /CORS: Origin not allowed/.test(err.message)){
@@ -197,7 +220,8 @@ app.use('/uploads', (req, res, next) => {
 connectDB();
 
 // Routes
-app.use('/api/auth', require('./routes/auth'));
+const authLimiter = rateLimit({ windowMs: 5 * 60 * 1000, max: 30, standardHeaders: true, legacyHeaders: false });
+app.use('/api/auth', authLimiter, require('./routes/auth'));
 // Jobs API (listings)
 app.use('/api/jobs', require('./routes/jobs'));
 // Posts (announcements) API
@@ -213,38 +237,39 @@ app.get('/health', (req, res) => {
 	res.json({ ok: true, db: states[state] || String(state), now: new Date().toISOString() });
 });
 
-// Diagnostic: ephemeral egress IP checker (temporary; remove in production)
-// Returns the server's current outbound IP as seen by ifconfig.co.
-// Helps with external service allowlisting.
-app.get('/whoami', async (req, res) => {
-	try {
-		const fetch = require('node-fetch');
-		async function tryProviders(){
-			const providers = [
-				{ url: 'https://ifconfig.co/json', kind: 'json' },
-				{ url: 'https://api64.ipify.org?format=json', kind: 'json' },
-				{ url: 'https://ipinfo.io/json', kind: 'json' },
-			];
-			for(const p of providers){
-				try{
-					const r = await fetch(p.url, { timeout: 8000 });
-					if(!r.ok) { console.warn('[whoami] upstream status', p.url, r.status); continue; }
-					const data = await r.json();
-					const ip = data && (data.ip || data.address || data.query || data.ip_addr);
-					if(ip) return { ip, raw: data, provider: p.url };
-				}catch(e){ console.warn('[whoami] provider failed', p.url, e.message || String(e)); }
-			}
-			return null;
-		}
-		const result = await tryProviders();
-		if(!result) throw new Error('All providers failed');
-		console.log('[whoami] outbound ip:', result.ip, 'via', result.provider);
-		res.json(result);
-	} catch (e) {
-		console.error('[whoami] error', e.message || e);
-		res.status(500).json({ error: 'whoami failed', message: e.message || String(e) });
-	}
-});
+// Diagnostic: egress IP checker — only register when WHOAMI_ENABLED=true
+if (/^true$/i.test(process.env.WHOAMI_ENABLED || '')){
+  app.get('/whoami', async (req, res) => {
+	  try {
+		  const fetch = require('node-fetch');
+		  async function tryProviders(){
+			  const providers = [
+				  { url: 'https://ifconfig.co/json', kind: 'json' },
+				  { url: 'https://api64.ipify.org?format=json', kind: 'json' },
+				  { url: 'https://ipinfo.io/json', kind: 'json' },
+			  ];
+			  for(const p of providers){
+				  try{
+					  const r = await fetch(p.url, { timeout: 8000 });
+					  if(!r.ok) { console.warn('[whoami] upstream status', p.url, r.status); continue; }
+					  const data = await r.json();
+					  const ip = data && (data.ip || data.address || data.query || data.ip_addr);
+					  if(ip) return { ip, raw: data, provider: p.url };
+				  }catch(e){ console.warn('[whoami] provider failed', p.url, e.message || String(e)); }
+			  }
+			  return null;
+		  }
+		  const result = await tryProviders();
+		  if(!result) throw new Error('All providers failed');
+		  console.log('[whoami] outbound ip:', result.ip, 'via', result.provider);
+		  res.json(result);
+	  } catch (e) {
+		  console.error('[whoami] error', e.message || e);
+		  res.status(500).json({ error: 'whoami failed', message: e.message || String(e) });
+	  }
+  });
+  console.log('[startup] WHOAMI_ENABLED: /whoami available');
+}
 
 // Root: redirect to frontend if configured, else serve landing page (if present), else health JSON
 app.get('/', (req, res) => {

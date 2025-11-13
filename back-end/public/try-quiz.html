@@ -17,250 +17,288 @@
   <div class="logo"><a href="index.html"><img src="images/coding with tawfiq.jpg" alt="Logo"></a></div>
     <button class="hamburger" aria-label="Toggle menu">
       <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-  <li><a href="try-quiz.html">Practice</a></li>
-  <li><a href="findjobs.html">Find Jobs</a></li>
-    </ul>
-    <div class="nav-actions">
-      <button class="search-btn" aria-label="Search"><img src="images/the search logo.jpg" alt="Search"></button>
-      <a class="card-link" href="/public/login.html">Sign In</a>
-    </div>
-  </nav>
-
-  <script src="/assets/navbar.js"></script>
-
-  <!-- ====== HERO SECTION (copied from index.html) ====== -->
-  <section id="hero" class="home-hero">
-    <div class="hero-content">
-      <h1>Test yourself with unlimited practice quizzes</h1>
-      <p>Quick, hands-on challenges with instant feedback. Edit the solution, run the live preview, and iterate until you master each concept — no fluff, just focused practice.</p>
-      <div class="hero-actions">
-        <a class="btn-primary" href="try-quiz.html">Start a quiz</a>
-        <a class="btn-ghost" href="webdevhome.html">Browse courses</a>
-      </div>
-      <div style="margin-top:10px;color:rgba(255,255,255,0.88);font-weight:700;font-size:0.95rem">Jump straight in — no signup required</div>
-    </div>
-  </section>
-
-  <main class="page">
-    <div class="quiz-panel">
-  <h1 class="quiz-hero-title">🧠 Test your skills with unlimited quizzes — build, learn, repeat 🚀✨</h1>
-      <div id="quiz" class="quiz-grid"></div>
-  </div>
-  </main>
-  <script>
-    // Quiz questions array (with example solutions)
-  const questions = [
-      {
-        type: 'html',
-        question: '1. Write HTML to display a heading with the text "Hello World".',
-        starter: '<!-- Your code here -->',
-        solution: '<h1>Hello World</h1>',
-        test: code => /<h1>\s*Hello World\s*<\/h1>/i.test(code),
-        live: true
-      },
-      {
-        type: 'css',
-        question: '2. Write CSS to make all paragraphs red.',
-        starter: 'p {\n  /* your code */\n}',
-        solution: 'p { color: red; }',
-        test: code => /color\s*:\s*red/i.test(code),
-        live: true,
-        html: '<p>Test me!</p>'
-      },
-      {
-        type: 'js',
-        question: '3. Create a button that toggles a dark-mode class on the page when clicked (simple theme toggle).',
-        starter: 'function toggleDark() {\n  // toggle dark mode on document.body\n}',
-        solution: 'function toggleDark() { document.body.classList.toggle("dark-mode"); }',
-        test: code => /classList\.toggle\s*\(\s*['"]dark-mode['"]\s*\)/.test(code),
-        live: true,
-        html: '<button onclick="toggleDark()">Toggle Theme</button>'
-      },
-      {
-        type: 'html',
-        question: '4. Create an HTML input of type email.',
-        starter: '<!-- Your code here -->',
-        solution: '<input type="email" />',
-        test: code => /<input[^>]*type\s*=\s*["']email["'][^>]*>/i.test(code),
-        live: true
-      },
-      {
-        type: 'css',
-        question: '5. Write CSS to center a div horizontally.',
-        starter: '.center-div {\n  /* your code */\n}',
-        solution: '.center-div { margin: 0 auto; }',
-        test: code => /margin\s*:\s*0\s*auto/i.test(code),
-        live: true,
-        html: '<div class="center-div" style="width:100px;background:#eee;">Center me</div>'
-      },
-      {
-        type: 'js',
-        question: '6. Write JavaScript to change the text of a paragraph with id="demo" to "Done!".',
-        starter: 'function changeText() {\n  // your code\n}',
-        solution: 'function changeText() { document.getElementById("demo").innerText = "Done!"; }',
-        test: code => /getElementById\(['"]demo['"]\).*\.inner(Text|HTML|Content)\s*=\s*['"]Done!['"]/.test(code),
-        live: true,
-        html: '<p id="demo">Not done</p><button onclick="changeText()">Change</button>'
-      },
-      {
-        type: 'python',
-        question: '7. Write Python code to print "Hello Python".',
-        starter: '# your code here',
-        solution: 'print("Hello Python")',
-        test: code => /print\s*\(\s*['"]Hello Python['"]\s*\)/.test(code),
-        live: false
-      },
-      {
-        type: 'html',
-        question: '8. Write HTML to create a link to https://www.example.com with text "Visit".',
-        starter: '<!-- Your code here -->',
-        solution: '<a href="https://www.example.com">Visit</a>',
-        test: code => /<a[^>]*href\s*=\s*["']https:\/\/www\.example\.com["'][^>]*>\s*Visit\s*<\/a>/i.test(code),
-        live: true
-      },
-      {
-        type: 'js',
-        question: '9. Write JavaScript to log "Success" to the console.',
-        starter: '// your code here',
-        solution: 'console.log("Success")',
-        test: code => /console\.log\s*\(\s*['"]Success['"]\s*\)/.test(code),
-        live: true
-      },
-      {
-        type: 'mern',
-        question: '10. In MERN, what does the "N" stand for?',
-        starter: '',
-        solution: 'Node (Node.js)',
-        test: code => /node\s*js?/i.test(code),
-        live: false
-      }
-  ];
-
-    // track attempts per question
-    const attempts = Array(questions.length).fill(0);
-
-    function createQuiz() {
-      const quizDiv = document.getElementById('quiz');
-      quizDiv.innerHTML = '';
-      questions.forEach((q, i) => {
-        const qDiv = document.createElement('section');
-        qDiv.className = 'quiz-card';
-        // Render question text without any leading numeric prefix (e.g. "1. ")
-        const starterEsc = escapeHtml(q.starter || '');
-        const questionText = (q.question || '').replace(/^\s*\d+\.\s*/, '');
-        const safeQuestion = escapeHtml(questionText);
-        qDiv.innerHTML = `
-          <div class="quiz-card-header">
-            <div class="quiz-number">${i+1}</div>
-            <div class="quiz-question">${safeQuestion}</div>
-          </div>
-          <div class="quiz-card-body">
-            <textarea class="question-code" id="code${i}" placeholder="${starterEsc}">${starterEsc}</textarea>
-            <div class="quiz-actions">
-              <button class="btn btn-primary" onclick="checkAnswer(${i})">Try</button>
-              <div style="margin-left:auto;font-weight:700" id="result${i}"></div>
+        <!-- Topic selector (shown when no topic is chosen) -->
+        <section id="topic-selector" class="quiz-panel" style="display:none">
+          <h2 class="quiz-hero-title">Which topic are you studying?</h2>
+          <p style="margin:8px 0 16px;color:#555">Pick a topic to get tailored practice questions.</p>
+                  <form id="topic-form" class="quiz-card" style="width:100%;max-width:920px">
+            <label for="topic-select" class="quiz-question" style="font-weight:700">Choose a topic</label>
+            <select id="topic-select" class="question-code" style="height:auto;min-height:44px;padding:10px">
+              <option value="" selected disabled>-- Select topic --</option>
+              <option value="python">Python</option>
+              <option value="web">Website Development</option>
+              <option value="database">Database Design</option>
+            </select>
+            <div class="quiz-actions" style="margin-top:12px">
+              <button type="submit" class="btn btn-primary">Continue</button>
             </div>
-            ${q.live && (q.type === 'html' || q.type === 'css' || q.type === 'js') ? `<div class="iframe-preview" id="preview${i}"></div>` : ''}
-          </div>
-        `;
-        quizDiv.appendChild(qDiv);
-      });
-    }
+          </form>
+        </section>
 
-    window.checkAnswer = function(idx) {
-      const q = questions[idx];
-      const code = document.getElementById('code'+idx).value;
-      const res = document.getElementById('result'+idx);
-      if (q.test(code)) {
-        // correct: show confirmation and then print the authoritative solution in editor + terminal and run preview
-        res.innerHTML = '<span class="correct">Correct! ✅</span>';
-        res.className = 'result';
-        attempts[idx] = 0;
-        // print solution into editor and terminal and render preview if applicable
-        try {
-          const blockId = 'solBlock' + idx;
-          document.getElementById('code'+idx).value = q.solution || document.getElementById('code'+idx).value;
-          res.innerHTML = `<span class="correct">Correct! ✅ — Printing answer on terminal.</span><div id="${blockId}" style="margin-top:8px"><pre class="solution-pre">${escapeHtml(q.solution)}</pre></div>`;
-          if (q.live && (q.type === 'html' || q.type === 'css' || q.type === 'js')){
-            const preview = document.getElementById('preview' + idx);
-            if (preview){
-              let srcdoc = '';
-              if (q.type === 'html') srcdoc = q.solution;
-              else if (q.type === 'css') srcdoc = `<style>${q.solution}</style>${q.html||''}`;
-              else if (q.type === 'js') srcdoc = `${q.html||''}<script>${q.solution}<'+'/script>`;
-              preview.innerHTML = `<iframe style="width:100%;height:120px;border:none;" srcdoc="${srcdoc.replace(/"/g,'&quot;')}"></iframe>`;
+        <!-- Quiz panel (shown after topic selected) -->
+        <div class="quiz-panel" id="quiz-panel" style="display:none;margin-top:8px">
+          <h1 class="quiz-hero-title" id="quiz-title">🧠 Test your skills with unlimited quizzes — build, learn, repeat 🚀✨</h1>
+          <div id="quiz" class="quiz-grid"></div>
+          </div>
+          <div class="hero-actions">
+            <a class="btn-ghost" href="webdevhome.html">Browse courses</a>
+          </div>
+          <!-- Quick topic picker inside hero -->
+          <form id="hero-topic-form" class="hero-quiz-picker" autocomplete="off">
+            <label for="hero-topic-select">Quick start:</label>
+            <select id="hero-topic-select" aria-label="Select a topic to start">
+              <option value="" selected disabled>-- Select topic --</option>
+              <option value="python">Python</option>
+              <option value="web">Website Development</option>
+              <option value="database">Database Design</option>
+            </select>
+            <button type="submit" class="picker-btn">Start quiz</button>
+          </form>
+        </div>
+      </main>
+
+      <script>
+        // Parse topic from URL and wire up the topic form
+        const params = new URLSearchParams(location.search);
+        const topic = (params.get('topic') || '').toLowerCase();
+
+        document.addEventListener('DOMContentLoaded', () => {
+          const form = document.getElementById('topic-form');
+          if (form) {
+            form.addEventListener('submit', (e) => {
+              e.preventDefault();
+              const sel = document.getElementById('topic-select');
+              const val = sel && sel.value;
+              if (!val) return;
+              const url = new URL(location.href);
+              url.searchParams.set('topic', val);
+              location.href = url.toString();
+            });
+          }
+          // Hero quick picker wiring
+          const heroForm = document.getElementById('hero-topic-form');
+          if (heroForm) {
+            heroForm.addEventListener('submit', (e)=>{
+              e.preventDefault();
+              const sel = document.getElementById('hero-topic-select');
+              const val = sel && sel.value;
+              if (!val) return;
+              const url = new URL(location.href);
+              url.searchParams.set('topic', val);
+              location.href = url.toString();
+            });
+            const heroSel = document.getElementById('hero-topic-select');
+            if (heroSel && topic) heroSel.value = topic;
+          }
+          const selector = document.getElementById('topic-selector');
+          const panel = document.getElementById('quiz-panel');
+          if (!topic) {
+            if (selector) selector.style.display = '';
+          } else {
+            if (panel) panel.style.display = '';
+          }
+        });
+      </script>
+
+      <script>
+        // Build topic-specific question sets
+        function getQuestions(byTopic){
+          const webQuestions = [
+            { type:'html', question:'1. Write HTML to display a heading with the text "Hello World".', starter:'<!-- Your code here -->', solution:'<h1>Hello World</h1>', test: code => /<h1>\s*Hello World\s*<\/h1>/i.test(code), live:true },
+            { type:'css', question:'2. Write CSS to make all paragraphs red.', starter:'p {\n  /* your code */\n}', solution:'p { color: red; }', test: code => /color\s*:\s*red/i.test(code), live:true, html:'<p>Test me!</p>' },
+            { type:'js', question:'3. Create a button that toggles a dark-mode class on the page when clicked (simple theme toggle).', starter:'function toggleDark() {\n  // toggle dark mode on document.body\n}', solution:'function toggleDark() { document.body.classList.toggle("dark-mode"); }', test: code => /classList\.toggle\s*\(\s*['"]dark-mode['"]\s*\)/.test(code), live:true, html:'<button onclick="toggleDark()">Toggle Theme</button>' },
+            { type:'html', question:'4. Create an HTML input of type email.', starter:'<!-- Your code here -->', solution:'<input type="email" />', test: code => /<input[^>]*type\s*=\s*["']email["'][^>]*>/i.test(code), live:true },
+            { type:'css', question:'5. Write CSS to center a div horizontally.', starter:'.center-div {\n  /* your code */\n}', solution:'.center-div { margin: 0 auto; }', test: code => /margin\s*:\s*0\s*auto/i.test(code), live:true, html:'<div class="center-div" style="width:100px;background:#eee;">Center me</div>' },
+            { type:'js', question:'6. Write JavaScript to change the text of a paragraph with id="demo" to "Done!".', starter:'function changeText() {\n  // your code\n}', solution:'function changeText() { document.getElementById("demo").innerText = "Done!"; }', test: code => /getElementById\(['"]demo['"]\).*\.inner(Text|HTML|Content)\s*=\s*['"]Done!['"]/.test(code), live:true, html:'<p id="demo">Not done</p><button onclick="changeText()">Change</button>' },
+            { type:'python', question:'7. Write Python code to print "Hello Python".', starter:'# your code here', solution:'print("Hello Python")', test: code => /print\s*\(\s*['"]Hello Python['"]\s*\)/.test(code), live:false },
+            { type:'html', question:'8. Write HTML to create a link to https://www.example.com with text "Visit".', starter:'<!-- Your code here -->', solution:'<a href="https://www.example.com">Visit</a>', test: code => /<a[^>]*href\s*=\s*["']https:\/\/www\.example\.com["'][^>]*>\s*Visit\s*<\/a>/i.test(code), live:true },
+            { type:'js', question:'9. Write JavaScript to log "Success" to the console.', starter:'// your code here', solution:'console.log("Success")', test: code => /console\.log\s*\(\s*['"]Success['"]\s*\)/.test(code), live:true },
+            { type:'mern', question:'10. In MERN, what does the "N" stand for?', starter:'', solution:'Node (Node.js)', test: code => /node\s*js?/i.test(code), live:false },
+            { type:'html', question:'11. Add an image with alt text', starter:'<!-- Your code here -->', solution:'<img src="logo.png" alt="Site logo">', test: c=>/<img[^>]*alt\s*=\s*["'][^"']+["'][^>]*>/i.test(c), live:true },
+            { type:'html', question:'12. Create an unordered list with 3 items', starter:'<!-- Your code here -->', solution:'<ul><li>A</li><li>B</li><li>C</li></ul>', test: c=>/<ul>\s*<li>.+<\/li>\s*<li>.+<\/li>\s*<li>.+<\/li>\s*<\/ul>/is.test(c), live:true },
+            { type:'css', question:'13. Style .box to be 100x100', starter:'.box {\n  /* your code */\n}', solution:'.box { width:100px; height:100px; }', test: c=>/\.box\s*\{[^}]*width\s*:\s*100px[^}]*height\s*:\s*100px[^}]*\}/i.test(c), live:true, html:'<div class="box" style="background:#ddd"></div>' },
+            { type:'css', question:'14. Make .btn background blue', starter:'.btn {\n  /* your code */\n}', solution:'.btn { background: blue; }', test: c=>/\.btn\s*\{[^}]*background\s*:\s*blue[^}]*\}/i.test(c), live:true, html:'<button class="btn">Click</button>' },
+            { type:'js', question:'15. Implement add(a,b) that returns a+b', starter:'function add(a,b){\n  // your code\n}', solution:'function add(a,b){ return a+b; }', test: c=>/function\s+add\s*\(\s*a\s*,\s*b\s*\)\s*\{[\s\S]*return\s+a\s*\+\s*b\s*;?[\s\S]*\}/i.test(c), live:true, html:'<script>function test(){ try{ alert(add(2,3)); }catch(e){ alert("Define add(a,b)"); } }<\/script><button onclick="test()">Test add</button>' },
+            { type:'js', question:'16. Change #title text to "Welcome"', starter:'function setTitle(){\n  // your code\n}', solution:'function setTitle(){ document.getElementById("title").textContent = "Welcome"; }', test: c=>/getElementById\(['"]title['"]\)\.text(Content|Node|HTML)\s*=\s*['"]Welcome['"]/i.test(c), live:true, html:'<h3 id="title">Title</h3><button onclick="setTitle()">Set</button>' },
+            { type:'html', question:'17. Create a number input from 0 to 10', starter:'<!-- Your code here -->', solution:'<input type="number" min="0" max="10">', test: c=>/<input[^>]*type\s*=\s*["']number["'][^>]*min\s*=\s*["']?0["']?[^>]*max\s*=\s*["']?10["']?[^>]*>/i.test(c), live:true },
+            { type:'css', question:'18. Center all h1 text', starter:'h1 {\n  /* your code */\n}', solution:'h1 { text-align:center; }', test: c=>/h1\s*\{[^}]*text-align\s*:\s*center[^}]*\}/i.test(c), live:true, html:'<h1>Heading</h1>' },
+            { type:'js', question:'19. Push 4 into array nums [1,2,3]', starter:'let nums = [1,2,3];\n// your code', solution:'let nums = [1,2,3];\nnums.push(4);', test: c=>/nums\s*=\s*\[\s*1\s*,\s*2\s*,\s*3\s*\][\s\S]*nums\.push\s*\(\s*4\s*\)/.test(c), live:false },
+            { type:'js', question:'20. Create hello() that alerts Hello and a button to run it', starter:'function hello(){\n  // your code\n}\n<!-- add a button -->', solution:'function hello(){ alert("Hello"); }', test: c=>/function\s+hello\s*\(\)\s*\{[\s\S]*alert\s*\(\s*['"]Hello['"]\s*\)[\s\S]*\}/i.test(c), live:true, html:'<button onclick="hello()">Say Hello</button>' }
+          ];
+
+          const pythonQuestions = [
+            { type:'python', question:'1. Print Hello World', starter:'# your code', solution:'print("Hello World")', test: c=>/print\s*\(\s*['"]Hello World['"]\s*\)/.test(c), live:false },
+            { type:'python', question:'2. Create a list nums with 1,2,3', starter:'# your code', solution:'nums = [1,2,3]', test: c=>/nums\s*=\s*\[\s*1\s*,\s*2\s*,\s*3\s*\]/.test(c), live:false },
+            { type:'python', question:'3. Define function square(n) that returns n*n', starter:'def square(n):\n    # your code', solution:'def square(n):\n    return n*n', test: c=>/def\s+square\s*\(\s*n\s*\)\s*:\s*\n\s*return\s+n\s*\*\s*n/.test(c), live:false },
+            { type:'python', question:'4. Get value of key name from dict p', starter:'p = {"name":"Ali"}\n# your code', solution:'p = {"name":"Ali"}\nval = p["name"]', test: c=>/p\s*=\s*\{[^}]*['"]name['"]\s*:\s*['"]Ali['"][^}]*\}\s*[\s\S]*val\s*=\s*p\s*\[\s*['"]name['"]\s*\]/.test(c), live:false },
+            { type:'python', question:'5. Use a for loop to sum 1..5 into total', starter:'total = 0\n# your code', solution:'total = 0\nfor i in range(1,6):\n    total += i', test: c=>/total\s*=\s*0[\s\S]*for\s+i\s+in\s+range\s*\(\s*1\s*,\s*6\s*\)\s*:\s*[\s\S]*total\s*\+=\s*i/.test(c), live:false },
+            { type:'python', question:'6. Convert string s to uppercase', starter:'s = "hi"\n# your code', solution:'s = "hi"\ns = s.upper()', test: c=>/s\s*=\s*['"]hi['"][\s\S]*s\s*=\s*s\.upper\s*\(\s*\)/i.test(c), live:false },
+            { type:'python', question:'7. Slice first two items of list a', starter:'a = [10,20,30]\n# your code', solution:'a = [10,20,30]\nfirst_two = a[:2]', test: c=>/a\s*=\s*\[\s*10\s*,\s*20\s*,\s*30\s*\][\s\S]*first_two\s*=\s*a\s*:\s*2/.test(c), live:false },
+            { type:'python', question:'8. Add key age:25 to dict p', starter:'p = {"name":"Ali"}\n# your code', solution:'p = {"name":"Ali"}\np["age"] = 25', test: c=>/p\s*=\s*\{[^}]*\}[\s\S]*p\s*\[\s*['"]age['"]\s*\]\s*=\s*25/.test(c), live:false },
+            { type:'python', question:'9. Create list of squares for 1..3 using comprehension', starter:'# your code', solution:'squares = [x*x for x in range(1,4)]', test: c=>/squares\s*=\s*\[\s*x\s*\*\s*x\s+for\s+x\s+in\s+range\s*\(\s*1\s*,\s*4\s*\)\s*\]/.test(c), live:false },
+            { type:'python', question:'10. Check if n is even using if/else', starter:'n = 4\n# your code', solution:'n = 4\nif n % 2 == 0:\n    result = True\nelse:\n    result = False', test: c=>/if\s+n\s*%\s*2\s*==\s*0\s*:\s*[\s\S]*else\s*:/i.test(c), live:false },
+            { type:'python', question:'11. Join list of strings with comma', starter:'items = ["a","b","c"]\n# your code', solution:'items = ["a","b","c"]\ns = ",".join(items)', test: c=>/join\s*\(\s*items\s*\)/i.test(c), live:false },
+            { type:'python', question:'12. Get length of list a', starter:'a = [1,2,3]\n# your code', solution:'a = [1,2,3]\nlength = len(a)', test: c=>/len\s*\(\s*a\s*\)/i.test(c), live:false },
+            { type:'python', question:'13. Tuple unpack a,b from (1,2)', starter:'# your code', solution:'a,b = (1,2)', test: c=>/a\s*,\s*b\s*=\s*\(\s*1\s*,\s*2\s*\)/.test(c), live:false },
+            { type:'python', question:'14. Define class Person with name', starter:'# your code', solution:'class Person:\n    def __init__(self, name):\n        self.name = name', test: c=>/class\s+Person\s*:\s*\n\s*def\s+__init__\s*\(\s*self\s*,\s*name\s*\)\s*:/ .test(c), live:false },
+            { type:'python', question:'15. Write to file out.txt the word hello', starter:'# your code', solution:'with open("out.txt","w") as f:\n    f.write("hello")', test: c=>/open\s*\(\s*['"]out\.txt['"]\s*,\s*['"]w['"]\s*\)/i.test(c), live:false },
+            { type:'python', question:'16. Filter even numbers from a = [1,2,3,4]', starter:'a = [1,2,3,4]\n# your code', solution:'a = [1,2,3,4]\nev = [x for x in a if x % 2 == 0]', test: c=>/ev\s*=\s*\[\s*x\s+for\s+x\s+in\s+a\s+if\s+x\s*%\s*2\s*==\s*0\s*\]/i.test(c), live:false },
+            { type:'python', question:'17. Catch ValueError when converting s to int', starter:'s = "x"\n# your code', solution:'s = "x"\ntry:\n    n = int(s)\nexcept ValueError:\n    n = None', test: c=>/try\s*:\s*[\s\S]*except\s+ValueError\s*:/i.test(c), live:false },
+            { type:'python', question:'18. Create lambda f that adds 2 to x and call f(3)', starter:'# your code', solution:'f = lambda x: x+2\ny = f(3)', test: c=>/lambda\s+x\s*:\s*x\s*\+\s*2/i.test(c), live:false },
+            { type:'python', question:'19. Dict comprehension squares for 0..2', starter:'# your code', solution:'squares = {x: x*x for x in range(3)}', test: c=>/\{\s*x\s*:\s*x\s*\*\s*x\s+for\s+x\s+in\s+range\s*\(\s*3\s*\)\s*\}/.test(c), live:false },
+            { type:'python', question:'20. Read all lines from data.txt into list lines', starter:'# your code', solution:'with open("data.txt") as f:\n    lines = f.readlines()', test: c=>/open\s*\(\s*['"]data\.txt['"][^)]*\)\s*as\s*f[\s\S]*lines\s*=\s*f\.readlines\s*\(\s*\)/i.test(c), live:false }
+          ];
+
+          const dbQuestions = [
+            { type:'sql', question:'1. Select all columns from users', starter:'-- your SQL', solution:'SELECT * FROM users;', test:c=>/select\s*\*\s*from\s*users\s*;?/i.test(c), live:false },
+            { type:'sql', question:'2. Select name from users where age > 18', starter:'-- your SQL', solution:'SELECT name FROM users WHERE age > 18;', test:c=>/select\s+name\s+from\s+users\s+where\s+age\s*>\s*18\s*;?/i.test(c), live:false },
+            { type:'sql', question:'3. Inner join orders o with customers c on c.id = o.customer_id', starter:'-- your SQL', solution:'SELECT * FROM orders o INNER JOIN customers c ON c.id = o.customer_id;', test:c=>/inner\s+join\s+customers\s+c\s+on\s+c\.id\s*=\s*o\.customer_id/i.test(c), live:false },
+            { type:'sql', question:'4. Create table products(id INT PRIMARY KEY, name VARCHAR(50))', starter:'-- your SQL', solution:'CREATE TABLE products(id INT PRIMARY KEY, name VARCHAR(50));', test:c=>/create\s+table\s+products\s*\(\s*id\s+int\s+primary\s+key\s*,\s*name\s+varchar\s*\(\s*50\s*\)\s*\)\s*;?/i.test(c), live:false },
+            { type:'sql', question:'5. Add a new column price DECIMAL(10,2) to products', starter:'-- your SQL', solution:'ALTER TABLE products ADD COLUMN price DECIMAL(10,2);', test:c=>/alter\s+table\s+products\s+add\s+(column\s+)?price\s+decimal\s*\(\s*10\s*,\s*2\s*\)\s*;?/i.test(c), live:false },
+            { type:'sql', question:'6. Select DISTINCT city from customers', starter:'-- your SQL', solution:'SELECT DISTINCT city FROM customers;', test:c=>/select\s+distinct\s+city\s+from\s+customers\s*;?/i.test(c), live:false },
+            { type:'sql', question:'7. Order users by name ascending', starter:'-- your SQL', solution:'SELECT * FROM users ORDER BY name ASC;', test:c=>/order\s+by\s+name\s+asc\s*;?/i.test(c), live:false },
+            { type:'sql', question:'8. Count employees per department', starter:'-- your SQL', solution:'SELECT department, COUNT(*) FROM employees GROUP BY department;', test:c=>/group\s+by\s+department/i.test(c), live:false },
+            { type:'sql', question:'9. Insert Ali into users table', starter:'-- your SQL', solution:"INSERT INTO users (name) VALUES ('Ali');", test:c=>/insert\s+into\s+users\s*\(\s*name\s*\)\s*values\s*\(\s*'Ali'\s*\)\s*;?/i.test(c), live:false },
+            { type:'sql', question:'10. Update users set active=1 where id=1', starter:'-- your SQL', solution:'UPDATE users SET active=1 WHERE id=1;', test:c=>/update\s+users\s+set\s+active\s*=\s*1\s+where\s+id\s*=\s*1\s*;?/i.test(c), live:false },
+            { type:'sql', question:'11. Delete from users where id=2', starter:'-- your SQL', solution:'DELETE FROM users WHERE id=2;', test:c=>/delete\s+from\s+users\s+where\s+id\s*=\s*2\s*;?/i.test(c), live:false },
+            { type:'sql', question:'12. Create table t with primary key id', starter:'-- your SQL', solution:'CREATE TABLE t(id INTEGER PRIMARY KEY);', test:c=>/create\s+table\s+t\s*\(\s*id\s+integer\s+primary\s+key\s*\)\s*;?/i.test(c), live:false },
+            { type:'sql', question:'13. Add foreign key on orders.customer_id -> customers.id', starter:'-- your SQL', solution:'ALTER TABLE orders ADD CONSTRAINT fk_o_c FOREIGN KEY (customer_id) REFERENCES customers(id);', test:c=>/foreign\s+key\s*\(\s*customer_id\s*\)\s*references\s+customers\s*\(\s*id\s*\)/i.test(c), live:false },
+            { type:'sql', question:'14. Create index on users(name)', starter:'-- your SQL', solution:'CREATE INDEX idx_users_name ON users(name);', test:c=>/create\s+index\s+idx_users_name\s+on\s+users\s*\(\s*name\s*\)\s*;?/i.test(c), live:false },
+            { type:'sql', question:'15. Names starting with A', starter:'-- your SQL', solution:"SELECT name FROM users WHERE name LIKE 'A%';", test:c=>/where\s+name\s+like\s*'A%'/i.test(c), live:false },
+            { type:'sql', question:'16. Select users with NULL email', starter:'-- your SQL', solution:'SELECT * FROM users WHERE email IS NULL;', test:c=>/where\s+email\s+is\s+null/i.test(c), live:false },
+            { type:'sql', question:'17. Rename column name to full_name in users', starter:'-- your SQL', solution:'ALTER TABLE users RENAME COLUMN name TO full_name;', test:c=>/alter\s+table\s+users\s+rename\s+column\s+name\s+to\s+full_name\s*;?/i.test(c), live:false },
+            { type:'sql', question:'18. Drop table temp_users', starter:'-- your SQL', solution:'DROP TABLE temp_users;', test:c=>/drop\s+table\s+temp_users\s*;?/i.test(c), live:false },
+            { type:'sql', question:'19. Select top 5 users', starter:'-- your SQL', solution:'SELECT * FROM users LIMIT 5;', test:c=>/limit\s*5\s*;?/i.test(c), live:false },
+            { type:'sql', question:'20. Sum order total per customer_id ordered desc', starter:'-- your SQL', solution:'SELECT customer_id, SUM(total) AS sum_total FROM orders GROUP BY customer_id ORDER BY sum_total DESC;', test:c=>/sum\s*\(\s*total\s*\)\s+as\s+sum_total[\s\S]*group\s+by\s+customer_id[\s\S]*order\s+by\s+sum_total\s+desc/i.test(c), live:false }
+          ];
+
+          if (byTopic === 'python') return pythonQuestions;
+          if (byTopic === 'database') return dbQuestions;
+          return webQuestions; // default web dev
+        }
+
+        // Global state
+        let questions = [];
+        let attempts = [];
+
+        function createQuiz() {
+          const quizDiv = document.getElementById('quiz');
+          quizDiv.innerHTML = '';
+          questions.forEach((q, i) => {
+            const qDiv = document.createElement('section');
+            qDiv.className = 'quiz-card';
+            const starterEsc = escapeHtml(q.starter || '');
+            const questionText = (q.question || '').replace(/^\s*\d+\.\s*/, '');
+            const safeQuestion = escapeHtml(questionText);
+            qDiv.innerHTML = `
+              <div class="quiz-card-header">
+                <div class="quiz-number">${i+1}</div>
+                <div class="quiz-question">${safeQuestion}</div>
+              </div>
+              <div class="quiz-card-body">
+                <textarea class="question-code" id="code${i}" placeholder="${starterEsc}">${starterEsc}</textarea>
+                <div class="quiz-actions">
+                  <button class="btn btn-primary" onclick="checkAnswer(${i})">Try</button>
+                  <div style="margin-left:auto;font-weight:700" id="result${i}"></div>
+                </div>
+                ${q.live && (q.type === 'html' || q.type === 'css' || q.type === 'js') ? `<div class="iframe-preview" id="preview${i}"></div>` : ''}
+              </div>
+            `;
+            quizDiv.appendChild(qDiv);
+          });
+        }
+
+        window.checkAnswer = function(idx) {
+          const q = questions[idx];
+          const code = document.getElementById('code'+idx).value;
+          const res = document.getElementById('result'+idx);
+          if (q.test(code)) {
+            res.innerHTML = '<span class="correct">Correct! ✅</span>';
+            res.className = 'result';
+            attempts[idx] = 0;
+            try {
+              const blockId = 'solBlock' + idx;
+              document.getElementById('code'+idx).value = q.solution || document.getElementById('code'+idx).value;
+              res.innerHTML = `<span class="correct">Correct! ✅ — Printing answer on terminal.</span><div id="${blockId}" style="margin-top:8px"><pre class="solution-pre">${escapeHtml(q.solution)}</pre></div>`;
+              if (q.live && (q.type === 'html' || q.type === 'css' || q.type === 'js')){
+                const preview = document.getElementById('preview' + idx);
+                if (preview){
+                  let srcdoc = '';
+                  if (q.type === 'html') srcdoc = q.solution;
+                  else if (q.type === 'css') srcdoc = `<style>${q.solution}</style>${q.html||''}`;
+                  else if (q.type === 'js') srcdoc = `${q.html||''}<script>${q.solution}<'+'/script>`;
+                  preview.innerHTML = `<iframe style="width:100%;height:120px;border:none;" srcdoc="${srcdoc.replace(/"/g,'&quot;')}"></iframe>`;
+                }
+              }
+            } catch(e){ console.error('Print-on-correct error', e); }
+          } else {
+            attempts[idx]++;
+            if (attempts[idx] === 1) {
+              res.innerHTML = '<span class="inspire-message">Nice attempt — keep going! One more try.</span>';
+              res.className = 'result incorrect';
+            } else if (attempts[idx] === 2) {
+              res.innerHTML = '<span class="inspire-message">Almost there — one more try to reveal the answer.</span>';
+              res.className = 'result incorrect';
+            } else if (attempts[idx] >= 3 && q.solution) {
+              const blockId = 'solBlock' + idx;
+              res.innerHTML = `<span class="incorrect">Printing answer on terminal — showing result.</span><div id="${blockId}" style="margin-top:8px"><pre class="solution-pre">${escapeHtml(q.solution)}</pre></div>`;
+              try{ document.getElementById('code'+idx).value = q.solution; }catch(e){}
+              res.className = 'result';
+              try {
+                if (q.live && (q.type === 'html' || q.type === 'css' || q.type === 'js')) {
+                  const preview = document.getElementById('preview' + idx);
+                  if (preview) {
+                    let srcdoc = '';
+                    if (q.type === 'html') srcdoc = q.solution;
+                    else if (q.type === 'css') srcdoc = `<style>${q.solution}</style>${q.html||''}`;
+                    else if (q.type === 'js') srcdoc = `${q.html||''}<script>${q.solution}<\/script>`;
+                    preview.innerHTML = `<iframe style="width:100%;height:120px;border:none;" srcdoc="${srcdoc.replace(/"/g,'&quot;')}"></iframe>`;
+                  }
+                }
+              } catch(e) { console.error('Live preview render error', e); }
             }
           }
-        } catch(e){ console.error('Print-on-correct error', e); }
-      } else {
-        attempts[idx]++;
-        if (attempts[idx] === 1) {
-          // first failed try — concise encouragement for mobile friendliness
-          res.innerHTML = '<span class="inspire-message">Nice attempt — keep going! One more try.</span>';
-          res.className = 'result incorrect';
-        } else if (attempts[idx] === 2) {
-          // second failed try — brief nudge before revealing solution
-          res.innerHTML = '<span class="inspire-message">Almost there — one more try to reveal the answer.</span>';
-          res.className = 'result incorrect';
-        } else if (attempts[idx] >= 3 && q.solution) {
-          // third failed try — auto-print the solution in the terminal area and run live preview if applicable
-          const blockId = 'solBlock' + idx;
-          res.innerHTML = `<span class="incorrect">Printing answer on terminal — showing result.</span><div id="${blockId}" style="margin-top:8px"><pre class="solution-pre">${escapeHtml(q.solution)}</pre></div>`;
-          // also insert solution into the editor so user can edit/copy
-          try{ document.getElementById('code'+idx).value = q.solution; }catch(e){}
-          res.className = 'result';
-          // If this question supports live preview, render the solution directly into the preview iframe
-          try {
-            if (q.live && (q.type === 'html' || q.type === 'css' || q.type === 'js')) {
-              const preview = document.getElementById('preview' + idx);
-              if (preview) {
-                let srcdoc = '';
-                if (q.type === 'html') srcdoc = q.solution;
-                else if (q.type === 'css') srcdoc = `<style>${q.solution}</style>${q.html||''}`;
-                else if (q.type === 'js') srcdoc = `${q.html||''}<script>${q.solution}<\/script>`;
-                preview.innerHTML = `<iframe style="width:100%;height:120px;border:none;" srcdoc="${srcdoc.replace(/"/g,'&quot;')}"></iframe>`;
-              }
-            }
-          } catch(e) { console.error('Live preview render error', e); }
+        };
+
+        function escapeHtml(str){
+          return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
         }
-      }
-    };
 
-    function escapeHtml(str){
-      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    }
+        window.runLive = function(idx) {
+          const q = questions[idx];
+          const code = document.getElementById('code'+idx).value;
+          const preview = document.getElementById('preview'+idx);
+          let srcdoc = '';
+          if (q.type === 'html') {
+            srcdoc = code;
+          } else if (q.type === 'css') {
+            srcdoc = `<style>${code}</style>${q.html||''}`;
+          } else if (q.type === 'js') {
+            srcdoc = `${q.html||''}<script>${code}<\/script>`;
+          }
+          preview.innerHTML = `<iframe style="width:100%;height:120px;border:none;" srcdoc="${srcdoc.replace(/"/g,'&quot;')}"></iframe>`;
+        };
 
-    window.runLive = function(idx) {
-      const q = questions[idx];
-      const code = document.getElementById('code'+idx).value;
-      const preview = document.getElementById('preview'+idx);
-      let srcdoc = '';
-      if (q.type === 'html') {
-        srcdoc = code;
-      } else if (q.type === 'css') {
-        srcdoc = `<style>${code}</style>${q.html||''}`;
-      } else if (q.type === 'js') {
-        srcdoc = `${q.html||''}<script>${code}<\/script>`;
-      }
-      preview.innerHTML = `<iframe style="width:100%;height:120px;border:none;" srcdoc="${srcdoc.replace(/"/g,'&quot;')}"></iframe>`;
-    };
+        // Initialize view depending on topic
+        (function init(){
+          if (topic) {
+            questions = getQuestions(topic);
+            attempts = Array(questions.length).fill(0);
+            const title = document.getElementById('quiz-title');
+            if (title) {
+              const label = topic === 'python' ? 'Python' : (topic === 'database' ? 'Database Design' : 'Website Development');
+              title.textContent = `Practice quiz — ${label}`;
+            }
+            createQuiz();
+            const panel = document.getElementById('quiz-panel');
+            if (panel) panel.scrollIntoView({behavior:'smooth', block:'start'});
+          }
+        })();
+      </script>
 
-    // submit and demo controls removed — quiz cards operate independently
+      <!-- Non-intrusive display ad -->
+      <div class="ad-slot ad-center ad-between"></div>
 
-    createQuiz();
-  </script>
-
-    <!-- AI widget is injected globally by /assets/navbar.js -->
-
-<!-- Non-intrusive display ad -->
-<div class="ad-slot ad-center ad-between">
-  </div>
-
-  <script defer src="/assets/ads.js"></script>
-</body>
-</html>
+      <script defer src="/assets/ads.js"></script>
+    </body>
+    </html>

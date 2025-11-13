@@ -92,7 +92,7 @@ main,
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 5%;
+  padding: calc(1rem + env(safe-area-inset-top, 0px)) 5% 1rem 5%;
   background-color: #680202;
   color: white;
   position: fixed; /* pin navbar */
@@ -105,7 +105,7 @@ main,
 }
 
 /* When navbar is fixed, add top padding equal to its height so content is not hidden */
-body.nav-fixed { padding-top: var(--nav-h, 64px); }
+body.nav-fixed { padding-top: calc(var(--nav-h, 64px) + env(safe-area-inset-top, 0px)); }
 
 .new-navbar .logo {
   font-size: 1.5rem;
@@ -245,6 +245,27 @@ body.nav-fixed { padding-top: var(--nav-h, 64px); }
   image-rendering: auto; /* prefer quality over pixelated scaling */
 }
 
+/* On quiz pages, make the hero shorter so the quiz panel sits higher */
+body.quiz-bg #hero.home-hero{
+  height: auto;               /* let content define height */
+  min-height: 340px;          /* keep a solid baseline */
+  background-attachment: scroll; /* avoid excessive parallax pushing content */
+  overflow: visible;          /* ensure inner content is not clipped */
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* Make the quiz hero fully flexible on small devices */
+@media (max-width: 700px){
+  body.quiz-bg #hero.home-hero{
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 0.9rem 0.9rem 1rem !important;
+  }
+  body.quiz-bg .hero-quiz-picker{ width: 100%; max-width: 520px; }
+}
+
 /* Default: avoid stray scrollbars on desktop */
 #hero, .site-hero { overflow: hidden; }
 .hero-content { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; padding: 0 1rem; }
@@ -320,6 +341,58 @@ body.nav-fixed { padding-top: var(--nav-h, 64px); }
 .hero-actions { margin-top: 0.9rem; display:flex; gap:10px; justify-content:center }
 .hero-actions .btn-primary{ padding:0.8rem 1.2rem; border-radius:10px; font-weight:800 }
 .hero-actions .btn-ghost{ padding:0.7rem 1rem; border-radius:10px; background:transparent; border:1px solid rgba(255,255,255,0.12); color:#fff }
+
+/* Hero quick topic picker */
+.hero-quiz-picker{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.10));
+  box-shadow: 0 8px 22px rgba(0,0,0,0.28);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  position: relative; /* ensure above background/overlays */
+  z-index: 10;
+  pointer-events: auto;
+}
+.hero-quiz-picker label{ color:#fff; font-weight:800; letter-spacing:.2px }
+.hero-quiz-picker select{
+  appearance: none;
+  -webkit-appearance: none;
+  background: #fff;
+  color: #111;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  min-height: 40px;
+  font-weight: 700;
+}
+.hero-quiz-picker .picker-btn{
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.hero-quiz-picker .picker-btn:hover{ filter: brightness(.98); transform: translateY(-1px); }
+
+@media (max-width:700px){
+  .hero-quiz-picker{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; padding:8px 10px }
+  .hero-quiz-picker label{ width:100%; text-align:center; margin-bottom:2px }
+  .hero-quiz-picker select{ width:100%; }
+  .hero-quiz-picker .picker-btn{ width:100%; }
+}
+
+/* Prevent AI bubble from covering the hero quick-start on very small screens */
+@media (max-width: 430px){
+  body.quiz-bg .ai-fab{ right: auto; left: 12px; bottom: 18px; }
+}
 
 /* Quick topic navigation in hero */
 .hero-topic-nav{ margin-top:12px; display:flex; flex-wrap:wrap; gap:8px; justify-content:center }
