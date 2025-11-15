@@ -210,7 +210,7 @@
 
   // track attempts per question
   let questions = [];
-  let attempts = [];~
+  let attempts = [];
 
     function createQuiz() {
       const quizDiv = document.getElementById('quiz');
@@ -349,9 +349,17 @@
           const label = topic === 'python' ? 'Python' : (topic === 'database' ? 'Database Design' : 'Website Development');
           title.textContent = `Practice quiz — ${label}`;
         }
-        createQuiz();
         const panel = document.getElementById('quiz-panel');
-        if (panel) panel.scrollIntoView({behavior:'smooth', block:'start'});
+        if (panel) panel.style.display = '';
+        if (questions && questions.length > 0) {
+          createQuiz();
+          if (panel) panel.scrollIntoView({behavior:'smooth', block:'start'});
+        } else {
+          if (panel) {
+            panel.innerHTML = '<h2>No questions found for this topic.</h2>';
+            panel.style.display = '';
+          }
+        }
       }
     })();
     // Ensure base auto ad exists (central script also handles this; leaving minimal fallback)
