@@ -12,18 +12,10 @@
 </head>
 <body>
 <!-- NEW NAVBAR -->
-<!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+<!-- Removed Bootstrap CSS to prevent global overrides affecting card sizing -->
 
 <style>
-  .navbar-custom {
-    background-color: #680202; /* updated navbar color */
-    padding: 0.5rem 1rem;
-  }
-  .navbar-brand img {
-    height: 40px;
-  }
+  /* Removed unused Bootstrap-specific selectors */
   .btn-signin {
     background-color: #b40808e1; /* updated sign in button color */
     color: #fff;
@@ -45,6 +37,16 @@
     font-size: 1.2rem;
     color: #fff; /* make search icon visible */
   }
+  /* Hero responsive tweaks */
+  #hero { overflow: visible; }
+  #hero .hero-content { max-width: 1100px; margin: 0 auto; padding: 20px; text-align: center; }
+  #hero h1 { margin-bottom: 10px; }
+  #hero h1 code { font-size: clamp(1.1rem, 5vw, 2rem); white-space: normal; word-break: break-word; }
+  #hero .hero-actions { display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+  #hero .hero-actions a { min-width:120px; text-align:center; padding:10px 14px; }
+  @media (max-width: 700px){ #hero { height: auto !important; background-attachment: scroll !important; } }
+  @media (max-width: 720px){ #hero .hero-actions a{ flex:1 1 46%; } }
+  @media (max-width: 480px){ #hero .hero-actions a{ flex:1 1 100%; } }
 </style>
 
 <nav class="new-navbar" role="navigation">
@@ -74,6 +76,14 @@
     <div class="hero-content">
       <h1><code>"Welcome Home Website Designers 🎊"</code></h1>
       <div class="hero-actions">
+        <a class="btn-primary" href="#courses-website-development">All Courses</a>
+        <a class="btn-ghost" href="#HTML5">Intro HTML</a>
+        <a class="btn-ghost" href="#advanced-html">Advanced HTML</a>
+        <a class="btn-ghost" href="#css-introduction">Intro CSS</a>
+        <a class="btn-ghost" href="#css-layout">CSS Layout</a>
+        <a class="btn-ghost" href="#dom-manipulation">DOM</a>
+        <a class="btn-ghost" href="#software-card">Events</a>
+        <a class="btn-ghost" href="#software-card">CSS3 Anim</a>
       </div>
     </div>
   </section>
@@ -89,7 +99,7 @@
         </div>
       </a>
 
-      <a href="introduction to html.html" style="text-decoration: none; color: inherit;">
+      <a href="advanced HTML5.html" style="text-decoration: none; color: inherit;">
         <div class="card" id="advanced-html">
           <img src="images/html image.avif" alt="Web Development">
           <h3>Html5,Enhance content&Build forms</h3>
@@ -157,7 +167,7 @@
     <p>© 2025 Coding with Tawfiq. All rights reserved.</p>
   </footer>
 
-  <script src="assets/nav.js"></script>
+  <!-- Removed legacy nav.js (navbar handled by /assets/navbar.js) -->
   <script defer src="/assets/ads.js"></script>
 </body>
 </html>

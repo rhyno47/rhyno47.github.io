@@ -1,0 +1,55 @@
+/* Unified ad styling across the site */
+.ad-slot{ display:block; min-height: 60px; }
+.ad-center{ margin: 16px auto; max-width: 100%; text-align: center; }
+.ad-muted-note{ color: rgba(255,255,255,0.75); font-size: 0.85rem; text-align: center; margin: 6px 0 0; }
+.non-intrusive-ad{ margin: 20px auto; max-width: 1100px; }
+.non-intrusive-ad .ad-content{ display:block; padding:8px; border-radius:10px; background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06); }
+
+/* Native ad wrapper (auto-inserted) */
+.ad-slot[data-native-ad][data-init], .ad-slot.native-ad[data-init]{ padding:8px; border-radius:12px; background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.05); box-shadow:0 6px 16px rgba(0,0,0,0.28); max-width:1100px; margin:24px auto; }
+@media (max-width:700px){ .ad-slot[data-native-ad][data-init], .ad-slot.native-ad[data-init]{ margin:18px auto; } }
+
+/* Hero-ad sizing: allow wider coverage on larger screens, but remain responsive */
+.ad-anchor.ad-hero .ad-slot[data-auto-ad],
+.ad-anchor.ad-hero .ad-slot[data-native-ad]{ max-width:1100px; }
+@media (max-width:800px){
+  .ad-anchor.ad-hero .ad-slot{ max-width:520px; }
+}
+@media (max-width:600px){
+  .ad-anchor.ad-hero .ad-slot{ max-width:360px; padding:6px; }
+  .ad-anchor.ad-hero ins.adsbygoogle{ min-height:90px !important; }
+}
+
+/* Global small-device boxing: shrink any ad-slot width and add subtle frame */
+@media (max-width:600px){
+  .ad-slot{ max-width:360px; margin-left:auto; margin-right:auto; }
+  .ad-slot:not([data-native-ad])[data-init]{ background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); border-radius:10px; padding:6px; }
+}
+
+/* Ensure internal ins never overflows parent width */
+.ad-slot ins.adsbygoogle{ width:100% !important; height:auto; }
+
+/* In-feed placement: allow full content width on desktops, compact on smaller screens */
+.ad-infeed{ max-width: 1100px; }
+@media (max-width: 800px){ .ad-infeed{ max-width: 520px; } }
+@media (max-width: 600px){ .ad-infeed{ max-width: 360px; } }
+.ad-slot[data-infeed-ad]{ padding:6px; border-radius:10px; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); }
+.ad-slot[data-infeed-ad]:not([data-init]){ background: transparent; border-color: transparent; }
+
+/* Jobs feed ad cards should inherit existing .card-feed sizing; no special overrides on mobile */
+/* (Reverted custom ad-feed-card sizing to restore original small-device appearance.) */
+
+/* Floating interaction ad box (from JS) */
+#interaction-ad-box{ max-width:420px; }
+@media (max-width:600px){ #interaction-ad-box{ right:8px !important; left:8px; width:auto; max-width:none; } }
+
+/* In-content ad spacing */
+.ad-between{ margin: 24px 0; }
+.ad-mid { margin: 50px auto; text-align:center; }
+.ad-mid[data-lazy] { opacity:0; transition: opacity .6s ease; }
+.ad-mid[data-init] { opacity:1; }
+
+/* Responsive safety */
+@media (max-width: 700px){
+  .ad-between{ margin: 18px 0; }
+}

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="/assets/ads.css">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1523965413574724"
      crossorigin="anonymous"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coding with Tawfiq | Home</title>
+  <title>Coding with Tawfiq | Python OOP</title>
   <link rel="stylesheet" href="../assets/home.css">
   <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -19,7 +20,7 @@
 
   gtag('config', 'G-ETGGXC16CY');
 </script>
-  <link rel="stylesheet" href="assets/ads.css">
+  <!-- ads stylesheet removed to avoid 404 on this path; can be re-added from root if needed -->
 </head>
 <body>
 
@@ -51,47 +52,52 @@
 
 
 <!-- ====== HERO SECTION ====== -->
-  <section id="hero">
+  <section id="hero" class="site-hero">
     <div class="hero-content">
-      <h1><code>Welcome to Python OOP</code></h1>
-         <div class="hero-actions">
-        <button id="start-btn">Start Here</button>
-      </div>
+      <h1>Welcome to Python OOP</h1>
+      <p class="lead" style="color:rgba(255,255,255,0.92)">Classes, objects, constructors, and the core principles: inheritance, polymorphism, and encapsulation.</p>
+      <div class="hero-actions" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+        <a class="card-link" href="#oop-intro">Classes & Objects</a>
+        <a class="card-link" href="#oop-constructors">Constructors</a>
+        <a class="card-link" href="#oop-principles">OOP Principles</a>
       </div>
     </div>
   </section>
 
+  <style>
+    /* Page-scoped styling to match site theme */
+    #oop-intro, #oop-constructors, #oop-principles { scroll-margin-top: 90px; }
+    .oop-card{ background: linear-gradient(145deg,#680202,#8b0b0b); border:1px solid rgba(255,255,255,0.12); color:#f6f6f6; }
+    .oop-card h2{ color:#fff }
+    .oop-card p{ color:#f0f0f0; line-height:1.6 }
+    /* Mobile responsiveness: ensure cards are not overly narrow or centered with giant side gutters */
+    @media (max-width: 780px){
+      section#oop-intro, section#oop-constructors, section#oop-principles{ padding: 2.2rem 1rem !important; }
+      .info-card.oop-card{ padding: 1.4rem 1.3rem !important; border-radius: 14px !important; }
+      .info-card.oop-card h2{ font-size:1.35rem !important; line-height:1.25 }
+      .info-card.oop-card p, .info-card.oop-card code{ font-size:0.95rem !important; }
+      .info-card.oop-card code{ word-break: break-word; white-space: pre-wrap; }
+    }
+    @media (max-width: 520px){
+      .info-card.oop-card{ padding: 1.15rem 1rem !important; }
+      .info-card.oop-card h2{ font-size:1.22rem !important; }
+      .info-card.oop-card p{ font-size:0.92rem !important; }
+    }
+    /* Prevent internal nested dark panels from shrinking into a tall narrow column on mobile */
+    .oop-card > section > div[style*='background: rgba(0, 0, 0, 0.6)']{ width:100% !important; max-width:none !important; margin:12px 0 !important; }
+    @media (max-width:780px){ .oop-card > section > div[style*='background: rgba(0, 0, 0, 0.6)']{ padding:16px 14px !important; border-radius:12px !important; } }
+    @media (max-width:520px){ .oop-card > section > div[style*='background: rgba(0, 0, 0, 0.6)']{ padding:14px 12px !important; } }
+    /* Make long code blocks scroll horizontally if needed without shrinking overall width */
+    .oop-card code{ display:inline-block; max-width:100%; overflow-x:auto; }
+    .oop-card p code{ background: rgba(0,0,0,0.35); padding:2px 4px; border-radius:4px; }
+    /* Improve image scaling on very small screens */
+    @media (max-width:600px){ .oop-card .card-top-image{ height:220px !important; } }
+  </style>
+
 <!-- ====== Introduction to Python data types ====== -->
-<section id="python-datatypes" style="
-    display: flex;
-    justify-content: center;
-    padding: 4rem 2rem;
-    background-image: url('../images/water fall.jpg');
-    background-size: cover;       /* Makes image cover the section */
-    background-position: center;  /* Centers the image */
-    background-repeat: no-repeat; /* Prevent tiling */
-    background-attachment: scroll; /* Optional, prevents fixed zoom */
-">
-
-  <div style="
-      max-width: 900px; 
-      width: 100%; 
-      background-color: rgb(189, 35, 15); 
-      border-radius: 15px; 
-      box-shadow: 0 8px 20px rgba(247, 238, 238, 0.2); 
-      overflow: hidden; 
-      text-align: center; 
-      padding: 2rem;">
-
-    <!-- Image at top of the card -->
-    <div style="
-        width: 100%; 
-        height: 300px; 
-        background-image: url('../images/project\ 3.jpg'); 
-        background-size: cover; 
-        background-position: center; 
-        border-radius: 10px;">
-    </div>
+<section id="oop-intro" style="display:flex;justify-content:center;padding: 4rem 2rem; background: transparent;">
+  <div class="info-card oop-card" style="max-width: 950px; width:100%; text-align:left; padding: 2rem 2.2rem; border-radius: 18px;">
+    <img class="card-top-image" src="../images/project 3.jpg" alt="OOP overview" loading="lazy" style="height:300px; border-radius:12px; object-fit:cover; margin-bottom:1.2rem">
 
 
 <!-- native ad unit -->
@@ -101,8 +107,8 @@
 </script>
 
     <!-- Content under image -->
-    <div style="margin-top: 2rem;">
-      <h2 style="margin-bottom: 2rem; color: #f0eeee;"><b>Introduction to OOP: Classes, Objects, Attributes, and Methods (1 hour)</b></h2>
+    <div style="margin-top: 0.6rem;">
+      <h2 style="margin-bottom: 1rem;"><b>Introduction to OOP: Classes, Objects, Attributes, and Methods (1 hour)</b></h2>
 
 <section>
   <div style="
@@ -142,17 +148,8 @@ my_car.drive()</code></p>
   </div>
 </section>
 
-<section>
-  <div style="
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
-    max-width: 800px;
-    margin: 20px auto;
-    font-family: Arial, sans-serif;
-  ">
+<section id="oop-constructors" style="display:flex;justify-content:center;padding: 2rem 2rem; background: transparent;">
+  <div class="info-card oop-card" style="max-width: 950px; width:100%; text-align:left; padding: 2rem 2.2rem; border-radius: 18px;">
     <article>
       <p>🔧 <strong>Constructors: The __init__ Method and Instance Variables</strong></p>
 
@@ -176,17 +173,8 @@ print(car2.model)  # Output: SUV</code></p>
   </div>
 </section>
 
-<section>
-  <div style="
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
-    max-width: 800px;
-    margin: 20px auto;
-    font-family: Arial, sans-serif;
-  ">
+<section id="oop-principles" style="display:flex;justify-content:center;padding: 2rem 2rem 4rem; background: transparent;">
+  <div class="info-card oop-card" style="max-width: 950px; width:100%; text-align:left; padding: 2rem 2.2rem; border-radius: 18px;">
     <article>
       <p>🧩 <strong>OOP Principles: Inheritance, Polymorphism, and Encapsulation</strong> (1.5 hours)</p>
 
@@ -232,12 +220,63 @@ stash.take_chocolate()</code></p>
 </section>
 
 
-   <!-- ====== FOOTER ====== -->
+  <!-- Share buttons for each info-card -->
+  <script>
+  (function(){
+    function sectionUrlFor(el){
+      let anchorId = el.closest('section')?.id || el.id;
+      if(!anchorId){ el.id = 'card-' + Math.random().toString(36).slice(2,8); anchorId = el.id; }
+      return window.location.origin + window.location.pathname + '#' + encodeURIComponent(anchorId);
+    }
+    function addShares(){
+      document.querySelectorAll('.info-card').forEach(card => {
+        if(card.querySelector('.inline-share-actions')) return;
+        const actions = document.createElement('div'); actions.className='card-actions inline-share-actions';
+        const left = document.createElement('div'); const right = document.createElement('div'); right.className='right';
+        const btn = document.createElement('button'); btn.className='icon-btn'; btn.title='Share';
+        const img = document.createElement('img'); img.src='../images/share logo.jpg'; img.alt='Share'; img.className='share-icon'; btn.appendChild(img);
+        btn.addEventListener('click', () => {
+          const url = sectionUrlFor(card);
+          const title = (card.querySelector('h2, h3')?.textContent) || document.title;
+          const shareData = { title, text: 'Check this topic on Coding with Tawfiq', url };
+          if(navigator.share){ navigator.share(shareData).catch(()=>fallbackCopy(url)); }
+          else fallbackCopy(url);
+        });
+        function fallbackCopy(url){
+          if(navigator.clipboard && navigator.clipboard.writeText){
+            navigator.clipboard.writeText(url).then(()=> alert('Link copied: '+url)).catch(()=>{ prompt('Copy section link:', url); });
+          } else { prompt('Copy section link:', url); }
+        }
+        right.appendChild(btn); actions.appendChild(left); actions.appendChild(right); card.appendChild(actions);
+      });
+    }
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', addShares); else addShares();
+  })();
+  </script>
+
+   <!-- ====== FOOTER (match index style) ====== -->
   
 <!-- Non-intrusive display ad -->
 <div class="ad-slot ad-center ad-between">
   </div>
 
 <footer id="footer">
-    <p>© 2025 Coding with Tawfiq. All rights reserved.</p>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="/images/coding with tawfiq.jpg" alt="Logo">
+        <span class="footer-copy">© <span id="footerYear"></span> Coding with Tawfiq</span>
+      </div>
+      <div class="footer-links">
+        <a href="/index.html">Home</a>
+        <a href="/try-quiz.html">Practice</a>
+        <a href="/findjobs.html">Find Jobs</a>
+      </div>
+      <div class="footer-right">
+        <div class="footer-social">
+          <a href="#" aria-label="GitHub"><i class="bi bi-github"></i></a>
+          <a href="#" aria-label="Twitter"><i class="bi bi-twitter"></i></a>
+        </div>
+      </div>
+    </div>
   </footer>
+  <script>try{document.getElementById('footerYear').textContent = new Date().getFullYear();}catch(e){}</script>

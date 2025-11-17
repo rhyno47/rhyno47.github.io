@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1523965413574724"
-     crossorigin="anonymous"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coding with Tawfiq | Home</title>
   <link rel="stylesheet" href="assets/home.css">
   <link rel="stylesheet" href="assets/ads.css">
+  <!-- Google AdSense script; will be auto-injected by /assets/ads.js if missing -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1523965413574724"
+    crossorigin="anonymous"></script>
   <!-- preload hero wallpaper to improve perceived load quality; also preload a high-res variant for large viewports if present -->
   <link rel="preload" as="image" href="images/hero section image 2.jpg">
   <link rel="preload" as="image" href="images/hero section image 2@2x.jpg" media="(min-width:1600px)">
+  <style>
+    /* Hide any existing share UI on opted-out cards (defensive) */
+    .card[data-no-share] .inline-share-actions,
+    .card[data-no-share] .share-btn,
+    .card[data-no-share] .shared-link-display { display: none !important; }
+  </style>
 </head>
 <body>
 
@@ -41,7 +48,6 @@
 
 
 
-
   <!-- ====== HERO SECTION ====== -->
   <section id="hero" class="home-hero">
     <div class="hero-content">
@@ -49,7 +55,9 @@
       <p>Train from basics to job-ready skills with short hands-on quizzes, bite-sized tutorials and real projects. No fluff — just practice that sticks.</p>
       <div class="hero-actions">
         <a class="btn-primary" href="try-quiz.html">Start Practice</a>
+        <a class="btn-primary" href="#courses">Jump to Courses</a>
         <a class="btn-ghost" href="findjobs.html">Find Jobs</a>
+        <a class="btn-primary" href="copy-codes.html" aria-label="Browse reusable HTML/CSS/JS code snippets">Copy Codes</a>
       </div>
       <div style="margin-top:10px;color:rgba(255,255,255,0.88);font-weight:700;font-size:0.95rem">No sign-up required — try a 1-minute quiz</div>
       
@@ -64,7 +72,7 @@
     <div class="course-grid">
       <div class="course-grid">
   <a href="pyhome.html" style="text-decoration: none; color: inherit;">
-    <div class="card" id="python-card">
+  <div class="card" id="python-card" data-no-share="1">
       <img src="images/python home...jpg" alt="Python Course">
       <h3>Python</h3>
       <p>Learn Python for automation, web apps, and data science.</p>
@@ -73,34 +81,36 @@
 </div>
 
       <a href="webdevhome.html" style="text-decoration: none; color: inherit;">
-        <div class="card" id="webdev-card">
+  <div class="card" id="webdev-card" data-no-share="1">
           <img src="images/website dev home logo.jpg" alt="Web Development">
           <h3>Website Development</h3>
           <p>HTML,CSS,and JavaScript.</p>
         </div>
       </a>
 
-      <div class="card" id="flutter-card">
-        <img src="images/dart home logo.jpg" alt="Dart and Flutter">
-        <h3>Dart-Flutter</h3>
-        <p>Build mobile apps for Android and iOS.</p>
-      </div>
-
-      <div class="card" id="ai-card">
-        <img src="images/ai home logo.jpg" alt="AI for Software Engineering">
-        <h3>AI for Software Engineering</h3>
-        <p>Explore AI integration in development and automation.</p>
-      </div>
-
-      <a href="databasehome.html" style="text-decoration: none; color: inherit;">
-        <div class="card" id="database-card">
+  <a href="databasehome.html" style="text-decoration: none; color: inherit;">
+  <div class="card" id="database-card" data-no-share="1">
           <img src="images/project 1.jpg" alt="Database Design">
           <h3>Database Design</h3>
           <p>Learn relational databases, SQL, and backend structure.</p>
         </div>
       </a>
 
-      <div class="card" id="software-card">
+  <div class="card" id="ai-card" data-no-share="1">
+        <img src="images/ai home logo.jpg" alt="AI for Software Engineering">
+        <h3>AI for Software Engineering</h3>
+        <p>Explore AI integration in development and automation.</p>
+      </div>
+
+  <a href="Dart%20topics/dart-flutter.html" style="text-decoration: none; color: inherit;">
+  <div class="card" id="flutter-card" data-no-share="1">
+        <img src="images/dart home logo.jpg" alt="Dart and Flutter">
+        <h3>Dart-Flutter</h3>
+        <p>Build mobile apps for Android and iOS.</p>
+      </div>
+  </a>
+
+  <div class="card" id="software-card" data-no-share="1">
         <img src="images/soft eng home logo.jpg" alt="Software Engineering Essentials">
         <h3>Software Engineering Essentials</h3>
         <p>Understand teamwork,Git, SDLC, and Agile fundamentals.</p>
@@ -109,19 +119,8 @@
   </section>
 
 
-<!-- native ad unit -->
-
-<script>
-     
-</script>
-
-
-<!-- non-intrusive ad (scripts removed) -->
-<div class="non-intrusive-ad" aria-hidden="true">
-  <div class="ad-content">
-    <!-- Ad placeholder — scripts intentionally removed. Original ad HTML is available in backups/ -->
-    </div>
-</div>
-  <script defer src="/assets/ads.js"></script>
+<!-- Ads will be injected automatically (one auto + one native) by assets/ads.js -->
+<script defer src="/assets/share.js"></script>
+<script defer src="/assets/ads.js"></script>
 </body>
 </html>

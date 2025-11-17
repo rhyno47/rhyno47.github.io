@@ -4,9 +4,10 @@
   "description": "Backend for rhyno47.github.io - authentication and jobs API",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "sync-frontend": "node scripts/sync-frontend.js"
+  "start": "node src/index.js",
+  "dev": "nodemon src/index.js",
+  "sync-frontend": "node scripts/sync-frontend.js",
+  "postinstall": "node scripts/sync-frontend.js"
   },
   "keywords": [],
   "author": "",

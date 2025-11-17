@@ -49,10 +49,11 @@
   </div>
 
 <script>
+// Helper to show a consistent styled message
 function showMessage(type, html){
   const msg = document.getElementById('msg');
   if(!msg) return;
-  const icon = type === 'success' ? 'check-circle-fill' : (type === 'warning' ? 'exclamation-triangle-fill' : (type==='info'?'info-circle-fill':'x-circle-fill'));
+  const icon = type === 'success' ? 'check-circle-fill' : (type === 'warning' ? 'exclamation-triangle-fill' : 'x-circle-fill');
   msg.innerHTML = `
     <div class="alert alert-${type} d-flex align-items-start gap-2 py-2 px-3 fade show" role="alert" style="animation:fadeIn .25s ease">
       <i class="bi bi-${icon}" aria-hidden="true"></i>
@@ -79,6 +80,9 @@ document.getElementById('jobForm').addEventListener('submit', async function(e){
   }
 
   try {
+    // Show a persistent ad while the post is being created
+    if(window.AdHelper && AdHelper.actionBegin){ AdHelper.actionBegin('post:create'); }
+
     const base = (window.API_BASE || '').replace(/\/$/, '');
     const url = base ? (base + '/api/jobs') : '/api/jobs';
     const res = await fetch(url, {
@@ -90,12 +94,15 @@ document.getElementById('jobForm').addEventListener('submit', async function(e){
     try { json = await res.json(); } catch(_){}
     if (!res.ok) {
       showMessage('danger', json.message || (json.errors && json.errors[0]?.msg) || 'Failed to create post');
+      if(window.AdHelper && AdHelper.actionEnd){ AdHelper.actionEnd(); }
       return;
     }
     showMessage('success', 'Job posted successfully. Redirecting…');
+    if(window.AdHelper && AdHelper.actionEnd){ AdHelper.actionEnd(); }
     setTimeout(()=> window.location.href = '/findjobs.html', 1200);
   } catch (err) {
     showMessage('danger', 'Network error. Please try again.');
+    if(window.AdHelper && AdHelper.actionEnd){ AdHelper.actionEnd(); }
   }
 });
 </script>

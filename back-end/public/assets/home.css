@@ -4,8 +4,15 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
-  overflow-x: hidden;
+  /* Do not globally hide horizontal overflow; it can clip carousels and code blocks */
 }
+
+/* Constrain horizontal overflow at the page level instead */
+html, body { max-width: 100%; overflow-x: hidden; }
+
+/* Fluid media: ensure images/videos/iframes never overflow on small screens */
+img, svg, video, canvas, iframe { max-width: 100%; height: auto; }
+iframe { width: 100%; border: 0; }
 
 :root{
   --hero-img-1: url('../images/hero%20section%20image%202.jpg');
@@ -74,26 +81,31 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Generic container padding for narrow screens */
+.container,
+main,
+.page { padding-left: clamp(12px, 4vw, 32px); padding-right: clamp(12px, 4vw, 32px); }
+
 
 /* NEW NAVBAR */
 .new-navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 5%;
+  padding: calc(1rem + env(safe-area-inset-top, 0px)) 5% 1rem 5%;
   background-color: #680202;
   color: white;
-  position: fixed; /* pin navbar globally */
+  position: fixed; /* pin navbar */
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
-  z-index: 2000; /* ensure it stays above hero/panels */
+  z-index: 2000; /* keep above content */
   font-family: "Poppins", sans-serif;
 }
 
-/* offset body so content isn't hidden under fixed navbar */
-body.nav-fixed { padding-top: var(--nav-h, 64px); }
+/* When navbar is fixed, add top padding equal to its height so content is not hidden */
+body.nav-fixed { padding-top: calc(var(--nav-h, 64px) + env(safe-area-inset-top, 0px)); }
 
 .new-navbar .logo {
   font-size: 1.5rem;
@@ -220,7 +232,7 @@ body.nav-fixed { padding-top: var(--nav-h, 64px); }
   text-align: center;
   padding: 2rem 1rem;
   color: #fff;
-  position: relative; /* enable overlay fade and stacking */
+  position: relative; /* for fade overlay and internal stacking */
   /* combine a strong dark overlay for legibility with the wallpaper image
     Use image-set so high-DPI (2x) variants are used on capable devices to avoid upscaling. */
   background-image: linear-gradient(rgba(3,3,3,0.55), rgba(3,3,3,0.55)), -webkit-image-set(var(--hero-img-1) 1x, var(--hero-img-1-2x) 2x);
@@ -233,7 +245,28 @@ body.nav-fixed { padding-top: var(--nav-h, 64px); }
   image-rendering: auto; /* prefer quality over pixelated scaling */
 }
 
-/* Default desktop: hide stray scrollbars */
+/* On quiz pages, make the hero shorter so the quiz panel sits higher */
+body.quiz-bg #hero.home-hero{
+  height: auto;               /* let content define height */
+  min-height: 340px;          /* keep a solid baseline */
+  background-attachment: scroll; /* avoid excessive parallax pushing content */
+  overflow: visible;          /* ensure inner content is not clipped */
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* Make the quiz hero fully flexible on small devices */
+@media (max-width: 700px){
+  body.quiz-bg #hero.home-hero{
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 0.9rem 0.9rem 1rem !important;
+  }
+  body.quiz-bg .hero-quiz-picker{ width: 100%; max-width: 520px; }
+}
+
+/* Default: avoid stray scrollbars on desktop */
 #hero, .site-hero { overflow: hidden; }
 .hero-content { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; padding: 0 1rem; }
 
@@ -309,17 +342,119 @@ body.nav-fixed { padding-top: var(--nav-h, 64px); }
 .hero-actions .btn-primary{ padding:0.8rem 1.2rem; border-radius:10px; font-weight:800 }
 .hero-actions .btn-ghost{ padding:0.7rem 1rem; border-radius:10px; background:transparent; border:1px solid rgba(255,255,255,0.12); color:#fff }
 
+/* Hero quick topic picker */
+.hero-quiz-picker{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.16);
+  background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.10));
+  box-shadow: 0 8px 22px rgba(0,0,0,0.28);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  position: relative; /* ensure above background/overlays */
+  z-index: 10;
+  pointer-events: auto;
+}
+.hero-quiz-picker label{ color:#fff; font-weight:800; letter-spacing:.2px }
+.hero-quiz-picker select{
+  appearance: none;
+  -webkit-appearance: none;
+  background: #fff;
+  color: #111;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 12px;
+  min-height: 40px;
+  font-weight: 700;
+}
+.hero-quiz-picker .picker-btn{
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.hero-quiz-picker .picker-btn:hover{ filter: brightness(.98); transform: translateY(-1px); }
+
 @media (max-width:700px){
+  .hero-quiz-picker{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; padding:8px 10px }
+  .hero-quiz-picker label{ width:100%; text-align:center; margin-bottom:2px }
+  .hero-quiz-picker select{ width:100%; }
+  .hero-quiz-picker .picker-btn{ width:100%; }
+}
+
+/* Prevent AI bubble from covering the hero quick-start on very small screens */
+@media (max-width: 430px){
+  body.quiz-bg .ai-fab{ right: auto; left: 12px; bottom: 18px; }
+}
+
+/* Quick topic navigation in hero */
+.hero-topic-nav{ margin-top:12px; display:flex; flex-wrap:wrap; gap:8px; justify-content:center }
+.hero-topic-nav .topic-btn{
+  display:inline-block;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: #fff;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: .2px;
+}
+.hero-topic-nav .topic-btn:hover{ background: rgba(255,255,255,0.12); transform: translateY(-1px); }
+.hero-topic-nav .topic-btn:focus{ outline:3px solid rgba(255,255,255,0.18); outline-offset:2px }
+
+@media (max-width:700px){
+  .hero-topic-nav{ gap:6px }
+  .hero-topic-nav .topic-btn{ padding:7px 10px; font-size:0.95rem }
+}
+
+@media (max-width:700px){
+  /* Constrain hero to full viewport height minus navbar, enable internal scroll if content taller */
   #hero, .site-hero{
     min-height: calc(100vh - var(--nav-h, 60px));
     max-height: calc(100vh - var(--nav-h, 60px));
     background-attachment: scroll;
     padding: 1.1rem 0.9rem 1.2rem;
-    overflow: auto; /* allow scrolling hero content */
+    overflow: auto; /* allow scrolling hero content if it overflows */
     -webkit-overflow-scrolling: touch;
+  }
+  /* Provide a subtle inner fade at bottom to signal scroll */
+  #hero.site-hero::after, .site-hero::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:36px; pointer-events:none;
+    background: linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,0.35));
   }
   .hero-content h1{ font-size:1.55rem }
   .hero-content p{ font-size:0.92rem; line-height:1.35; }
+  .hero-actions{ flex-wrap:wrap }
+  .hero-actions a{ flex:1 1 auto; text-align:center }
+}
+
+/* Ultra narrow devices: tighten even more */
+@media (max-width:420px){
+  #hero, .site-hero{ padding:0.9rem 0.7rem 1rem; }
+  .hero-content h1{ font-size:1.42rem }
+  .hero-content p{ font-size:0.88rem }
+}
+
+/* Ultra narrow devices (<=340px width) */
+@media (max-width:340px){
+  #hero{ padding:0.9rem 0.6rem; }
+  .hero-actions{ flex-wrap:wrap; }
+  .hero-actions a{ flex:1 1 100%; }
+}
+
+/* Short landscape devices (height <= 420px) */
+@media (max-height:420px){
+  #hero{ min-height:300px; height:auto; background-attachment: scroll; }
+  .hero-content{ gap:0.4rem; }
+  .hero-actions{ margin-top:0.4rem; }
 }
 
 /* ====== COURSES SECTION ====== */
@@ -343,6 +478,11 @@ body.nav-fixed { padding-top: var(--nav-h, 64px); }
   gap: 1.5rem;
 }
 
+/* Extra small devices: make cards fit even on ~320px screens */
+@media (max-width: 360px) {
+  .course-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+}
+
 .card {
   position: relative; /* for pseudo overlay */
   overflow: hidden;   /* clip pseudo-element to rounded corners */
@@ -351,6 +491,11 @@ body.nav-fixed { padding-top: var(--nav-h, 64px); }
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   transition: 0.3s ease;
+}
+
+@media (max-width: 420px) {
+  .card { padding: 1rem; }
+  .card img { width: 56px; }
 }
 
 .card:hover {
@@ -398,6 +543,8 @@ body.nav-fixed { padding-top: var(--nav-h, 64px); }
 }
 /* Top image that sits inside cards (consistent size & rounded top corners) */
 .card-top-image{ display:block; width:100%; height:300px; object-fit:cover; border-top-left-radius:12px; border-top-right-radius:12px; margin-bottom:1rem }
+
+@media (max-width: 480px){ .card-top-image{ height: 220px; } }
 
 /* Ensure images inside .info-card are not obscured by the card overlay pseudo-element */
 .info-card > .card-top-image { position: relative; z-index: 1; border-radius: 12px 12px 0 0; }
@@ -552,7 +699,8 @@ body.nav-fixed { padding-top: var(--nav-h, 64px); }
 /* Tweak padding/font sizes on small screens so components fit */
 @media (max-width: 480px) {
   .new-navbar { padding: 0.5rem 0.9rem; }
-  .new-navbar .logo img { width: 34px; height: 34px; }
+  /* Keep navbar images compact on very small screens */
+  .new-navbar .logo img { width: 30px; height: 30px; max-width:30px; max-height:30px; }
   .new-navbar .nav-actions .card-link, .new-navbar .nav-actions .user-menu { padding: 0.28rem 0.6rem; font-size: 0.92rem; }
   .search-btn { width: 36px; height: 36px; }
 }
@@ -677,6 +825,23 @@ body.nav-fixed { padding-top: var(--nav-h, 64px); }
   
 }
 
+/* ====== RESPONSIVE TABLES AND CODE ====== */
+/* Optional wrapper for tables; use in new content, but also add safe defaults below */
+.table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.table-responsive table { width: 100%; border-collapse: collapse; }
+
+/* Safe defaults so legacy tables don't overflow viewport */
+table { max-width: 100%; border-collapse: collapse; }
+th, td { word-break: break-word; }
+
+/* Code blocks should wrap/scroll instead of forcing the page wide */
+pre { white-space: pre-wrap; word-wrap: break-word; overflow: auto; }
+code { white-space: pre-wrap; }
+
+/* Responsive embed wrapper for 16:9 videos/iframes */
+.embed-responsive{ position:relative; width:100%; padding-bottom:56.25%; height:0; overflow:hidden; }
+.embed-responsive iframe, .embed-responsive video{ position:absolute; top:0; left:0; width:100%; height:100%; }
+
 /* Ensure fragment anchors are visible below the sticky navbar */
 #html5 {
   /* adjust this value if your navbar height changes */
@@ -709,15 +874,16 @@ body { --feed-offset: 80px; }
 .card-feed { background: rgba(0,0,0,0.45); padding:1rem; border-radius:10px; color:#f6f6f6; border:1px solid rgba(255,255,255,0.04); width:100%; max-width:820px; }
 .card-feed h3{ margin-bottom:0.3rem }
 .card-meta{ color: rgba(255,255,255,0.75); font-size:0.9rem }
+/* Post image inside job cards: contain within card and avoid overflow */
 /* Primary post image sizing (limit height to prevent vertical overflow) */
-.card-feed img{ width:100%; height:auto; max-height:180px; object-fit:cover; border-radius:8px; margin-top:0.6rem }
+.card-feed img{ display:block; width:100%; height:auto; max-height:180px; object-fit:cover; border-radius:8px; margin-top:0.6rem }
 
 /* Thumbnail styling for post images (smaller preview to avoid "zoomed" images) */
-/* Unified thumbnail preview (desktop/tablet) */
+/* Unified thumbnail preview size (desktop/tablet) */
 .card-feed .post-thumb{
   width:100%;
-  max-height:140px;
-  object-fit:cover; /* fill on wider screens */
+  max-height:140px; /* tightened desktop/tablet height */
+  object-fit:cover; /* default fill on larger screens */
   border-radius:8px;
   margin-top:0.4rem;
   cursor:pointer;
@@ -742,22 +908,16 @@ body { --feed-offset: 80px; }
 @media (max-width:600px){
   .card-feed .post-thumb{ max-height:100px }
   .img-lightbox-inner{ width:100%; }
-  /* Avoid left cropping: display full image inside frame */
+  /* Prevent left-side cropping on very narrow viewports: show full image inside frame */
   .card-feed .post-thumb{ object-fit:contain; background:#000; object-position:center center; }
   .card-feed .post-image{ padding:3px; }
-  /* Compact centered card layout on small devices */
-  .feed{ padding-left:10px; padding-right:10px; padding-bottom:90px; }
-  .card-feed{ width:calc(100% - 24px); max-width:380px; margin-left:auto; margin-right:auto; padding:0.75rem 0.85rem; }
-  .card-actions{ flex-wrap:wrap; gap:8px; }
-  .card-actions .right{ flex-wrap:wrap; justify-content:flex-end; gap:6px; }
-  .open-link-btn{ font-size:0.9rem; padding:0.38rem 0.7rem; }
-  .icon-btn img{ width:22px; height:22px; }
 }
 
 /* Indicator badge on thumbnails to show they are clickable */
 .post-image{ position:relative; display:block; background:#fff; padding:6px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.28) }
-/* Ensure framed look applies in backend too */
+/* Ensure the framed look always applies inside job cards, even if other rules override .post-image */
 .card-feed .post-image{ background:#fff; padding:6px; border-radius:12px; box-shadow:0 6px 18px rgba(0,0,0,0.28) }
+/* Make the inner image fit the framed container cleanly */
 .post-image img{ display:block; width:100%; height:auto; border-radius:8px }
 .post-image::after{
   content: "Click for full view";
@@ -800,6 +960,15 @@ textarea{ min-height:120px }
 /* icon buttons for edit/delete using local repo images */
 .icon-btn{ background: transparent; border: none; padding:8px; border-radius:8px; cursor:pointer; display:inline-flex; align-items:center; justify-content:center }
 .icon-btn img{ width:28px; height:28px; object-fit:contain; display:block }
+/* Make share icon match edit/delete exactly (use the same contain fit and size) */
+.icon-btn img.share-icon{ object-fit:contain; width:28px; height:28px; }
+.controls { display:flex; gap:8px; align-items:center }
+/* card action row: left for meta or nothing, right for link & controls */
+.card-actions{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:0.6rem }
+.card-actions .right { display:flex; gap:8px; align-items:center }
+.open-link-btn { padding:0.4rem 0.8rem; font-weight:700; font-size:0.95rem }
+
+/* Subtle danger accent for delete button to align with theme */
 .icon-btn.delete-btn{ border:1px solid rgba(104,2,2,0.24); background: rgba(104,2,2,0.08); }
 .icon-btn.delete-btn:hover{ background: rgba(104,2,2,0.12); transform: translateY(-2px); }
 .icon-btn.delete-btn:active{ transform: translateY(0) }
@@ -817,11 +986,30 @@ textarea{ min-height:120px }
 .confirm-dialog .btn-danger{ background:#680202; color:#fff; padding:.55rem 1rem; border-radius:8px; border:1px solid rgba(0,0,0,0.2) }
 .confirm-dialog .btn-danger:hover{ filter:brightness(1.05); transform:translateY(-2px) }
 @keyframes confirm-in{ to{ transform:translateY(0); opacity:1 } }
-.controls { display:flex; gap:8px; align-items:center }
-/* card action row: left for meta or nothing, right for link & controls */
-.card-actions{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:0.6rem }
-.card-actions .right { display:flex; gap:8px; align-items:center }
-.open-link-btn { padding:0.4rem 0.8rem; font-weight:700; font-size:0.95rem }
+
+/* ===== Inline Share Actions (global across all cards) ===== */
+.inline-share-actions{ display:flex; justify-content:flex-end; align-items:center; gap:6px; margin-top:10px; }
+.inline-share-actions .icon-btn{ background: linear-gradient(135deg,#ffcc33,#ffb300); border:2px solid #ffffff; padding:8px 14px; border-radius:10px; color:#222; font-weight:800; font-size:0.85rem; line-height:1; box-shadow:0 6px 20px rgba(0,0,0,0.40); transition: transform .15s ease, filter .15s ease; }
+.inline-share-actions .icon-btn:hover{ filter:brightness(1.08); transform:translateY(-2px); }
+.inline-share-actions .icon-btn:active{ transform:translateY(0); filter:brightness(.96); }
+.inline-share-actions .icon-btn img.share-icon{ width:22px; height:22px; margin-right:6px; }
+.inline-share-actions .icon-btn .share-label{ display:inline-block; font-weight:600; letter-spacing:.5px; }
+@media (max-width:600px){
+  .inline-share-actions .icon-btn{ padding:6px 10px; font-size:0.78rem }
+  .inline-share-actions .icon-btn img.share-icon{ width:20px; height:20px; margin-right:3px }
+}
+/* Top-right overlay variant for improved visibility */
+.card-share-overlay{ position:absolute; top:10px; right:10px; z-index:20; }
+.card-share-overlay .icon-btn{ background: linear-gradient(135deg,#ffcc33,#ffb300); border:2px solid #ffffff; padding:8px 12px; border-radius:10px; color:#222; font-size:0.8rem; font-weight:800; display:inline-flex; align-items:center; gap:6px; box-shadow:0 6px 22px rgba(0,0,0,0.45); backdrop-filter: blur(4px) saturate(140%); }
+.card-share-overlay .icon-btn img.share-icon{ width:18px; height:18px; margin:0 }
+.card-share-overlay .icon-btn:hover{ filter:brightness(1.1); transform:translateY(-3px) }
+.info-card, .code-card{ position:relative; }
+/* Inline shared link display panel */
+.shared-link-display{ margin-top:6px; display:flex; gap:6px; align-items:center; background: rgba(0,0,0,0.35); padding:6px 8px; border-radius:8px; border:1px solid rgba(255,255,255,0.10); }
+.shared-link-display input{ flex:1; background:transparent; border:0; color:#fff; font-size:0.7rem; font-weight:600; letter-spacing:.3px; overflow:hidden; text-overflow:ellipsis; }
+.shared-link-display .copy-link-btn{ background:#ffcc33; color:#222; border:0; padding:6px 10px; font-weight:800; font-size:0.7rem; border-radius:6px; cursor:pointer; box-shadow:0 4px 14px rgba(0,0,0,0.35); }
+.shared-link-display .copy-link-btn:hover{ filter:brightness(1.08); }
+.shared-link-display .copy-link-btn:active{ filter:brightness(.96); }
 
 /* Make modal visually use the same wallpaper with a dark overlay for readability */
 .modal {
@@ -853,6 +1041,8 @@ input[type="file"]::-webkit-file-upload-button {
   cursor: pointer;
   font-weight: 700;
 }
+
+/* (Removed share panel styles to revert to simpler layout) */
 
 /* Make the hero Create button more prominent and button-like */
 #heroCreateBtn {
@@ -947,6 +1137,10 @@ input[type="file"]::-webkit-file-upload-button {
   border: 1px solid rgba(255,255,255,0.04);
   box-shadow: 0 6px 20px rgba(0,0,0,0.45);
 }
+
+/* Ads and placeholders should be fluid */
+.ad-slot, .non-intrusive-ad, .ad-center, .ad-between { max-width: 100%; overflow: hidden; }
+.ad-slot ins, .non-intrusive-ad ins { max-width: 100% !important; }
 .result{ font-weight:700 }
 .result .correct{ color: var(--accent); }
 .result .incorrect{ color:#b00020 }
@@ -997,13 +1191,44 @@ input[type="file"]::-webkit-file-upload-button {
 /* background duplication & subtle zoom effect for quiz pages only */
 .quiz-bg { background-color: #0b0b0b; background-image: url('/images/dragon%20image.jpg'); background-repeat: no-repeat; background-position: center top; background-size: cover; min-height:100vh; }
 
-/* Compact quiz cards on small devices (backend copy) */
-@media (max-width:600px){
-  body.quiz-bg .quiz-panel{ width:100%; max-width:480px; margin:16px auto; padding:14px; }
+@media (max-width: 480px){
+  /* Ensure quiz content is centered and fits small screens (scoped to quiz background only) */
+  body.quiz-bg .page{ padding-left: 14px; padding-right: 14px; }
+  body.quiz-bg .quiz-panel{ width:100%; max-width: 620px; margin:18px auto; padding:16px; }
+  body.quiz-bg .quiz-card{ padding:14px; }
+  /* Make the hero shorter for quiz pages only */
+  body.quiz-bg #hero.home-hero{ height: 42vh; min-height: 260px; background-attachment: scroll; }
+}
+
+/* Compact quiz cards on small devices: center and limit width like job cards */
+@media (max-width: 600px){
+  body.quiz-bg .quiz-panel{ width:100%; max-width: 480px; margin:16px auto; padding:14px; }
   .quiz-grid{ display:flex; flex-direction:column; gap:14px; align-items:center; }
-  .quiz-card{ width:calc(100% - 24px); max-width:380px; margin-left:auto; margin-right:auto; padding:14px; }
+  .quiz-card{ width: calc(100% - 24px); max-width: 380px; margin-left:auto; margin-right:auto; padding:14px; }
   .quiz-card-header{ gap:10px; }
   .quiz-actions{ flex-wrap:wrap; gap:8px; }
+}
+
+/* Restore tighter, centered layout for Jobs page on small devices */
+@media (max-width:600px){
+  .feed{ padding-left: 10px; padding-right: 10px; padding-bottom: 90px; }
+  /* Make each card a compact centered box on small screens */
+  .card-feed{ width: calc(100% - 24px); max-width: 380px; margin-left:auto; margin-right:auto; padding: 0.75rem 0.85rem; }
+  .card-feed h3{ font-size: 1rem; }
+  body.find-jobs-page .hero{ padding:1.3rem 1rem; }
+  body.find-jobs-page .hero h1{ font-size:1.55rem; }
+  body.find-jobs-page .hero p.lead{ font-size:0.9rem; line-height:1.4; }
+  /* keep feed cards centered on mobile */
+  body.find-jobs-page .feed{ width:100%; align-items:center; }
+  body.find-jobs-page .card-feed{ padding:0.8rem 0.9rem; }
+  body.find-jobs-page .card-feed h3{ font-size:1.05rem; }
+  body.find-jobs-page .card-feed p{ font-size:0.85rem; line-height:1.4; }
+  body.find-jobs-page .card-feed img.post-thumb{ max-height:100px; }
+  /* Ensure action buttons never overflow horizontally */
+  .card-actions{ flex-wrap: wrap; gap:8px; }
+  .card-actions .right{ flex-wrap: wrap; justify-content:flex-end; gap:6px; }
+  .open-link-btn{ font-size:0.9rem; padding:0.38rem 0.7rem; }
+  .icon-btn img{ width:22px; height:22px; }
 }
 
 /* remove duplicated pseudo-layer to avoid visual clipping; if a subtle overlay is desired we can re-introduce it with lower opacity */
@@ -1169,45 +1394,11 @@ input[type="file"]::-webkit-file-upload-button {
 
 /* Make headings match the lesson-card style when used inside the python intro */
 #python-intro h2, #python-datatypes h2 { text-align: center; color: #ffffff; font-size: 2rem; margin-bottom: 12px; }
-/* (Reverted) Intro to Python PDFs simplified theme removed (backend) */
 
-/* === Readability improvements for Python intro cards on very small screens ===
-   The scoped styles above add generous padding (30px) and tight font scaling that
-   can feel cramped when the viewport is below ~600px. We reduce padding, slightly
-   increase paragraph line-height, and let headings scale down so content breathes.
-   These rules only affect narrow viewports and the Python intro pages. */
-@media (max-width: 640px) {
-  #python-intro .info-card,
-  #python-datatypes .info-card {
-    padding: 18px 18px; /* was 30px */
-    border-radius: 16px;
-    line-height: 1.68; /* improve multi-line legibility */
-    background-image: none; /* avoid busy striped wallpaper on tiny screens */
-  }
-  #python-intro .info-card p,
-  #python-datatypes .info-card p { font-size: 0.98rem; margin-bottom: 0.9rem; }
-  #python-intro .info-card h3,
-  #python-datatypes .info-card h3 { font-size: 1.35rem; margin-bottom: 0.55rem; }
-  #python-intro .info-card h4,
-  #python-datatypes .info-card h4 { font-size: 1.05rem; margin-top: 14px; }
-  #python-intro .code-card,
-  #python-datatypes .code-card { padding: 16px; margin: 16px 0; }
-  #python-intro .code-card h3,
-  #python-datatypes .code-card h3 { font-size: 1.05rem; }
-  #python-intro .code-card textarea,
-  #python-datatypes .code-card textarea { font-size: 0.9rem; line-height: 1.4; }
-  /* Avoid huge full-height top images forcing extra scroll on tiny screens */
-  #python-intro .card-top-image,
-  #python-datatypes .card-top-image { height: 200px; }
-}
 
-/* Ultra-narrow phones (≤380px): trim padding further and scale heading */
-@media (max-width: 380px) {
-  #python-intro .info-card,
-  #python-datatypes .info-card { padding: 14px 14px; }
-  #python-intro .info-card h3,
-  #python-datatypes .info-card h3 { font-size: 1.22rem; }
-}
+
+
+/* (Reverted) Intro to Python PDFs simplified theme removed to restore original look */
 
 
 

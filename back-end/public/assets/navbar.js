@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial render and keep nav in sync with storage changes
   renderNav();
 
-  // Measure navbar height & apply body offset for fixed nav
+  // Measure navbar height and expose it as --nav-h; add body offset class
   function setNavOffset(){
     try{
       const nav = document.querySelector('.new-navbar');
@@ -52,7 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   setNavOffset();
   window.addEventListener('resize', ()=> setTimeout(setNavOffset, 50));
+  // Recompute after nav content changes (e.g., login state)
   window.addEventListener('storage', (e)=>{ if (e.key === 'token' || e.key === 'user') { renderNav(); setTimeout(setNavOffset, 0); } });
+  // Ensure offset also updates on initial DOM changes
 
   // Global sign out handler (delegated) — clears auth and rerenders nav
   document.body.addEventListener('click', (e)=>{
@@ -404,5 +406,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
       input.addEventListener('keydown', (e)=>{ if (e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); send.click(); } });
     } catch (e) { console.error('AI widget injection failed', e); }
+  })();
+
+  // Load unified global share logic on every page that includes navbar.js
+  (function loadShare(){
+    try{
+      if (!document.querySelector('script[src$="/assets/share.js"], script[src*="/assets/share.js?"]')){
+        const s = document.createElement('script');
+        s.src = '/assets/share.js';
+        s.defer = true;
+        document.head.appendChild(s);
+      }
+    }catch(e){ /* ignore */ }
   })();
 });
