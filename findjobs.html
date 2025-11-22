@@ -11,6 +11,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <!-- Front-end runtime configuration (defines window.API_BASE) -->
   <script src="assets/env.js"></script>
+  <style>
+    /* Modal sizing and scrollable body editor */
+    .modal-backdrop .modal{ max-height:80vh; overflow:auto; box-sizing:border-box; }
+    .modal-backdrop textarea#body{ width:100%; min-height:140px; max-height:360px; overflow:auto; resize:vertical; padding:10px; box-sizing:border-box; }
+    /* Ensure actions remain visible by keeping modal content scrollable */
+    .modal-backdrop .actions{ position:sticky; bottom:0; background:transparent; padding-top:8px; }
+  </style>
     
   </head>
   <body class="find-jobs-page">
@@ -172,16 +179,24 @@
     document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') { modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); } });
 
     function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+    // Format post body preserving line breaks and escaping HTML
+    function formatPostBody(s){
+      if(!s) return '';
+      const escaped = escapeHtml(s);
+      // convert consecutive blank lines into paragraph breaks and single newlines to <br>
+      // simple approach: replace CRLF then LF
+      return escaped.replace(/\r?\n/g, '<br>');
+    }
     function escapeAttr(s){ return String(s).replace(/"/g,'%22').replace(/'/g,'%27'); }
 
     function updateModalPreview(){
-      const tRaw = document.getElementById('title').value || '';
-      const bRaw = document.getElementById('body').value || '';
+  const tRaw = document.getElementById('title').value || '';
+  const bRaw = document.getElementById('body').value || '';
       const lRaw = document.getElementById('link').value || '';
       const t = escapeHtml(tRaw.trim() || 'Untitled');
-      const b = escapeHtml(bRaw);
+  const b = formatPostBody(bRaw);
       const l = lRaw.trim();
-      previewCard.innerHTML = `<h3>${t}</h3><div class="card-meta">Posted: preview</div><p style="margin-top:0.6rem">${b}</p>${l? `<p><a href="${escapeAttr(l)}" target="_blank" style="color:#ffdede">Open link</a></p>`: ''}`;
+  previewCard.innerHTML = `<h3>${t}</h3><div class="card-meta">Posted: preview</div><div style="margin-top:0.6rem">${b}</div>${l? `<p><a href="${escapeAttr(l)}" target="_blank" style="color:#ffdede">Open link</a></p>`: ''}`;
       document.getElementById('modalPreview').style.display = (tRaw || bRaw || l) ? 'block' : 'none';
     }
     ['title','body','link'].forEach(id => { const el = document.getElementById(id); if(el) el.addEventListener('input', updateModalPreview); });
@@ -431,7 +446,7 @@
             const src = resolveMediaUrl(p.imageUrl);
             imgHtml = `<a class="post-image" href="${escapeAttr(src)}" title="Click to view full image" aria-label="Open full image in lightbox"><img class="post-thumb" loading="lazy" src="${escapeAttr(src)}" alt="post image"></a>`;
           }
-          node.innerHTML = `<h3>${escapeHtml(p.title)}</h3><div class="card-meta">Posted: ${new Date(p.createdAt).toLocaleString()}</div><p style="margin-top:0.6rem">${escapeHtml(p.body)}</p>${imgHtml}`;
+          node.innerHTML = `<h3>${escapeHtml(p.title)}</h3><div class="card-meta">Posted: ${new Date(p.createdAt).toLocaleString()}</div><div style="margin-top:0.6rem">${formatPostBody(p.body)}</div>${imgHtml}`;
           // Attach an image error fallback so broken URLs are visible and clickable
           const thumb = node.querySelector('img.post-thumb');
           if(thumb){
@@ -515,7 +530,7 @@
     function renderPostNode(p){
       const node = document.createElement('div'); node.className = 'card-feed';
   const imgHtml = p.imageUrl ? (function(){ const s = resolveMediaUrl(p.imageUrl); return `<a class="post-image" href="${escapeAttr(s)}" title="Click to view full image" aria-label="Open full image in lightbox"><img class="post-thumb" loading="lazy" src="${escapeAttr(s)}" alt="post image"></a>` })() : '';
-      node.innerHTML = `<h3>${escapeHtml(p.title)}</h3><div class="card-meta">Posted: ${new Date(p.createdAt).toLocaleString()}</div><p style="margin-top:0.6rem">${escapeHtml(p.body)}</p>${imgHtml}`;
+  node.innerHTML = `<h3>${escapeHtml(p.title)}</h3><div class="card-meta">Posted: ${new Date(p.createdAt).toLocaleString()}</div><div style="margin-top:0.6rem">${formatPostBody(p.body)}</div>${imgHtml}`;
       // ownership
   const u = getUser();
   // normalize author id: server may return author as string or object
